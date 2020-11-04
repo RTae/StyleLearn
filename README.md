@@ -1,2 +1,4 @@
 # StyleLearn
-CPE327 Software engineer
+CPE327 Software Engineer
+## Member
+Tae
