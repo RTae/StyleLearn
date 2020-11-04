@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid class='main'>
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -28,3 +28,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.main {
+  background: rgb(239, 239, 239);
+  min-height: 100vh;
+}
+</style>
