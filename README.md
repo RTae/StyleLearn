@@ -5,6 +5,7 @@ Tae
 ## How to dev
 - git clone https://github.com/RTae/StyleLearn.git
 - cd StyleLern
+- cd stylelern
 - yarn
 - yarn serve
 
