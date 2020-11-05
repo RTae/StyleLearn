@@ -1,18 +1,16 @@
 <template>
   <div id="content">
     <v-main>
-        <Home/>
+        <router-view></router-view>
     </v-main>
   </div>
 </template>
 
 <script>
-import Home from '../../views/Home'
 
 export default {
   name: 'Content',
   components: {
-    Home
   }
 }
 </script>
