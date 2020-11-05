@@ -1,9 +1,9 @@
 <template>
   <div id="header">
     <v-app-bar
-      app
+      absolute
       color="secondary"
-      dark
+      hide-on-scroll
     >
       <div class="d-flex align-center">
         <v-img
@@ -12,11 +12,14 @@
           contain
           src="../../assets/logo.png"
           transition="scale-transition"
-          width="100"
+          width="200"
         />
       </div>
-
       <v-spacer></v-spacer>
+
+      <button class="btnHeader">Sign Up</button>
+
+      <button class="btnHeader">Login In</button>
     </v-app-bar>
   </div>
 </template>
@@ -26,3 +29,40 @@ export default {
   name: 'Header'
 }
 </script>
+
+<style>
+.btnHeader {
+  font-family: 'Average Sans',sans-serif;
+  border-radius: 100px;
+  margin-right:20px;
+  width: 140px;
+  height: 50px;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 0 4px #999;
+  cursor: pointer;
+  outline: none;
+}
+
+.btnHeader {
+  background-position: center;
+  font-family: 'Average Sans',sans-serif;
+  border-radius: 100px;
+  margin-right:20px;
+  width: 140px;
+  height: 50px;
+  opacity: 1;
+  transition: 0.3s;
+}
+.btnHeader:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+.btnHeader:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+</style>

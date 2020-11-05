@@ -1,126 +1,107 @@
 <template>
-  <v-container>
-    <v-row class="title-row">
-      <v-col cols="12">
-        <div class="title">
-          <h1>Login</h1>
-        </div>
-      </v-col>
+  <v-container fluid class="main" id="login">
+    <v-row style="margin-top:10vh" align="center" justify="center">
+        <p class="textTitle">LOGIN</p>
     </v-row>
+    <v-row align="center" justify="center">
+        <v-form
+        ref="form"
+        lazy-validation
+        >
+            <div class = "input_button">
+                <v-text-field
+                    color="primary"
+                    solo
+                    rounded
+                    outlined
+                    placeholder="Email"
+                />
+            </div>
 
-    <v-row class="username-input-row">
-      <v-col cols="12">
-        <div class="username_input">
-          <v-text-field 
-            type="text" 
-            placeholder="Enter your email">
-          </v-text-field>
-        </div>
-      </v-col>
-    </v-row>
-
-    <v-row class="password-input-row">
-      <v-col cols="12">
-        <div class="password_input">
-          <v-text-field 
-            type="password" 
-            id="myPsw" 
-            value="" 
-            placeholder="Enter your Password">
-          </v-text-field>
-        </div>
-      </v-col>
-    </v-row>
-
-    <v-row class="help-text-row">
-      <v-col cols="3">
-        <div class="help-text">
-          <h3>Don't have an account?</h3>
-        </div>
-      </v-col>
-      
-      <v-col cols="1">
-        <div class="signup_input">
-          <router-link to="/signup">Sign Up</router-link>
-        </div>
-      </v-col>
-
-      <v-col cols="8">
-        <div class="password_input">
-          <router-link to="/forgetPassword">Forget Password?</router-link>
-        </div>
-      </v-col>
-
-    </v-row>
-
-
+            <div class = "input_button">
+                <v-text-field
+                    color="primary"
+                    solo
+                    rounded
+                    outlined
+                    placeholder="Password"
+                />
+                <input type="text">
+            </div>
+            <v-row align="center" justify="center">
+                <p style="margin-right:10px;" class="text">Don't have an account?</p>
+                <router-link to="/signup"><p style="margin-right:165px;" class="text">Sign up</p></router-link>
+                <router-link to="/forgetPassword"><p class="text">Forget password?</p></router-link>
+            </v-row>
+            <button class="button">Sign In</button>
+        </v-form>
+      </v-row>
   </v-container>
 </template>
 
 <script>
-export default  {
-  name: "login"
-  
-};
+export default {
+  name: 'login'
+}
 </script>
 
-
 <style>
-.username-input-row{
-    border: 0px , black;
-    font-size: 15px;
-    border-radius: 30px;
-    width: 30%;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    margin: 10px 0;  
+.main {
+  background: rgb(239, 239, 239);
+  min-height: 100vh;
 }
-.password-input-row{
-    border: 0px , black;
-    font-size: 15px;
-    border-radius: 30px;
-    width: 30%;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    margin: 1px 0;
-   
-}
-button{
 
-    background-color: #5cbbf6; 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 20px;
+.input_button{
+    width: 423px;
+    height: 60px;
+    margin: 20px;
 }
-div{
-  font-family: 'CSChatThaiUI';
-  text-align: center;
+
+p.textTitle{
+    font-weight: bold;
+    font-size: 46px;
+    color: #5C5C5C;
+    font-family: 'Average Sans',sans-serif;
 }
- h1{
-   font-weight:bold;
-   font-size:50px;
- }
- h2{
-   font-weight:normal;
-   font-size:15px;
- }
- li{
-   margin:0;
-   padding: 0;   
-   color:#5cbbf6;
-   display: inline;
-   margin-right:10px;
-  }
- body {
-    background-color: #ecede8;
+
+p.text{
+    font-weight: bold;
+    font-size: 12px;
+    font-family: 'Average Sans',sans-serif;
+}
+
+.button {
+  font-family: 'Average Sans',sans-serif;
+  border-radius: 100px;
+  margin-right:20px;
+  width: 140px;
+  height: 50px;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 0 4px #999;
+  cursor: pointer;
+  outline: none;
+}
+
+.button {
+  background-position: center;
+  font-family: 'Average Sans',sans-serif;
+  border-radius: 100px;
+  margin-right:20px;
+  width: 140px;
+  height: 50px;
+  opacity: 1;
+  transition: 0.3s;
+}
+.button:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+.button:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
 }
 </style>
-
-            
