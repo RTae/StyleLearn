@@ -2,7 +2,7 @@
   <div id="header">
     <v-app-bar
       app
-      color="primary"
+      color="secondary"
       dark
     >
       <div class="d-flex align-center">
