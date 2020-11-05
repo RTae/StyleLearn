@@ -2,7 +2,7 @@
 CPE327 Software Engineer
 ## Member
 - Tae
-- Eming
+- Eiming
 - New
 - Moss
 - First
