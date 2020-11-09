@@ -1,18 +1,110 @@
 <template>
-  <v-container fluid class='main'>
-  <h1>This is an Signup page Yooo</h1>
-  <div id='SignUp'>
-    <h1>SIGN UP</h1>
-      First name:<input v-model='message' type='text'><br/>
-      Family name:<input v-model='message' type='text'><br/>
-      Birthday:<input v-model='message' type='text'><br/>
-      Education:<input v-model='message' type='text'><br/>
-      Email:<input v-model='message' type='text'><br/>
-      Comfrim Email:<input v-model='message' type='text'><br/>
-      Password:<input type='password' id='myPsw' value=''><br/>
-      Confrim Password:<input type='password' id='myPsw' value=''><br/>
-      <ul><li><router-link to='/home' tag='button1'>Sign up</router-link></li></ul>
-  </div>
+  <v-container fluid class='main' id='signUp'>
+    <v-row style="margin-top:10vh" align="center" justify="center">
+        <p class="textTitle">SIGN UP</p>
+    </v-row>
+    <v-row align="center" justify="center">
+    <v-form
+        ref="form"
+        lazy-validation
+        >
+      <v-row
+        class="d-flex flex-row align-center"
+      >
+        <v-col>
+          <div class = "input_button">
+            First name:<v-text-field
+            color="primary"
+            solo
+            rounded
+            outlined
+            />
+          </div>
+        </v-col>
+            <div class = "input_button">
+                Family name:<v-text-field
+                color="primary"
+                solo
+                rounded
+                outlined
+                />
+            </div>
+        </v-row>
+        <v-row
+        class="d-flex flex-row align-center"
+        >
+          <v-col>
+            <div class = "input_button">
+              Birthday:<v-text-field
+              color="primary"
+              solo
+              rounded
+              outlined
+              />
+            </div>
+          </v-col>
+          <v-col>
+            <div class = "input_button">
+              Education:<v-text-field
+              color="primary"
+              solo
+              rounded
+              outlined
+              />
+            </div>
+          </v-col>
+        </v-row>
+        <v-row
+        class="d-flex flex-row align-center"
+        >
+          <v-col>
+            <div class = "input_button">
+              Email:<v-text-field
+              color="primary"
+              solo
+              rounded
+              outlined
+              />
+            </div>
+          </v-col>
+          <v-col>
+            <div class = "input_button">
+              Comfrim Email:<v-text-field
+              color="primary"
+              solo
+              rounded
+              outlined
+              />
+            </div>
+          </v-col>
+        </v-row>
+        <v-row
+          class="d-flex flex-row align-center"
+        >
+          <v-col>
+            <div class = "input_button">
+                Password:<v-text-field
+                color="primary"
+                solo
+                rounded
+                outlined
+                />
+            </div>
+          </v-col>
+          <v-col>
+            <div class = "input_button">
+                Confrim Password:<v-text-field
+                color="primary"
+                solo
+                rounded
+                outlined
+                />
+            </div>
+          </v-col>
+        </v-row>
+            <button class="button">Sign Up</button>
+          </v-form>
+      </v-row>
   </v-container>
 </template>
 
@@ -23,6 +115,13 @@ export default {
 </script>
 
 <style>
+  p.textTitle{
+      font-weight: bold;
+      font-size: 46px;
+      color: #5C5C5C;
+      font-family: 'Average Sans',sans-serif;
+  }
+
   input[type=text] {
       border: 0px;
       font-size: 15px;

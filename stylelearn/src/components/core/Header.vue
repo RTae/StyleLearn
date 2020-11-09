@@ -16,10 +16,11 @@
         />
       </div>
       <v-spacer></v-spacer>
+      <div>
+        <router-link to="/signup"><button class="btnHeader">Sign Up</button></router-link>
+        <router-link to="/login"><button class="btnHeader">Login In</button></router-link>
+      </div>
 
-      <button class="btnHeader">Sign Up</button>
-
-      <button class="btnHeader">Login In</button>
     </v-app-bar>
   </div>
 </template>

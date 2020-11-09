@@ -25,8 +25,11 @@
                     rounded
                     outlined
                     placeholder="Password"
-                />
-                <input type="text">
+                    v-model="password"
+                    :type="showPassword ? 'text' : 'password'"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                 />
             </div>
             <v-row align="center" justify="center">
                 <p style="margin-right:10px;" class="text">Don't have an account?</p>
