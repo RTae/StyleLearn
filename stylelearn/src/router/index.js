@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Home from '../views/Home.vue'
 import HomeTutor from '../views/Tutor/HomeTutor.vue'
+import TestTutor from '../views/Tutor/TestTutor.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/homeTutor',
     name: 'HomeTutor',
     component: HomeTutor
+  },
+  {
+    path: '/testTutor',
+    name: 'TestTutor',
+    component: TestTutor
   }
 ]
 
