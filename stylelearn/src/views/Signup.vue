@@ -99,7 +99,7 @@ export default {
   data: () => ({
     items: ["A", "B", "C", "D"]
   })
-};
+}
 </script>
 
 <style>

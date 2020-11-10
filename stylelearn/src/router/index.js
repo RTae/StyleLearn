@@ -1,39 +1,39 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Signup from '../views/Signup.vue'
-import Home from '../views/Home.vue'
-import HomeTutor from '../views/Tutor/HomeTutor.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
+import Home from "../views/Home.vue";
+import HomeTutor from "../views/Tutor/HomeTutor.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     component: Home
   },
   {
-    path: '/login',
-    name: 'Login',
+    path: "/login",
+    name: "Login",
     component: Login
   },
   {
-    path: '/signup',
-    name: 'Signup',
+    path: "/signup",
+    name: "Signup",
     component: Signup
   },
   {
-    path: '/homeTutor',
-    name: 'HomeTutor',
+    path: "/homeTutor",
+    name: "HomeTutor",
     component: HomeTutor
   }
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;
