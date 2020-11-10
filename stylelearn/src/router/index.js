@@ -1,19 +1,10 @@
-<<<<<<< HEAD
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Home from "../views/Home.vue";
 import HomeTutor from "../views/Tutor/HomeTutor.vue";
-=======
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Signup from '../views/Signup.vue'
-import Home from '../views/Home.vue'
-import HomeTutor from '../views/Tutor/HomeTutor.vue'
-import TestTutor from '../views/Tutor/TestTutor.vue'
->>>>>>> 9067f2de93cb7394c449f4f6de144148406c0563
+import TestTutor from "../views/Tutor/TestTutor.vue";
 
 Vue.use(VueRouter);
 
@@ -39,8 +30,8 @@ const routes = [
     component: HomeTutor
   },
   {
-    path: '/testTutor',
-    name: 'TestTutor',
+    path: "/testTutor",
+    name: "TestTutor",
     component: TestTutor
   }
 ];
