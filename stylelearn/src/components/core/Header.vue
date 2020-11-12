@@ -1,10 +1,6 @@
 <template>
   <div id="header">
-    <v-app-bar
-      absolute
-      color="secondary"
-      hide-on-scroll
-    >
+    <v-app-bar absolute color="secondary" hide-on-scroll height="70">
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -16,31 +12,32 @@
         />
       </div>
       <v-spacer></v-spacer>
-      <div>
-        <router-link to="/signup"><button class="btnHeader">Sign Up</button></router-link>
-        <router-link to="/login"><button class="btnHeader">Login In</button></router-link>
-      </div>
-
+      <v-layout row wrap justify-end align-start>
+        <v-flex xs2 md1><router-link to="/"><p class="text">Home</p></router-link></v-flex>
+        <v-flex xs2 md1><router-link to="/basicuse"><p class="text">Basic User</p></router-link></v-flex>
+        <v-flex xs2 md1><router-link to="/about"><p class="text">About Us</p></router-link></v-flex>
+        <v-flex xs2 md1.5><router-link to="/signup"><button class="btnHeader" >Sign Up</button></router-link></v-flex>
+        <v-flex xs2 md1.5><router-link to="/login"><button class="btnHeader">Login In</button></router-link></v-flex>
+      </v-layout>
     </v-app-bar>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header'
-}
+  name: "Header"
+};
 </script>
 
 <style>
 .btnHeader {
-  font-family: 'Average Sans',sans-serif;
+  font-family: "Average Sans", sans-serif;
   border-radius: 100px;
-  margin-right:20px;
-  width: 140px;
-  height: 50px;
+  width: 130px;
+  height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 15px;
+  font-size: 12px;
   text-transform: uppercase;
   color: white;
   box-shadow: 0 0 4px #999;
@@ -48,22 +45,19 @@ export default {
   outline: none;
 }
 
-.btnHeader {
-  background-position: center;
-  font-family: 'Average Sans',sans-serif;
-  border-radius: 100px;
-  margin-right:20px;
-  width: 140px;
-  height: 50px;
-  opacity: 1;
-  transition: 0.3s;
-}
 .btnHeader:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
 }
 .btnHeader:active {
   background-color: #6eb9f7;
   background-size: 100%;
   transition: background 0s;
+}
+.text{
+  color: black;
+  margin-top: 20px;
+  font-family: "Average Sans", sans-serif;
+  font-size: 20px;
 }
 </style>

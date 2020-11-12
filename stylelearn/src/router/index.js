@@ -5,6 +5,12 @@ import Signup from "../views/Signup.vue";
 import Home from "../views/Home.vue";
 import HomeTutor from "../views/Tutor/HomeTutor.vue";
 import TestTutor from "../views/Tutor/TestTutor.vue";
+import BasicUse from "../views/BasicUse.vue";
+import About from "../views/About.vue";
+import ForgetPassword from "../views/ForgetPassword.vue";
+import ForgetPasswordPop from "../views/ForgetPasswordPop.vue";
+import SignUpSec from "../views/SignUpSec.vue";
+import NewPassword from "../views/NewPassword.vue";
 
 Vue.use(VueRouter);
 
@@ -25,15 +31,46 @@ const routes = [
     component: Signup
   },
   {
-    path: "/homeTutor",
+    path: "/hometutor",
     name: "HomeTutor",
     component: HomeTutor
   },
   {
-    path: "/testTutor",
+    path: "/testtutor",
     name: "TestTutor",
     component: TestTutor
+  },
+  {
+    path: "/basicuse",
+    name: "BasicUse",
+    component: BasicUse
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About
+  },
+  {
+    path: "/forgetpassword",
+    name: "ForgetPassword",
+    component: ForgetPassword
+  },
+  {
+    path: "/forgetpasswordpop",
+    name: "ForgetPasswordPop",
+    component: ForgetPasswordPop
+  },
+  {
+    path: "/signupsuccessfully",
+    name: "SignUpSec",
+    component: SignUpSec
+  },
+  {
+    path: "/newpassword",
+    name: "NewPassword",
+    component: NewPassword
   }
+
 ];
 
 const router = new VueRouter({

@@ -66,12 +66,7 @@
           <v-col>
             <label>Comfrim email:</label>
             <div class="input_button">
-              <v-text-field
-                color="primary"
-                solo
-                rounded
-                outlined
-              />
+              <v-text-field color="primary" solo rounded outlined />
             </div>
           </v-col>
         </v-row>
@@ -81,7 +76,14 @@
               <label class="">Password:</label>
             </div>
             <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-text-field
+                color="primary"
+                solo
+                rounded
+                outlined
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+              />
             </div>
           </v-col>
           <v-col col="6">
@@ -93,13 +95,25 @@
                 rounded
                 outlined
                 v-model="password"
+                :type="showPassword ? 'text' : 'password'"
               />
             </div>
           </v-col>
         </v-row>
-        <button class="button1">Sign Up</button>
+        <router-link to="/signupsuccessfully">
+          <button class="button1">Sign Up</button>
+        </router-link>
       </v-form>
     </v-row>
+    <div class="d-flex flex-column justify-bottom align-center">
+      <v-img
+        lazy-src="../assets/imgbit.png"
+        max-height="328"
+        max-width="1290"
+        style="margin-top:20px"
+        src="../assets/imgbit.png"
+      ></v-img>
+    </div>
   </v-container>
 </template>
 

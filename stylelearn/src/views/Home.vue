@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class='main'>
+  <v-container fluid class="main">
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -23,15 +23,15 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Home',
-  components: {
-  }
-}
+  name: "Home",
+  components: {}
+};
 </script>
 
 <style scoped>
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
+  margin-top: 50px;
 }
 </style>
