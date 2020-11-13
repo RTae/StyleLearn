@@ -1,123 +1,147 @@
 <template>
   <v-container fluid class="main" id="signUp">
-    <v-row style="margin-top:10vh" align="center" justify="center">
+    <v-row style="margin-top: 10vh" align="center" justify="center">
       <p class="textTitle">SIGN UP</p>
     </v-row>
     <v-row align="center" justify="center">
       <v-form ref="form" lazy-validation>
-        <v-row align="center" justify="start">
-          <div class="text_detail">
-            <p>I'm</p>
+        <v-row align="center" justify="center">
+          <div class="radioContainer">
+            <div class="radioLineContainer">
+              <div class="text_detail">
+                <p>I'm</p>
+              </div>
+              <v-radio-group v-model="row" row>
+                <v-radio label="Student" value="radio-1" />
+                <v-radio label="Teacher" value="radio-2" />
+              </v-radio-group>
+            </div>
+            <div class="radioLineContainer">
+              <div class="text_detail">
+                <p>Sex</p>
+              </div>
+              <v-radio-group v-model="row" row>
+                <v-radio label="Male" value="radio-1" />
+                <v-radio label="Female" value="radio-2" />
+              </v-radio-group>
+            </div>
           </div>
-          <v-radio-group v-model="row" row>
-            <v-radio label="Student" value="radio-1" />
-            <v-radio label="Teacher" value="radio-2" />
-          </v-radio-group>
-        </v-row>
-        <v-row align="center" justify="start">
-          <div class="text_detail">
-            <p>Sex</p>
-          </div>
-          <v-radio-group v-model="row" row>
-            <v-radio label="Male" value="radio-1" />
-            <v-radio label="Female" value="radio-2" />
-          </v-radio-group>
         </v-row>
         <!--name-->
+        <v-row align="center" justify="center">
+          <v-col>
+            <v-row class="ml-8" justify="start">
+              <label>Frist name:</label>
+            </v-row>
+            <div class="inputFiled">
+                <v-text-field color="primary" solo rounded outlined />
+            </div>
+          </v-col>
+          <v-col>
+            <v-row class="ml-8" justify="start">
+              <label>Family name:</label>
+            </v-row>
+            <div class="inputFiled">
+              <v-text-field color="primary" solo rounded outlined />
+            </div>
+          </v-col>
+        </v-row>
+        <!--birthday and education-->
         <v-row align="center" justify="start">
           <v-col>
-            <label>Frist name:</label>
-            <div class="input_button">
+            <v-row class="ml-8" justify="start">
+              <label>Birthday:</label>
+            </v-row>
+            <div class="inputFiled">
               <v-text-field color="primary" solo rounded outlined />
             </div>
           </v-col>
           <v-col>
-            <label>Family name:</label>
-            <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+            <v-row class="ml-8" justify="start">
+              <label>Education:</label>
+            </v-row>
+            <div class="inputFiled">
+              <v-select
+                :items="items"
+                label="Choose education"
+                solo
+                rounded
+                outlined
+              />
             </div>
           </v-col>
         </v-row>
         <v-row align="center" justify="start">
           <v-col>
-            <label>Birthday:</label>
-            <div class="input_button">
+            <v-row class="ml-8" justify="start">
+              <label>Email:</label>
+            </v-row>
+            <div class="inputFiled">
               <v-text-field color="primary" solo rounded outlined />
             </div>
           </v-col>
           <v-col>
-            <label>Education:</label>
-            <v-select
-              :items="items"
-              label="Choose education"
-              solo
-              rounded
-              outlined
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="start">
-          <v-col>
-            <label>Email:</label>
-            <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
-            </div>
-          </v-col>
-          <v-col>
-            <label>Comfrim email:</label>
-            <div class="input_button">
+            <!--email-->
+            <v-row class="ml-8" justify="start">
+              <label>Comfrim email:</label>
+            </v-row>
+            <div class="inputFiled">
               <v-text-field color="primary" solo rounded outlined />
             </div>
           </v-col>
         </v-row>
+        <!--password-->
         <v-row align="center" justify="start">
           <v-col col="6">
-            <div>
+            <v-row class="ml-8" justify="start">
               <label class="">Password:</label>
+            </v-row>
+            <div>
             </div>
-            <div class="input_button">
+            <div class="inputFiled">
               <v-text-field
                 color="primary"
                 solo
                 rounded
                 outlined
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'"
+                :type="'password'"
               />
             </div>
           </v-col>
           <v-col col="6">
-            <label>Comfrim Password:</label>
-            <div class="input_button">
+            <v-row class="ml-8" justify="start">
+              <label>Comfrim Password:</label>
+            </v-row>
+            <div class="inputFiled">
               <v-text-field
-                color="primary"
                 solo
                 rounded
                 outlined
-                v-model="password"
-                :type="showPassword ? 'text' : 'password'"
+                :type="'password'"
               />
             </div>
           </v-col>
         </v-row>
-        <router-link to="/signupsuccessfully">
-          <button class="button1">Sign Up</button>
-        </router-link>
+        <v-row justify='center'>
+          <router-link to="/signupsuccessfully">
+            <button class="signUpBtn">SIGN UP</button>
+          </router-link>
+        </v-row>
       </v-form>
     </v-row>
     <div class="d-flex flex-column justify-bottom align-center">
       <v-img
-        lazy-src="../assets/imgbit.png"
-        max-height="328"
-        max-width="1290"
-        style="margin-top:20px"
-        src="../assets/imgbit.png"
-      ></v-img>
+          alt="bitButton"
+          contain
+          style="margin-top: 50px"
+          src="../assets/imgbit.png"
+          width="1290"
+      />
     </div>
   </v-container>
 </template>
 
-<script>
+<script scope>
 export default {
   name: "signUp",
   components: {},
@@ -127,62 +151,75 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
+.radioContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  flex-direction: column;
+}
+
+.radioLineContainer{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex-direction: row;
+}
+
 p.textTitle {
   font-weight: bold;
-  font-size: 46px;
+  font-size: 20px;
+  color: #5c5c5c;
+  font-family: "Average Sans", sans-serif;
+}
+
+label {
+  font-weight: bold;
+  font-size: 15px;
   color: #5c5c5c;
   font-family: "Average Sans", sans-serif;
 }
 
 .text_detail {
-  margin-top: 15px;
-  margin-left: 24vw;
+  margin-top: 20px;
   margin-right: 20px;
 }
 
-.input_button {
-  width: 242px;
-  height: 20px;
-  margin: 20px;
+.inputFiled {
+  width: 375px;
+  height: 32px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 35px;
 }
 
-button {
+.signUpBtn {
   background-color: #5cbbf6;
-  border: none;
+  background-position: center;
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  margin-right: 20px;
+  width: 130px;
+  height: 45px;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 13px;
+  text-transform: uppercase;
   color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  margin: 4px 2px;
+  box-shadow: 0 0 4px #999;
   cursor: pointer;
-  border-radius: 20px;
+  outline: none;
+  margin-top: 50px;
 }
 
-.button1 {
-  background-color: #5cbbf6;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 20px;
-  margin-top: 15px;
-  margin-bottom: 100px;
+.signUpBtn:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
 }
-
-div {
-  font-family: "CSChatThaiUI";
-  text-align: center;
-}
-
-body {
-  background-color: #ecede8;
+.signUpBtn:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
 }
 </style>

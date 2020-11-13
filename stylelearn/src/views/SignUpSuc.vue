@@ -1,22 +1,28 @@
 <template>
   <v-container fluid class="main" id="signUpSec">
-    <v-row align="center" justify="center" style="margin-top:20vh">
-      <v-card class="bgcard" width="461" height="184"  >
+    <v-row justify="center">
+      <v-card class="cardContainer">
         <v-row><label class="text">Successfully Register</label></v-row>
-        <v-row><label class="textdetail">Hope you will find your style</label></v-row>
+        <v-row
+          ><label class="textdetail"
+            >Hope you will find your style</label
+          ></v-row
+        >
       </v-card>
     </v-row>
-    <router-link to="/login"
-          ><button class="button">Go to Login</button></router-link
-          >
+    <v-row justify="center">
+      <router-link to="/login"
+        ><button class="summitBtn">SIGN IN</button>
+      </router-link>
+    </v-row>
     <div class="d-flex flex-column justify-bottom align-center">
       <v-img
-        lazy-src="../assets/imgbit.png"
-        max-height="328"
-        max-width="1290"
-        style="margin-top:80px"
+        alt="bitButton"
+        contain
+        style="margin-top: 200px"
         src="../assets/imgbit.png"
-      ></v-img>
+        width="1290"
+      />
     </div>
   </v-container>
 </template>
@@ -28,10 +34,14 @@ export default {
 </script>
 
 <style scoped>
-.bgcard {
-  color: white;
-  border-radius:20px;
+.cardContainer {
+  color: black;
+  border-radius: 20px;
+  width: 461px;
+  height: 184px;
+  margin-top: 20vh;
 }
+
 .text {
   font-weight: bold;
   font-size: 30px;
@@ -41,6 +51,7 @@ export default {
   margin-left: 110px;
   margin-bottom: 20px;
 }
+
 .textdetail {
   font-size: 18px;
   color: #5c5c5c;
@@ -49,7 +60,9 @@ export default {
   margin-left: 140px;
 }
 
-.button {
+.summitBtn {
+  background-color: #5cbbf6;
+  background-position: center;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
   margin-right: 20px;

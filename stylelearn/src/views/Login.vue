@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="main" id="login">
-    <v-row style="margin-top:10vh" align="center" justify="center">
+    <v-row style="margin-top: 10vh" align="center" justify="center">
       <p class="textTitle">LOGIN</p>
     </v-row>
     <v-row align="center" justify="center">
@@ -17,50 +17,55 @@
 
         <div class="input_button">
           <v-text-field
-            color="primary"
             solo
             rounded
             outlined
             placeholder="Password"
-            v-model="password"
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
           />
         </div>
-        <v-row align="center" justify="center">
-          <p style="margin-right:10px;" class="text">Don't have an account?</p>
+        <v-row justify="center">
+          <p style="margin-right: 10px" class="text">Don't have an account?</p>
           <router-link to="/signup"
-            ><p style="margin-right:165px;" class="text">
-              Sign up
-            </p></router-link
-          >
+            ><p style="margin-right: 165px" class="text">Sign up</p>
+          </router-link>
           <router-link to="/forgetpassword"
             ><p class="text">Forget password?</p></router-link
           >
         </v-row>
-        <button class="button">Sign In</button>
+        <v-row justify="center">
+          <router-link to="/">
+            <button class="signInBtn">Sign In</button>
+          </router-link>
+        </v-row>
       </v-form>
     </v-row>
     <div class="d-flex flex-column justify-bottom align-center">
       <v-img
-        lazy-src="../assets/imgbit.png"
-        max-height="328"
-        max-width="1290"
-        style="margin-top:80px"
-        src="../assets/imgbit.png"
-      ></v-img>
+          alt="bitButton"
+          contain
+          style="margin-top: 100px"
+          src="../assets/imgbit.png"
+          width="1290"
+      />
     </div>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "login"
+  name: "login",
+  data () {
+    return {
+      showPassword: true
+    }
+  }
 };
 </script>
 
-<style>
+<style scope>
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
@@ -85,7 +90,8 @@ export default {
   font-family: "Average Sans", sans-serif;
 }
 
-.button {
+.signInBtn {
+  background-color: #5cbbf6;
   background-position: center;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
@@ -94,7 +100,7 @@ export default {
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 10px;
+  font-size: 13px;
   text-transform: uppercase;
   color: white;
   box-shadow: 0 0 4px #999;
@@ -103,11 +109,11 @@ export default {
   margin-top: 50px;
 }
 
-.button:hover {
+.signInBtn:hover {
   background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
 }
-.button:active {
+.signInBtn:active {
   background-color: #6eb9f7;
   background-size: 100%;
   transition: background 0s;
