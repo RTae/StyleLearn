@@ -7,7 +7,7 @@
         <v-row><label class="textdetail">Please check your email to confirm your register,</label></v-row>
         <v-row><label class="textdetail">but if you did’t find it please check on spam box.</label></v-row>
           <router-link to="/login"
-            ><button class="button">Ok</button></router-link
+            ><button class="mybtn">Ok</button></router-link
           >
       </v-card>
     </v-row>
@@ -42,7 +42,7 @@ export default {
   margin-left: 140px;
 }
 
-.button {
+.mybtn {
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
   margin-right: 20px;
@@ -57,6 +57,8 @@ export default {
   cursor: pointer;
   outline: none;
   margin-top: 30px;
+  background-color: #6eb9f7;
+  margin-left: 25vh;
 }
 body {
   background-color: #ecede8;

@@ -21,7 +21,7 @@
           </v-form>
         </v-row>
         <router-link to="/forgetpasswordpop"
-          ><button class="button">Submit</button></router-link
+          ><button class="mybtn">Submit</button></router-link
         >
   </v-container>
 </template>
@@ -53,7 +53,7 @@ export default {
   margin-top: 10px;
 }
 
-.button {
+.mybtn {
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
   margin-right: 20px;
@@ -68,6 +68,8 @@ export default {
   cursor: pointer;
   outline: none;
   margin-top: 30px;
+  background-color: #6eb9f7;
+  margin-left: 90vh;
 }
 body {
   background-color: #ecede8;

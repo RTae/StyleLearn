@@ -49,6 +49,7 @@ export default {
   margin-right: 20px;
 }
 .btnHeader {
+  background-color: #5cbbf6;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
   width: 130px;
@@ -69,6 +70,7 @@ export default {
   background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
 }
+
 .btnHeader:active {
   background-color: #6eb9f7;
   background-size: 100%;

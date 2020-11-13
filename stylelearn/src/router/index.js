@@ -9,7 +9,7 @@ import BasicUse from "../views/BasicUse.vue";
 import About from "../views/About.vue";
 import ForgetPassword from "../views/ForgetPassword.vue";
 import ForgetPasswordPop from "../views/ForgetPasswordPop.vue";
-import SignUpSec from "../views/SignUpSec.vue";
+import SignUpSec from "../views/SignUpSuc.vue";
 import NewPassword from "../views/NewPassword.vue";
 
 Vue.use(VueRouter);
