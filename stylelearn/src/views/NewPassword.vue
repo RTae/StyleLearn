@@ -24,6 +24,7 @@
           solo
           rounded
           outlined
+          flat
           placeholder="Password"
           v-model="password"
           :type="showPassword ? 'text' : 'password'"

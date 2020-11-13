@@ -14,6 +14,7 @@
                 solo
                 rounded
                 outlined
+                flat
                 placeholder="Email"
               />
             </div>

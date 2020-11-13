@@ -1,21 +1,39 @@
 <template>
   <v-container fluid class="main">
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
+    <v-row class="course" align="center" justify="center">
+      <div >
+        <v-card width="1500" height="220" color="#70CCFF">
+          <div class="d-flex align-center" align-center justify-center>
+            <v-col cols="4" >
+              <v-card width="500px" height="200" color="#FFFFFF">CALCULUS I</v-card>
+            </v-col>
+            <v-col cols="4">
+              <v-card width="500px" height="200" color="#FFFFFF">CALCULUS II </v-card>
+            </v-col>
+            <v-col cols="4">
+              <v-card width="500px" height="200" color="#FFFFFF">CALCULUS III </v-card>
+            </v-col>
+          </div>
+        </v-card>
+      </div>
+    </v-row>
+    <p>Courses</p>
+    <p>Newest</p>
+    <v-row>
+      <v-col cols="3">
+        <v-card width="500px" height="200" color="#FFFFFF"></v-card>
       </v-col>
+      <v-col cols="3">
 
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          นิวไม่สวย
-        </h1>
+      </v-col>
+      <v-col cols="3">
+
+      </v-col>
+      <v-col cols="3">
+
       </v-col>
     </v-row>
+    <p>Popular</p>
   </v-container>
 </template>
 
@@ -34,4 +52,8 @@ export default {
   min-height: 100vh;
   margin-top: 50px;
 }
+.course {
+  margin-top: 50px;
+}
+
 </style>

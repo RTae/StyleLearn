@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="header1">
     <v-app-bar
       absolute
       color="secondary"
@@ -16,18 +16,13 @@
         />
       </div>
       <v-spacer></v-spacer>
-      <div>
-        <router-link to="/signup"><button class="btnHeader">Sign Up</button></router-link>
-        <router-link to="/login"><button class="btnHeader">Login In</button></router-link>
-      </div>
-
     </v-app-bar>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header1'
 }
 </script>
 
@@ -36,11 +31,11 @@ export default {
   font-family: 'Average Sans',sans-serif;
   border-radius: 100px;
   margin-right:20px;
-  width: 140px;
-  height: 50px;
+  width: 130px;
+  height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 15px;
+  font-size: 14px;
   text-transform: uppercase;
   color: white;
   box-shadow: 0 0 4px #999;

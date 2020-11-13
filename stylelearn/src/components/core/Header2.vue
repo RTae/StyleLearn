@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="header2">
     <v-app-bar absolute color="secondary" hide-on-scroll height="70">
       <div class="d-flex align-center">
         <v-img
@@ -12,18 +12,8 @@
         />
       </div>
       <v-spacer></v-spacer>
-      <v-row align="center" justify="center">
+      <v-row class="hidden-sm-and-down" align="center" justify="center">
         <v-toolbar-items >
-          <div class="input_serach">
-            <v-text-field
-              label="Serach"
-              append-icon="mdi-magnify"
-              solo
-              dense
-              outlined
-              flat
-            ></v-text-field>
-          </div>
           <v-btn text><router-link to="/"><p class="text">Home</p></router-link></v-btn>
           <v-btn text><router-link to="/basicuse"><p class="text">Basic User</p></router-link></v-btn>
           <v-btn text><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
@@ -37,17 +27,11 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header2"
 };
 </script>
 
 <style>
-.input_serach{
-  width: 600px;
-  height: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
-}
 .btnHeader {
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
@@ -62,7 +46,6 @@ export default {
   cursor: pointer;
   outline: none;
   margin-top: 10px;
-  margin-right: 10px;
 }
 
 .btnHeader:hover {
@@ -74,7 +57,6 @@ export default {
   background-size: 100%;
   transition: background 0s;
 }
-
 .text{
   color: black;
   margin-top: 20px;

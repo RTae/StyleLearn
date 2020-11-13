@@ -28,13 +28,13 @@
           <v-col>
             <label>Frist name:</label>
             <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-text-field color="primary" solo rounded outlined flat />
             </div>
           </v-col>
           <v-col>
             <label>Family name:</label>
             <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-text-field color="primary" solo rounded outlined flat />
             </div>
           </v-col>
         </v-row>
@@ -42,7 +42,7 @@
           <v-col>
             <label>Birthday:</label>
             <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-text-field color="primary" solo rounded outlined flat />
             </div>
           </v-col>
           <v-col>
@@ -53,6 +53,7 @@
               solo
               rounded
               outlined
+              flat
             ></v-select>
           </v-col>
         </v-row>
@@ -60,13 +61,13 @@
           <v-col>
             <label>Email:</label>
             <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-text-field color="primary" solo rounded outlined flat />
             </div>
           </v-col>
           <v-col>
             <label>Comfrim email:</label>
             <div class="input_button">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-text-field color="primary" solo rounded outlined flat />
             </div>
           </v-col>
         </v-row>
@@ -81,6 +82,7 @@
                 solo
                 rounded
                 outlined
+                flat
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'"
               />
@@ -94,6 +96,7 @@
                 solo
                 rounded
                 outlined
+                flat
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'"
               />
