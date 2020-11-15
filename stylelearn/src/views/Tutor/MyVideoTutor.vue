@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="main" id="login">
     <v-row style="margin-top: 5vh" align="left" justify="left">
-      <p class="textTitle">Home</p>
+      <p class="textTitle">My Video</p>
     </v-row>
   </v-container>
 </template>
