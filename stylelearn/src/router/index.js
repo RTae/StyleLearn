@@ -5,6 +5,9 @@ import Signup from "../views/Signup.vue";
 import Home from "../views/Home.vue";
 import HomeTutor from "../views/Tutor/HomeTutor.vue";
 import TestTutor from "../views/Tutor/TestTutor.vue";
+import MyVideoTutor from "../views/Tutor/MyVideoTutor.vue";
+import ProfileTutor from "../views/Tutor/ProfileTutor.vue";
+import UploadVideoTutor from "../views/Tutor/UploadVideoTutor.vue";
 import BasicUse from "../views/BasicUse.vue";
 import About from "../views/About.vue";
 import ForgetPassword from "../views/ForgetPassword.vue";
@@ -40,6 +43,21 @@ const routes = [
     path: "/testtutor",
     name: "TestTutor",
     component: TestTutor
+  },
+  {
+    path: "/myvideotutor",
+    name: "MyVideoTutor",
+    component: MyVideoTutor
+  },
+  {
+    path: "/profiletutor",
+    name: "ProfileTutor",
+    component: ProfileTutor
+  },
+  {
+    path: "/uploadvideotutor",
+    name: "UploadVideoTutor",
+    component: UploadVideoTutor
   },
   {
     path: "/basicuse",
