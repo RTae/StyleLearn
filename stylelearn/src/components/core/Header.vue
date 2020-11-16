@@ -77,7 +77,7 @@ export default {
   transition: background 0s;
 }
 
-.text{
+.text {
   color: black;
   margin-top: 20px;
   font-family: "Average Sans", sans-serif;

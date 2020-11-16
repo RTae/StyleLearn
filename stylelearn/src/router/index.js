@@ -11,6 +11,7 @@ import ForgetPassword from "../views/ForgetPassword.vue";
 import ForgetPasswordPop from "../views/ForgetPasswordPop.vue";
 import SignUpSec from "../views/SignUpSuc.vue";
 import NewPassword from "../views/NewPassword.vue";
+import CoursesPage from "../views/CoursesPage.vue";
 
 Vue.use(VueRouter);
 
@@ -69,6 +70,11 @@ const routes = [
     path: "/newpassword",
     name: "NewPassword",
     component: NewPassword
+  },
+  {
+    path: "/coursespage",
+    name: "CoursesPage",
+    component: CoursesPage
   }
 
 ];
