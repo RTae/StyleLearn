@@ -34,7 +34,7 @@
               <label>Frist name:</label>
             </v-row>
             <div class="inputFiled">
-                <v-text-field color="primary" solo rounded outlined />
+              <v-text-field color="primary" solo rounded outlined />
             </div>
           </v-col>
           <v-col>
@@ -96,8 +96,7 @@
             <v-row class="ml-8" justify="start">
               <label class="">Password:</label>
             </v-row>
-            <div>
-            </div>
+            <div></div>
             <div class="inputFiled">
               <v-text-field
                 color="primary"
@@ -113,16 +112,56 @@
               <label>Comfrim Password:</label>
             </v-row>
             <div class="inputFiled">
-              <v-text-field
-                solo
-                rounded
-                outlined
-                :type="'password'"
-              />
+              <v-text-field solo rounded outlined :type="'password'" />
             </div>
           </v-col>
         </v-row>
-        <v-row justify='center'>
+        <v-row align="center" justify="center">
+          <div class="radioContainer">
+            <div class="radioLineContainer">
+              <v-radio-group v-model="row" row>
+                <v-radio label="I agree" value="radio-1" />
+              </v-radio-group>
+            </div>
+          </div>
+              <v-dialog v-model="dialog" width="600px">
+                <template v-slot:activator="{ on, attrs }">
+                  <div class="tectcondit">
+                    <p class="text-decoration-underline" v-bind="attrs" v-on="on" style="margin-top:15px">
+                       Application conditions
+                     </p>
+                  </div>
+
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Application conditions</span>
+                  </v-card-title>
+                  <v-card-text
+                    >Lorem ipsum dolor sit amet, semper quis, sapien id natoque
+                    elit. Nostra urna at, magna at neque sed sed ante imperdiet,
+                    dolor mauris cursus velit, velit non, sem nec. Volutpat sem
+                    ridiculus placerat leo, augue in, duis erat proin
+                    condimentum in a eget, sed fermentum sed vestibulum varius
+                    ac, vestibulum volutpat orci ut elit eget tortor. Ultrices
+                    nascetur nulla gravida ante arcu. Pharetra rhoncus morbi
+                    ipsum, nunc tempor debitis, ipsum pellentesque, vitae id
+                    quam ut mauris dui tempor, aptent non. Quisque turpis.
+                    Phasellus quis lectus luctus orci eget rhoncus. Amet donec
+                    vestibulum mattis commodo, nulla aliquet, nibh praesent,
+                    elementum nulla. Sit lacus pharetra tempus magna neque
+                    pellentesque, nulla vel erat.
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="#5cbbf6" text @click="dialog = false"
+                      >OK</v-btn
+                    >
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+        </v-row>
+        <v-row justify="center">
           <router-link to="/signupsuccessfully">
             <button class="signUpBtn">SIGN UP</button>
           </router-link>
@@ -131,11 +170,11 @@
     </v-row>
     <div class="d-flex flex-column justify-bottom align-center">
       <v-img
-          alt="bitButton"
-          contain
-          style="margin-top: 50px"
-          src="../assets/imgbit.png"
-          width="1290"
+        alt="bitButton"
+        contain
+        style="margin-top: 50px"
+        src="../assets/imgbit.png"
+        width="1290"
       />
     </div>
   </v-container>
@@ -152,6 +191,9 @@ export default {
 </script>
 
 <style scope>
+.tectcondit{
+  color: red;
+}
 .radioContainer {
   display: flex;
   flex-wrap: wrap;
@@ -159,7 +201,7 @@ export default {
   flex-direction: column;
 }
 
-.radioLineContainer{
+.radioLineContainer {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -183,6 +225,12 @@ label {
 .text_detail {
   margin-top: 20px;
   margin-right: 20px;
+}
+
+.text_detail2 {
+  margin-top: 20px;
+  margin-right: 20px;
+  color: red;
 }
 
 .inputFiled {
