@@ -59,8 +59,8 @@ p.text {
   transition: 0.3s;
   font-size: 15px;
   text-transform: uppercase;
-  color: white;
-  box-shadow: 0 0 4px #999;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 4px rgb(0, 206, 206);
   cursor: pointer;
   outline: none;
 }
