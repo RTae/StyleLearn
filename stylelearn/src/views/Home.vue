@@ -80,7 +80,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src= "math"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Calculus I</p>
@@ -97,7 +97,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src= "math"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Calculus II</p>
@@ -114,7 +114,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src= "math"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Calculus III</p>
@@ -131,7 +131,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="computer"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Computer Architecture</p>
@@ -180,7 +180,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="langauge"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">English for oral communication</p>
@@ -197,7 +197,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="computer"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Design Thinking</p>
@@ -214,10 +214,10 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="econ"
             />
             <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Digital and Logic Design</p>
+              <p class="cardInSmallText">Economic I</p>
             </v-sheet>
           </v-card>
         </v-hover>
@@ -231,7 +231,7 @@
             <v-img
               height="200"
               width="303"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :src="computer"
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Image Processing</p>
@@ -404,7 +404,11 @@ export default {
   components: {},
   data: () => ({
     items: ["Mathematics", "Economics", "Chemistry", "Computer", "Electric"],
-    model: null
+    model: null,
+    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+    computer: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg",
+    langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
+    econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
   }),
   methods: {
     onClickCourse () {
