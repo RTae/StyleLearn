@@ -20,7 +20,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:220px"
           color="#70CCFF"
         >
           <v-img
@@ -39,7 +39,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:220px"
           color="#70CCFF"
         >
           <v-img
@@ -58,7 +58,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:220px"
           color="#70CCFF"
         >
           <v-img
@@ -114,7 +114,7 @@ export default {};
   font-size: 40px;
   font-weight: bold;
   font-family: "Average Sans", sans-serif;
-  margin-right: 1300px;
+  margin-right: 1200px;
   margin-top: 60px;
 }
 
@@ -124,7 +124,7 @@ export default {};
 
 .text2 {
   font-size: 25px;
-  margin-left: 1500px;
+  margin-left: 1200px;
 }
 
 .text3 {

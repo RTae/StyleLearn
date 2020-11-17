@@ -71,6 +71,16 @@
             </div>
           </v-col>
         </v-row>
+        <v-row align="center" justify="start">
+          <v-col>
+            <v-row class="ml-8" justify="start">
+              <label>Description</label>
+            </v-row>
+            <div class="inputFiled2">
+             <v-text-field color="primary" solo rounded outlined />
+            </div>
+          </v-col>
+        </v-row>
         <v-row justify="center">
           <router-link to="/hometutor">
             <button class="signUpBtn">UPLOAD</button>
@@ -111,6 +121,15 @@ export default {
 }
 
 .inputFiled {
+  width: 375px;
+  height: 32px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 35px;
+}
+
+.inputFiled2 {
   width: 375px;
   height: 32px;
   margin-top: 20px;
