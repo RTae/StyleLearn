@@ -124,42 +124,38 @@
               </v-radio-group>
             </div>
           </div>
-              <v-dialog v-model="dialog" width="600px">
-                <template v-slot:activator="{ on, attrs }">
-                  <div class="tectcondit">
-                    <p class="text-decoration-underline" v-bind="attrs" v-on="on" style="margin-top:15px">
-                       Application conditions
-                     </p>
-                  </div>
 
-                </template>
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">Application conditions</span>
-                  </v-card-title>
-                  <v-card-text
-                    >Lorem ipsum dolor sit amet, semper quis, sapien id natoque
-                    elit. Nostra urna at, magna at neque sed sed ante imperdiet,
-                    dolor mauris cursus velit, velit non, sem nec. Volutpat sem
-                    ridiculus placerat leo, augue in, duis erat proin
-                    condimentum in a eget, sed fermentum sed vestibulum varius
-                    ac, vestibulum volutpat orci ut elit eget tortor. Ultrices
-                    nascetur nulla gravida ante arcu. Pharetra rhoncus morbi
-                    ipsum, nunc tempor debitis, ipsum pellentesque, vitae id
-                    quam ut mauris dui tempor, aptent non. Quisque turpis.
-                    Phasellus quis lectus luctus orci eget rhoncus. Amet donec
-                    vestibulum mattis commodo, nulla aliquet, nibh praesent,
-                    elementum nulla. Sit lacus pharetra tempus magna neque
-                    pellentesque, nulla vel erat.
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="#5cbbf6" text @click="dialog = false"
-                      >OK</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+          <v-dialog v-model="dialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+              <p
+                class="text_detail2 text-decoration-underline"
+                v-bind="attrs"
+                v-on="on"
+                style="margin-top: 15px"
+              >
+                Application conditions
+              </p>
+            </template>
+
+            <v-card>
+              <v-card-title class="headline grey lighten-2">
+                Privacy Policy
+              </v-card-title>
+
+              <v-card-text>
+                คิดว่านิวไม่สวยใช่มัย
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" text @click="dialog = false">
+                  ใช่
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-row>
         <v-row justify="center">
           <router-link to="/signupsuccessfully">
@@ -185,13 +181,14 @@ export default {
   name: "signUp",
   components: {},
   data: () => ({
-    items: ["A", "B", "C", "D"]
+    items: ["A", "B", "C", "D"],
+    dialog: false
   })
 };
 </script>
 
 <style scope>
-.tectcondit{
+.tectcondit {
   color: red;
 }
 .radioContainer {
@@ -262,9 +259,10 @@ label {
 }
 
 .signUpBtn:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
-    center/15000%;
+  background: #47a7f5
+    radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
 }
+
 .signUpBtn:active {
   background-color: #6eb9f7;
   background-size: 100%;

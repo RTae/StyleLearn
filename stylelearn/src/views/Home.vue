@@ -1,233 +1,414 @@
 <template>
   <v-container fluid class="main" id="Home">
-    <v-row align="center" justify="center" style="margin-top:40px">
-      <div>
-        <v-card width="1500" height="220" color="#70CCFF">
-          <div class="d-flex align-center" align-center justify-center>
-            <v-col cols="4">
-              <router-link to="/coursespage"
-                ><button class="course">CALCULUS I</button></router-link
-              >
-              <!--<v-card class="course">
-                    <v-card-text>
-                      <p class="text_coure" align="center" justify="center">CALCULUS I</p>
-                    </v-card-text>
-              </v-card>!-->
-            </v-col>
-            <v-col cols="4">
-              <router-link to="/coursespage"
-                ><button class="course">CALCULUS II</button></router-link
-              >
-            </v-col>
-            <v-col cols="4">
-              <router-link to="/coursespage"
-                ><button class="course">CALCULUS III</button></router-link
-              >
-            </v-col>
-          </div>
-        </v-card>
+    <!-- Card Course -->
+    <v-row align="center" justify="center" style="margin-top: 60px">
+      <v-sheet class="cardContainer">
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 16"
+            :class="{ 'on-hover': hover }"
+            class="courseCard"
+            @click="onClickCourse()"
+          >
+            <v-card-text class="cardTextTitle"> CALCULUS I </v-card-text>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 16"
+            :class="{ 'on-hover': hover }"
+            class="courseCard"
+            @click="onClickCourse()"
+          >
+            <v-card-text class="cardTextTitle"> CALCULUS II </v-card-text>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 16"
+            :class="{ 'on-hover': hover }"
+            class="courseCard"
+            @click="onClickCourse()"
+          >
+            <v-card-text class="cardTextTitle"> CALCULUS III </v-card-text>
+          </v-card>
+        </v-hover>
+      </v-sheet>
+    </v-row>
+
+    <!-- Course Title -->
+    <v-row align="center" justify="center">
+      <p class="textTitle">Courses</p>
+    </v-row>
+
+    <!-- Newest -->
+    <v-row>
+      <v-col cols="6">
+        <p style="margin-left: 90px; font-size: 50px" class="textDetail">
+          Newest
+        </p>
+      </v-col>
+      <v-col cols="6">
+        <router-link to="/coursespage">
+          <p
+            style="
+              display: flex;
+              flex-direction: row-reverse;
+              margin-top: 25px;
+              margin-right: 90px;
+            "
+            class="textDetail"
+          >
+            All
+          </p>
+        </router-link>
+      </v-col>
+    </v-row>
+
+    <v-row align="center" justify="center">
+      <div class="cardSmallContainer">
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 16"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Calculus I</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Calculus II</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Calculus III</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Computer Architecture</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
       </div>
     </v-row>
-    <v-row align="center" justify="center">
-      <p class="Head_text">Courses</p>
-    </v-row>
-    <v-row align="center" justify="start">
-      <v-col cols="6"><p class="text">Newest</p></v-col>
-      <router-link to="/coursespage"><p class="text2">All</p></router-link>
-    </v-row>
-    <v-row>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Calculus I
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Calculus II
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Calculus III
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Computer architecture
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row align="center" justify="start">
-      <v-col cols="6"><p class="text">Popular</p></v-col>
-      <router-link to="/about"><p class="text2">All</p></router-link>
-    </v-row>
-    <v-row>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            English for oral communication
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Design Thinking
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Digital and Logic Design
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Signal Processing
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-card width="1500" height="300" color="#70CCFF" style="margin-top:50px">
-        <div align-center justify-center>
-          <v-carousel hide-delimiters>
-              <v-carousel-item
-                v-for="(item,i) in items"
-                :key="i"
-                :src="item.src"
-              ></v-carousel-item>
-              <v-carousel-item
-                v-for="(item,i) in items"
-                :key="i"
-                :src="item.src"
-              ></v-carousel-item>
-            </v-carousel>
-        </div>
-      </v-card>
-    </v-row>
-    <div align="center" justify="center" style="margin-top:100px">
-      <p class="headreveiw">ลองมาฟังเสียงนักเรียนของเราหน่อย</p>
-      <p class="reveiw">Style Learn</p>
-      <p class="reveiw">เพราะเราเชื่อว่าทุกคนมีสไตล์การเรียนรู้เป็นของตัวเอง</p>
-    </div>
 
+    <!-- Popular -->
+    <v-row style="margin-top: 50px">
+      <v-col cols="6">
+        <p style="margin-left: 90px; font-size: 50px" class="textDetail">
+          Popular
+        </p>
+      </v-col>
+      <v-col cols="6">
+        <router-link to="/coursespage">
+          <p
+            style="
+              display: flex;
+              flex-direction: row-reverse;
+              margin-top: 25px;
+              margin-right: 90px;
+            "
+            class="textDetail"
+          >
+            All
+          </p>
+        </router-link>
+      </v-col>
+    </v-row>
+
+    <v-row align="center" justify="center">
+      <div class="cardSmallContainer">
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">English for oral communication</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Design Thinking</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Digital and Logic Design</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover': hover }"
+            class="cardCourseSmall"
+            @click="onClickCourse()"
+          >
+            <v-img
+              height="200"
+              width="303"
+              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            />
+            <v-sheet class="cardInSmallContainer">
+              <p class="cardInSmallText">Image Processing</p>
+            </v-sheet>
+          </v-card>
+        </v-hover>
+      </div>
+    </v-row>
+
+    <!-- Subject -->
+    <v-row align="center" justify="center" style="margin-top: 150px">
+      <v-sheet class="subjectContainer">
+        <v-slide-group
+          v-model="model"
+          class="pa-4"
+          center-active
+          show-arrows
+        >
+          <v-slide-item
+            v-for="n in 5"
+            :key="n"
+          >
+            <v-hover v-slot="{ hover }">
+              <v-card
+                :elevation="hover ? 8 : 12"
+                class="ma-10 subjectCard"
+                :class="{ 'on-hover': hover }"
+                @click="onClickSubject(n);"
+              >
+                <v-card-text class="cardTextTitle">
+                  {{ items[n - 1] }}
+                </v-card-text>
+              </v-card>
+            </v-hover>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
+    </v-row>
+
+    <!-- Review -->
+    <v-row align="center" justify="center" style="margin-top: 100px">
+      <div class="studentReviewContainner">
+        <p class="textTitleStudnetReview">ลองมาฟังเสียงนักเรียนของเราหน่อย</p>
+        <p class="textDetailStudnetReview">StyleLearn</p>
+        <p class="textDetailStudnetReview">
+          เพราะเราเชื่อว่าทุกคนมีสไตล์การเรียนรู้เป็นของตัวเอง
+        </p>
+      </div>
+    </v-row>
+
+    <v-row
+      align="center"
+      justify="center"
+      style="margin-top: 70px; margin-bottom: 500px"
+    >
+      <div class="cardSmallContainer">
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 16"
+            :class="{ 'on-hover-review': hover }"
+            class="cardReviewContainer"
+          >
+            <div class="cardInReviewContainer">
+              <v-card-text class="cardInSmallText">ดีมากๆ เลยครับ</v-card-text>
+            </div>
+            <div class="cardInReviewNameContainer">
+              <v-list-item>
+                <v-list-item-avatar color="grey darken-3">
+                  <v-img
+                    alt="pravit"
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>ประวิต ยืมเพื่อน</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover-review': hover }"
+            class="cardReviewContainer"
+          >
+            <div class="cardInReviewContainer">
+              <v-card-text class="cardInSmallText"
+                >เป็น Platfrom ที่ผมรักมากครับ</v-card-text
+              >
+            </div>
+            <div class="cardInReviewNameContainer">
+              <v-list-item>
+                <v-list-item-avatar color="grey darken-3">
+                  <v-img
+                    alt="pravit"
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>ประยุทธ์ สีบุญเรือง</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover-review': hover }"
+            class="cardReviewContainer"
+          >
+            <div class="cardInReviewContainer">
+              <v-card-text class="cardInSmallText"
+                >สร้างประสบการณ์ใหม่ ในการเรียนรู้มากเลยครับ</v-card-text
+              >
+            </div>
+            <div class="cardInReviewNameContainer">
+              <v-list-item>
+                <v-list-item-avatar color="grey darken-3">
+                  <v-img
+                    alt="pravit"
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>ธนาธร สวนพึ่ง</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-card>
+        </v-hover>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            :elevation="hover ? 8 : 12"
+            :class="{ 'on-hover-review': hover }"
+            class="cardReviewContainer"
+          >
+            <div class="cardInReviewContainer">
+              <v-card-text class="cardInSmallText"
+                >เรียนเข้าใจมากขึ้นเลยครับ</v-card-text
+              >
+            </div>
+            <div class="cardInReviewNameContainer">
+              <v-list-item>
+                <v-list-item-avatar color="grey darken-3">
+                  <v-img
+                    alt="pravit"
+                    src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-img>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>ไพรบูร วันวานยังหวานชืน</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
+          </v-card>
+        </v-hover>
+      </div>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: "Home",
-  components: {}
+  components: {},
+  data: () => ({
+    items: ["Mathematics", "Economics", "Chemistry", "Computer", "Electric"],
+    model: null
+  }),
+  methods: {
+    onClickCourse () {
+      this.$router.push("/coursespage")
+    },
+    onClickSubject (n) {
+      this.model = n - 1;
+      this.$router.push("/coursespage")
+    }
+  }
 };
 </script>
 
@@ -237,58 +418,164 @@ export default {
   min-height: 100vh;
   margin-top: 50px;
 }
-.course {
-  font-family: "Average Sans", sans-serif;
-  border-radius: 20px;
-  width: 480px;
-  height: 200px;
-  opacity: 1;
-  transition: 0.3s;
-  font-size: 12px;
-  text-transform: uppercase;
-  cursor: pointer;
-  outline: none;
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 280px;
+  width: 100vw;
+  background-color: #70CCFF;
+}
+.courseCard {
+  border-radius: 32px;
+  width: 464px;
+  height: 233px;
   background-color: white;
-  color: #000;
-  font-size: 55px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in;
+}
+
+.courseCard:not(.on-hover) {
+  opacity: 1;
+}
+
+.cardTextTitle {
+  font-size: 72px;
   font-family: "Average Sans", sans-serif;
 }
-.Head_text {
-  font-size: 50px;
+
+a {
+  text-decoration: none;
+}
+
+.textTitle {
+  font-size: 96px;
   font-family: "Average Sans", sans-serif;
   align-content: center;
   justify-content: center;
   margin-top: 40px;
-  font-weight: bold;
 }
-.text {
+
+.textDetail {
   font-weight: normal;
   color: black;
-  margin-top: 20px;
   font-size: 30px;
-  font-family: 'Delius', cursive;
-  margin-left: 30px;
+  font-family: Delius;
 }
-.text2 {
-  color: black;
-  margin-top: 20px;
-  font-size: 20px;
-  font-family: 'Delius', cursive;
-  margin-left: 90vh;
+
+.cardSmallContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
 }
-.botton {
-  display: block;
-  border-style: none;
-  position: absolute;
-  box-shadow: none;
-  background-repeat: no-repeat;
+
+.cardCourseSmall {
+  border-radius: 10px;
+  width: 303px;
+  height: 279px;
+  background-color: white;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in;
 }
-.headreveiw {
-  font-size: 35px;
-  font-family: 'Delius', cursive;
+
+.cardCourseSmall:not(.on-hover) {
+  opacity: 1;
 }
-.reveiw {
-  font-size: 20px;
-  font-family: 'Delius', cursive;
+
+.cardInSmallContainer {
+  background-color: #70CCFF;
+  display: flex;
+  align-items: center;
+  width: 303px;
+  height: 79px;
+}
+
+.cardInSmallText {
+  margin-left: 40px;
+  font-family: "THSarabunNewRegular";
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.subjectContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 474px;
+  width: 100vw;
+  background-color: #70CCFF;
+}
+
+.subjectCard {
+  height: 300px;
+  width: 642px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in;
+}
+
+.subjectCard:not(.on-hover) {
+  opacity: 1;
+}
+
+.studentReviewContainner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.textTitleStudnetReview {
+  font-size: 40px;
+  font-family: "Delius", cursive;
+}
+
+.textDetailStudnetReview {
+  font-size: 18px;
+  font-family: "Delius", cursive;
+}
+
+.cardReviewContainer {
+  height: 343px;
+  width: 373px;
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
+}
+
+.cardReviewContainer:not(.on-hover-review) {
+  height: 343px;
+  width: 373px;
+  border-radius: 5px;
+  opacity: 0.5;
+}
+
+.cardInReviewContainer {
+  height: 243px;
+  width: 373px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardInReviewNameContainer {
+  background-color: #70CCFF;
+  height: 100px;
+  width: 373px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

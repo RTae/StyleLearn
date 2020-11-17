@@ -62,7 +62,6 @@ export default {
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
-  margin-top: 10px;
   margin-right: 10px;
 }
 

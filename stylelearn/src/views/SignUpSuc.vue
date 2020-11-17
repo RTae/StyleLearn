@@ -40,7 +40,7 @@ export default {
   width: 461px;
   height: 184px;
   margin-top: 20vh;
-}
+ }
 
 .text {
   font-weight: bold;
