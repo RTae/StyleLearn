@@ -15,6 +15,7 @@ import ForgetPasswordPop from "../views/ForgetPasswordPop.vue";
 import SignUpSec from "../views/SignUpSuc.vue";
 import NewPassword from "../views/NewPassword.vue";
 import CoursesPage from "../views/CoursesPage.vue";
+import LessonPage from "../views/LessonPage.vue";
 
 Vue.use(VueRouter);
 
@@ -93,8 +94,12 @@ const routes = [
     path: "/coursespage",
     name: "CoursesPage",
     component: CoursesPage
+  },
+  {
+    path: "/lessonpage",
+    name: "LessonPage",
+    component: LessonPage
   }
-
 ];
 
 const router = new VueRouter({
@@ -104,3 +109,4 @@ const router = new VueRouter({
 });
 
 export default router;
+

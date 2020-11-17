@@ -1,18 +1,25 @@
 <template>
   <v-container fluid class="main" id="CoursesPage">
     <v-row align="center" justify="center" style="margin-top:40px">
-      <div>
-        <v-card width="1300" height="220" rounded="30px" color="#70CCFF">
-          <div class="d-flex align-center" align-center justify-center>
-            <p>Calulas I</p>
-          </div>
-        </v-card>
-      </div>
+      <v-card class="cardcontainer">
+        <p class="text">MATHEMATIC</p>
+      </v-card>
     </v-row>
     <v-row>
-      <v-col cols="3">
+         <div class="inputFiled">
+              <v-select
+                :items="items"
+                label="Sort by"
+                solo
+                rounded
+                outlined
+              />
+            </div>
+    </v-row>
+    <v-row>
+      <v-col v-for="n in 4" :key="n" cols="6" md="3">
         <v-card
-          width="300"
+          widt
           height="250px"
           style="margin-left:30px"
           border-radius="20px"
@@ -29,6 +36,8 @@
           </v-btn>
         </v-card>
       </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="3">
         <v-card
           width="300"
@@ -106,20 +115,22 @@ export default {
   margin-top: 50px;
 }
 
+.cardcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 257px;
+  width: 1300px;
+  background-color: #70ccff;
+  border-radius: 30px;
+}
+
 .text {
   font-weight: normal;
-  color: black;
-  margin-top: 20px;
-  font-size: 30px;
-  font-family: 'Delius', cursive;
-  margin-left: 30px;
-}
-.text2 {
-  color: black;
-  margin-top: 20px;
-  font-size: 20px;
-  font-family: 'Delius', cursive;
-  margin-left: 90vh;
+  color: white;
+  font-size: 100px;
+  font-family: "Average Sans", sans-serif;
 }
 .botton {
   display: block;
@@ -128,5 +139,4 @@ export default {
   box-shadow: none;
   background-repeat: no-repeat;
 }
-
 </style>
