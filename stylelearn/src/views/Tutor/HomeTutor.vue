@@ -1,11 +1,18 @@
 <template>
   <v-container fluid class="main" id="upload">
     <!--upload video button-->
-    <v-row style="margin-top:0vh" justify="center">
       <router-link to="/uploadvideotutor">
         <button class="UploadVideoBtn">+ Upload My Video</button>
       </router-link>
+    <!--link-->
+    <v-row justify="center">
+      <div style="margin-right:20px;"><router-link to="/hometutor">home</router-link></div>
+      <div style="margin-right:20px;"><router-link to="/uploadvideotutor">upload</router-link></div>
+      <div style="margin-right:20px;"><router-link to="/myvideotutor">my video</router-link></div>
+      <router-link to="/profiletutor">
+        <div>profile</div></router-link>
     </v-row>
+    <!--title-->
     <v-row align="center" justify="center">
       <p class="homeTitle">My Video</p>
     </v-row>
@@ -138,5 +145,9 @@ export default {};
   position: absolute;
   box-shadow: none;
   background-repeat: no-repeat;
+}
+
+li {
+  margin-right: 10px;
 }
 </style>
