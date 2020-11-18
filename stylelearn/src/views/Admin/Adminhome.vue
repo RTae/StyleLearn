@@ -1,7 +1,29 @@
 <template>
   <v-container fluid class="main" id="Admin">
-      <v-row></v-row>
+      <v-col>
+          <div>
+              <router-link to="/">
+               <button >Video</button>
+               </router-link>
+               
+               <router-link to="/">
+               <button >Customer</button>
+               </router-link>
+               
+               <router-link to="/">
+               <button >Approve video</button>
+               </router-link>
+               
+               <router-link to="/">
+               <button >Approve payment</button>
+               </router-link>
+              
 
+          </div>
+          
+
+        </v-col>
+      
   </v-container>
 </template>
 
