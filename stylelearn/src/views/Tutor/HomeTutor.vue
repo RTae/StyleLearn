@@ -1,13 +1,15 @@
 <template>
   <v-container fluid class="main" id="Home">
-
-    <v-row>
-      <v-btn
-        elevation="2"
-        style="margin-top:30px"
-      >
-      </v-btn>
-    </v-row>
+    <!-- home btn -->
+    <v-container>
+      <v-row>
+        <router-link to="/uploadvideotutor">
+          <v-btn>
+            Upload Video
+          </v-btn>
+        </router-link>
+      </v-row>
+    </v-container>
     <!-- My video -->
     <v-row>
       <v-col cols="6">
@@ -18,7 +20,7 @@
         </div>
       </v-col>
       <v-col cols="6">
-        <router-link to="/coursespage">
+        <router-link to="/myvideotutor">
           <div style="margin-right: 50px;">
             <p
               style="
@@ -44,11 +46,7 @@
             class="cardCourseSmall"
             @click="onClickCourse()"
           >
-            <v-img
-              height="200"
-              width="303"
-              :src= "math"
-            />
+            <v-img height="200" width="303" :src="math" />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Calculus I</p>
             </v-sheet>
@@ -61,11 +59,7 @@
             class="cardCourseSmall"
             @click="onClickCourse()"
           >
-            <v-img
-              height="200"
-              width="303"
-              :src= "math"
-            />
+            <v-img height="200" width="303" :src="math" />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Calculus II</p>
             </v-sheet>
@@ -78,11 +72,7 @@
             class="cardCourseSmall"
             @click="onClickCourse()"
           >
-            <v-img
-              height="200"
-              width="303"
-              :src= "math"
-            />
+            <v-img height="200" width="303" :src="math" />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Calculus III</p>
             </v-sheet>
@@ -95,11 +85,7 @@
             class="cardCourseSmall"
             @click="onClickCourse()"
           >
-            <v-img
-              height="200"
-              width="303"
-              :src="computer"
-            />
+            <v-img height="200" width="303" :src="computer" />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">Computer Architecture</p>
             </v-sheet>
@@ -127,16 +113,17 @@ export default {
     model: null,
     math: "https://sv1.picz.in.th/images/2020/11/19/bvfryV.png",
     computer: "https://sv1.picz.in.th/images/2020/11/19/bvfryV.png",
-    langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
+    langauge:
+      "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
     econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
   }),
   methods: {
-    onClickCourse () {
-      this.$router.push("/coursespage")
+    onClickCours () {
+      this.$router.push("/myvideotutor");
     },
     onClickSubject (n) {
       this.model = n - 1;
-      this.$router.push("/coursespage")
+      this.$router.push("/myvideotutor");
     }
   }
 };
@@ -156,7 +143,7 @@ export default {
   align-items: center;
   height: 280px;
   width: 100vw;
-  background-color: #70CCFF;
+  background-color: #70ccff;
 }
 .courseCard {
   border-radius: 32px;
@@ -180,7 +167,7 @@ export default {
   font-family: "Average Sans", sans-serif;
 }
 
-.cardProfile{
+.cardProfile {
   height: 300px;
   width: 500px;
 }
@@ -226,7 +213,7 @@ a {
 }
 
 .cardInSmallContainer {
-  background-color: #70CCFF;
+  background-color: #70ccff;
   display: flex;
   align-items: center;
   width: 303px;
@@ -247,7 +234,7 @@ a {
   align-items: center;
   height: 474px;
   width: 100vw;
-  background-color: #70CCFF;
+  background-color: #70ccff;
 }
 
 .subjectCard {
@@ -306,7 +293,7 @@ a {
   align-items: center;
 }
 .cardInReviewNameContainer {
-  background-color: #70CCFF;
+  background-color: #70ccff;
   height: 100px;
   width: 373px;
   display: flex;
