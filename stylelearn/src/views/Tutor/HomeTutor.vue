@@ -1,11 +1,18 @@
 <template>
   <v-container fluid class="main" id="upload">
     <!--upload video button-->
-    <v-row style="margin-top:0vh" justify="center">
       <router-link to="/uploadvideotutor">
         <button class="UploadVideoBtn">+ Upload My Video</button>
       </router-link>
+    <!--link-->
+    <v-row justify="center">
+      <div style="margin-right:20px;"><router-link to="/hometutor">home</router-link></div>
+      <div style="margin-right:20px;"><router-link to="/uploadvideotutor">upload</router-link></div>
+      <div style="margin-right:20px;"><router-link to="/myvideotutor">my video</router-link></div>
+      <router-link to="/profiletutor">
+        <div>profile</div></router-link>
     </v-row>
+    <!--title-->
     <v-row align="center" justify="center">
       <p class="homeTitle">My Video</p>
     </v-row>
@@ -20,7 +27,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:220px"
           color="#70CCFF"
         >
           <v-img
@@ -39,7 +46,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:220px"
           color="#70CCFF"
         >
           <v-img
@@ -58,7 +65,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:220px"
           color="#70CCFF"
         >
           <v-img
@@ -114,7 +121,7 @@ export default {};
   font-size: 40px;
   font-weight: bold;
   font-family: "Average Sans", sans-serif;
-  margin-right: 1300px;
+  margin-right: 1200px;
   margin-top: 60px;
 }
 
@@ -124,7 +131,7 @@ export default {};
 
 .text2 {
   font-size: 25px;
-  margin-left: 1500px;
+  margin-left: 1200px;
 }
 
 .text3 {
@@ -138,5 +145,9 @@ export default {};
   position: absolute;
   box-shadow: none;
   background-repeat: no-repeat;
+}
+
+li {
+  margin-right: 10px;
 }
 </style>

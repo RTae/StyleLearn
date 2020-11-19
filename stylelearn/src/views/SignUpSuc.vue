@@ -29,7 +29,10 @@
 
 <script>
 export default {
-  name: "signUpSec"
+  name: "signUpSec",
+  mounted () {
+    this.$store.dispatch({ type: "enterDialog" });
+  }
 };
 </script>
 

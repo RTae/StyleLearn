@@ -17,7 +17,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:200px"
           color="#70CCFF"
         >
           <v-img
@@ -27,7 +27,7 @@
           >
           </v-img>
           <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            16,215 Views
+            Differential I
           </v-btn>
         </v-card>
       </v-col>
@@ -36,7 +36,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:200px"
           color="#70CCFF"
         >
           <v-img
@@ -46,7 +46,7 @@
           >
           </v-img>
           <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            14,1756 Views
+            Differential II
           </v-btn>
         </v-card>
       </v-col>
@@ -55,7 +55,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:200px"
           color="#70CCFF"
         >
           <v-img
@@ -65,13 +65,10 @@
           >
           </v-img>
           <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            19,125 Views
+            Differential III
           </v-btn>
         </v-card>
       </v-col>
-    </v-row>
-    <v-row align="center" justify="center">
-      <p class="text3">Lesson Name: Differential I</p>
     </v-row>
     <!--course picture 4-->
     <v-row>
@@ -79,7 +76,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:200px"
           color="#70CCFF"
         >
           <v-img
@@ -89,7 +86,7 @@
           >
           </v-img>
           <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            11,763 Views
+            Data model
           </v-btn>
         </v-card>
       </v-col>
@@ -98,7 +95,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:200px"
           color="#70CCFF"
         >
           <v-img
@@ -108,7 +105,7 @@
           >
           </v-img>
           <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            14,1756 Views
+            Integrate I
           </v-btn>
         </v-card>
       </v-col>
@@ -117,7 +114,7 @@
         <v-card
           width="300"
           height="250px"
-          style="margin-left:400px"
+          style="margin-left:200px"
           color="#70CCFF"
         >
           <v-img
@@ -127,13 +124,10 @@
           >
           </v-img>
           <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            19,125 Views
+            Integrate II
           </v-btn>
         </v-card>
       </v-col>
-    </v-row>
-    <v-row align="center" justify="center">
-      <p class="text3">Lesson Name: Differential I</p>
     </v-row>
   </v-container>
 </template>

@@ -1,110 +1,118 @@
 <template>
   <v-container fluid class="main" id="CoursesPage">
-    <v-row align="center" justify="center" style="margin-top:40px">
-      <v-card class="cardcontainer">
-        <p class="text">MATHEMATIC</p>
+    <!-- Subject title -->
+    <v-row align="center" justify="center" style="margin-top: 40px">
+      <v-card elevation=10 class="cardContainer">
+        <p class="text">{{ title }}</p>
       </v-card>
     </v-row>
-    <v-row>
-         <div class="inputFiled">
-              <v-select
-                :items="items"
-                label="Sort by"
-                solo
-                rounded
-                outlined
-              />
-            </div>
+    <!-- Sort -->
+    <v-row align="center" justify="end" style="margin-top: 50px">
+      <div class="inputFiled">
+        <v-select label="Sort by" solo rounded outlined />
+      </div>
     </v-row>
-    <v-row>
-      <v-col v-for="n in 4" :key="n" cols="6" md="3">
-        <v-card
-          widt
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Calculus I
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Calculus II
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Calculus III
-          </v-btn>
-        </v-card>
-      </v-col>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:30px"
-          border-radius="20px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Computer architecture
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
+    <!-- Card  -->
+    <div style="margin-top: 20px; margin-bottom: 200px">
+      <v-row v-for="item in linetoGrid()" :key="item.index">
+        <v-col align="center" justify="center" v-for="course in item.line" :key="course.index" cols=3>
+          <v-hover v-slot="{ hover }">
+            <v-card
+              :elevation="hover ? 8 : 12"
+              :class="{ 'on-hover': hover }"
+              class="cardCourseSmall"
+              @click="onClickLesson()"
+            >
+              <v-img height="200" width="303" :src="math" />
+              <v-sheet class="cardInSmallContainer">
+                <p class="cardInSmallText">{{ course.course }}</p>
+              </v-sheet>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
-  name: "CoursesPage",
-  components: {}
+  name: "coursesPage",
+  components: {},
+  mounted () {
+    this.title = this.$route.params.titleName
+  },
+  data: () => ({
+    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+    title: null,
+    items: [
+      {
+        index: 1,
+        line: [
+          {
+            index: 1,
+            course: "Calculus I"
+          },
+          {
+            index: 2,
+            course: "Calculus II"
+          },
+          {
+            index: 3,
+            course: "Calculus III"
+          },
+          {
+            index: 4,
+            course: "Geometric I"
+          }
+        ]
+      },
+      {
+        index: 2,
+        line: [
+          {
+            index: 1,
+            course: "Geometric II"
+          },
+          {
+            index: 2,
+            course: "Geometric III"
+          },
+          {
+            index: 3,
+            course: "Algebra I"
+          },
+          {
+            index: 4,
+            course: "Algebra II"
+          }
+        ]
+      },
+      {
+        index: 3,
+        line: [
+          {
+            index: 2,
+            course: "Statistic I"
+          },
+          {
+            index: 3,
+            course: "Statistic II"
+          }
+        ]
+      }
+    ],
+    course: ["Geometric I", "Geometric II", "Geometric III", "Geometric IV"]
+  }),
+  methods: {
+    linetoGrid () {
+      return this.items
+    },
+
+    onClickLesson () {
+      console.log("ClickCourse")
+    }
+  }
 };
 </script>
 
@@ -115,15 +123,53 @@ export default {
   margin-top: 50px;
 }
 
-.cardcontainer {
+.cardContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 257px;
+  height: 317px;
   width: 1300px;
   background-color: #70ccff;
   border-radius: 30px;
+}
+
+.cardSmallContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+}
+
+.cardCourseSmall {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  width: 303px;
+  height: 279px;
+  background-color: white;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in;
+}
+
+.cardCourseSmall:not(.on-hover) {
+  opacity: 1;
+}
+
+.cardInSmallContainer {
+  background-color: #70CCFF;
+  display: flex;
+  align-items: center;
+  width: 303px;
+  height: 79px;
+}
+
+.cardInSmallText {
+  margin-left: 40px;
+  font-family: "THSarabunNewRegular";
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .text {
