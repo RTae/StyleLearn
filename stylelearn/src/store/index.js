@@ -6,7 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    coreHeader: false,
+    coreHeader: true,
     logoHeader: false,
     withOutSearchHeader: false,
     loginHeader: false,
