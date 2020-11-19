@@ -1,26 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <v-container fluid class="main" id="Admin">
-    <v-col>
-      <div>
-        <router-link to="/">
-          <button>Video</button>
-        </router-link>
-
-        <router-link to="/">
-          <button>Customer</button>
-        </router-link>
-
-        <router-link to="/">
-          <button>Approve video</button>
-        </router-link>
-
-        <router-link to="/">
-          <button>Approve payment</button>
-        </router-link>
-      </div>
-    </v-col>
-=======
   <v-container fluid class="main" id="adminhome">
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
@@ -32,11 +10,25 @@
     <v-row style="margin-top: 50px; margin-bottom: 100px">
       <v-col cols="3">
         <v-card class="cardSideContainer">
-          <button @click="onClickVideo()" class="cardButtonContainer">Video</button>
-          <button @click="onClickCustomer()" class="cardButtonContainer">Customer</button>
-          <button @click="onClickApporvevideo()" class="cardButtonContainer">Approve video</button>
-          <button @click="onClickApprovepayment()" class="cardButtonContainer">Approve payment</button>
-          <button @click="onClickLogout()" class="cardButtonContainer" style="background-color: red"> Log out</button>
+          <button @click="onClickVideo()" class="cardButtonContainer">
+            Video
+          </button>
+          <button @click="onClickCustomer()" class="cardButtonContainer">
+            Customer
+          </button>
+          <button @click="onClickApporvevideo()" class="cardButtonContainer">
+            Approve video
+          </button>
+          <button @click="onClickApprovepayment()" class="cardButtonContainer">
+            Approve payment
+          </button>
+          <button
+            @click="onClickLogout()"
+            class="cardButtonContainer"
+            style="background-color: red"
+          >
+            Log out
+          </button>
         </v-card>
       </v-col>
       <v-col cols="9">
@@ -67,14 +59,10 @@
         </div>
       </v-col>
     </v-row>
->>>>>>> 1bbfc8545fbbc638858eddd0fb5505ad84018924
   </v-container>
 </template>
 
 <script>
-<<<<<<< HEAD
-export default {};
-=======
 export default {
   name: "adminhome",
   components: {},
@@ -168,7 +156,6 @@ export default {
     }
   }
 };
->>>>>>> 1bbfc8545fbbc638858eddd0fb5505ad84018924
 </script>
 <style scoped>
 .main {
@@ -188,9 +175,6 @@ export default {
   border-radius: 30px;
 }
 
-<<<<<<< HEAD
-<style></style>
-=======
 .text {
   font-weight: normal;
   color: white;
@@ -221,4 +205,3 @@ export default {
   style: "margin-top: 40px";
 }
 </style>
->>>>>>> 1bbfc8545fbbc638858eddd0fb5505ad84018924
