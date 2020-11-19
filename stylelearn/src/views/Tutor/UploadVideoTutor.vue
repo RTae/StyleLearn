@@ -71,17 +71,27 @@
             </div>
           </v-col>
         </v-row>
-        <v-row justify="center">
-          <router-link to="/hometutor">
-            <button class="signUpBtn">UPLOAD</button>
-          </router-link>
+        <v-row class="ml-8" justify="start">
+          <label>Description</label>
         </v-row>
-        <div div align="center" justify="center" style="margin-top:10px">
-          <p class="txtuploaddetail">Send to a check specialist</p>
-          <p class="txtuploaddetail2">*Please wait for a response within 2 days.</p>
-        </div>
       </v-form>
     </v-row>
+    <v-row>
+      <div class="inputFiled2">
+        <v-textarea color="primary" solo rounded outlined></v-textarea>
+      </div>
+    </v-row>
+      <div div align="center" justify="center" style="margin-top:150px">
+         <v-row justify="center">
+          <router-link to="/myvideotutor">
+            <button class="btnuploadvideo">SIGN UP</button>
+          </router-link>
+        </v-row>
+        <p class="txtuploaddetail">Send to a check specialist</p>
+        <p class="txtuploaddetail2">
+          *Please wait for a response within 2 days.
+        </p>
+      </div>
   </v-container>
 </template>
 
@@ -96,6 +106,23 @@ export default {
 </script>
 
 <style>
+.btnuploadvideo {
+  background-color: #5cbbf6;
+  background-position: center;
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  margin-right: 20px;
+  width: 130px;
+  height: 45px;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 0 4px #999;
+  cursor: pointer;
+  outline: none;
+}
 .radioContainer {
   display: flex;
   flex-wrap: wrap;
@@ -119,7 +146,16 @@ export default {
   margin-bottom: 35px;
 }
 
-.uploaddetail{
+.inputFiled2 {
+  width: 1087px;
+  height: 32px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 35px;
+}
+
+.uploaddetail {
   font-size: 8px;
   color: #5c5c5c;
   font-family: "Average Sans", sans-serif;
@@ -127,13 +163,13 @@ export default {
   margin-right: 3px;
 }
 
-.txtuploaddetail{
+.txtuploaddetail {
   font-size: 13px;
+  margin-top: 20px;
 }
 
-.txtuploaddetail2{
+.txtuploaddetail2 {
   font-size: 13px;
   color: red;
 }
-
 </style>
