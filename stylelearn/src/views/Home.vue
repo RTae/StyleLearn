@@ -43,19 +43,12 @@
 
     <!-- Newest -->
     <v-row>
-<<<<<<< HEAD
-      <v-col cols="6">
-        <p style="margin-left: 90px; font-size: 50px" class="textDetail">
-          Newest
-        </p>
-=======
       <v-col cols="6" >
         <div style="margin-left:50px">
           <p style="font-size: 50px" class="textDetail">
             Newest
           </p>
         </div>
->>>>>>> a95332040167b163b0c4b8b6f094bd65c5e28feb
       </v-col>
       <v-col cols="6">
         <router-link to="/coursespage">
