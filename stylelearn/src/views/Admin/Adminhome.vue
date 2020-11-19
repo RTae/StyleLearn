@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: "coursesPage",
+  name: "adminhome",
   components: {},
   mounted () {
     this.title = this.$route.params.titleName;
