@@ -1,20 +1,18 @@
 <template>
   <v-container fluid class="main" id="Home">
     <!-- home btn -->
-    <v-container>
-      <v-row>
+      <v-row style="margin-top: 60px;margin-left: 60px">
         <router-link to="/uploadvideotutor">
           <v-btn>
             + Upload Video
           </v-btn>
         </router-link>
       </v-row>
-    </v-container>
     <!-- My video -->
     <v-row>
       <v-col cols="6">
         <div style="margin-left:50px">
-          <p style="font-size: 50px" class="textDetail">
+          <p style="font-size: 50px" class="textTitle">
             My Video
           </p>
         </div>
@@ -26,7 +24,7 @@
               style="
                 display: flex;
                 flex-direction: row-reverse;
-                margin-top: 25px;
+                margin-top: 60px;
               "
               class="textDetail"
             >
@@ -81,7 +79,7 @@
       </div>
     </v-row>
 
-    <v-row align="center" justify="center" style="margin-top:100px">
+    <v-row align="center" justify="center" style="margin-top:100px;margin-bottom:70px">
       <v-card class="cardProfile">
           <v-img
             class="white--text align-end"
@@ -180,6 +178,7 @@ a {
   color: black;
   font-size: 30px;
   font-family: Delius;
+  font-family: "Average Sans", sans-serif;
 }
 
 .cardSmallContainer {
@@ -187,7 +186,7 @@ a {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 100vw;
+  width: 80vw;
 }
 
 .cardCourseSmall {
