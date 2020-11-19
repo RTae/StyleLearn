@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="main" id="login">
-    <v-row style="margin-top: 10vh" align="center" justify="center">
+    <v-row style="margin-top: 10vh;margin-top:100px;margin-bottom:50px" align="center" justify="center">
       <v-card class="cardContainer" color=#70aaff>
         <p class="texttitle">Upload My Video</p>
       </v-card>
