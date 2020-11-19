@@ -324,22 +324,22 @@ export default {
     ],
     menu: false
   }),
- mounted() {
+  mounted () {
     this.$store.dispatch({ type: "enterSignUp" });
   },
   watch: {
-    menu(val) {
+    menu (val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
   methods: {
-    save(date) {
+    save (date) {
       this.$refs.menu.save(date);
     },
-    async submitRegister() {
+    async submitRegister () {
       var state = this.$refs.form.validate();
-      if (this.user.email == this.emailCon) {
-        if (this.user.password == this.passwordCon) {
+      if (this.user.email === this.emailCon) {
+        if (this.user.password === this.passwordCon) {
           if (state) {
             await api.register(this.user);
           }
