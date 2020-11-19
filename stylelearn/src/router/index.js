@@ -1,22 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../views/Login.vue";
-import Signup from "../views/Signup.vue";
-import Home from "../views/Home.vue";
-import HomeTutor from "../views/Tutor/HomeTutor.vue";
-import TestTutor from "../views/Tutor/TestTutor.vue";
-import MyVideoTutor from "../views/Tutor/MyVideoTutor.vue";
-import ProfileTutor from "../views/Tutor/ProfileTutor.vue";
-import UploadVideoTutor from "../views/Tutor/UploadVideoTutor.vue";
-import BasicUse from "../views/BasicUse.vue";
-import About from "../views/About.vue";
-import ForgetPassword from "../views/ForgetPassword.vue";
-import ForgetPasswordPop from "../views/ForgetPasswordPop.vue";
-import SignUpSec from "../views/SignUpSuc.vue";
-import NewPassword from "../views/NewPassword.vue";
-import CoursesPage from "../views/CoursesPage.vue";
-import LessonPage from "../views/LessonPage.vue";
-
+import Login from "../views/Login";
+import Signup from "../views/Signup";
+import Home from "../views/Home";
+import HomeTutor from "../views/Tutor/HomeTutor";
+import TestTutor from "../views/Tutor/TestTutor";
+import MyVideoTutor from "../views/Tutor/MyVideoTutor";
+import ProfileTutor from "../views/Tutor/ProfileTutor";
+import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
+import BasicUse from "../views/BasicUse";
+import About from "../views/About";
+import ForgetPassword from "../views/ForgetPassword";
+import ForgetPasswordPop from "../views/ForgetPasswordPop";
+import SignUpSec from "../views/SignUpSuc";
+import NewPassword from "../views/NewPassword";
+import CoursesPage from "../views/CoursesPage";
+import LessonPage from "../views/LessonPage";
+import AdminHome from "../views/Admin/Adminhome"
 
 Vue.use(VueRouter);
 
@@ -100,8 +100,12 @@ const routes = [
     path: "/lessonpage",
     name: "LessonPage",
     component: LessonPage
+  },
+  {
+    path: "/adminhome",
+    name: "AdminHome",
+    component: AdminHome
   }
- 
 ];
 
 const router = new VueRouter({
