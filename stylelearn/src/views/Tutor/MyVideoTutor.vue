@@ -1,14 +1,26 @@
 <template>
   <v-container fluid class="main" id="login">
-    <v-row style="margin-top: 15vh" align="center" justify="center">
-      <p class="textTitle">My Video</p>
+    <v-row
+      style="margin-top: 10vh;margin-top:100px;"
+      align="center"
+      justify="center"
+    >
+      <v-card class="cardContainer" color="#70aaff">
+        <p class="texttitle">My Video</p>
+      </v-card>
     </v-row>
     <!--sort by btn-->
-    <v-row justify="center">
+    <v-row justify="end">
       <v-col cols="1">
-        <v-btn class="botton2" color="#FFFFFF" width="8%" height="50px">
-          Sort by
-        </v-btn>
+        <div>
+          <v-select
+            :items="items"
+            label="Sort by"
+            solo
+            rounded
+            outlined
+          />
+        </div>
       </v-col>
     </v-row>
     <!--course picture 1-->
@@ -132,8 +144,14 @@
   </v-container>
 </template>
 
-<script>
-export default {};
+<script scope>
+export default {
+  name: "Course",
+  components: {},
+  data: () => ({
+    items: ["A-Z", "Z-A"]
+  })
+};
 </script>
 
 <style scoped>
@@ -161,5 +179,13 @@ export default {};
   background-repeat: no-repeat;
   margin-left: 60vh;
   border-radius: 20px;
+}
+.inputFiled {
+  width: 375px;
+  height: 32px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 35px;
 }
 </style>
