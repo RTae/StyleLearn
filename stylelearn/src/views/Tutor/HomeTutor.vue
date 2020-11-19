@@ -5,7 +5,7 @@
       <v-row>
         <router-link to="/uploadvideotutor">
           <v-btn>
-            Upload Video
+            + Upload Video
           </v-btn>
         </router-link>
       </v-row>
@@ -96,9 +96,13 @@
 
     <v-row align="center" justify="center" style="margin-top:100px">
       <v-card class="cardProfile">
-        <p>
-          12321ewadwadw
-        </p>
+          <v-img
+            class="white--text align-end"
+              height="300"
+              width="700"
+            src="https://www.img.in.th/images/464684b598cb4e84e69d186f0f5c1478.png"
+          >
+          </v-img>
       </v-card>
     </v-row>
   </v-container>
@@ -169,7 +173,7 @@ export default {
 
 .cardProfile {
   height: 300px;
-  width: 500px;
+  width: 700px;
 }
 
 a {
