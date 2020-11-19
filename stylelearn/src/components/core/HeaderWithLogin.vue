@@ -44,9 +44,35 @@
             ><v-img class="iconBar" contain src="../../assets/bell.png"
           /></router-link>
           <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
-          <router-link to="/signup"
-            ><v-img class="iconBarPro" contain src="../../assets/profile.png"
-          /></router-link>
+          <v-menu botton left :rounded="rounded">
+            <template v-slot:activator="{ on, attrs }">
+              <button dark icon v-bind="attrs" v-on="on">
+                <v-img
+                  class="iconBarPro"
+                  contain
+                  outline:none
+                  src="../../assets/profile.png"
+                />
+              </button>
+            </template>
+
+            <v-list>
+              <v-list-item v-for="(item, i) in items" :key="i">
+                <v-list-item-title
+                  ><v-hover v-slot="{ hover }"
+                    ><button
+                      :elevation="hover ? 8 : 0"
+                      :class="{ 'on-hover-review': hover }"
+                      class="btnPro"
+                      color="#70ccff"
+                    >
+                      {{ item.title }}
+                    </button></v-hover
+                  ></v-list-item-title
+                >
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-toolbar-items>
       </v-row>
     </v-app-bar>
@@ -55,7 +81,15 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data: () => ({
+    items: [
+      { title: "Account" },
+      { title: "My Courses" },
+      { title: "Help Center" },
+      { title: "Log Out" }
+    ]
+  })
 };
 </script>
 
@@ -85,7 +119,16 @@ export default {
   margin-left: 20px;
   margin-top: 8px;
 }
-
+.btnPro {
+  background-color: white;
+  width: 150px;
+  height: 50px;
+  outline: none;
+}
+.btnPro:hover {
+  color: #47a7f5;
+  outline: none;
+}
 .text {
   color: black;
   margin-top: 20px;
