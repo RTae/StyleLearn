@@ -8,7 +8,7 @@
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="courseCard"
-            @click="onClickCourse()"
+            @click="onClickCourse('CALCULUS I')"
           >
             <v-card-text class="cardTextTitle"> CALCULUS I </v-card-text>
           </v-card>
@@ -18,7 +18,7 @@
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="courseCard"
-            @click="onClickCourse()"
+            @click="onClickCourse('CALCULUS II')"
           >
             <v-card-text class="cardTextTitle"> CALCULUS II </v-card-text>
           </v-card>
@@ -28,7 +28,7 @@
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="courseCard"
-            @click="onClickCourse()"
+            @click="onClickCourse('CALCULUS III')"
           >
             <v-card-text class="cardTextTitle"> CALCULUS III </v-card-text>
           </v-card>
@@ -43,7 +43,7 @@
 
     <!-- Newest -->
     <v-row>
-      <v-col cols="6">
+      <v-col cols="6" >
         <div style="margin-left:50px">
           <p style="font-size: 50px" class="textDetail">
             Newest
@@ -410,13 +410,16 @@ export default {
     langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
     econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
   }),
+  mounted () {
+    this.$store.dispatch({ type: "enterHome" });
+  },
   methods: {
-    onClickCourse () {
-      this.$router.push("/coursespage")
+    onClickCourse (name) {
+      this.$router.push({ name: "CoursesPage", params: { title: name } })
     },
     onClickSubject (n) {
       this.model = n - 1;
-      this.$router.push("/coursespage")
+      this.$router.push({ name: "CoursesPage", params: { titleName: this.items[n - 1] } })
     }
   }
 };

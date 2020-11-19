@@ -4,53 +4,96 @@
       <p class="textTitle">LOGIN</p>
     </v-row>
     <v-row align="center" justify="center">
-      <v-form ref="form" lazy-validation>
+      <v-form
+        ref="form"
+        v-model="valid"
+        @submit.prevent="submit"
+        lazy-validation
+      >
+        <!-- Username field -->
         <div class="input_button">
           <v-text-field
             color="primary"
             solo
             rounded
             outlined
+            v-model="account.email"
+            required
+            :rules="emailRules"
             placeholder="Email"
           />
         </div>
-
+        <!-- Password field -->
         <div class="input_button">
           <v-text-field
             solo
             rounded
             outlined
             placeholder="Password"
+            required
+            min="9"
+            :rules="passwordRules"
+            v-model="account.password"
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
           />
         </div>
+
+        <!-- ETC -->
         <v-row justify="center">
           <p style="margin-right: 10px" class="text">Don't have an account?</p>
-          <router-link to="/signup"
-            ><p style="margin-right: 165px" class="text">Sign up</p>
+          <router-link to="/signup">
+            <p style="margin-right: 165px" class="text">Sign up</p>
           </router-link>
-          <router-link to="/forgetpassword"
-            ><p class="text">Forget password?</p></router-link
-          >
+          <router-link to="/forgetpassword">
+            <p class="text">Forget password?</p>
+          </router-link>
         </v-row>
+
+        <!-- Button -->
         <v-row justify="center">
-          <router-link to="/">
-            <button class="signInBtn">Sign In</button>
-          </router-link>
+          <button :disabled="!valid" class="signInBtn" type="submit">Sign In</button>
         </v-row>
+
       </v-form>
     </v-row>
+
+    <!-- Image -->
     <div class="d-flex flex-column justify-bottom align-center">
       <v-img
-          alt="bitButton"
-          contain
-          style="margin-top: 100px"
-          src="../assets/imgbit.png"
-          width="1290"
+        alt="bitButton"
+        contain
+        style="margin-top: 100px"
+        src="../assets/imgbit.png"
+        width="1290"
       />
     </div>
+
+    <!-- Dialog -->
+    <v-dialog v-model="$store.getters.getDialogState" width="500">
+      <v-card>
+        <v-card-title class="primary mb-6"> Alert </v-card-title>
+        <v-card-text class="popUpText">
+          {{ $store.getters.getDialogMsg }}
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="
+              $store.dispatch({ type: 'dialogPopup', value: false, msg: '' })
+            "
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -59,7 +102,35 @@ export default {
   name: "login",
   data () {
     return {
-      showPassword: true
+      showPassword: false,
+      account: {
+        email: "",
+        password: ""
+      },
+      valid: true,
+      passwordRules: [
+        (v) => !!v || "Password is required",
+        (v) => (v && v.length >= 6) || "Password must be more than 6 characters"
+      ],
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ]
+    };
+  },
+  mounted () {
+    this.$store.dispatch({ type: "enterSignUp" });
+  },
+  methods: {
+    submit () {
+      var state = this.$refs.form.validate();
+      if (state){
+        this.$store.dispatch({
+          type: "doLogin",
+          email: this.account.email,
+          password: this.account.password
+        })
+      }
     }
   }
 };
@@ -110,12 +181,20 @@ export default {
 }
 
 .signInBtn:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
-    center/15000%;
+  background: #47a7f5
+    radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
 }
 .signInBtn:active {
   background-color: #6eb9f7;
   background-size: 100%;
   transition: background 0s;
 }
+
+.popUpText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
 </style>
