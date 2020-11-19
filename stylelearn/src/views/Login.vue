@@ -124,7 +124,7 @@ export default {
   methods: {
     submit () {
       var state = this.$refs.form.validate();
-      if (state){
+      if (state) {
         this.$store.dispatch({
           type: "doLogin",
           email: this.account.email,
