@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <v-app>
-      <Header v-if="$store.getters.getCoreHeader"/>
+      <Header v-if="false"/>
       <HeaderNoSearchBar v-if="$store.getters.getWithOutSearchHeader"/>
       <HeaderLogo v-if="$store.getters.getLogoHeader"/>
-      <HeaderWithLogin v-if="$store.getters.getLoginHeader"/>
+      <HeaderWithLogin v-if="true"/>
       <Content />
       <Footer />
     </v-app>
