@@ -52,18 +52,17 @@
       </v-col>
       <v-col cols="6">
         <router-link to="/coursespage">
-          <div style="margin-right: 50px;">
-            <p
-              style="
-                display: flex;
-                flex-direction: row-reverse;
-                margin-top: 25px;
-              "
-              class="textDetail"
-            >
-              All
-            </p>
-          </div>
+          <p
+            style="
+              display: flex;
+              flex-direction: row-reverse;
+              margin-top: 25px;
+              margin-right: 90px;
+            "
+            class="textDetail"
+          >
+            All
+          </p>
         </router-link>
       </v-col>
     </v-row>
@@ -144,26 +143,23 @@
     <!-- Popular -->
     <v-row style="margin-top: 50px">
       <v-col cols="6">
-        <div style="margin-left:50px">
-          <p style="font-size: 50px" class="textDetail">
-            Popular
-          </p>
-        </div>
+        <p style="margin-left: 90px; font-size: 50px" class="textDetail">
+          Popular
+        </p>
       </v-col>
       <v-col cols="6">
         <router-link to="/coursespage">
-          <div style="margin-right: 50px;">
-            <p
-              style="
-                display: flex;
-                flex-direction: row-reverse;
-                margin-top: 25px;
-              "
-              class="textDetail"
-            >
-              All
-            </p>
-          </div>
+          <p
+            style="
+              display: flex;
+              flex-direction: row-reverse;
+              margin-top: 25px;
+              margin-right: 90px;
+            "
+            class="textDetail"
+          >
+            All
+          </p>
         </router-link>
       </v-col>
     </v-row>

@@ -18,7 +18,7 @@
                 <p>I'm</p>
               </div>
               <v-radio-group
-                :rules="[(v) => !!v || 'You must select role']"
+                :rules="[v => !!v || 'You must select role']"
                 v-model="user.role"
                 row
                 required
@@ -34,7 +34,7 @@
                 <p>Gender</p>
               </div>
               <v-radio-group
-                :rules="[(v) => !!v || 'You must select gender']"
+                :rules="[v => !!v || 'You must select gender']"
                 v-model="user.sex"
                 row
                 required
@@ -54,7 +54,7 @@
             </v-row>
             <div class="inputFiled">
               <v-text-field
-                :rules="[(v) => !!v || 'Firstname is required']"
+                :rules="[v => !!v || 'Firstname is required']"
                 v-model="user.firtname"
                 solo
                 rounded
@@ -68,7 +68,7 @@
             </v-row>
             <div class="inputFiled">
               <v-text-field
-                :rules="[(v) => !!v || 'Familyname is required!']"
+                :rules="[v => !!v || 'Familyname is required!']"
                 v-model="user.familyname"
                 color="primary"
                 solo
@@ -97,7 +97,7 @@
                 <div class="inputFiled">
                   <v-text-field
                     v-model="user.birthday"
-                    :rules="[(v) => !!v || 'Birthday is required']"
+                    :rules="[v => !!v || 'Birthday is required']"
                     readonly
                     solo
                     rounded
@@ -125,7 +125,7 @@
               <v-select
                 v-model="user.edu"
                 :items="eduTypes"
-                :rules="[(v) => !!v || 'Item is required']"
+                :rules="[v => !!v || 'Item is required']"
                 label="Choose education"
                 solo
                 rounded
@@ -209,7 +209,7 @@
           <div class="radioContainer">
             <div class="radioLineContainer">
               <v-checkbox
-                :rules="[(v) => !!v || 'You must agree to continue!']"
+                :rules="[v => !!v || 'You must agree to continue!']"
                 label="Do you agree?"
                 required
               />
@@ -249,7 +249,9 @@
 
         <!-- Button -->
         <v-row justify="center">
-          <button :disabled="!valid" class="signUpBtn" type="submit">Sign Up</button>
+          <button :disabled="!valid" class="signUpBtn" type="submit">
+            Sign Up
+          </button>
         </v-row>
       </v-form>
     </v-row>
@@ -313,12 +315,12 @@ export default {
       password: ""
     },
     passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) => (v && v.length >= 6) || "Password must be more than 6 characters"
+      v => !!v || "Password is required",
+      v => (v && v.length >= 6) || "Password must be more than 6 characters"
     ],
     emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      v => !!v || "E-mail is required",
+      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
     menu: false
   }),
@@ -327,7 +329,7 @@ export default {
   },
   watch: {
     menu (val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"))
+      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
   methods: {
@@ -336,16 +338,24 @@ export default {
     },
     async submitRegister () {
       var state = this.$refs.form.validate();
-      if (this.user.email == this.emailCon) {
-        if (this.user.password == this.passwordCon) {
+      if (this.user.email === this.emailCon) {
+        if (this.user.password === this.passwordCon) {
           if (state) {
-            await api.register(this.user)
+            await api.register(this.user);
           }
-        }else{
-          this.$store.dispatch({ type: 'dialogPopup', value: true, msg: 'Password must be same' })
+        } else {
+          this.$store.dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Password must be same"
+          });
         }
-      }else{
-          this.$store.dispatch({ type: 'dialogPopup', value: true, msg: 'Email must be same' })
+      } else {
+        this.$store.dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Email must be same"
+        });
       }
     }
   }
@@ -424,8 +434,8 @@ label {
 }
 
 .signUpBtn:hover {
-  background: #47a7f5
-    radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
 }
 
 .signUpBtn:active {

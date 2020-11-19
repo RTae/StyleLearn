@@ -12,7 +12,7 @@
       </v-col>
     </v-row>
     <!--course picture 1-->
-    <v-row>
+    <v-row style="margin-top:50px">
       <v-col cols="3">
         <v-card
           width="300"

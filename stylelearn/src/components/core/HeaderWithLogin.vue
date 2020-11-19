@@ -1,5 +1,5 @@
 <template>
-  <div id="header2">
+  <div id="header">
     <v-app-bar absolute color="secondary" hide-on-scroll height="70">
       <div class="d-flex align-center">
         <v-img
@@ -12,8 +12,18 @@
         />
       </div>
       <v-spacer></v-spacer>
-      <v-row class="hidden-sm-and-down" align="center" justify="end">
+      <v-row align="center" justify="center">
         <v-toolbar-items >
+          <div class="input_serach">
+            <v-text-field
+              label="Serach"
+              append-icon="mdi-magnify"
+              solo
+              dense
+              outlined
+              flat
+            ></v-text-field>
+          </div>
           <v-btn text><router-link to="/"><p class="text">Home</p></router-link></v-btn>
           <v-btn text><router-link to="/basicuse"><p class="text">Basic User</p></router-link></v-btn>
           <v-btn text><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
@@ -27,12 +37,19 @@
 
 <script>
 export default {
-  name: "Header2"
+  name: "Header"
 };
 </script>
 
 <style>
+.input_serach{
+  width: 600px;
+  height: 10px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
 .btnHeader {
+  background-color: #5cbbf6;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
   width: 130px;
@@ -45,18 +62,21 @@ export default {
   box-shadow: 0 0 4px #999;
   cursor: pointer;
   outline: none;
+  margin-right: 10px;
 }
 
 .btnHeader:hover {
   background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
 }
+
 .btnHeader:active {
   background-color: #6eb9f7;
   background-size: 100%;
   transition: background 0s;
 }
-.text{
+
+.text {
   color: black;
   margin-top: 20px;
   font-family: "Average Sans", sans-serif;
