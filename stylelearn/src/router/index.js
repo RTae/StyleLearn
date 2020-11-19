@@ -17,6 +17,7 @@ import NewPassword from "../views/NewPassword";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
 import AdminHome from "../views/Admin/Adminhome"
+import AdminEditvideo from "../views/Admin/Admineditvideo"
 
 Vue.use(VueRouter);
 
@@ -105,6 +106,11 @@ const routes = [
     path: "/adminhome",
     name: "AdminHome",
     component: AdminHome
+  },
+  {
+    path: "/admineditvideo",
+    name: "Admineditvideo",
+    component: AdminEditvideo
   }
 ];
 
