@@ -1,131 +1,110 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
+	"strconv"
+	"strings"
 	"time"
 
 	// Import GORM-related packages.
-	"github.com/cockroachdb/cockroach-go/crdb/crdbgorm"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 // Account is our model, which corresponds to the "accounts" database
 // table.
-type Account struct {
-	ID      int `gorm:"primary_key"`
-	Balance int
+
+type TBL_Users struct {
+	UserID        string `gorm:"primary_key"`
+	Firstname     string
+	Familyname    string
+	Birthday      time.Time
+	Email         string
+	Sex           string
+	ProfilePic    string
+	UserType      string
+	EducationType string
+	Bio           string
 }
 
-// Functions of type `txnFunc` are passed as arguments to the
-// `ExecuteTx` wrapper that handles transaction retries
-type txnFunc func(*gorm.DB) error
+type TBL_TypeUsers struct {
+	UserTypeID string `gorm:"primary_key"`
+	Name       string
+}
 
-func transferFunds(db *gorm.DB, fromID int, toID int, amount int) error {
-	var fromAccount Account
-	var toAccount Account
-
-	db.First(&fromAccount, fromID)
-	db.First(&toAccount, toID)
-
-	if fromAccount.Balance < amount {
-		return fmt.Errorf("account %d balance %d is lower than transfer amount %d", fromAccount.ID, fromAccount.Balance, amount)
-	}
-
-	fromAccount.Balance -= amount
-	toAccount.Balance += amount
-
-	if err := db.Save(&fromAccount).Error; err != nil {
-		return err
-	}
-	if err := db.Save(&toAccount).Error; err != nil {
-		return err
-	}
-	return nil
+type TBL_EducationTypes struct {
+	EducationTypeID string `gorm:"primary_key"`
+	Name            string
 }
 
 func main() {
+	read("u000000002")
+	//db.Delete(&TBL_Users{}, "u000000002")
+	//printAll(db)
+	//create(db)
+	//db.Delete(&TBL_Users{}, "user_id = ?", "u000000010")
+}
+
+func initDB() *gorm.DB {
 	var addr = "postgres://rtae:123qweasdzxc@stylelearn-65t.gcp-asia-southeast1.cockroachlabs.cloud:26257/defaultdb"
 	db, err := gorm.Open("postgres", addr)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
+	db.LogMode(true)
+	return db
+}
 
-	// Set to `true` and GORM will print out all DB queries.
-	db.LogMode(false)
+func create() {
+	db := initDB()
+	var maxID string
+	row := db.Table("tbl_users").Select("max(user_id)").Row()
+	row.Scan(&maxID)
+	newUID, _ := increaseID(maxID, "u", 1)
+	user := TBL_Users{
+		UserID:        newUID,
+		Firstname:     "Test123qwe",
+		Familyname:    "Asdwc",
+		Birthday:      time.Date(1999, 8, 5, 0, 0, 0, 0, time.UTC),
+		Sex:           "Male",
+		Email:         "potae02@gmail.com",
+		ProfilePic:    "u000000001.jpg",
+		UserType:      "a",
+		EducationType: "a",
+		Bio:           "Test bio eiming",
+	}
+	db.Create(&user)
+}
 
-	// Automatically create the "accounts" table based on the Account
-	// model.
-	db.AutoMigrate(&Account{})
+func read(uid string) TBL_Users {
+	db := initDB()
 
-	// Insert two rows into the "accounts" table.
-	var fromID = 1
-	var toID = 2
-	db.Create(&Account{ID: fromID, Balance: 1000})
-	db.Create(&Account{ID: toID, Balance: 250})
+	var user TBL_Users
+	db.Where(&TBL_Users{UserID: uid}).Find(&user)
+	fmt.Print(user)
+	return user
+}
 
-	// The sequence of steps in this section is:
-	// 1. Print account balances.
-	// 2. Set up some Accounts and transfer funds between them inside
-	// a transaction.
-	// 3. Print account balances again to verify the transfer occurred.
+func increaseID(id, name string, length int) (string, error) {
+	digit, err := strconv.Atoi(id[length:])
+	if err != nil {
+		return name, err
+	}
+	digit++
+	s := strconv.Itoa(digit)
 
-	// Print balances before transfer.
-	printBalances(db)
+	newID := name + strings.Repeat("0", 10-length-len(s)) + s
+	return newID, nil
+}
 
-	// The amount to be transferred between the accounts.
-	var amount = 100
-
-	// Transfer funds between accounts.  To handle potential
-	// transaction retry errors, we wrap the call to `transferFunds`
-	// in `crdbgorm.ExecuteTx`, a helper function for GORM which
-	// implements a retry loop
-	if err := crdbgorm.ExecuteTx(context.Background(), db, nil,
-		func(*gorm.DB) error {
-			return transferFunds(db, fromID, toID, amount)
-		},
-	); err != nil {
-		// For information and reference documentation, see:
-		//   https://www.cockroachlabs.com/docs/stable/error-handling-and-troubleshooting.html
+func printAll(db *gorm.DB) {
+	var users []TBL_Users
+	err := db.Find(&users, TBL_Users{Email: "potae02@gmail.com"}).Error
+	if err != nil {
 		fmt.Println(err)
 	}
-
-	// Print balances after transfer to ensure that it worked.
-	printBalances(db)
-
-	// Delete accounts so we can start fresh when we want to run this
-	// program again.
-	printAll(db)
-
-	deleteAccounts(db)
-}
-
-func printAll(db *gorm.DB) error {
-	var accounts []Account
-
-	db.Where("ID = ?", 2).Find(&accounts)
-	fmt.Println(accounts)
-	return nil
-}
-
-func printBalances(db *gorm.DB) {
-	var accounts []Account
-	db.Find(&accounts)
-	fmt.Printf("Balance at '%s':\n", time.Now())
-	for _, account := range accounts {
-		fmt.Printf("%d %d\n", account.ID, account.Balance)
-	}
-}
-
-func deleteAccounts(db *gorm.DB) error {
-	// Used to tear down the accounts table so we can re-run this
-	// program.
-	err := db.Exec("DELETE from accounts where ID > 0").Error
-	if err != nil {
-		return err
-	}
-	return nil
+	fmt.Println(users[0].UserID)
 }

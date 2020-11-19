@@ -23,8 +23,8 @@
                 row
                 required
               >
-                <v-radio label="Student" value="1" />
-                <v-radio label="Teacher" value="0" />
+                <v-radio label="Student" value="a" />
+                <v-radio label="Tutor" value="b" />
               </v-radio-group>
             </div>
 

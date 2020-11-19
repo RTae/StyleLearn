@@ -7,17 +7,30 @@ import (
 	"strings"
 	"time"
 
+	// Import MongoDB-related packages.
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	// Import GORM-related packages.
 )
 
 type User struct {
-	AuthID   string `bson: "authID" 	json: "authID"`
-	UserID   string `bson: "userID" 	json: "userID"`
-	Email    string `bson: "name"  		json: "name"`
-	Password string `bson: "password" 	json: "password"`
+	AuthID          string `bson: "authID" 	json: "authID"`
+	UserID          string `bson: "userID" 	json: "userID"`
+	Email           string `bson: "email"  		json: "email"`
+	Password        string `bson: "password" 	json: "password"`
+	Firstname       string `bson: "firstname" 	json: "firstname"`
+	Familyname      string `bson: "familyname" 	json: "familyname"`
+	Birthday        string `bson: "birthday" 	json: "birthday"`
+	Sex             string `bson: "sex"   json: "sex"`
+	ProfilePic      string `bson: "profilePic"   json: "profilePic"`
+	UserTypeID      string `bson: "userTypeID"  json: "userTypeID"`
+	EducationTypeID string `bson: "educationTypeID"  json: "educationTypeID"`
+	Bio             string `bson: "bio"  json: "bio"`
 }
+
+var mongoDBURL string = os.Getenv("MONGO_URL")
+var cockroachDBURL string = os.Getenv("CROCKROACHDB_URL")
 
 func (u *User) checkPassword(passwordCom string) map[string]string {
 	logs := make(map[string]string)
@@ -55,7 +68,7 @@ func (u *User) errorHandle(err error) map[string]string {
 // Login user to authication
 func (u *User) Login(email, password string) map[string]string {
 	// Connect to mongo
-	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URL")))
+	client, err := mongo.NewClient(options.Client().ApplyURI(mongoDBURL))
 	if err != nil {
 		logs := u.errorHandle(err)
 		return logs
@@ -144,14 +157,14 @@ func (u *User) Create() map[string]string {
 	return logs
 }
 
-func increaseID(id string) (string, error) {
+func increaseID(id, name string) (string, error) {
 	digit, err := strconv.Atoi(id[2:])
 	if err != nil {
-		return "au", err
+		return name, err
 	}
 	digit++
 	s := strconv.Itoa(digit)
 
-	newID := "au" + strings.Repeat("0", 8-len(s)) + s
+	newID := name + strings.Repeat("0", 8-len(s)) + s
 	return newID, nil
 }
