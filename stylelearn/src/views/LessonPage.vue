@@ -74,10 +74,99 @@
         </router-link>
       </v-hover>
     </v-row>
+    <!-- teacher -->
+    <v-row align="center" justify="center" style="margin-top:70px; margin-bottom: 200px">
+      <div class="cardContainer">
+        <v-card class="tutorCard">
+          <v-row>
+            <v-col cols="2" class="imgContainer">
+              <v-img
+                width="128px"
+                height="128px"
+                alt="pravit"
+                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+              ></v-img>
+            </v-col>
+            <v-col cols="2">
+              <div class="detail">
+                <v-row>
+                  <v-card-text class="cardTextTutorTitle"
+                    >ครูพี่นิว</v-card-text
+                  >
+                </v-row>
+                <v-row>
+                  <v-col cols="2">
+                    <v-card-text class="cardTextTutorDetail"
+                      >“ไม่มีอะไรสายเกินไป ถ้าเราคิดที่จะเริ่ม”</v-card-text
+                    >
+                  </v-col>
+                </v-row>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-card class="tutorCard">
+          <v-row>
+            <v-col cols="2" class="imgContainer">
+              <v-img
+                width="128px"
+                height="128px"
+                alt="pravit"
+                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+              ></v-img>
+            </v-col>
+            <v-col cols="2">
+              <div class="detail">
+                <v-row>
+                  <v-card-text class="cardTextTutorTitle"
+                    >ครูพี่เต้</v-card-text
+                  >
+                </v-row>
+                <v-row>
+                  <v-col cols="2">
+                    <v-card-text class="cardTextTutorDetail"
+                      >“ทุกคนต่างเรียกผมว่า จาน”</v-card-text
+                    >
+                  </v-col>
+                </v-row>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+        <v-card class="tutorCard">
+          <v-row>
+            <v-col cols="2" class="imgContainer">
+              <v-img
+                width="128px"
+                height="128px"
+                alt="pravit"
+                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+              ></v-img>
+            </v-col>
+            <v-col cols="2">
+              <div class="detail">
+                <v-row>
+                  <v-card-text class="cardTextTutorTitle"
+                    >ครูพี่เฟิร์ส</v-card-text
+                  >
+                </v-row>
+                <v-row>
+                  <v-col cols="2">
+                    <v-card-text class="cardTextTutorDetail"
+                      >“ทุกคนต่างเรียกผมว่า เทพ”</v-card-text
+                    >
+                  </v-col>
+                </v-row>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
+      </div>
+    </v-row>
   </v-container>
 </template>
 
-<script>
+<script scope>
 // @ is an alias to /src
 
 export default {
@@ -114,6 +203,13 @@ export default {
   color: black;
   font-size: 46px;
   font-family: "Delius", cursive;
+}
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
 }
 .cardTextTitle {
   font-weight: bold;
@@ -159,5 +255,34 @@ export default {
 .bottonBuy:active {
   background-color: #ffce70;
   outline: none;
+}
+.tutorCard {
+  border-radius: 10px;
+  background-color: #70CCFF;
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+  align-items: center;
+  margin-top: 20px;
+  width: 383px;
+  height: 238px;
+}
+.cardTextTutorTitle {
+  font-weight: bold;
+  color: black;
+  font-size: 30px;
+  font-family: "Delius", cursive;
+  justify-content: end;
+}
+.cardTextTutorDetail {
+  font-weight: normal;
+  color: black;
+  font-size: 16px;
+  font-family: "Delius", cursive;
+  justify-content: end;
+}
+.imgContainer {
+  align-items: center;
+  justify-content: center;
 }
 </style>

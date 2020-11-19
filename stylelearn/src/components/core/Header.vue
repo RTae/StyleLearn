@@ -12,8 +12,8 @@
         />
       </div>
       <v-spacer></v-spacer>
-      <v-row align="center" justify="center">
-        <v-toolbar-items >
+      <v-row class="hidden-sm-and-down" align="center" justify="end">
+        <v-toolbar-items>
           <div class="input_serach">
             <v-text-field
               label="Serach"
@@ -24,11 +24,29 @@
               flat
             ></v-text-field>
           </div>
-          <v-btn text><router-link to="/"><p class="text">Home</p></router-link></v-btn>
-          <v-btn text><router-link to="/basicuse"><p class="text">Basic User</p></router-link></v-btn>
-          <v-btn text><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
-          <router-link to="/signup"><button class="btnHeader" >Sign Up</button></router-link>
-          <router-link to="/login"><button class="btnHeader">Login In</button></router-link>
+          <v-btn text
+            ><router-link to="/"><p class="text">Home</p></router-link></v-btn
+          >
+          <v-btn text
+            ><router-link to="/basicuse"
+              ><p class="text">Basic User</p></router-link
+            ></v-btn
+          >
+          <v-btn text
+            ><router-link to="/about"
+              ><p class="text">About Us</p></router-link
+            ></v-btn
+          >
+          <router-link to="/signup"
+            ><v-img class="iconBar" src="../../assets/shopping.png"
+          /></router-link>
+          <router-link to="/signup"
+            ><v-img class="iconBar" contain src="../../assets/bell.png"
+          /></router-link>
+          <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
+          <router-link to="/signup"
+            ><v-img class="iconBarPro" contain src="../../assets/profile.png"
+          /></router-link>
         </v-toolbar-items>
       </v-row>
     </v-app-bar>
@@ -41,39 +59,31 @@ export default {
 };
 </script>
 
-<style>
-.input_serach{
+<style scope>
+.input_serach {
   width: 600px;
   height: 10px;
   margin-top: 10px;
   margin-right: 20px;
 }
-.btnHeader {
-  background-color: #5cbbf6;
-  font-family: "Average Sans", sans-serif;
-  border-radius: 100px;
-  width: 130px;
-  height: 45px;
-  opacity: 1;
-  transition: 0.3s;
-  font-size: 14px;
-  text-transform: uppercase;
-  color: white;
-  box-shadow: 0 0 4px #999;
-  cursor: pointer;
-  outline: none;
-  margin-right: 10px;
+.iconBar {
+  width: 34px;
+  height: 34px;
+  margin-left: 20px;
+  margin-top: 8px;
 }
-
-.btnHeader:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
-    center/15000%;
+.iconBarPro {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 8px;
 }
-
-.btnHeader:active {
-  background-color: #6eb9f7;
-  background-size: 100%;
-  transition: background 0s;
+.iconBarLine {
+  width: 10px;
+  height: 34px;
+  margin-left: 20px;
+  margin-top: 8px;
 }
 
 .text {

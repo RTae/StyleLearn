@@ -1,7 +1,9 @@
 <template>
   <v-container fluid class="main" id="login">
     <v-row style="margin-top: 10vh" align="center" justify="center">
-      <p class="textTitle">Upload My Video</p>
+      <v-card class="cardContainer" color=#70aaff>
+        <p class="texttitle">Upload My Video</p>
+      </v-card>
     </v-row>
     <v-row justify="center">
       <v-form ref="form" lazy-validation>
@@ -12,7 +14,7 @@
               <label>Video</label>
             </v-row>
             <div class="inputFiled">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-btn> + choose file </v-btn>
             </div>
           </v-col>
           <v-col>
@@ -20,7 +22,7 @@
               <label>Cover Video</label>
             </v-row>
             <div class="inputFiled">
-              <v-text-field color="primary" solo rounded outlined />
+              <v-btn> + choose file </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -76,22 +78,22 @@
         </v-row>
       </v-form>
     </v-row>
-    <v-row>
+    <v-row justify="center">
       <div class="inputFiled2">
         <v-textarea color="primary" solo rounded outlined></v-textarea>
       </div>
     </v-row>
-      <div div align="center" justify="center" style="margin-top:150px">
-         <v-row justify="center">
-          <router-link to="/myvideotutor">
-            <button class="btnuploadvideo">SIGN UP</button>
-          </router-link>
-        </v-row>
-        <p class="txtuploaddetail">Send to a check specialist</p>
-        <p class="txtuploaddetail2">
-          *Please wait for a response within 2 days.
-        </p>
-      </div>
+    <div div align="center" justify="center" style="margin-top:150px">
+      <v-row justify="center">
+        <router-link to="/myvideotutor">
+          <button class="btnuploadvideo">Upload</button>
+        </router-link>
+      </v-row>
+      <p class="txtuploaddetail">Send to a check specialist</p>
+      <p class="txtuploaddetail2">
+        *Please wait for a response within 2 days.
+      </p>
+    </div>
   </v-container>
 </template>
 
@@ -106,6 +108,14 @@ export default {
 </script>
 
 <style>
+.texttitle {
+  font-weight: bold;
+  font-size: 46px;
+  color: #f1f1f1;
+  font-family: "Average Sans", sans-serif;
+  margin-top: 20px;
+}
+
 .btnuploadvideo {
   background-color: #5cbbf6;
   background-position: center;
@@ -147,12 +157,9 @@ export default {
 }
 
 .inputFiled2 {
-  width: 1087px;
-  height: 32px;
+  width: 800px;
+  height: 63px;
   margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 35px;
 }
 
 .uploaddetail {
@@ -171,5 +178,28 @@ export default {
 .txtuploaddetail2 {
   font-size: 13px;
   color: red;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 490px;
+  background-color: #70aaff;
+  border-radius: 50px;
+}
+
+.tutorCard {
+  border-radius: 10px;
+  background-color: #70CCFF;
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+  align-items: center;
+  margin-top: 20px;
+  width: 383px;
+  height: 238px;
 }
 </style>

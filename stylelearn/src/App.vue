@@ -4,6 +4,7 @@
       <Header v-if="$store.getters.getCoreHeader"/>
       <HeaderNoSearchBar v-if="$store.getters.getWithOutSearchHeader"/>
       <HeaderLogo v-if="$store.getters.getLogoHeader"/>
+      <HeaderWithLogin v-if="$store.getters.getWithLogin"/>
       <Content />
       <Footer />
     </v-app>
@@ -18,7 +19,8 @@
 <script>
 import Header from "@/components/core/Header";
 import HeaderNoSearchBar from "@/components/core/HeaderWithOutSearchBar";
-import HeaderLogo from "@/components/core/HeaderLogo"
+import HeaderLogo from "@/components/core/HeaderLogo";
+import HeaderWithLogin from "@/components/core/HeaderWithLogin";
 import Content from "@/components/core/Content";
 import Footer from "@/components/core/Footer";
 
@@ -28,6 +30,7 @@ export default {
     Header,
     HeaderNoSearchBar,
     HeaderLogo,
+    HeaderWithLogin,
     Content,
     Footer
   }
