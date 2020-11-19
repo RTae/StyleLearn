@@ -1,4 +1,26 @@
 <template>
+<<<<<<< HEAD
+  <v-container fluid class="main" id="Admin">
+    <v-col>
+      <div>
+        <router-link to="/">
+          <button>Video</button>
+        </router-link>
+
+        <router-link to="/">
+          <button>Customer</button>
+        </router-link>
+
+        <router-link to="/">
+          <button>Approve video</button>
+        </router-link>
+
+        <router-link to="/">
+          <button>Approve payment</button>
+        </router-link>
+      </div>
+    </v-col>
+=======
   <v-container fluid class="main" id="adminhome">
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
@@ -59,12 +81,16 @@
         </div>
       </v-col>
     </v-row>
+>>>>>>> 1bbfc8545fbbc638858eddd0fb5505ad84018924
   </v-container>
 </template>
 
 <script>
+<<<<<<< HEAD
+export default {};
+=======
 export default {
-  name: "coursesPage",
+  name: "adminhome",
   components: {},
   mounted () {
     this.title = this.$route.params.titleName;
@@ -156,6 +182,7 @@ export default {
     }
   }
 };
+>>>>>>> 1bbfc8545fbbc638858eddd0fb5505ad84018924
 </script>
 <style scoped>
 .main {
@@ -175,6 +202,9 @@ export default {
   border-radius: 30px;
 }
 
+<<<<<<< HEAD
+<style></style>
+=======
 .text {
   font-weight: normal;
   color: white;
@@ -205,3 +235,4 @@ export default {
   style: "margin-top: 40px";
 }
 </style>
+>>>>>>> 1bbfc8545fbbc638858eddd0fb5505ad84018924
