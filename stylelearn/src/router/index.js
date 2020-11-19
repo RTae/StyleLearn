@@ -16,8 +16,9 @@ import SignUpSec from "../views/SignUpSuc";
 import NewPassword from "../views/NewPassword";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
-import AdminHome from "../views/Admin/Adminhome"
-import AdminEditvideo from "../views/Admin/Admineditvideo"
+import AdminHome from "../views/Admin/Adminhome";
+import AdminEditvideo from "../views/Admin/Admineditvideo";
+import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop"
 
 Vue.use(VueRouter);
 
@@ -111,6 +112,11 @@ const routes = [
     path: "/admineditvideo",
     name: "Admineditvideo",
     component: AdminEditvideo
+  },
+  {
+    path: "/adminclickvideoPop",
+    name: "adminclickvideoPop",
+    component: AdminclickvideoPop
   }
 ];
 
