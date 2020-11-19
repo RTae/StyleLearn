@@ -74,8 +74,9 @@
         </router-link>
       </v-hover>
     </v-row>
+
     <!-- teacher -->
-    <v-row align="center" justify="center" style="margin-top:70px; margin-bottom: 200px">
+    <v-row align="center" justify="center" style="margin-top:150px;margin-bottom: 200px;">
       <div class="cardContainer">
         <v-card class="tutorCard">
           <v-row>
@@ -90,15 +91,11 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle"
-                    >ครูพี่นิว</v-card-text
-                  >
+                  <v-card-text class="cardTextTutorTitle">ครูพี่เฟิร์ส</v-card-text>
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail"
-                      >“ไม่มีอะไรสายเกินไป ถ้าเราคิดที่จะเริ่ม”</v-card-text
-                    >
+                    <v-card-text class="cardTextTutorDetail">“ทุกคนต่างเรียกผมว่า เทพ”</v-card-text>
                   </v-col>
                 </v-row>
               </div>
@@ -118,15 +115,11 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle"
-                    >ครูพี่เต้</v-card-text
-                  >
+                  <v-card-text class="cardTextTutorTitle">ครูพี่นิว</v-card-text>
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail"
-                      >“ทุกคนต่างเรียกผมว่า จาน”</v-card-text
-                    >
+                    <v-card-text class="cardTextTutorDetail">“เลขง่ายๆ กับครูพี่นิว”</v-card-text>
                   </v-col>
                 </v-row>
               </div>
@@ -146,15 +139,11 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle"
-                    >ครูพี่เฟิร์ส</v-card-text
-                  >
+                  <v-card-text class="cardTextTutorTitle">ครูพี่อี่หมิง</v-card-text>
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail"
-                      >“ทุกคนต่างเรียกผมว่า เทพ”</v-card-text
-                    >
+                    <v-card-text class="cardTextTutorDetail">“มาเรียนภาษาจีนด้วยกันเถอะ”</v-card-text>
                   </v-col>
                 </v-row>
               </div>
@@ -205,11 +194,12 @@ export default {
   font-family: "Delius", cursive;
 }
 .cardContainer {
-  display: flex;
+  display:flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 100vw;
+  width: 90vw;
+  background-color: rgb(239, 239, 239);
 }
 .cardTextTitle {
   font-weight: bold;
@@ -258,7 +248,7 @@ export default {
 }
 .tutorCard {
   border-radius: 10px;
-  background-color: #70CCFF;
+  background-image: linear-gradient(to right, #3888FF , #70CCFF);
   display: flex;
   flex-direction: row;
   text-align: start;

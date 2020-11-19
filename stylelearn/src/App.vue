@@ -4,15 +4,10 @@
       <Header v-if="$store.getters.getCoreHeader"/>
       <HeaderNoSearchBar v-if="$store.getters.getWithOutSearchHeader"/>
       <HeaderLogo v-if="$store.getters.getLogoHeader"/>
-      <HeaderWithLogin v-if="$store.getters.getWithLogin"/>
+      <HeaderWithLogin v-if="$store.getters.getLoginHeader"/>
       <Content />
       <Footer />
     </v-app>
-    <!--
-    <h1>{{ $store.getters.getCount }}</h1>
-    <button @click="add">Add</button>
-    <button @click="del">Del</button>
-    -->
   </div>
 </template>
 
