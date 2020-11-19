@@ -16,6 +16,7 @@ import SignUpSec from "../views/SignUpSuc.vue";
 import NewPassword from "../views/NewPassword.vue";
 import CoursesPage from "../views/CoursesPage.vue";
 import LessonPage from "../views/LessonPage.vue";
+import Adminhome from "../views/Admin/Adminhome.vue";
 
 Vue.use(VueRouter);
 
@@ -99,6 +100,11 @@ const routes = [
     path: "/lessonpage",
     name: "LessonPage",
     component: LessonPage
+  },
+  {
+    path: "/Adminhome",
+    name: "Adminhome",
+    component: Adminhome
   }
 ];
 
