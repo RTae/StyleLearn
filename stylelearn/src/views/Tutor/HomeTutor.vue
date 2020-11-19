@@ -78,19 +78,6 @@
             </v-sheet>
           </v-card>
         </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img height="200" width="303" :src="computer" />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Computer Architecture</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
       </div>
     </v-row>
 
