@@ -12,7 +12,7 @@
         />
       </div>
       <v-spacer></v-spacer>
-      <v-row align="center" justify="center">
+      <v-row align="center" justify="end">
         <v-toolbar-items >
           <div class="input_serach">
             <v-text-field

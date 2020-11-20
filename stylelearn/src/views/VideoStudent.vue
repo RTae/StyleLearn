@@ -23,25 +23,23 @@
     </v-row>
     <!-- VIDEO -->
     <v-row align="center" justify="center" style="margin-top:40px;">
-        <div v-cloak>
-            <v-card class="video">
-                <iframe
-                    id="ytplayer"
-                    type="text/html"
-                    width="640"
-                    height="360"
-                    :src="'https://www.youtube.com/watch?v=XdE1u9lHie0'"
-                    frameborder="0"
-            ></iframe>
-            <hr />
-            </v-card>
-        </div>
+      <div v-cloak>
+        <v-card class="video">
+          <iframe
+            width="640"
+            height="360"
+            :src="'https://www.youtube.com/watch?v=XdE1u9lHie0'"
+            frameborder="0"
+          ></iframe>
+          <hr />
+        </v-card>
+      </div>
     </v-row>
     <!-- Describe : สอน Diff นั้นง่ายจะตายไป -->
-    <v-row>
-        <div class=" mt-4 mr-4 pd-6 pl-12">
-            <p class="Describetext">Describe : สอน Diff นั้นง่ายจะตายไป</p>
-        </div>
+    <v-row justify="center" style="margin-top:40px;">
+      <div class="describeCard" >
+        <p class="Describetext">Describe : สอน Diff นั้นง่ายจะตายไป</p>
+      </div>
     </v-row>
     <!-- card video of tutor -->
     <v-row justify="center" style="margin-top:40px;">
@@ -152,25 +150,21 @@ export default {
   min-height: 100vh;
   margin-top: 50px;
 }
-.videoContain{
-    text-align: center;
-    align-items: center;
-    width: 1200px;
-    height: 340px;
-    background-color: rgb(239, 239, 239);
+.video {
+  align-items: center;
+  text-align: center;
+  width: 1200px;
+  height: 400px;
 }
-.video{
-    text-align: center;
-    align-items: center;
-    width: 800px;
-    height: 400px;
+.describeCard {
+  width: 1200px;
+  justify-content: start;
+  align-items: center;
 }
-.btnLike {
-  margin-left: 10px;
-}
-.btnLike:active {
-  background-color: #ffce70;
-  outline: none;
+.Describetext{
+    font-family: "Delius", cursive;
+    font-size: 35px;
+    text-align: start;
 }
 .textTutor {
   font-family: "Delius", cursive;
@@ -215,8 +209,8 @@ export default {
 
 .tableCard {
   display: grid;
-  grid-template-columns: 30% 30% 30%;
-  width: 80%;
+  grid-template-columns: 40% 40% 40%;
+  width: 1000px;
   justify-content: space-around;
 }
 
@@ -235,9 +229,10 @@ export default {
 }
 
 .cardInSmallText {
-  font-family: "THSarabunNewRegular";
+  font-family: 'ABeeZee', sans-serif;
   font-size: 15px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .cardCourseSmall {

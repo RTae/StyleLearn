@@ -12,5 +12,10 @@
 /*font-family: 'THSarabunNewRegular'*/
 @import url('https://fontlibrary.org/face/thsarabun-new');
 
+/*font-family: font-family: 'ABeeZee', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+
+
 
 </style>

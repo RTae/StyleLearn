@@ -44,7 +44,7 @@
     <!-- Newest -->
     <v-row>
       <v-col cols="6" >
-        <div style="margin-left:50px">
+        <div style="margin-left:80px">
           <p style="font-size: 50px" class="textDetail">
             Newest
           </p>
@@ -143,7 +143,7 @@
     <!-- Popular -->
     <v-row style="margin-top: 50px">
       <v-col cols="6">
-        <p style="margin-left: 90px; font-size: 50px" class="textDetail">
+        <p style="margin-left: 80px; font-size: 50px" class="textDetail">
           Popular
         </p>
       </v-col>

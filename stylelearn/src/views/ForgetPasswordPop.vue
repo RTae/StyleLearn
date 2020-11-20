@@ -3,12 +3,26 @@
     <v-row align="center" justify="center" style="margin-top:20vh">
       <v-card class="bgcard" width="500px" height="285px">
         <v-row><label class="text">Reset Password</label></v-row>
-        <v-row><label class="textdetail">We have sent a confirmation link to your email.</label></v-row>
-        <v-row><label class="textdetail">Please check your email to confirm your register,</label></v-row>
-        <v-row><label class="textdetail">but if you did’t find it please check on spam box.</label></v-row>
+        <v-row
+          ><label class="textdetail"
+            >We have sent a confirmation link to your email.</label
+          ></v-row
+        >
+        <v-row
+          ><label class="textdetail"
+            >Please check your email to confirm your register,</label
+          ></v-row
+        >
+        <v-row
+          ><label class="textdetail"
+            >but if you did’t find it please check on spam box.</label
+          ></v-row
+        >
+        <v-row align="center" justify="center">
           <router-link to="/login"
             ><button class="mybtn">Ok</button></router-link
-          >
+          ></v-row
+        >
       </v-card>
     </v-row>
   </v-container>
@@ -23,7 +37,7 @@ export default {
 <style scoped>
 .bgcard {
   color: white;
-  border-radius:20px;
+  border-radius: 20px;
 }
 .text {
   font-weight: bold;
@@ -58,7 +72,6 @@ export default {
   outline: none;
   margin-top: 30px;
   background-color: #6eb9f7;
-  margin-left: 25vh;
 }
 body {
   background-color: #ecede8;
