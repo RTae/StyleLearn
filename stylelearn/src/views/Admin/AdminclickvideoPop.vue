@@ -4,8 +4,8 @@
       <v-card class="bgcard" width="500px" height="285px">
         <v-row><label class="text">Delete</label></v-row>
         <v-row><label class="textdetail">Are you sure to delete.</label></v-row>
-          <router-link to="/AdminclickvideoPop"><button class="mybtn">Yes</button></router-link>
-          <router-link to="/AdminclickvideoPop"><button class="mybtn" style="background-color: red">No</button></router-link>
+        <v-row><router-link to="/AdminclickvideoPop"><button class="mybtn">Yes</button></router-link></v-row>
+        <v-row><router-link to="/AdminclickvideoPop"><button class="mybtn" style="background-color: red">No</button></router-link></v-row>
       </v-card>
     </v-row>
   </v-container>
@@ -23,7 +23,7 @@ export default {
 }
 .text {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 48px;
   color: #5c5c5c;
   font-family: "ABeeZee";
   margin-top: 30px;
@@ -31,7 +31,7 @@ export default {
   margin-bottom: 20px;
 }
 .textdetail {
-  font-size: 12px;
+  font-size: 24px;
   color: #5c5c5c;
   font-family: "ABeeZee";
   margin-top: 10px;

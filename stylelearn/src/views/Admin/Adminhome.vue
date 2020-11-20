@@ -152,7 +152,7 @@ export default {
       this.$router.push({ name: "AdminHome" });
     },
     onClickLogout () {
-      this.$router.push({ name: "AdminHome" });
+      this.$router.push({ name: "/" });
     }
   }
 };
