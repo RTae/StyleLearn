@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid class="main" id="LearnCourseTutorPage">
+  <v-container fluid class="main" id="VideoStudent">
     <v-row align="center" justify="start" style="margin-top:40px">
-      <router-link to="/mycourse">
+      <router-link to="/learncoursetutorpage">
         <v-hover v-slot="{ hover }">
           <v-btn
             depressed
@@ -17,11 +17,34 @@
         ></router-link
       >
       <div class=" mt-4 mr-4 pd-6 pl-12">
-        <p class="headtext">CALCULUS I : Differentiation I</p>
+        <p class="headtext">Lesson : Differentiation I</p>
+        <p class="headtext">Teacher : Cherprang</p>
       </div>
     </v-row>
+    <!-- VIDEO -->
+    <v-row align="center" justify="center" style="margin-top:40px;">
+        <div v-cloak>
+            <v-card class="video">
+                <iframe
+                    id="ytplayer"
+                    type="text/html"
+                    width="640"
+                    height="360"
+                    :src="'https://www.youtube.com/watch?v=XdE1u9lHie0'"
+                    frameborder="0"
+            ></iframe>
+            <hr />
+            </v-card>
+        </div>
+    </v-row>
+    <!-- Describe : สอน Diff นั้นง่ายจะตายไป -->
+    <v-row>
+        <div class=" mt-4 mr-4 pd-6 pl-12">
+            <p class="Describetext">Describe : สอน Diff นั้นง่ายจะตายไป</p>
+        </div>
+    </v-row>
     <!-- card video of tutor -->
-    <v-row justify="center">
+    <v-row justify="center" style="margin-top:40px;">
       <div class="tableCard">
         <div class="colCard" v-for="course in courses" :key="course.index">
           <v-sheet class="cardCoruseTitle">
@@ -39,16 +62,16 @@
                 <v-list-item class="grow">
                   <v-row>
                     <v-col cols="2">
-                        <v-btn
-                            icon
-                            v-bind:color="course.likeState ? 'red' : 'grey'"
-                            @click="onClickLike(course.index-1)"
-                        >
-                            <v-icon >mdi-heart</v-icon>
-                        </v-btn>
+                      <v-btn
+                        icon
+                        v-bind:color="course.likeState ? 'red' : 'grey'"
+                        @click="onClickLike(course.index - 1)"
+                      >
+                        <v-icon>mdi-heart</v-icon>
+                      </v-btn>
                     </v-col>
-                    <v-col  align="center" justify="end" cols="5" offset="4">
-                        <p class="cardInSmallText">{{ course.like }} Views</p>
+                    <v-col align="center" justify="end" cols="5" offset="4">
+                      <p class="cardInSmallText">{{ course.like }} Views</p>
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -65,7 +88,7 @@
 // @ is an alias to /src
 
 export default {
-  name: "LearnCourseTutorPage",
+  name: "VideoStudent",
   components: {},
   mounted () {
     this.title = this.$route.params.titleName;
@@ -118,9 +141,6 @@ export default {
     },
     onClickLesson () {
       console.log("ClickCourse");
-    },
-    onClickLike (n) {
-      this.courses[n].likeState = !this.courses[n].likeState
     }
   }
 };
@@ -131,6 +151,19 @@ export default {
   background-color: rgb(239, 239, 239);
   min-height: 100vh;
   margin-top: 50px;
+}
+.videoContain{
+    text-align: center;
+    align-items: center;
+    width: 1200px;
+    height: 340px;
+    background-color: rgb(239, 239, 239);
+}
+.video{
+    text-align: center;
+    align-items: center;
+    width: 800px;
+    height: 400px;
 }
 .btnLike {
   margin-left: 10px;
@@ -170,7 +203,7 @@ export default {
 .headtext {
   font-weight: normal;
   color: black;
-  font-size: 80px;
+  font-size: 54px;
   font-family: "Average Sans", sans-serif;
 }
 .text {
@@ -227,7 +260,7 @@ export default {
   opacity: 1;
 }
 
-.actionCardContainer{
+.actionCardContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;

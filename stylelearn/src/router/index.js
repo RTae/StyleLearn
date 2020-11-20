@@ -22,6 +22,7 @@ import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop";
 import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
 import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
+import VideoStudent from "../views/VideoStudent.vue";
 
 Vue.use(VueRouter);
 
@@ -117,6 +118,11 @@ const routes = [
     component: LearnCourse
   },
   {
+    path: "/learncoursetutorpage",
+    name: "LearnCourseTutorPage",
+    component: LearnCourseTutorPage
+  },
+  {
     path: "/adminhome",
     name: "AdminHome",
     component: AdminHome
@@ -130,25 +136,13 @@ const routes = [
     path: "/adminclickvideoPop",
     name: "adminclickvideoPop",
     component: AdminclickvideoPop
-<<<<<<< HEAD
   },
   {
-    path: "/mycourse",
-    name: "MyCourse",
-    component: MyCourse
-  },
-  {
-    path: "/learncourse",
-    name: "LearnCourse",
-    component: LearnCourse
-  },
-  {
-    path: "/learncoursetutorpage",
-    name: "LearnCourseTutorPage",
-    component: LearnCourseTutorPage
-=======
->>>>>>> 19f5abd7b38f8601c069cdf0d6980788eda57658
+    path: "/videostudent",
+    name: "VideoStudent",
+    component: VideoStudent
   }
+
 ];
 
 const router = new VueRouter({
