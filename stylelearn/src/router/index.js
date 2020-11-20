@@ -21,6 +21,7 @@ import AdminEditvideo from "../views/Admin/Admineditvideo";
 import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop";
 import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
+import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
 
 Vue.use(VueRouter);
 
@@ -129,6 +130,11 @@ const routes = [
     path: "/learncourse",
     name: "LearnCourse",
     component: LearnCourse
+  },
+  {
+    path: "/learncoursetutorpage",
+    name: "LearnCourseTutorPage",
+    component: LearnCourseTutorPage
   }
 
 ];
