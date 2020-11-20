@@ -106,6 +106,16 @@ const routes = [
     component: LessonPage
   },
   {
+    path: "/mycourse",
+    name: "MyCourse",
+    component: MyCourse
+  },
+  {
+    path: "/learncourse",
+    name: "LearnCourse",
+    component: LearnCourse
+  },
+  {
     path: "/adminhome",
     name: "AdminHome",
     component: AdminHome
@@ -119,18 +129,7 @@ const routes = [
     path: "/adminclickvideoPop",
     name: "adminclickvideoPop",
     component: AdminclickvideoPop
-  },
-  {
-    path: "/mycourse",
-    name: "MyCourse",
-    component: MyCourse
-  },
-  {
-    path: "/learncourse",
-    name: "LearnCourse",
-    component: LearnCourse
   }
-
 ];
 
 const router = new VueRouter({
