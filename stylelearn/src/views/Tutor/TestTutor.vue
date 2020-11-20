@@ -11,129 +11,109 @@
         </v-btn>
       </v-col>
     </v-row>
-    <!--course picture 1-->
-    <v-row style="margin-top:50px">
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential I
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 2-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential II
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 3-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential III
-          </v-btn>
-        </v-card>
-      </v-col>
+    <v-row style="margin-top: 10vh">
+      <p></p>
     </v-row>
-    <!--course picture 4-->
-    <v-row>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
+    <!--card-->
+    <div style="margin-top: 20px; margin-bottom: 200px">
+      <v-row v-for="item in linetoGrid()" :key="item.index">
+        <v-col
+          align="center"
+          justify="center"
+          v-for="course in item.line"
+          :key="course.index"
+          cols="4"
         >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Data model
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 5-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Integrate I
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 6-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Integrate II
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
+          <v-hover v-slot="{ hover }">
+            <v-card
+              :elevation="hover ? 8 : 12"
+              :class="{ 'on-hover': hover }"
+              class="cardCourseSmall"
+              @click="onClickLesson()"
+            >
+              <v-img height="200" width="303" :src="math" />
+              <v-sheet class="cardInSmallContainer">
+                <p class="cardInSmallText">{{ course.course }}</p>
+              </v-sheet>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "coursesPage",
+  components: {},
+  mounted () {
+    this.title = this.$route.params.titleName
+  },
+  data: () => ({
+    math: "https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png",
+    title: null,
+    items: [
+      {
+        index: 1,
+        line: [
+          {
+            index: 1,
+            course: "Calculus I"
+          },
+          {
+            index: 2,
+            course: "Calculus II"
+          },
+          {
+            index: 3,
+            course: "Calculus III"
+          }
+        ]
+      },
+      {
+        index: 2,
+        line: [
+          {
+            index: 1,
+            course: "Geometric II"
+          },
+          {
+            index: 2,
+            course: "Geometric III"
+          },
+          {
+            index: 3,
+            course: "Algebra I"
+          }
+        ]
+      },
+      {
+        index: 3,
+        line: [
+          {
+            index: 2,
+            course: "Statistic I"
+          },
+          {
+            index: 3,
+            course: "Statistic II"
+          }
+        ]
+      }
+    ],
+    course: ["Geometric I", "Geometric II", "Geometric III", "Geometric IV"]
+  }),
+  methods: {
+    linetoGrid () {
+      return this.items
+    },
+
+    onClickLesson () {
+      console.log("ClickCourse")
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -161,5 +141,15 @@ export default {};
   background-repeat: no-repeat;
   margin-left: 60vh;
   border-radius: 20px;
+}
+.cardCourseSmall {
+  margin-top: 45px;
+  margin-bottom: 45px;
+  border-radius: 15px;
+  width: 303px;
+  height: 250px;
+  background-color: white;
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in;
 }
 </style>

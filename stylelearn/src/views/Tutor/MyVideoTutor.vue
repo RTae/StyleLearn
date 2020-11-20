@@ -11,14 +11,12 @@
     </v-row>
     <!--sort by btn-->
     <v-row justify="end">
-      <v-col cols="1">
+      <v-col cols="1" >
         <div>
           <v-select
             :items="items"
             label="Sort by"
             solo
-            rounded
-            outlined
           />
         </div>
       </v-col>
@@ -144,7 +142,7 @@
   </v-container>
 </template>
 
-<script scope>
+<script >
 export default {
   name: "Course",
   components: {},

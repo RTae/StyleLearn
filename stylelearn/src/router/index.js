@@ -130,7 +130,6 @@ const routes = [
     path: "/adminclickvideoPop",
     name: "adminclickvideoPop",
     component: AdminclickvideoPop
-<<<<<<< HEAD
   },
   {
     path: "/mycourse",
@@ -146,8 +145,6 @@ const routes = [
     path: "/learncoursetutorpage",
     name: "LearnCourseTutorPage",
     component: LearnCourseTutorPage
-=======
->>>>>>> 19f5abd7b38f8601c069cdf0d6980788eda57658
   }
 ];
 

@@ -1,10 +1,10 @@
 <template>
   <v-container fluid class="main" id="Home">
     <!-- home btn -->
-      <v-row style="margin-top: 60px;margin-left: 60px">
+      <v-row class="uploadbtn">
         <router-link to="/uploadvideotutor">
-          <v-btn>
-            + Upload Video
+          <v-btn style="width:376px;height: 85px;border-radius: 30px;font-size: 28px;">
+            + Upload My Video
           </v-btn>
         </router-link>
       </v-row>
@@ -119,50 +119,21 @@ export default {
 </script>
 
 <style scoped>
+
+.uploadbtn {
+  margin-top: 60px;
+  margin-left: 60px;
+}
+
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
   margin-top: 50px;
 }
 
-.cardContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 280px;
-  width: 100vw;
-  background-color: #70ccff;
-}
-.courseCard {
-  border-radius: 32px;
-  width: 464px;
-  height: 233px;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-  opacity: 0.6;
-  transition: opacity 0.2s ease-in;
-}
-
-.courseCard:not(.on-hover) {
-  opacity: 1;
-}
-
-.cardTextTitle {
-  font-size: 72px;
-  font-family: "Average Sans", sans-serif;
-}
-
 .cardProfile {
   height: 300px;
   width: 700px;
-}
-
-a {
-  text-decoration: none;
 }
 
 .textTitle {
@@ -217,16 +188,6 @@ a {
   font-weight: bold;
 }
 
-.subjectContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 474px;
-  width: 100vw;
-  background-color: #70ccff;
-}
-
 .subjectCard {
   height: 300px;
   width: 642px;
@@ -241,23 +202,6 @@ a {
 
 .subjectCard:not(.on-hover) {
   opacity: 1;
-}
-
-.studentReviewContainner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.textTitleStudnetReview {
-  font-size: 40px;
-  font-family: "Delius", cursive;
-}
-
-.textDetailStudnetReview {
-  font-size: 18px;
-  font-family: "Delius", cursive;
 }
 
 .cardReviewContainer {
@@ -275,19 +219,4 @@ a {
   opacity: 0.5;
 }
 
-.cardInReviewContainer {
-  height: 243px;
-  width: 373px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.cardInReviewNameContainer {
-  background-color: #70ccff;
-  height: 100px;
-  width: 373px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 </style>
