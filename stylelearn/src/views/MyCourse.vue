@@ -154,7 +154,7 @@ export default {
   border-radius: 10px;
   width: 303px;
   height: 279px;
-  background-color: white;
+  background-color: rgb(209, 208, 208);
   opacity: 0.6;
   transition: opacity 0.2s ease-in;
 }
@@ -167,7 +167,7 @@ export default {
   background-color: #70CCFF;
   display: flex;
   align-items: center;
-  width: 303px;
+  width: 100%;
   height: 79px;
 }
 

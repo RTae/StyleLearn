@@ -159,7 +159,7 @@ export default {
   background-color: #70CCFF;
   display: flex;
   align-items: center;
-  width: 303px;
+  width: 100%;
   height: 79px;
 }
 
