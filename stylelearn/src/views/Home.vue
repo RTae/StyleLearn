@@ -407,7 +407,10 @@ export default {
     econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
   }),
   mounted () {
-    this.$store.dispatch({ type: "enterHome" });
+    console.log(this.$store.getters.getCoreHeader)
+    console.log(this.$store.getters.getWithOutSearchHeader)
+    console.log(this.$store.getters.getLogoHeader)
+    console.log(this.$store.getters.getLoginHeader)
   },
   methods: {
     onClickCourse (name) {
