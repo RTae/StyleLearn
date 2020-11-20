@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import api from "../service/api"
+import router from "@/router";
 
 Vue.use(Vuex);
 
@@ -10,8 +11,9 @@ export default new Vuex.Store({
     logoHeader: false,
     withOutSearchHeader: false,
     loginHeader: false,
-    dialogLogin: false,
-    dialogMessage: ""
+    dialogState: false,
+    dialogMessage: "",
+    dialogLoading: false
   },
   getters: {
     getCoreHeader (state) {
@@ -27,10 +29,13 @@ export default new Vuex.Store({
       return state.loginHeader
     },
     getDialogState (state) {
-      return state.dialogLogin
+      return state.dialogState
     },
     getDialogMsg (state) {
       return state.dialogMessage
+    },
+    getDialogLoading (state) {
+      return state.dialogLoading
     }
   },
   mutations: {
@@ -46,11 +51,14 @@ export default new Vuex.Store({
     SET_LOGIN_HEADER (state, value) {
       state.loginHeader = value
     },
-    SET_DIALOG_LOGIN (state, value) {
-      state.dialogLogin = value
+    SET_DIALOG_STATE (state, value) {
+      state.dialogState = value
     },
     SET_DIALOG_MESSAGE (state, msg) {
       state.dialogMessage = msg
+    },
+    SET_DIALOG_LOADING (state, value) {
+      state.dialogLoading = value
     }
   },
   actions: {
@@ -72,15 +80,36 @@ export default new Vuex.Store({
       commit("SET_WITHOUT_SEARCH_HEADER", false)
       commit("SET_LOGIN_HEADER", false)
     },
+    enterLogin ({ commit }) {
+      commit("SET_CORE_HEADER", false)
+      commit("SET_LOGO_HEADER", false)
+      commit("SET_WITHOUT_SEARCH_HEADER", false)
+      commit("SET_LOGIN_HEADER", true)
+    },
     dialogPopup ({ commit }, { value, msg }) {
-      commit("SET_DIALOG_LOGIN", value)
+      commit("SET_DIALOG_STATE", value)
       commit("SET_DIALOG_MESSAGE", msg)
     },
     async doLogin ({ commit, dispatch }, { email, password }) {
+      commit("SET_DIALOG_LOADING", true)
       const result = await api.login({ email, password });
       if (result.status === "1") {
-        console.log("Success")
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({ type: "enterLogin" })
+        router.push({ name: "Home" })
       } else {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({ type: "dialogPopup", value: true, msg: result.msg })
+      }
+    },
+    async doRegister ({ commit, dispatch }, { firtname, familyname, birthday, sex, email, password, role, edu }) {
+      commit("SET_DIALOG_LOADING", true)
+      const result = await api.register({ firtname, familyname, birthday, sex, email, password, role, edu });
+      if (result.status === "1") {
+        commit("SET_DIALOG_LOADING", false)
+        router.push({ name: "SignUpSec" })
+      } else {
+        commit("SET_DIALOG_LOADING", false)
         dispatch({ type: "dialogPopup", value: true, msg: result.msg })
       }
     }
