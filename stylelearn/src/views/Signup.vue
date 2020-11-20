@@ -50,7 +50,7 @@
         <v-row align="center" justify="center">
           <v-col>
             <v-row class="ml-8" justify="start">
-              <label>First Name:</label>
+              <label>Firstname:</label>
             </v-row>
             <div class="inputFiled">
               <v-text-field
@@ -64,7 +64,7 @@
           </v-col>
           <v-col>
             <v-row class="ml-8" justify="start">
-              <label>Family Name:</label>
+              <label>Familyname:</label>
             </v-row>
             <div class="inputFiled">
               <v-text-field
@@ -154,7 +154,7 @@
           </v-col>
           <v-col>
             <v-row class="ml-8" justify="start">
-              <label>Comfrim Email:</label>
+              <label>Comfrim email:</label>
             </v-row>
             <div class="inputFiled">
               <v-text-field
@@ -281,23 +281,20 @@
           <v-btn
             color="primary"
             text
-            @click="$store.dispatch({ type: 'dialogPopup', value: false, msg: '' })">
+            @click="
+              $store.dispatch({ type: 'dialogPopup', value: false, msg: '' })
+            "
+          >
             OK
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- Popup overlay -->
-    <v-overlay :value="$store.getters.getDialogLoading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      ></v-progress-circular>
-    </v-overlay>
   </v-container>
 </template>
 
 <script scope>
+import api from "../service/api";
 export default {
   name: "signUp",
   components: {},
@@ -344,17 +341,7 @@ export default {
       if (this.user.email === this.emailCon) {
         if (this.user.password === this.passwordCon) {
           if (state) {
-            this.$store.dispatch({
-              type: "doRegister",
-              firtname: this.user.firtname,
-              familyname: this.user.familyname,
-              birthday: this.user.birthday,
-              sex: this.user.sex,
-              email: this.user.email,
-              password: this.user.password,
-              role: this.user.role,
-              edu: this.user.edu
-            });
+            await api.register(this.user);
           }
         } else {
           this.$store.dispatch({
