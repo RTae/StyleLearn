@@ -49,7 +49,7 @@
         <!-- Name -->
         <v-row align="center" justify="center">
           <v-col>
-            <v-row class="ml-8" justify="start">
+            <v-row class="ml-12">
               <label>Firstname:</label>
             </v-row>
             <div class="inputFiled">
@@ -382,7 +382,7 @@ export default {
 
 p.textTitle {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 48px;
   color: #5c5c5c;
   font-family: "Average Sans", sans-serif;
 }
