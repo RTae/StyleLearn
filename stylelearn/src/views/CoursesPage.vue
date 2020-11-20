@@ -12,10 +12,10 @@
         <v-select label="Sort by" solo rounded outlined />
       </div>
     </v-row>
-    <!-- Card  -->
-    <div style="margin-top: 20px; margin-bottom: 200px">
-      <v-row v-for="item in linetoGrid()" :key="item.index">
-        <v-col align="center" justify="center" v-for="course in item.line" :key="course.index" cols=3>
+    <!-- Card -->
+    <v-row justify="center">
+      <div class="tableCard">
+        <div class="colCard" v-for="course in courses" :key="course.index">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
@@ -25,13 +25,13 @@
             >
               <v-img height="200" width="303" :src="math" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.course }}</p>
+                <p class="cardInSmallText">{{ course.name }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
-        </v-col>
-      </v-row>
-    </div>
+        </div>
+      </div>
+    </v-row>
   </v-container>
 </template>
 
@@ -45,64 +45,48 @@ export default {
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    items: [
+    courses: [
       {
         index: 1,
-        line: [
-          {
-            index: 1,
-            course: "Calculus I"
-          },
-          {
-            index: 2,
-            course: "Calculus II"
-          },
-          {
-            index: 3,
-            course: "Calculus III"
-          },
-          {
-            index: 4,
-            course: "Geometric I"
-          }
-        ]
+        name: "Calculus I"
       },
       {
         index: 2,
-        line: [
-          {
-            index: 1,
-            course: "Geometric II"
-          },
-          {
-            index: 2,
-            course: "Geometric III"
-          },
-          {
-            index: 3,
-            course: "Algebra I"
-          },
-          {
-            index: 4,
-            course: "Algebra II"
-          }
-        ]
+        name: "Calculus II"
       },
       {
         index: 3,
-        line: [
-          {
-            index: 2,
-            course: "Statistic I"
-          },
-          {
-            index: 3,
-            course: "Statistic II"
-          }
-        ]
+        name: "Calculus III"
+      },
+      {
+        index: 4,
+        name: "Geometric I"
+      },
+      {
+        index: 5,
+        name: "Geometric II"
+      },
+      {
+        index: 6,
+        name: "Geometric III"
+      },
+      {
+        index: 7,
+        name: "Algebra I"
+      },
+      {
+        index: 8,
+        name: "Algebra II"
+      },
+      {
+        index: 9,
+        name: "Statistic I"
+      },
+      {
+        index: 10,
+        name: "Statistic II"
       }
-    ],
-    course: ["Geometric I", "Geometric II", "Geometric III", "Geometric IV"]
+    ]
   }),
   methods: {
     linetoGrid () {
@@ -134,12 +118,26 @@ export default {
   border-radius: 30px;
 }
 
-.cardSmallContainer {
+.cardCourseContainer {
+  margin-bottom: 200px;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 100vw;
+}
+
+.tableCard {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  width: 90%;
+  justify-content: space-around;
+}
+
+.colCard {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .cardCourseSmall {
@@ -177,12 +175,5 @@ export default {
   color: white;
   font-size: 100px;
   font-family: "Average Sans", sans-serif;
-}
-.botton {
-  display: block;
-  border-style: none;
-  position: absolute;
-  box-shadow: none;
-  background-repeat: no-repeat;
 }
 </style>

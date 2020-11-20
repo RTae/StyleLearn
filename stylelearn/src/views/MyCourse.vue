@@ -1,22 +1,14 @@
 <template>
   <v-container fluid class="main" id="MyCourse">
     <v-row align="center" justify="start" style="margin-top:40px">
-      <v-col cols="1"></v-col>
-      <p class="headtext">My Course</p>
+      <v-col align="start" justify="center" cols="11" offset="1">
+        <p class="headtext">My Course</p>
+      </v-col>
     </v-row>
-    <div></div>
-    <div class="colum is-3">
-        <span></span>
-    </div>
-    <div style="margin-top: 20px; margin-bottom: 200px">
-      <v-row v-for="item in linetoGrid()" :key="item.index">
-        <v-col
-          align="center"
-          justify="start"
-          v-for="course in item.line"
-          :key="course.index"
-          cols="4"
-        >
+    <!-- Card -->
+    <v-row justify="center">
+      <div class="tableCard">
+        <div class="colCard" v-for="course in courses" :key="course.index">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
@@ -26,13 +18,13 @@
             >
               <v-img height="200" width="303" :src="math" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.course }}</p>
+                <p class="cardInSmallText">{{ course.name }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
-        </v-col>
-      </v-row>
-    </div>
+        </div>
+      </div>
+    </v-row>
   </v-container>
 </template>
 
@@ -48,69 +40,48 @@ export default {
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    items: [
+    courses: [
       {
         index: 1,
-        line: [
-          {
-            index: 1,
-            course: "Calculus I"
-          },
-          {
-            index: 2,
-            course: "Calculus II"
-          },
-          {
-            index: 3,
-            course: "Calculus III"
-          }
-        ]
+        name: "Calculus I"
       },
       {
         index: 2,
-        line: [
-          {
-            index: 1,
-            course: "Geometric I"
-          },
-          {
-            index: 2,
-            course: "Geometric II"
-          },
-          {
-            index: 3,
-            course: "Geometric III"
-          }
-        ]
+        name: "Calculus II"
       },
       {
         index: 3,
-        line: [
-          {
-            index: 1,
-            course: "Algebra I"
-          },
-          {
-            index: 2,
-            course: "Algebra II"
-          },
-          {
-            index: 3,
-            course: "Statistic I"
-          }
-        ]
+        name: "Calculus III"
       },
       {
         index: 4,
-        line: [
-          {
-            index: 1,
-            course: "Statistic II"
-          }
-        ]
+        name: "Geometric I"
+      },
+      {
+        index: 5,
+        name: "Geometric II"
+      },
+      {
+        index: 6,
+        name: "Geometric III"
+      },
+      {
+        index: 7,
+        name: "Algebra I"
+      },
+      {
+        index: 8,
+        name: "Algebra II"
+      },
+      {
+        index: 9,
+        name: "Statistic I"
+      },
+      {
+        index: 10,
+        name: "Statistic II"
       }
-    ],
-    course: ["Geometric I", "Geometric II", "Geometric III", "Geometric IV"]
+    ]
   }),
   methods: {
     linetoGrid () {
@@ -118,6 +89,9 @@ export default {
     },
     onClickLesson () {
       console.log("ClickCourse");
+    },
+    onClickBack () {
+      this.$router.push({ name: "MyCourse" })
     }
   }
 };
@@ -129,16 +103,16 @@ export default {
   min-height: 100vh;
   margin-top: 50px;
 }
-.courseCard {
-  border-radius: 10px;
+.btnBack {
   background-color: white;
-  display: flex;
-  flex-direction: row;
-  text-align: start;
-  align-items: center;
-  margin-top: 20px;
-  width: 1200px;
-  height: 100px;
+  border-radius: 100px;
+  outline: none;
+}
+.btnBack:hover {
+  color: #47a7f5;
+  background-color: white;
+  outline: none;
+  opacity: 1;
 }
 .headtext {
   font-weight: normal;
@@ -152,24 +126,55 @@ export default {
   font-size: 46px;
   font-family: "Delius", cursive;
 }
+.cardCourseContainer {
+  margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableCard {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  width: 80%;
+  justify-content: space-around;
+}
+
+.colCard {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
 .cardCourseSmall {
   margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
   width: 303px;
-  height: 260px;
-  background-color: #70ccff;
+  height: 279px;
+  background-color: white;
   opacity: 0.6;
   transition: opacity 0.2s ease-in;
 }
+
 .cardCourseSmall:not(.on-hover) {
   opacity: 1;
 }
+
+.cardInSmallContainer {
+  background-color: #70CCFF;
+  display: flex;
+  align-items: center;
+  width: 303px;
+  height: 79px;
+}
+
 .cardInSmallText {
+  margin-left: 40px;
   font-family: "THSarabunNewRegular";
   font-size: 15px;
   font-weight: bold;
-  background-color: #70ccff;
-  margin-top: 20px;
 }
 </style>
