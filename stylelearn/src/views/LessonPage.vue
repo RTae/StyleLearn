@@ -139,7 +139,7 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle">ครูพี่อีgหมิง</v-card-text>
+                  <v-card-text class="cardTextTutorTitle">ครูพี่อี้หมิง</v-card-text>
                 </v-row>
                 <v-row>
                   <v-col cols="2">

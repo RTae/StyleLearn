@@ -1,21 +1,33 @@
 <template>
   <v-container fluid class="main" id="MyCourse">
     <v-row align="center" justify="start" style="margin-top:40px">
-      <v-col cols="1"></v-col>
+      <router-link to="/mycourse">
+          <v-hover v-slot="{ hover }">
+            <v-btn
+                depressed
+                height="60px"
+                width="60px"
+                :elevation="hover ?  0 : 0"
+                :class="{ 'on-hover-review': hover }"
+                class="btnBack"
+            ><span class="material-icons md-48">
+                keyboard_arrow_left
+            </span></v-btn
+        ></v-hover
+      ></router-link>
+      <div class=" mt-4 mr-4 pd-6 pl-12">
       <p class="headtext">My Course</p>
+      </div>
     </v-row>
-    <div></div>
-    <div class="colum is-3">
-        <span></span>
-    </div>
     <div style="margin-top: 20px; margin-bottom: 200px">
-      <v-row v-for="item in linetoGrid()" :key="item.index">
+      <v-row v-for="item in linetoGrid()" :key="item.index" >
+        <v-col cols="1.5"></v-col>
         <v-col
           align="center"
-          justify="start"
+          justify="center"
           v-for="course in item.line"
           :key="course.index"
-          cols="4"
+          cols="3"
         >
           <v-hover v-slot="{ hover }">
             <v-card
@@ -31,6 +43,7 @@
             </v-card>
           </v-hover>
         </v-col>
+        <v-col cols="1.5"></v-col>
       </v-row>
     </div>
   </v-container>
@@ -128,6 +141,17 @@ export default {
   background: rgb(239, 239, 239);
   min-height: 100vh;
   margin-top: 50px;
+}
+.btnBack {
+  background-color: white;
+  border-radius: 100px;
+  margin-left: 50px;
+}
+.btnBack:hover {
+  color: #47a7f5;
+  background-color: white;
+  outline: none;
+  opacity: 1;
 }
 .courseCard {
   border-radius: 10px;

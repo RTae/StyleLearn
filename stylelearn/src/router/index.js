@@ -20,6 +20,7 @@ import AdminHome from "../views/Admin/Adminhome";
 import AdminEditvideo from "../views/Admin/Admineditvideo";
 import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop";
 import MyCourse from "../views/MyCourse.vue";
+import LearnCourse from "../views/LearnCourse.vue";
 
 Vue.use(VueRouter);
 
@@ -123,7 +124,13 @@ const routes = [
     path: "/mycourse",
     name: "MyCourse",
     component: MyCourse
+  },
+  {
+    path: "/learncourse",
+    name: "LearnCourse",
+    component: LearnCourse
   }
+
 ];
 
 const router = new VueRouter({
