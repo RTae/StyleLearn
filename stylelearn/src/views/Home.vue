@@ -436,6 +436,7 @@ export default {
   height: 280px;
   width: 100vw;
   background-color: #70CCFF;
+  border-radius: 0px;
 }
 .courseCard {
   border-radius: 32px;

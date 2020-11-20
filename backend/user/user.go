@@ -1,53 +1,281 @@
 package user
 
 import (
-	"context"
 	"os"
 	"strconv"
 	"strings"
 	"time"
 
-	// Import MongoDB-related packages.
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"backend/entities"
+
 	// Import GORM-related packages.
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type User struct {
-	AuthID          string `bson: "authID" 	json: "authID"`
-	UserID          string `bson: "userID" 	json: "userID"`
-	Email           string `bson: "email"  		json: "email"`
-	Password        string `bson: "password" 	json: "password"`
-	Firstname       string `bson: "firstname" 	json: "firstname"`
-	Familyname      string `bson: "familyname" 	json: "familyname"`
-	Birthday        string `bson: "birthday" 	json: "birthday"`
-	Sex             string `bson: "sex"   json: "sex"`
-	ProfilePic      string `bson: "profilePic"   json: "profilePic"`
-	UserTypeID      string `bson: "userTypeID"  json: "userTypeID"`
-	EducationTypeID string `bson: "educationTypeID"  json: "educationTypeID"`
-	Bio             string `bson: "bio"  json: "bio"`
 }
 
-var mongoDBURL string = os.Getenv("MONGO_URL")
-var cockroachDBURL string = os.Getenv("CROCKROACHDB_URL")
+type Result struct {
+	Email    string
+	Password string
+}
 
-func (u *User) checkPassword(passwordCom string) map[string]string {
-	logs := make(map[string]string)
-	if u.Password == passwordCom {
-		logs["status"] = "1"
-		logs["msg"] = ""
-		logs["result"] = u.UserID
-	} else {
-		logs["status"] = "215"
-		logs["msg"] = "wrong password"
-		logs["result"] = ""
+// Login user to authication
+func (u *User) Login(email, password string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var results []Result
+	err := db.Raw(`	SELECT tbl_users.email, tbl_auths.password 
+					FROM tbl_users 
+					INNER JOIN tbl_auths 
+						ON tbl_users.user_id = tbl_auths.user_id 
+					WHERE tbl_users.email = ?`, email).Scan(&results).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
 	}
 
+	logs = make(map[string]interface{})
+
+	if len(results) == 1 {
+		if results[0].Password == password {
+			logs["status"] = "1"
+			logs["msg"] = ""
+			logs["result"] = ""
+			return logs
+		} else {
+			logs["status"] = "215"
+			logs["msg"] = "Wrong password"
+			logs["result"] = ""
+			return logs
+		}
+	} else {
+		logs["status"] = "215"
+		logs["msg"] = "User not found"
+		logs["result"] = ""
+		return logs
+	}
+
+	logs["status"] = "415"
+	logs["msg"] = "Something When wrong"
+	logs["result"] = ""
 	return logs
 }
 
-func (u *User) errorHandle(err error) map[string]string {
+// Register user use it to Register to platform
+func (u *User) Register(firstname, familyname, brithday, sex, email, password, userType, educationType string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var r []string
+	err := db.Raw(`	SELECT email
+					FROM tbl_users
+					WHERE tbl_users.email = ?`, email).Scan(&r).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+
+	if len(r) == 0 {
+		logs := u.Create(firstname, familyname, brithday, sex, email, password, userType, educationType)
+		if logs["status"] == "1" {
+			return logs
+		}
+		return logs
+	}
+
+	logs = make(map[string]interface{})
+	logs["status"] = "215"
+	logs["msg"] = "Email already exist"
+	logs["result"] = ""
+	return logs
+}
+
+// Create new user into platfrom
+func (u *User) Create(firstname, familyname, brithday, sex, email, password, userType, educationType string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var maxUID string
+	var maxAID string
+	rowU := db.Table("tbl_users").Select("max(user_id)").Row()
+	rowU.Scan(&maxUID)
+	rowA := db.Table("tbl_auth").Select("max(auth_id)").Row()
+	rowA.Scan(&maxAID)
+	newUID, _ := increaseID(maxUID, "u", 1)
+	newAID, _ := increaseID(maxUID, "ay", 2)
+
+	t, err := time.Parse("2006-01-02", brithday)
+
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+
+	user := entities.TBL_Users{
+		UserID:        newUID,
+		Firstname:     firstname,
+		Familyname:    familyname,
+		Birthday:      t,
+		Sex:           sex,
+		Email:         email,
+		ProfilePic:    newUID + ".jpg",
+		UserType:      userType,
+		EducationType: educationType,
+		Bio:           "",
+	}
+	auth := entities.TBL_Auth{
+		AuthID:   newAID,
+		UserID:   newUID,
+		Password: password,
+	}
+
+	err = db.Create(&user).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+	err = db.Create(&auth).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+
+	logs = make(map[string]interface{})
+	logs["status"] = "1"
+	logs["msg"] = ""
+	logs["result"] = ""
+	return logs
+}
+
+func (u *User) Read(uid string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var users []entities.TBL_Users
+	err := db.Find(&users, entities.TBL_Users{UserID: uid}).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = users[0]
+	return log
+}
+
+func (u *User) Update(uid string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	logs = u.Read(uid)
+	if logs["status"] != "1" {
+		return logs
+	}
+
+	db.Model(&entities.TBL_Users{}).Where(entities.TBL_Users{UserID: uid}).Update(logs["result"])
+
+	logs = make(map[string]interface{})
+	logs["status"] = "1"
+	logs["msg"] = ""
+	logs["result"] = ""
+	return logs
+}
+
+func (u *User) Delete(uid string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	err := db.Delete(&entities.TBL_Users{}, entities.TBL_Users{UserID: uid}).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+	err = db.Delete(&entities.TBL_Auth{}, entities.TBL_Auth{UserID: uid}).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = ""
+	return log
+}
+
+func (u *User) GetAllUser() map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var users []entities.TBL_Users
+	err := db.Find(&users).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = users
+
+	return log
+}
+
+// Helper Function
+func increaseID(id, name string, length int) (string, error) {
+	digit, err := strconv.Atoi(id[length:])
+	if err != nil {
+		return name, err
+	}
+	digit++
+	s := strconv.Itoa(digit)
+
+	newID := name + strings.Repeat("0", 10-length-len(s)) + s
+	return newID, nil
+}
+
+func (u *User) initDB() (*gorm.DB, map[string]interface{}) {
+	var addr = os.Getenv("COCKROACHDB_URL")
+	db, err := gorm.Open("postgres", addr)
+	if err != nil {
+		log := u.errorHandle(err)
+		return nil, log
+	}
+	db.LogMode(true)
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = ""
+
+	return db, log
+}
+
+func (u *User) errorHandle(err error) map[string]interface{} {
 	var textError string
 	var textStatus string
 	if err.Error() == "mongo: no documents in result" {
@@ -58,113 +286,9 @@ func (u *User) errorHandle(err error) map[string]string {
 		textStatus = "415"
 	}
 
-	logs := make(map[string]string)
+	logs := make(map[string]interface{})
 	logs["status"] = textStatus
 	logs["msg"] = textError
 	logs["result"] = ""
 	return logs
-}
-
-// Login user to authication
-func (u *User) Login(email, password string) map[string]string {
-	// Connect to mongo
-	client, err := mongo.NewClient(options.Client().ApplyURI(mongoDBURL))
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	err = client.Connect(ctx)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-	defer client.Disconnect(ctx)
-
-	// Query data
-	filter := bson.M{"email": email}
-	auths := client.Database("stylelearn").Collection("auths")
-	err = auths.FindOne(ctx, filter).Decode(&u)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-
-	// check logic
-	logs := u.checkPassword(password)
-
-	return logs
-}
-
-// Create new user into platfrom
-func (u *User) Create() map[string]string {
-	// Connect to mongo
-	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("MONGO_URL")))
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	err = client.Connect(ctx)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-	defer client.Disconnect(ctx)
-
-	// Query max data
-	auth := client.Database("stylelearn").Collection("auths")
-	filter := []bson.M{{
-		"$group": bson.M{
-			"_id": nil,
-			"max": bson.M{"$max": "$authid"},
-		}},
-	}
-
-	maxCursor, err := auth.Aggregate(ctx, filter)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-	var maxAuthValue []bson.M
-	err = maxCursor.All(ctx, &maxAuthValue)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-	authID, _ := maxAuthValue[0]["max"].(string)
-
-	newAuthID, err := increaseID(authID)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-
-	u.AuthID = newAuthID
-
-	// Insert data
-	_, err = auth.InsertOne(ctx, u)
-	if err != nil {
-		logs := u.errorHandle(err)
-		return logs
-	}
-
-	logs := make(map[string]string)
-	logs["status"] = "1"
-	logs["msg"] = ""
-	logs["result"] = "1" //u.UserID
-
-	return logs
-}
-
-func increaseID(id, name string) (string, error) {
-	digit, err := strconv.Atoi(id[2:])
-	if err != nil {
-		return name, err
-	}
-	digit++
-	s := strconv.Itoa(digit)
-
-	newID := name + strings.Repeat("0", 8-len(s)) + s
-	return newID, nil
 }

@@ -16,16 +16,18 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.Method == "POST" {
 		w.Header().Set("Content-Type", "application/json")
-		userID := r.FormValue("userID")
+		firstname := r.FormValue("firstname")
+		familyname := r.FormValue("familyname")
+		brithday := r.FormValue("brithday")
+		sex := r.FormValue("sex")
 		email := r.FormValue("email")
 		password := r.FormValue("password")
+		userType := r.FormValue("userType")
+		educationType := r.FormValue("educationType")
 
-		u := user.User{
-			UserID:   userID,
-			Email:    email,
-			Password: password,
-		}
-		logs := u.Create()
+		// Register
+		u := user.User{}
+		logs := u.Register(firstname, familyname, brithday, sex, email, password, userType, educationType)
 
 		json.NewEncoder(w).Encode(logs)
 	} else {
