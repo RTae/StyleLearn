@@ -35,7 +35,7 @@
                 :src="math"
                 @click="onClickLesson()"
               />
-              <v-card-actions style="background-color: #70ccff;">
+              <v-card-actions style="background-color: #70ccff; height:64px">
                 <v-list-item class="grow">
                   <v-row>
                     <v-col cols="2">
@@ -202,8 +202,8 @@ export default {
 }
 
 .cardInSmallText {
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 20px;
   font-weight: bold;
 }
 
