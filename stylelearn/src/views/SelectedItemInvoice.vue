@@ -101,7 +101,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   height: 70px;
   width: 900px;
   background-color: #70ccff;
