@@ -24,9 +24,10 @@ import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
 import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
 import VideoStudent from "../views/VideoStudent.vue";
+import SelectedItemInvoice from "../views/SelectedItemInvoice.vue";
+import SelectItem from "../views/SelectItem.vue";
 
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/",
@@ -134,7 +135,7 @@ const routes = [
     component: AdminEditvideo
   },
   {
-    path: "/adminclickvideoPop",
+    path: "/adminclickvideopop",
     name: "adminclickvideoPop",
     component: AdminclickvideoPop
   },
@@ -144,9 +145,19 @@ const routes = [
     component: Adminclickvideo
   },
   {
-    path: "/videostudent",
+    path: "/video",
     name: "VideoStudent",
     component: VideoStudent
+  },
+  {
+    path: "/invoice",
+    name: "SelectedItemInvoice",
+    component: SelectedItemInvoice
+  },
+  {
+    path: "/selectitem",
+    name: "SelectItem",
+    component: SelectItem
   }
 
 ];
