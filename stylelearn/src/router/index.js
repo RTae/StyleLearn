@@ -7,6 +7,8 @@ import HomeTutor from "../views/Tutor/HomeTutor";
 import TestTutor from "../views/Tutor/TestTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
 import ProfileTutor from "../views/Tutor/ProfileTutor";
+import EditProfileTutor from "../views/Tutor/EditProfileTutor";
+import EditVideoTutor from "../views/Tutor/EditVideoTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
 import BasicUse from "../views/BasicUse";
 import About from "../views/About";
@@ -15,18 +17,15 @@ import ForgetPasswordPop from "../views/ForgetPasswordPop";
 import SignUpSec from "../views/SignUpSuc";
 import NewPassword from "../views/NewPassword";
 import CoursesPage from "../views/CoursesPage";
-import LessonPage from "../views/LessonPage";
-import AdminHome from "../views/Admin/Adminhome";
-import AdminEditvideo from "../views/Admin/Admineditvideo";
-import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop";
-import Adminclickvideo from "../views/Admin/Adminclickvideo";
+import LessonPage from "../views/LessonPage";;
 import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
 import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
 import VideoStudent from "../views/VideoStudent.vue";
+import SelectedItemInvoice from "../views/SelectedItemInvoice.vue";
+import SelectItem from "../views/SelectItem.vue";
 
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/",
@@ -62,6 +61,16 @@ const routes = [
     path: "/profiletutor",
     name: "ProfileTutor",
     component: ProfileTutor
+  },
+  {
+    path: "/editprofiletutor",
+    name: "EditProfileTutor",
+    component: EditProfileTutor
+  },
+  {
+    path: "/editvideotutor",
+    name: "EditVideoTutor",
+    component: EditVideoTutor
   },
   {
     path: "/uploadvideotutor",
@@ -124,29 +133,19 @@ const routes = [
     component: LearnCourseTutorPage
   },
   {
-    path: "/adminhome",
-    name: "AdminHome",
-    component: AdminHome
-  },
-  {
-    path: "/admineditvideo",
-    name: "Admineditvideo",
-    component: AdminEditvideo
-  },
-  {
-    path: "/adminclickvideoPop",
-    name: "adminclickvideoPop",
-    component: AdminclickvideoPop
-  },
-  {
-    path: "/adminclickvideo",
-    name: "adminclickvideo",
-    component: Adminclickvideo
-  },
-  {
-    path: "/videostudent",
+    path: "/video",
     name: "VideoStudent",
     component: VideoStudent
+  },
+  {
+    path: "/invoice",
+    name: "SelectedItemInvoice",
+    component: SelectedItemInvoice
+  },
+  {
+    path: "/selectitem",
+    name: "SelectItem",
+    component: SelectItem
   }
 
 ];

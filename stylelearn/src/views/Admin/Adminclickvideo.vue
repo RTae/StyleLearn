@@ -7,21 +7,16 @@
         </v-row>
         <v-row style="margin-top:50px">
       <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
+        <v-card width="300" height="250px" style="margin-left:200px" color="#70CCFF"
+        ><v-btn class="botton" color="#70CCFF" width="100%" height="50px">
+            Differential I
+          </v-btn>
           <v-img
             class="white--text align-end"
             height="200px"
             src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
           >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential I
-          </v-btn>
+          </v-img >
         </v-card>
       </v-col>
       <!--course picture 2-->
@@ -183,5 +178,12 @@ export default {
   font-size: 24px;
   font-family: "Average Sans", sans-serif;
   style: "margin-top: 40px";
+}
+.botton {
+  display: block;
+  border-style: none;
+  position: top ;
+  box-shadow: none;
+  background-repeat: no-repeat;
 }
 </style>
