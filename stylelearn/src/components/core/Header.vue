@@ -25,7 +25,7 @@
             ></v-text-field>
           </div>
           <v-btn text><router-link to="/"><p class="text">Home</p></router-link></v-btn>
-          <v-btn text><router-link to="/basicuse"><p class="text">Basic User</p></router-link></v-btn>
+          <v-btn text><router-link to="/basicuse"><p class="text">Basic Use</p></router-link></v-btn>
           <v-btn text><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
           <router-link to="/signup"><button class="btnHeader" >Sign Up</button></router-link>
           <router-link to="/login"><button class="btnHeader">Login In</button></router-link>
