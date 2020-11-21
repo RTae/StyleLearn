@@ -28,3 +28,16 @@ export default {
   }
 };
 </script>
+
+<style>
+@font-face {
+  font-family: "Delius";
+  src: local("Delius"),
+   url(./assets/font/Delius-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "THSarabunNew";
+  src: local("THSarabunNew"),
+   url(./assets/font/THSarabunNew.ttf) format("truetype");
+}
+</style>
