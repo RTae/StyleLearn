@@ -7,6 +7,8 @@ import HomeTutor from "../views/Tutor/HomeTutor";
 import TestTutor from "../views/Tutor/TestTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
 import ProfileTutor from "../views/Tutor/ProfileTutor";
+import EditProfileTutor from "../views/Tutor/EditProfileTutor";
+import EditVideoTutor from "../views/Tutor/EditVideoTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
 import BasicUse from "../views/BasicUse";
 import About from "../views/About";
@@ -62,6 +64,16 @@ const routes = [
     path: "/profiletutor",
     name: "ProfileTutor",
     component: ProfileTutor
+  },
+  {
+    path: "/editprofiletutor",
+    name: "EditProfileTutor",
+    component: EditProfileTutor
+  },
+  {
+    path: "/editvideotutor",
+    name: "EditVideoTutor",
+    component: EditVideoTutor
   },
   {
     path: "/uploadvideotutor",
