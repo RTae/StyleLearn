@@ -143,16 +143,16 @@ export default {
       this.$router.push({ name: "AdminHome" });
     },
     onClickCustomer () {
-      this.$router.push({ name: "AdminHome" });
+      this.$router.push({ name: "Admincustomer" });
     },
     onClickApporvevideo () {
-      this.$router.push({ name: "AdminHome" });
+      this.$router.push({ name: "Adminapprovevideo" });
     },
     onClickApprovepayment () {
-      this.$router.push({ name: "AdminHome" });
+      this.$router.push({ name: "Adminapprovepayment" });
     },
     onClickLogout () {
-      this.$router.push({ name: "/" });
+      this.$router.push({ name: "Home" });
     }
   }
 };

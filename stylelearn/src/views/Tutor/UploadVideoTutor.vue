@@ -1,9 +1,17 @@
 <template>
+<<<<<<< HEAD
   <v-container fluid class="main" id="signUp">
     <!-- Title -->
     <v-row style="margin-top: 10vh" align="center" justify="center">
       <v-card elevation="10" class="cardContainer">
         <p class="textTitle">Upload My Video</p>
+=======
+  <v-container fluid class="main" id="CoursesPage">
+    <!-- Subject title -->
+    <v-row align="center" justify="center" style="margin-top: 40px">
+      <v-card elevation=10 class="cardContainer">
+        <p class="text">Upload My Video</p>
+>>>>>>> 294bb19e4908d5ce7e15e655f77273f79fe07bae
       </v-card>
     </v-row>
     
