@@ -7,6 +7,8 @@ import HomeTutor from "../views/Tutor/HomeTutor";
 import TestTutor from "../views/Tutor/TestTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
 import ProfileTutor from "../views/Tutor/ProfileTutor";
+import EditProfileTutor from "../views/Tutor/EditProfileTutor";
+import EditVideoTutor from "../views/Tutor/EditVideoTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
 import BasicUse from "../views/BasicUse";
 import About from "../views/About";
@@ -20,6 +22,12 @@ import AdminHome from "../views/Admin/Adminhome";
 import AdminEditvideo from "../views/Admin/Admineditvideo";
 import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop";
 import Adminclickvideo from "../views/Admin/Adminclickvideo";
+import Adminapprovevideo from "../views/Admin/Adminapprovevideo";
+import AdminapprovevideoPop1 from "../views/Admin/AdminapprovevideoPop1";
+import AdminapprovevideoPop2 from "../views/Admin/AdminapprovevideoPop2";
+import Admincustomer from "../views/Admin/Admincustomer";
+import Adminapprovepayment from "../views/Admin/Adminapprovepayment";
+import AdminapprovepaymentPop1 from "../views/Admin/AdminapprovepaymentPop1.vue"
 import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
 import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
@@ -63,6 +71,16 @@ const routes = [
     path: "/profiletutor",
     name: "ProfileTutor",
     component: ProfileTutor
+  },
+  {
+    path: "/editprofiletutor",
+    name: "EditProfileTutor",
+    component: EditProfileTutor
+  },
+  {
+    path: "/editvideotutor",
+    name: "EditVideoTutor",
+    component: EditVideoTutor
   },
   {
     path: "/uploadvideotutor",
@@ -145,7 +163,41 @@ const routes = [
     component: Adminclickvideo
   },
   {
+<<<<<<< HEAD
     path: "/video",
+=======
+    path: "/adminapprovevideo",
+    name: "Adminapprovevideo",
+    component: Adminapprovevideo
+  },
+  {
+    path: "/adminapprovevideoPop1",
+    name: "AdminapprovevideoPop1",
+    component: AdminapprovevideoPop1
+  },
+  {
+    path: "/adminapprovevideoPop2",
+    name: "AdminapprovevideoPop2",
+    component: AdminapprovevideoPop2
+  },
+  {
+    path: "/admincustomer",
+    name: "Admincustomer",
+    component: Admincustomer
+  },
+  {
+    path: "/adminapprovepayment",
+    name: "Adminapprovepayment",
+    component: Adminapprovepayment
+  },
+  {
+    path: "/adminapprovepaymentPop1",
+    name: "AdminapprovepaymentPop1",
+    component: AdminapprovepaymentPop1
+  },
+  {
+    path: "/videostudent",
+>>>>>>> c8bfd0eb3812ec13a122cf869b3bdc9ba6d16a9e
     name: "VideoStudent",
     component: VideoStudent
   },

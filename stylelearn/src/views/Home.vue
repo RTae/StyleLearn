@@ -10,7 +10,10 @@
             class="courseCard"
             @click="onClickCourse('CALCULUS I')"
           >
-            <v-card-text class="cardTextTitle"> CALCULUS I </v-card-text>
+            <v-img
+              class="cardImg"
+              src="../assets/courses/cal1.png"
+            ></v-img>
           </v-card>
         </v-hover>
         <v-hover v-slot="{ hover }">
@@ -20,7 +23,10 @@
             class="courseCard"
             @click="onClickCourse('CALCULUS II')"
           >
-            <v-card-text class="cardTextTitle"> CALCULUS II </v-card-text>
+            <v-img
+              class="cardImg"
+              src="../assets/courses/cal2.png"
+            ></v-img>
           </v-card>
         </v-hover>
         <v-hover v-slot="{ hover }">
@@ -30,7 +36,10 @@
             class="courseCard"
             @click="onClickCourse('CALCULUS III')"
           >
-            <v-card-text class="cardTextTitle"> CALCULUS III </v-card-text>
+            <v-img
+            class="cardImg"
+            src="../assets/courses/cal3.png"
+          ></v-img>
           </v-card>
         </v-hover>
       </v-sheet>
@@ -461,6 +470,11 @@ export default {
 .cardTextTitle {
   font-size: 72px;
   font-family: "Average Sans", sans-serif;
+}
+
+.cardImg{
+  height: 100%;
+  width: 100%;
 }
 
 a {

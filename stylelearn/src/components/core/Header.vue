@@ -14,18 +14,8 @@
       <v-spacer></v-spacer>
       <v-row align="center" justify="end">
         <v-toolbar-items >
-          <div class="input_serach">
-            <v-text-field
-              label="Serach"
-              append-icon="mdi-magnify"
-              solo
-              dense
-              outlined
-              flat
-            ></v-text-field>
-          </div>
           <v-btn text><router-link to="/"><p class="text">Home</p></router-link></v-btn>
-          <v-btn text><router-link to="/basicuse"><p class="text">Basic User</p></router-link></v-btn>
+          <v-btn text><router-link to="/basicuse"><p class="text">Basic Use</p></router-link></v-btn>
           <v-btn text><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
           <router-link to="/signup"><button class="btnHeader" >Sign Up</button></router-link>
           <router-link to="/login"><button class="btnHeader">Login In</button></router-link>
@@ -42,12 +32,6 @@ export default {
 </script>
 
 <style>
-.input_serach{
-  width: 600px;
-  height: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
-}
 .btnHeader {
   background-color: #5cbbf6;
   font-family: "Average Sans", sans-serif;

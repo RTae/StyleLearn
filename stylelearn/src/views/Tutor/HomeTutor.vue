@@ -3,7 +3,7 @@
     <!-- home btn -->
       <v-row class="uploadbtn">
         <router-link to="/uploadvideotutor">
-          <v-btn style="width:376px;height: 85px;border-radius: 30px;font-size: 28px;">
+          <v-btn style="width:376px;height: 85px;border-radius: 30px;font-size: 24px;">
             + Upload My Video
           </v-btn>
         </router-link>
@@ -83,8 +83,8 @@
       <v-card class="cardProfile">
           <v-img
             class="white--text align-end"
-              height="300"
-              width="700"
+              height="443"
+              width="1010"
             src="https://www.img.in.th/images/464684b598cb4e84e69d186f0f5c1478.png"
           >
           </v-img>
@@ -132,8 +132,8 @@ export default {
 }
 
 .cardProfile {
-  height: 300px;
-  width: 700px;
+  height: 443px;
+  width: 1010px;
 }
 
 .textTitle {

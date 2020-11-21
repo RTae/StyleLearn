@@ -3,7 +3,7 @@
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
       <v-card elevation="10" class="cardContainer">
-        <p class="text">Profile</p>
+        <p class="text">Edit Profile</p>
       </v-card>
     </v-row>
     <!-- Body -->
