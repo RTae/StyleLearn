@@ -3,7 +3,7 @@
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
       <v-card elevation=10 class="cardContainer">
-        <p class="text">{{ title }}</p>
+        <p class="text">Upload My Video</p>
       </v-card>
     </v-row>
     <!-- Sort -->
@@ -127,15 +127,15 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 317px;
-  width: 1300px;
+  height: 127px;
+  width: 890px;
   background-color: #70ccff;
   border-radius: 30px;
 }
 .text {
   font-weight: normal;
   color: white;
-  font-size: 100px;
+  font-size: 80px;
   font-family: "Average Sans", sans-serif;
 }
 
