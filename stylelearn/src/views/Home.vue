@@ -527,8 +527,8 @@ a {
 
 .cardInSmallText {
   margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 23px;
   font-weight: bold;
 }
 
