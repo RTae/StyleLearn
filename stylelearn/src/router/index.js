@@ -163,9 +163,6 @@ const routes = [
     component: Adminclickvideo
   },
   {
-<<<<<<< HEAD
-    path: "/video",
-=======
     path: "/adminapprovevideo",
     name: "Adminapprovevideo",
     component: Adminapprovevideo
@@ -197,7 +194,6 @@ const routes = [
   },
   {
     path: "/videostudent",
->>>>>>> c8bfd0eb3812ec13a122cf869b3bdc9ba6d16a9e
     name: "VideoStudent",
     component: VideoStudent
   },
