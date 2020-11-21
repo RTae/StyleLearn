@@ -2,7 +2,6 @@
   <div id="app">
     <v-app>
       <Header v-if="$store.getters.getCoreHeader"/>
-      <HeaderNoSearchBar v-if="$store.getters.getWithOutSearchHeader"/>
       <HeaderLogo v-if="$store.getters.getLogoHeader"/>
       <HeaderWithLogin v-if="$store.getters.getLoginHeader"/>
       <Content />
@@ -13,7 +12,6 @@
 
 <script>
 import Header from "@/components/core/Header";
-import HeaderNoSearchBar from "@/components/core/HeaderWithOutSearchBar";
 import HeaderLogo from "@/components/core/HeaderLogo";
 import HeaderWithLogin from "@/components/core/HeaderWithLogin";
 import Content from "@/components/core/Content";
@@ -23,7 +21,6 @@ export default {
   name: "App",
   components: {
     Header,
-    HeaderNoSearchBar,
     HeaderLogo,
     HeaderWithLogin,
     Content,
