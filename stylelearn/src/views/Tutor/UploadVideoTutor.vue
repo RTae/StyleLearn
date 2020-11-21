@@ -1,138 +1,215 @@
 <template>
-  <v-container fluid class="main" id="CoursesPage">
-    <!-- Subject title -->
-    <v-row align="center" justify="center" style="margin-top: 40px">
+  <v-container fluid class="main" id="signUp">
+    <!-- Title -->
+    <v-row style="margin-top: 10vh" align="center" justify="center">
       <v-card elevation="10" class="cardContainer">
         <p class="textTitle">Upload My Video</p>
       </v-card>
     </v-row>
-    <v-row align="center" justify="center">
+    
+    <!-- Form -->
+    <v-row justify="center">
       <v-form
         ref="form"
         v-model="valid"
-        @submit.prevent="submitRegister"
+        @submit.prevent="submitUpload"
         lazy-validation
       >
         <!-- Upload -->
-        <v-row align="center" justify="center">
+        <v-row align="center" justify="center" style="margin-top:10px">
           <v-col>
-            <v-row justify="start">
-              <label>Vidoe</label>
+            <v-row class="ml-2">
+              <label class="textLabel">Video</label>
             </v-row>
             <div>
-              <v-btn
+            <v-btn
                 color="primary"
                 class="text-none"
+                height="50"
+                elevation="5"
                 rounded
                 depressed
                 :loading="isSelectingUploadVideo"
-                @click="onButtonClick"
+                @click="onButtonClickUploadVideo"
               >
-                <v-icon left> cloud_upload </v-icon>
-                {{ buttonText }}
+              <v-icon left> cloud_upload </v-icon>
+              {{ buttonTextVideo }}
               </v-btn>
               <input
                 ref="uploaderVideo"
                 class="d-none"
                 type="file"
                 accept="video/*"
-                @change="onFileChanged"
-              />
+                @change="onFileChangedVideo"
+                />
             </div>
           </v-col>
           <v-col>
-            <v-row justify="start">
-              <label>Cover picture</label>
+            <v-row class="ml-2" justify="start">
+              <label class="textLabel">Cover picture</label>
             </v-row>
-            <div>
-              <v-btn
+            <v-btn
                 color="primary"
                 class="text-none"
+                height="50"
+                elevation="5"
                 rounded
                 depressed
                 :loading="isSelectingUploadCover"
-                @click="onButtonClick"
+                @click="onButtonClickUploadCover"
               >
-                <v-icon left> cloud_upload </v-icon>
-                Upload Cover
+              <v-icon left> cloud_upload </v-icon>
+                {{ buttonTextCover }}
               </v-btn>
               <input
-                ref="uploader"
+                ref="uploaderCover"
                 class="d-none"
                 type="file"
                 accept="image/*"
-                @change="onFileChanged"
+                @change="onFileChangedCover"
               />
-            </div>
+          </v-col>
+        </v-row>
+        <!-- Subject Course -->
+        <v-row align="center" justify="start">
+          <v-col>
+            <v-row class="ml-2" justify="start">
+              <label class="textLabel">Subject</label>
+            </v-row>
+             <v-select
+                :rules="[v => !!v || 'Item is required']"
+                class="selectField"
+                :items="items"
+                solo
+                rounded
+                outlined
+              />
+          </v-col>
+          <v-col>
+            <v-row class="ml-2" justify="start">
+              <label class="textLabel">Course</label>
+            </v-row>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              :items="items"
+              solo
+              rounded
+              outlined
+            />
           </v-col>
         </v-row>
 
-        <!-- Email -->
+        <!-- Lesson -->
         <v-row align="center" justify="start">
-          <v-col>
-            <v-row class="ml-8" justify="start">
-              <label>Email:</label>
+          <v-col cols="12">
+            <v-row class="ml-2" justify="start">
+              <label class="textLabel">Lesson</label>
             </v-row>
-            <div class="inputFiled">
-              <v-text-field
+             <v-select
+                :rules="[v => !!v || 'Item is required']"
+                class="selectField"
+                :items="items"
                 solo
                 rounded
                 outlined
-                required
-                :rules="emailRules"
-                v-model="user.email"
               />
-            </div>
-          </v-col>
-          <v-col>
-            <v-row class="ml-8" justify="start">
-              <label>Comfrim email:</label>
-            </v-row>
-            <div class="inputFiled">
-              <v-text-field
-                solo
-                rounded
-                outlined
-                required
-                :rules="emailRules"
-                v-model="emailCon"
-              />
-            </div>
           </v-col>
         </v-row>
+
+        <!-- Desciption -->
+        <v-row align="center" justify="center">
+          <v-col cols="12">
+            <v-row class="ml-2" justify="start">
+              <label class="textLabel">Description</label>
+            </v-row>
+            <v-textarea
+              v-model="title"
+              counter
+              rounded
+              maxlength="100"
+              full-width
+              single-line
+              solo
+            ></v-textarea>
+          </v-col>
+        </v-row>
+
         <!-- Button -->
-        <v-row justify="center">
-          <button :disabled="!valid" class="signUpBtn" type="submit">
-            Sign Up
-          </button>
+        <v-row align="center" justify="center">
+          <v-col cols="2">
+            <button :disabled="!valid" class="submitBtn" type="submit">
+              Submit
+            </button>
+          </v-col>
         </v-row>
       </v-form>
     </v-row>
+
+    <!-- Dialog -->
+    <v-dialog v-model="$store.getters.getDialogState" width="500">
+      <v-card>
+        <v-card-title class="primary mb-6"> Alert </v-card-title>
+        <v-card-text class="popUpText">
+          {{ $store.getters.getDialogMsg }}
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="$store.dispatch({ type: 'dialogPopup', value: false, msg: '' })"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Popup overlay -->
+    <v-overlay :value="$store.getters.getDialogLoading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      />
+    </v-overlay>
+
   </v-container>
 </template>
 
 <script>
 export default {
-  name: "coursesPage",
+  name: "uploadVideo",
   components: {},
   mounted () {
     this.title = this.$route.params.titleName;
   },
   computed: {
-    buttonText () {
+    buttonTextVideo () {
       return this.selectedFileVideo
         ? this.selectedFileVideo.name
-        : this.defaultButtonText;
+        : this.defaultButtonTextVideo;
+    },
+    buttonTextCover () {
+      return this.selectedFileCover
+        ? this.selectedFileCover.name
+        : this.defaultButtonTextCover;
     }
   },
   data: () => ({
-    defaultButtonText: "Upload vidoe",
+    defaultButtonTextVideo: "Upload Vidoe",
+    defaultButtonTextCover: "Upload Cover",
     selectedFileVideo: null,
     selectedFileCover: null,
     isSelectingUploadVideo: false,
     isSelectingUploadCover: false,
     valid: true,
+    title: "",
     emailCon: "",
+    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
     user: {
       role: "",
       sex: "",
@@ -153,14 +230,7 @@ export default {
     ]
   }),
   methods: {
-    linetoGrid () {
-      return this.items;
-    },
-
-    onClickLesson () {
-      console.log("ClickCourse");
-    },
-    onButtonClick () {
+    onButtonClickUploadVideo () {
       this.isSelectingUploadVideo = true;
       window.addEventListener(
         "focus",
@@ -172,8 +242,35 @@ export default {
 
       this.$refs.uploaderVideo.click();
     },
-    onFileChanged (e) {
+    onButtonClickUploadCover () {
+      this.isSelectingUploadCover = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelectingUploadCover = false;
+        },
+        { once: true }
+      );
+
+      this.$refs.uploaderCover.click();
+    },
+    onFileChangedVideo (e) {
       this.selectedFileVideo = e.target.files[0];
+    },
+    onFileChangedCover (e) {
+      this.selectedFileCover = e.target.files[0];
+    },
+    submitUpload () {
+      var state = this.$refs.form.validate()
+      if (this.selectedFileVideo !== null) {
+
+      } else {
+        this.$store.dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Yout must upload video"
+        });
+      }
     }
   }
 };
@@ -181,13 +278,25 @@ export default {
 
 <style scoped>
 .main {
-  background: rgb(239, 239, 239);
+  background-color: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.titleContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+.formContainer{
+  width: 70vw;
 }
 .cardContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 127px;
@@ -195,10 +304,56 @@ export default {
   background-color: #70ccff;
   border-radius: 30px;
 }
+
 .textTitle {
   font-weight: normal;
   color: white;
   font-size: 80px;
   font-family: "Average Sans", sans-serif;
+}
+
+.selectField{
+  width: 445px;
+}
+
+.textField{
+  border-radius: 10px;
+}
+
+.submitBtn {
+  background-color: #6eb9f7;
+  background-position: center;
+  font-family: "Average Sans", sans-serif;
+  border-radius: 100px;
+  margin-right: 20px;
+  width: 130px;
+  height: 45px;
+  opacity: 1;
+  transition: 0.3s;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 0 4px #999;
+  cursor: pointer;
+  outline: none;
+}
+
+.submitBtn:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
+}
+
+.submitBtn:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.textLabel{
+  font-weight: normal;
+  color: black;
+  font-size: 20px;
+  font-family: "Delius";
+  margin-bottom: 10px;
 }
 </style>
