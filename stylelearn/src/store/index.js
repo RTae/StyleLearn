@@ -9,7 +9,6 @@ export default new Vuex.Store({
   state: {
     coreHeader: true,
     logoHeader: false,
-    withOutSearchHeader: false,
     loginHeader: false,
     dialogState: false,
     dialogMessage: "",
@@ -21,9 +20,6 @@ export default new Vuex.Store({
     },
     getLogoHeader (state) {
       return state.logoHeader
-    },
-    getWithOutSearchHeader (state) {
-      return state.withOutSearchHeader
     },
     getLoginHeader (state) {
       return state.loginHeader
@@ -45,9 +41,6 @@ export default new Vuex.Store({
     SET_LOGO_HEADER (state, value) {
       state.logoHeader = value
     },
-    SET_WITHOUT_SEARCH_HEADER (state, value) {
-      state.withOutSearchHeader = value
-    },
     SET_LOGIN_HEADER (state, value) {
       state.loginHeader = value
     },
@@ -63,21 +56,18 @@ export default new Vuex.Store({
   },
   actions: {
     enterSignUp ({ commit }) {
-      commit("SET_CORE_HEADER", false)
+      commit("SET_CORE_HEADER", true)
       commit("SET_LOGO_HEADER", false)
-      commit("SET_WITHOUT_SEARCH_HEADER", true)
       commit("SET_LOGIN_HEADER", false)
     },
     enterHome ({ commit }) {
       commit("SET_CORE_HEADER", true)
       commit("SET_LOGO_HEADER", false)
-      commit("SET_WITHOUT_SEARCH_HEADER", false)
       commit("SET_LOGIN_HEADER", false)
     },
     enterDialog ({ commit }) {
       commit("SET_CORE_HEADER", false)
       commit("SET_LOGO_HEADER", true)
-      commit("SET_WITHOUT_SEARCH_HEADER", false)
       commit("SET_LOGIN_HEADER", false)
     },
     enterLogin ({ commit }) {

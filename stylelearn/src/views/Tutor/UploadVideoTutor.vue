@@ -2,36 +2,112 @@
   <v-container fluid class="main" id="CoursesPage">
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
-      <v-card elevation=10 class="cardContainer">
-        <p class="text">{{ title }}</p>
+      <v-card elevation="10" class="cardContainer">
+        <p class="textTitle">Upload My Video</p>
       </v-card>
     </v-row>
-    <!-- Sort -->
-    <v-row align="center" justify="end" style="margin-top: 50px">
-      <div class="inputFiled">
-        <v-select label="Sort by" solo rounded outlined />
-      </div>
+    <v-row align="center" justify="center">
+      <v-form
+        ref="form"
+        v-model="valid"
+        @submit.prevent="submitRegister"
+        lazy-validation
+      >
+        <!-- Upload -->
+        <v-row align="center" justify="center">
+          <v-col>
+            <v-row justify="start">
+              <label>Vidoe</label>
+            </v-row>
+            <div>
+              <v-btn
+                color="primary"
+                class="text-none"
+                rounded
+                depressed
+                :loading="isSelectingUploadVideo"
+                @click="onButtonClick"
+              >
+                <v-icon left> cloud_upload </v-icon>
+                {{ buttonText }}
+              </v-btn>
+              <input
+                ref="uploaderVideo"
+                class="d-none"
+                type="file"
+                accept="video/*"
+                @change="onFileChanged"
+              />
+            </div>
+          </v-col>
+          <v-col>
+            <v-row justify="start">
+              <label>Cover picture</label>
+            </v-row>
+            <div>
+              <v-btn
+                color="primary"
+                class="text-none"
+                rounded
+                depressed
+                :loading="isSelectingUploadCover"
+                @click="onButtonClick"
+              >
+                <v-icon left> cloud_upload </v-icon>
+                Upload Cover
+              </v-btn>
+              <input
+                ref="uploader"
+                class="d-none"
+                type="file"
+                accept="image/*"
+                @change="onFileChanged"
+              />
+            </div>
+          </v-col>
+        </v-row>
+
+        <!-- Email -->
+        <v-row align="center" justify="start">
+          <v-col>
+            <v-row class="ml-8" justify="start">
+              <label>Email:</label>
+            </v-row>
+            <div class="inputFiled">
+              <v-text-field
+                solo
+                rounded
+                outlined
+                required
+                :rules="emailRules"
+                v-model="user.email"
+              />
+            </div>
+          </v-col>
+          <v-col>
+            <v-row class="ml-8" justify="start">
+              <label>Comfrim email:</label>
+            </v-row>
+            <div class="inputFiled">
+              <v-text-field
+                solo
+                rounded
+                outlined
+                required
+                :rules="emailRules"
+                v-model="emailCon"
+              />
+            </div>
+          </v-col>
+        </v-row>
+        <!-- Button -->
+        <v-row justify="center">
+          <button :disabled="!valid" class="signUpBtn" type="submit">
+            Sign Up
+          </button>
+        </v-row>
+      </v-form>
     </v-row>
-    <!-- Card  -->
-    <div style="margin-top: 20px; margin-bottom: 200px">
-      <v-row v-for="item in linetoGrid()" :key="item.index">
-        <v-col align="center" justify="center" v-for="course in item.line" :key="course.index" cols=3>
-          <v-hover v-slot="{ hover }">
-            <v-card
-              :elevation="hover ? 8 : 12"
-              :class="{ 'on-hover': hover }"
-              class="cardCourseSmall"
-              @click="onClickLesson()"
-            >
-              <v-img height="200" width="303" :src="math" />
-              <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.course }}</p>
-              </v-sheet>
-            </v-card>
-          </v-hover>
-        </v-col>
-      </v-row>
-    </div>
   </v-container>
 </template>
 
@@ -40,77 +116,64 @@ export default {
   name: "coursesPage",
   components: {},
   mounted () {
-    this.title = this.$route.params.titleName
+    this.title = this.$route.params.titleName;
+  },
+  computed: {
+    buttonText () {
+      return this.selectedFileVideo
+        ? this.selectedFileVideo.name
+        : this.defaultButtonText;
+    }
   },
   data: () => ({
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    title: null,
-    items: [
-      {
-        index: 1,
-        line: [
-          {
-            index: 1,
-            course: "Calculus I"
-          },
-          {
-            index: 2,
-            course: "Calculus II"
-          },
-          {
-            index: 3,
-            course: "Calculus III"
-          },
-          {
-            index: 4,
-            course: "Geometric I"
-          }
-        ]
-      },
-      {
-        index: 2,
-        line: [
-          {
-            index: 1,
-            course: "Geometric II"
-          },
-          {
-            index: 2,
-            course: "Geometric III"
-          },
-          {
-            index: 3,
-            course: "Algebra I"
-          },
-          {
-            index: 4,
-            course: "Algebra II"
-          }
-        ]
-      },
-      {
-        index: 3,
-        line: [
-          {
-            index: 2,
-            course: "Statistic I"
-          },
-          {
-            index: 3,
-            course: "Statistic II"
-          }
-        ]
-      }
+    defaultButtonText: "Upload vidoe",
+    selectedFileVideo: null,
+    selectedFileCover: null,
+    isSelectingUploadVideo: false,
+    isSelectingUploadCover: false,
+    valid: true,
+    emailCon: "",
+    user: {
+      role: "",
+      sex: "",
+      firtname: "",
+      familyname: "",
+      birthday: null,
+      edu: "",
+      email: "",
+      password: ""
+    },
+    passwordRules: [
+      (v) => !!v || "Password is required",
+      (v) => (v && v.length >= 6) || "Password must be more than 6 characters"
     ],
-    course: ["Geometric I", "Geometric II", "Geometric III", "Geometric IV"]
+    emailRules: [
+      (v) => !!v || "E-mail is required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"
+    ]
   }),
   methods: {
     linetoGrid () {
-      return this.items
+      return this.items;
     },
 
     onClickLesson () {
-      console.log("ClickCourse")
+      console.log("ClickCourse");
+    },
+    onButtonClick () {
+      this.isSelectingUploadVideo = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelectingUploadVideo = false;
+        },
+        { once: true }
+      );
+
+      this.$refs.uploaderVideo.click();
+    },
+    onFileChanged (e) {
+      this.selectedFileVideo = e.target.files[0];
     }
   }
 };
@@ -127,54 +190,15 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 317px;
-  width: 1300px;
+  height: 127px;
+  width: 890px;
   background-color: #70ccff;
   border-radius: 30px;
 }
-.text {
+.textTitle {
   font-weight: normal;
   color: white;
-  font-size: 100px;
+  font-size: 80px;
   font-family: "Average Sans", sans-serif;
 }
-
-.cardSmallContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100vw;
-}
-
-.cardCourseSmall {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  border-radius: 10px;
-  width: 303px;
-  height: 279px;
-  background-color: white;
-  opacity: 0.6;
-  transition: opacity 0.2s ease-in;
-}
-
-.cardCourseSmall:not(.on-hover) {
-  opacity: 1;
-}
-
-.cardInSmallContainer {
-  background-color: #70CCFF;
-  display: flex;
-  align-items: center;
-  width: 303px;
-  height: 79px;
-}
-
-.cardInSmallText {
-  margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
-  font-weight: bold;
-}
-
 </style>

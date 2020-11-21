@@ -14,16 +14,6 @@
       <v-spacer></v-spacer>
       <v-row class="hidden-sm-and-down" align="center" justify="end">
         <v-toolbar-items>
-          <div class="input_serach">
-            <v-text-field
-              label="Serach"
-              append-icon="mdi-magnify"
-              solo
-              dense
-              outlined
-              flat
-            ></v-text-field>
-          </div>
           <v-btn text
             ><router-link to="/"><p class="text">Home</p></router-link></v-btn
           >
@@ -94,12 +84,6 @@ export default {
 </script>
 
 <style scope>
-.input_serach {
-  width: 600px;
-  height: 10px;
-  margin-top: 10px;
-  margin-right: 20px;
-}
 .iconBar {
   width: 34px;
   height: 34px;
