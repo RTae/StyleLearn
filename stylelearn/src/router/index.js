@@ -20,6 +20,12 @@ import AdminHome from "../views/Admin/Adminhome";
 import AdminEditvideo from "../views/Admin/Admineditvideo";
 import AdminclickvideoPop from "../views/Admin/AdminclickvideoPop";
 import Adminclickvideo from "../views/Admin/Adminclickvideo";
+import Adminapprovevideo from "../views/Admin/Adminapprovevideo";
+import AdminapprovevideoPop1 from "../views/Admin/AdminapprovevideoPop1";
+import AdminapprovevideoPop2 from "../views/Admin/AdminapprovevideoPop2";
+import Admincustomer from "../views/Admin/Admincustomer";
+import Adminapprovepayment from "../views/Admin/Adminapprovepayment";
+import AdminapprovepaymentPop1 from "../views/Admin/AdminapprovepaymentPop1.vue"
 import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
 import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
@@ -142,6 +148,36 @@ const routes = [
     path: "/adminclickvideo",
     name: "adminclickvideo",
     component: Adminclickvideo
+  },
+  {
+    path: "/adminapprovevideo",
+    name: "Adminapprovevideo",
+    component: Adminapprovevideo
+  },
+  {
+    path: "/adminapprovevideoPop1",
+    name: "AdminapprovevideoPop1",
+    component: AdminapprovevideoPop1
+  },
+  {
+    path: "/adminapprovevideoPop2",
+    name: "AdminapprovevideoPop2",
+    component: AdminapprovevideoPop2
+  },
+  {
+    path: "/admincustomer",
+    name: "Admincustomer",
+    component: Admincustomer
+  },
+  {
+    path: "/adminapprovepayment",
+    name: "Adminapprovepayment",
+    component: Adminapprovepayment
+  },
+  {
+    path: "/adminapprovepaymentPop1",
+    name: "AdminapprovepaymentPop1",
+    component: AdminapprovepaymentPop1
   },
   {
     path: "/videostudent",
