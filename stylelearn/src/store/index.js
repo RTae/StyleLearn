@@ -10,11 +10,13 @@ export default new Vuex.Store({
   state: {
     coreHeader: true,
     logoHeader: false,
-    loginHeader: false,
+    loginHeaderStudent: false,
+    loginHeaderTutor: false,
     dialogState: false,
     dialogMessage: "",
     dialogLoading: false,
-    username: null
+    username: null,
+    userType: null
   },
   getters: {
     getCoreHeader (state) {
@@ -23,8 +25,11 @@ export default new Vuex.Store({
     getLogoHeader (state) {
       return state.logoHeader
     },
-    getLoginHeader (state) {
-      return state.loginHeader
+    getLoginHeaderStudent (state) {
+      return state.loginHeaderStudent
+    },
+    getLoginHeaderTutor (state) {
+      return state.loginHeaderTutor
     },
     getDialogState (state) {
       return state.dialogState
@@ -37,6 +42,9 @@ export default new Vuex.Store({
     },
     getUserName (state) {
       return state.username
+    },
+    getUserType (state) {
+      return state.userType
     }
   },
   mutations: {
@@ -46,8 +54,11 @@ export default new Vuex.Store({
     SET_LOGO_HEADER (state, value) {
       state.logoHeader = value
     },
-    SET_LOGIN_HEADER (state, value) {
-      state.loginHeader = value
+    SET_LOGIN_HEADER_STUDENT (state, value) {
+      state.loginHeaderStudent = value
+    },
+    SET_LOGIN_HEADER_TUTOR (state, value) {
+      state.loginHeaderTutor = value
     },
     SET_DIALOG_STATE (state, value) {
       state.dialogState = value
@@ -60,18 +71,23 @@ export default new Vuex.Store({
     },
     SET_USERNAME (state, value) {
       state.username = value
+    },
+    SET_USER_TYPE (state, value) {
+      state.userType = value
     }
   },
   actions: {
     enterDefault ({ commit }) {
       commit("SET_CORE_HEADER", true)
       commit("SET_LOGO_HEADER", false)
-      commit("SET_LOGIN_HEADER", false)
+      commit("SET_LOGIN_HEADER_STUDENT", false)
+      commit("SET_LOGIN_HEADER_TUTOR", false)
     },
     enterDialog ({ commit }) {
       commit("SET_CORE_HEADER", false)
       commit("SET_LOGO_HEADER", true)
-      commit("SET_LOGIN_HEADER", false)
+      commit("SET_LOGIN_HEADER_STUDENT", false)
+      commit("SET_LOGIN_HEADER_TUTOR", false)
     },
     dialogPopup ({ commit }, { value, msg }) {
       commit("SET_DIALOG_STATE", value)
@@ -79,12 +95,25 @@ export default new Vuex.Store({
     },
     restoreLogin ({ commit }) {
       if (api.isLoggedIn() === true) {
+        const userType = localStorage.getItem(server.USER_TYPE);
         const username = localStorage.getItem(server.USERNAME);
-        commit("SET_DIALOG_LOADING", false)
-        commit("SET_USERNAME", username);
-        commit("SET_CORE_HEADER", false)
-        commit("SET_LOGO_HEADER", false)
-        commit("SET_LOGIN_HEADER", true)
+        if (userType === "Student") {
+          commit("SET_DIALOG_LOADING", false)
+          commit("SET_USERNAME", username);
+          commit("SET_USER_TYPE", userType);
+          commit("SET_CORE_HEADER", false)
+          commit("SET_LOGO_HEADER", false)
+          commit("SET_LOGIN_HEADER_STUDENT", true)
+          commit("SET_LOGIN_HEADER_TUTOR", false)
+        } else if (userType === "Tutor") {
+          commit("SET_DIALOG_LOADING", false)
+          commit("SET_USERNAME", username);
+          commit("SET_USER_TYPE", userType);
+          commit("SET_CORE_HEADER", false)
+          commit("SET_LOGO_HEADER", false)
+          commit("SET_LOGIN_HEADER_STUDENT", false)
+          commit("SET_LOGIN_HEADER_TUTOR", true)
+        }
       }
     },
     doLogout ({ commit }) {
@@ -92,27 +121,44 @@ export default new Vuex.Store({
       commit("SET_USERNAME", null);
       commit("SET_CORE_HEADER", true)
       commit("SET_LOGO_HEADER", false)
-      commit("SET_LOGIN_HEADER", false)
+      commit("SET_LOGIN_HEADER_STUDENT", false)
+      commit("SET_LOGIN_HEADER_TUTOR", false)
       router.push({ name: "Home" })
     },
     async doLogin ({ commit, dispatch }, { email, password }) {
       commit("SET_DIALOG_LOADING", true)
       const result = await api.login({ email, password });
       if (result.status === "1") {
+        const userType = localStorage.getItem(server.USER_TYPE);
         const username = localStorage.getItem(server.USERNAME);
-        commit("SET_DIALOG_LOADING", false)
-        commit("SET_USERNAME", username);
-        commit("SET_CORE_HEADER", false)
-        commit("SET_LOGO_HEADER", false)
-        commit("SET_LOGIN_HEADER", true)
-        router.push({ name: "Home" })
+        console.log(username)
+        console.log(userType)
+        if (userType === "Student") {
+          commit("SET_DIALOG_LOADING", false)
+          commit("SET_USERNAME", username);
+          commit("SET_USER_TYPE", userType);
+          commit("SET_CORE_HEADER", false)
+          commit("SET_LOGO_HEADER", false)
+          commit("SET_LOGIN_HEADER_STUDENT", true)
+          commit("SET_LOGIN_HEADER_TUTOR", false)
+          router.push({ name: "Home" })
+        } else if (userType === "Tutor") {
+          commit("SET_DIALOG_LOADING", false)
+          commit("SET_USERNAME", username);
+          commit("SET_USER_TYPE", userType);
+          commit("SET_CORE_HEADER", false)
+          commit("SET_LOGO_HEADER", false)
+          commit("SET_LOGIN_HEADER_STUDENT", false)
+          commit("SET_LOGIN_HEADER_TUTOR", true)
+          router.push({ name: "HomeTutor" })
+        }
       } else {
         commit("SET_DIALOG_LOADING", false)
         dispatch({ type: "dialogPopup", value: true, msg: result.msg })
         commit("SET_USERNAME", null);
         commit("SET_CORE_HEADER", true)
-        commit("SET_LOGO_HEADER", false)
-        commit("SET_LOGIN_HEADER", false)
+        commit("SET_LOGIN_HEADER_STUDENT", false)
+        commit("SET_LOGIN_HEADER_TUTOR", false)
       }
     },
     async doRegister ({ commit, dispatch }, { firtname, familyname, birthday, sex, email, password, role, edu }) {

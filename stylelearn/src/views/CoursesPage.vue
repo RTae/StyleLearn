@@ -104,7 +104,6 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 
 .cardContainer {

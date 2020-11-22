@@ -33,7 +33,7 @@
                 :class="{ 'on-hover': hover }"
                 class="imgCard"
                 :src="math"
-                @click="onClickLesson()"
+                @click="onClickTutor()"
               />
               <v-card-actions style="background-color: #70ccff; height:64px">
                 <v-list-item class="grow">
@@ -116,8 +116,8 @@ export default {
     linetoGrid () {
       return this.items;
     },
-    onClickLesson () {
-      console.log("ClickCourse");
+    onClickTutor () {
+      this.$router.push({ name: "Video" })
     },
     onClickLike (n) {
       this.courses[n].likeState = !this.courses[n].likeState
@@ -130,7 +130,6 @@ export default {
 .main {
   background-color: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 .btnLike {
   margin-left: 10px;

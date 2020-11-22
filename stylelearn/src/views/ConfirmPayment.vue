@@ -1,18 +1,18 @@
 <template>
   <v-container fluid class="main" id="ConfirmPayment">
     <!-- Title -->
-    <v-row style="margin-top: 10vh" align="center" justify="center">
+    <v-row style="margin-top: 5vh" align="center" justify="center">
       <v-card elevation="10" class="cardContainer">
-        <p class="textTitle">ConfirmPayment</p>
+        <p class="textTitle">Confirm Payment</p>
       </v-card>
     </v-row>
     <!-- Form -->
     <v-row justify="center" style="margin-top: 30px">
       <v-form>
         <!-- Transfer To -->
-        <v-row align="center" justify="start">
+        <v-row align="center" justify="start" >
           <v-col>
-              <v-card-text class="textLabel" >Transfer To</v-card-text>
+            <v-card-text class="textLabel">Transfer To</v-card-text>
           </v-col>
           <v-col>
             <v-select
@@ -30,7 +30,7 @@
         <!-- Transfer From -->
         <v-row align="center" justify="start">
           <v-col>
-              <v-card-text class="textLabel" >Transfer From</v-card-text>
+            <v-card-text class="textLabel">Transfer From</v-card-text>
           </v-col>
           <v-col>
             <v-select
@@ -48,50 +48,91 @@
         <!-- Date Of Transfer  -->
         <v-row align="center" justify="start">
           <v-col>
-              <v-card-text class="textLabel" >Date Of Transfer</v-card-text>
+            <v-card-text class="textLabel">Date Of Transfer</v-card-text>
           </v-col>
           <v-col>
-            <v-select
-              :rules="[v => !!v || 'Item is required']"
-              class="selectField"
-              label="select Your Bank "
-              :items="items"
-              solo
-              rounded
-              outlined
-            />
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  label="Birthday date"
+                  prepend-inner-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  class="selectField"
+                  solo
+                  rounded
+                  outlined
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                ref="picker"
+                v-model="date"
+                :max="new Date().toISOString().substr(0, 10)"
+                min="1950-01-01"
+                @change="save"
+              ></v-date-picker>
+            </v-menu>
           </v-col>
         </v-row>
 
         <!-- Time of Transfer  -->
         <v-row align="center" justify="start">
           <v-col>
-              <v-card-text class="textLabel" >Time of Transfer</v-card-text>
+            <v-card-text class="textLabel">Time of Transfer</v-card-text>
           </v-col>
           <v-col>
-            <v-select
-              :rules="[v => !!v || 'Item is required']"
-              class="selectField"
-              label="select Your Bank "
-              :items="items"
-              solo
-              rounded
-              outlined
-            />
+            <v-menu
+              ref="menu"
+              v-model="menu2"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              :return-value.sync="time"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="time"
+                  label="select Time"
+                  prepend-inner-icon="mdi-clock-time-four-outline"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  class="selectField"
+                  solo
+                  rounded
+                  outlined
+                ></v-text-field>
+              </template>
+              <v-time-picker
+                v-if="menu2"
+                v-model="time"
+                full-width
+                @click:minute="$refs.menu.save(time)"
+              ></v-time-picker>
+            </v-menu>
           </v-col>
         </v-row>
 
         <!-- Amount Transfer  -->
         <v-row align="center" justify="start">
           <v-col>
-              <v-card-text class="textLabel" >Amount Transfer</v-card-text>
+            <v-card-text class="textLabel">Amount Transfer</v-card-text>
           </v-col>
           <v-col>
-            <v-select
-              :rules="[v => !!v || 'Item is required']"
+            <v-text-field
               class="selectField"
-              label="select Your Bank "
-              :items="items"
               solo
               rounded
               outlined
@@ -102,55 +143,78 @@
         <!-- Upload receipt  -->
         <v-row align="center" justify="start">
           <v-col>
-              <v-card-text class="textLabel" >Upload receipt</v-card-text>
+            <v-card-text class="textLabel">Upload receipt</v-card-text>
           </v-col>
           <v-col>
-            <v-select
-              :rules="[v => !!v || 'Item is required']"
-              class="selectField"
-              label="select Your Bank "
-              :items="items"
-              solo
-              rounded
-              outlined
-            />
+            <v-btn
+                color="primary"
+                class="text-none"
+                height="60"
+                width="445px"
+                elevation="5"
+                rounded
+                depressed
+                :loading="isSelectingUploadReceipt"
+                @click="onButtonClickUploadReceipt"
+              >
+              <v-icon left> cloud_upload </v-icon>
+              {{ buttonTextReciept }}
+              </v-btn>
+              <input
+                ref="uploaderReceipt"
+                class="d-none"
+                type="file"
+                accept="image/*"
+                @change="onFileChangedReceipt"
+                />
           </v-col>
         </v-row>
         <!-- Button -->
-        <v-row align="center" justify="center">
-          <v-col cols="2">
-            <button :disabled="!valid" class="submitBtn" type="submit">
-              Submit
-            </button>
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-row>
-
-    <!-- Dialog -->
-    <v-dialog v-model="$store.getters.getDialogState" width="500">
+        <v-row justify="center">
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="300"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="blue lighten-2"
+          class="submitBtn"
+          height="50px"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Submit
+        </v-btn>
+      </template>
       <v-card>
-        <v-card-title class="primary mb-6"> Alert </v-card-title>
-        <v-card-text class="popUpText">
-          {{ $store.getters.getDialogMsg }}
-        </v-card-text>
-
-        <v-divider></v-divider>
-
+        <v-card-title class="headline">
+          Confirm Payment
+        </v-card-title>
+        <v-card-text>Are you sure to comfirm this payment?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="primary"
+            color="#EB5757"
             text
-            @click="
-              $store.dispatch({ type: 'dialogPopup', value: false, msg: '' })
-            "
+            @click="dialog = false"
           >
-            OK
+            No
+          </v-btn>
+          <v-btn
+            color="#70ccff"
+            text
+            @click="dialog = false"
+          >
+            Yes
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+  </v-row>
+      </v-form>
+    </v-row>
   </v-container>
 </template>
 
@@ -163,8 +227,37 @@ export default {
   },
   computed: {},
   data: () => ({
-    items: ["a", "b", "c", "d"]
-  })
+    items: ["KASIKORN BANK (K-BANK)", "BANGKOK BANK (BBL)", "Government Savings Bank (GSB)", "Krung Thai Bank (KTB)", "Siam Commercial Bank (SCB)", "Krungsri Bank (BAY)"],
+    time: null,
+    menu2: false,
+    modal2: false,
+    date: null,
+    menu: false,
+    files: [],
+    dialog: false
+  }),
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"))
+    }
+  },
+  methods: {
+    save (date) {
+      this.$refs.menu.save(date)
+    },
+    onButtonClickUploadReceipt () {
+      this.isSelectingUploadReceipt = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelectingUploadReceipt = false;
+        },
+        { once: true }
+      );
+
+      this.$refs.uploaderReceipt.click();
+    }
+  }
 };
 </script>
 
@@ -195,6 +288,7 @@ export default {
   width: 890px;
   background-color: #70ccff;
   border-radius: 30px;
+  margin-bottom: 30px;
 }
 
 .textTitle {
@@ -217,7 +311,8 @@ export default {
   background-position: center;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
-  margin-right: 20px;
+  margin-top:30px;
+  margin-bottom: 50px;
   width: 130px;
   height: 45px;
   opacity: 1;
@@ -242,7 +337,7 @@ export default {
 }
 
 .textLabel {
-    height: 80px;
+  height: 80px;
   font-weight: bold;
   color: black;
   font-size: 20px;

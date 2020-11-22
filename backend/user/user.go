@@ -16,8 +16,9 @@ import (
 type User struct {
 }
 
-type Result struct {
+type result struct {
 	UserID   string
+	Name     string
 	Email    string
 	Password string
 }
@@ -30,12 +31,14 @@ func (u *User) Login(email, password string) map[string]interface{} {
 	}
 	defer db.Close()
 
-	var results []Result
-	err := db.Raw(`	SELECT u.user_id, u.email, a.password 
+	var results []result
+	err := db.Raw(`	SELECT u.user_id, tu.name, u.email, a.password 
 					FROM tbl_users u
 					INNER JOIN tbl_auths a
-						ON u.user_id = a.user_id 
-					WHERE u.email = ?`, email).Scan(&results).Error
+						ON u.user_id = a.user_id
+					INNER JOIN tbl_type_users tu
+						ON u.user_type = tu.user_type_id
+					WHERE u.email = ? `, email).Scan(&results).Error
 	if err != nil {
 		log := u.errorHandle(err)
 		return log
@@ -45,9 +48,13 @@ func (u *User) Login(email, password string) map[string]interface{} {
 
 	if len(results) == 1 {
 		if results[0].Password == password {
+			returnResult := make(map[string]string)
+			returnResult["userID"] = results[0].UserID
+			returnResult["userType"] = results[0].Name
+
 			logs["status"] = "1"
 			logs["msg"] = ""
-			logs["result"] = results[0].UserID
+			logs["result"] = returnResult
 			return logs
 		} else {
 			logs["status"] = "215"

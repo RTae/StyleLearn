@@ -8,6 +8,7 @@ const isLoggedIn = () => {
 
 const logoff = () => {
   localStorage.removeItem(server.TOKEN_KEY);
+  localStorage.removeItem(server.USER_TYPE);
   localStorage.removeItem(server.USERNAME);
 };
 
@@ -18,8 +19,8 @@ const login = async values => {
 
   const result = await httpClient.post(server.LOGIN_URL, bodyFormData);
   if (result.data.status === "1") {
-    console.log(result)
-    localStorage.setItem(server.USERNAME, result.data.result);
+    localStorage.setItem(server.USERNAME, result.data.result.userID);
+    localStorage.setItem(server.USER_TYPE, result.data.result.userType);
     localStorage.setItem(server.TOKEN_KEY, "TOKEN123qweasd");
     return result.data;
   } else {

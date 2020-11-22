@@ -14,21 +14,21 @@
       <v-spacer></v-spacer>
       <v-row class="hidden-sm-and-down" align="center" justify="end">
         <v-toolbar-items>
-          <v-btn text
-            ><router-link to="/"><p class="text">Home</p></router-link></v-btn
-          >
-          <v-btn text
-            ><router-link to="/basicuse"
-              ><p class="text">Basic User</p></router-link
-            ></v-btn
-          >
-          <v-btn text
-            ><router-link to="/about"
-              ><p class="text">About Us</p></router-link
-            ></v-btn
-          >
+          <v-btn text>
+            <router-link to="/">
+              <p class="text">Home</p>
+            </router-link>
+          </v-btn>
+          <v-btn text>
+            <router-link to="/basicuse">
+              <p class="text">Basic Use</p>
+            </router-link>
+          </v-btn>
+          <v-btn text>
+            <router-link to="/about"> <p class="text">About Us</p></router-link>
+          </v-btn>
           <router-link to="/signup">
-            <v-img class="iconBar" src="../../assets/shopping.png"/>
+            <v-img class="iconBar" src="../../assets/shopping.png" />
           </router-link>
           <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
           <v-menu botton left>
@@ -80,9 +80,8 @@ export default {
   methods: {
     onClickHover (functionName) {
       if (functionName === "Account") {
-
       } else if (functionName === "My Courses") {
-        this.$router.push({ name: "MyCourse" })
+        this.$router.push({ name: "MyCourse" });
       } else if (functionName === "Log Out") {
         this.$store.dispatch({
           type: "doLogout"
