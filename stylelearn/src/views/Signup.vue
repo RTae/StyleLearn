@@ -123,8 +123,8 @@
             </v-row>
             <div class="inputFiled">
               <v-select
-                v-model="user.edu"
-                :items="eduTypes"
+                v-model="eduValue"
+                :items="eduTypeList"
                 :rules="[v => !!v || 'Item is required']"
                 label="Choose education"
                 solo
@@ -303,9 +303,28 @@ export default {
   name: "signUp",
   components: {},
   data: () => ({
-    eduTypes: ["a", "b", "c", "d", "e", "f"],
+    eduType: [
+      {
+        id: "a",
+        name: "High school"
+      },
+      {
+        id: "b",
+        name: "Bachelor"
+      },
+      {
+        id: "c",
+        name: "Master"
+      },
+      {
+        id: "d",
+        name: "Ph.d"
+      }
+    ],
+    eduTypeList: ["High school", "Bachelor", "Master", "Ph.d"],
     dialog: false,
     valid: true,
+    eduValue: "",
     emailCon: "",
     passwordCon: "",
     user: {
@@ -328,15 +347,21 @@ export default {
     ],
     menu: false
   }),
-  mounted () {
-    this.$store.dispatch({ type: "enterSignUp" });
-  },
   watch: {
     menu (val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
+  computed: {
+  },
   methods: {
+    eduTypeMapValue (eduName) {
+      Object.values(this.eduType).forEach(value => {
+        if (value.name === eduName) {
+          this.user.edu = value.id
+        }
+      });
+    },
     save (date) {
       this.$refs.menu.save(date);
     },
@@ -345,6 +370,7 @@ export default {
       if (this.user.email === this.emailCon) {
         if (this.user.password === this.passwordCon) {
           if (state) {
+            this.eduTypeMapValue(this.eduValue)
             this.$store.dispatch({
               type: "doRegister",
               firtname: this.user.firtname,

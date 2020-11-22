@@ -415,12 +415,6 @@ export default {
     langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
     econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
   }),
-  mounted () {
-    console.log(this.$store.getters.getCoreHeader)
-    console.log(this.$store.getters.getWithOutSearchHeader)
-    console.log(this.$store.getters.getLogoHeader)
-    console.log(this.$store.getters.getLoginHeader)
-  },
   methods: {
     onClickCourse (name) {
       this.$router.push({ name: "CoursesPage", params: { title: name } })

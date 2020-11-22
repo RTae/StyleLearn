@@ -1,6 +1,16 @@
 import httpClient from "../service/httpClient";
 import { server } from "../service/constants";
 
+const isLoggedIn = () => {
+  const token = localStorage.getItem(server.TOKEN_KEY);
+  return token != null;
+};
+
+const logoff = () => {
+  localStorage.removeItem(server.TOKEN_KEY);
+  localStorage.removeItem(server.USERNAME);
+};
+
 const login = async values => {
   var bodyFormData = new FormData();
   bodyFormData.append("email", values.email);
@@ -8,7 +18,9 @@ const login = async values => {
 
   const result = await httpClient.post(server.LOGIN_URL, bodyFormData);
   if (result.data.status === "1") {
-    localStorage.setItem(server.USERNAME, values.email);
+    console.log(result)
+    localStorage.setItem(server.USERNAME, result.data.result);
+    localStorage.setItem(server.TOKEN_KEY, "TOKEN123qweasd");
     return result.data;
   } else {
     return result.data;
@@ -25,7 +37,6 @@ const register = async values => {
   bodyFormData.append("password", values.password);
   bodyFormData.append("userType", values.role);
   bodyFormData.append("educationType", values.edu);
-  console.log(bodyFormData)
 
   const result = await httpClient.post(server.REGISTER_URL, bodyFormData);
   if (result.data.status === "1") {
@@ -37,5 +48,7 @@ const register = async values => {
 
 export default {
   login,
-  register
+  register,
+  isLoggedIn,
+  logoff
 };

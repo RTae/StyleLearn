@@ -12,10 +12,7 @@ import EditVideoTutor from "../views/Tutor/EditVideoTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
 import BasicUse from "../views/BasicUse";
 import About from "../views/About";
-import ForgetPassword from "../views/ForgetPassword";
-import ForgetPasswordPop from "../views/ForgetPasswordPop";
 import SignUpSec from "../views/SignUpSuc";
-import NewPassword from "../views/NewPassword";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
 import MyCourse from "../views/MyCourse.vue";
@@ -41,6 +38,16 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup
+  },
+  {
+    path: "/basicuse",
+    name: "BasicUse",
+    component: BasicUse
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About
   },
   {
     path: "/hometutor",
@@ -78,34 +85,9 @@ const routes = [
     component: UploadVideoTutor
   },
   {
-    path: "/basicuse",
-    name: "BasicUse",
-    component: BasicUse
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: About
-  },
-  {
-    path: "/forgetpassword",
-    name: "ForgetPassword",
-    component: ForgetPassword
-  },
-  {
-    path: "/forgetpasswordpop",
-    name: "ForgetPasswordPop",
-    component: ForgetPasswordPop
-  },
-  {
     path: "/signupsuccessfully",
     name: "SignUpSec",
     component: SignUpSec
-  },
-  {
-    path: "/newpassword",
-    name: "NewPassword",
-    component: NewPassword
   },
   {
     path: "/coursespage",
@@ -147,7 +129,6 @@ const routes = [
     name: "SelectItem",
     component: SelectItem
   }
-
 ];
 
 const router = new VueRouter({

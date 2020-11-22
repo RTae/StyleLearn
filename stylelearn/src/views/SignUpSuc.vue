@@ -32,6 +32,9 @@ export default {
   name: "signUpSec",
   mounted () {
     this.$store.dispatch({ type: "enterDialog" });
+  },
+  beforeDestroy () {
+    this.$store.dispatch({ type: "enterDefault" });
   }
 };
 </script>

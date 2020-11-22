@@ -34,7 +34,7 @@
             ><v-img class="iconBar" contain src="../../assets/bell.png"
           /></router-link>
           <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
-          <v-menu botton left :rounded="rounded">
+          <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
               <button dark icon v-bind="attrs" v-on="on">
                 <v-img
@@ -55,6 +55,7 @@
                       :class="{ 'on-hover-review': hover }"
                       class="btnPro"
                       color="#70ccff"
+                      @click="onClickHover(item.title)"
                     >
                       {{ item.title }}
                     </button></v-hover
@@ -76,10 +77,24 @@ export default {
     items: [
       { title: "Account" },
       { title: "My Courses" },
-      { title: "Help Center" },
       { title: "Log Out" }
     ]
-  })
+  }),
+  methods: {
+    onClickHover (functionName) {
+      if (functionName === "Account") {
+
+      } else if (functionName === "My Courses") {
+
+      } else if (functionName === "My Courses") {
+
+      } else if (functionName === "Log Out") {
+        this.$store.dispatch({
+          type: "doLogout"
+        });
+      }
+    }
+  }
 };
 </script>
 

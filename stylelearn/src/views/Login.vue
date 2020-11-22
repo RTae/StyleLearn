@@ -44,10 +44,7 @@
         <v-row justify="center">
           <p style="margin-right: 10px" class="text">Don't have an account?</p>
           <router-link to="/signup">
-            <p style="margin-right: 165px" class="text">Sign up</p>
-          </router-link>
-          <router-link to="/forgetpassword">
-            <p class="text">Forget password?</p>
+            <p class="text">Sign up</p>
           </router-link>
         </v-row>
 
@@ -124,9 +121,6 @@ export default {
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ]
     };
-  },
-  mounted () {
-    this.$store.dispatch({ type: "enterSignUp" });
   },
   methods: {
     submit () {

@@ -25,6 +25,9 @@ export default {
     HeaderWithLogin,
     Content,
     Footer
+  },
+  mounted () {
+    this.$store.dispatch({ type: "restoreLogin" });
   }
 };
 </script>
