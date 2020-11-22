@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { server } from "../service/constants";
 import api from "../service/api";
 import Login from "../views/Login";
 import Signup from "../views/Signup";
@@ -26,24 +27,38 @@ import DetailPayment from "../views/DetailPayment.vue";
 
 Vue.use(VueRouter);
 const routes = [
+  // General
   {
-    path: "/",
+    path: "/home",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      isAllowGuest: true
+    }
   },
   {
     path: "/login",
     name: "Login",
+    meta: {
+      requiresVisitor: true
+    },
     component: Login
   },
   {
     path: "/signup",
     name: "Signup",
     meta: {
-      requiresVisitor: true,
-      isSecured: false
+      requiresVisitor: true
     },
     component: Signup
+  },
+  {
+    path: "/signupsuccessfully",
+    name: "SignUpSec",
+    meta: {
+      requiresVisitor: true
+    },
+    component: SignUpSec
   },
   {
     path: "/basicuse",
@@ -56,10 +71,29 @@ const routes = [
     component: About
   },
   {
+    path: "/courses",
+    name: "CoursesPage",
+    component: CoursesPage,
+    meta: {
+      isAllowGuest: true
+    }
+  },
+  {
+    path: "/lessonpage",
+    name: "LessonPage",
+    component: LessonPage,
+    meta: {
+      isAllowGuest: true
+    }
+  },
+  // Tutor
+  {
     path: "/hometutor",
     name: "HomeTutor",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: true,
+      isStudent: false
     },
     component: HomeTutor
   },
@@ -72,7 +106,9 @@ const routes = [
     path: "/myvideotutor",
     name: "MyVideoTutor",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: true,
+      isStudent: false
     },
     component: MyVideoTutor
   },
@@ -80,7 +116,9 @@ const routes = [
     path: "/profiletutor",
     name: "ProfileTutor",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: true,
+      isStudent: false
     },
     component: ProfileTutor
   },
@@ -88,7 +126,9 @@ const routes = [
     path: "/editprofiletutor",
     name: "EditProfileTutor",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: true,
+      isStudent: false
     },
     component: EditProfileTutor
   },
@@ -96,7 +136,9 @@ const routes = [
     path: "/editvideotutor",
     name: "EditVideoTutor",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: true,
+      isStudent: false
     },
     component: EditVideoTutor
   },
@@ -104,30 +146,20 @@ const routes = [
     path: "/uploadvideotutor",
     name: "UploadVideoTutor",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: true,
+      isStudent: false
     },
     component: UploadVideoTutor
   },
-  {
-    path: "/signupsuccessfully",
-    name: "SignUpSec",
-    component: SignUpSec
-  },
-  {
-    path: "/courses",
-    name: "CoursesPage",
-    component: CoursesPage
-  },
-  {
-    path: "/lessonpage",
-    name: "LessonPage",
-    component: LessonPage
-  },
+  // Student
   {
     path: "/mycourse",
     name: "MyCourse",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
     },
     component: MyCourse
   },
@@ -135,7 +167,9 @@ const routes = [
     path: "/learn",
     name: "LearnCourse",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
     },
     component: LearnCourse
   },
@@ -143,7 +177,9 @@ const routes = [
     path: "/tutorpage",
     name: "TutorPage",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
     },
     component: LearnCourseTutorPage
   },
@@ -151,7 +187,9 @@ const routes = [
     path: "/video",
     name: "Video",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
     },
     component: VideoStudent
   },
@@ -159,7 +197,9 @@ const routes = [
     path: "/invoice",
     name: "SelectedItemInvoice",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
     },
     component: SelectedItemInvoice
   },
@@ -167,7 +207,10 @@ const routes = [
     path: "/selectitem",
     name: "SelectItem",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+
     },
     component: SelectItem
   },
@@ -175,9 +218,19 @@ const routes = [
     path: "/detailpayment",
     name: "DetailPayment",
     meta: {
-      isSecured: true
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
     },
     component: DetailPayment
+  },
+  {
+    path: "/",
+    redirect: "/home" // Home
+  },
+  {
+    path: "*",
+    redirect: "/home" // page not found
   }
 ];
 
@@ -188,15 +241,38 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.isSecured)) {
+  // is geust
+  if (to.matched.some(record => record.meta.isAllowGuest)) {
+    if (localStorage.getItem(server.USER_TYPE) === "Tutor") {
+      next("/hometutor")
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.isSecured)) {
     // secure route
     if (api.isLoggedIn()) {
-      next();
+      // is tutor
+      if (to.matched.some(record => record.meta.isTutor && !record.meta.isStudent)) {
+        if (localStorage.getItem(server.USER_TYPE) === "Tutor") {
+          next()
+        } else {
+          next("/")
+        }
+      // is student
+      } else if (to.matched.some(record => !record.meta.isTutor && record.meta.isStudent)) {
+        if (localStorage.getItem(server.USER_TYPE) === "Student") {
+          next()
+        } else {
+          next("/hometutor")
+        }
+      } else {
+        next("/")
+      }
     } else {
       next("/");
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-    // when login
+    // when login can't not enter login and signup
     if (api.isLoggedIn()) {
       next("/");
     } else {
