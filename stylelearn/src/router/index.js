@@ -17,7 +17,7 @@ import ForgetPasswordPop from "../views/ForgetPasswordPop";
 import SignUpSec from "../views/SignUpSuc";
 import NewPassword from "../views/NewPassword";
 import CoursesPage from "../views/CoursesPage";
-import LessonPage from "../views/LessonPage";;
+import LessonPage from "../views/LessonPage";
 import MyCourse from "../views/MyCourse.vue";
 import LearnCourse from "../views/LearnCourse.vue";
 import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
