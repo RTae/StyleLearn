@@ -27,6 +27,8 @@ import VideoStudent from "../views/Student/VideoStudent";
 import SelectedItemInvoice from "../views/Student/SelectedItemInvoice";
 import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
+import ConfirmPayment from "../views/ConfirmPayment.vue";
+import ProfileStudent from "../views/ProfileStudent.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -227,12 +229,32 @@ const routes = [
     component: DetailPayment
   },
   {
+    path: "/confirmpayment",
+    name: "ConfirmPayment",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ConfirmPayment
+  },
+  {
     path: "/",
     redirect: "/home" // Home
   },
   {
     path: "*",
     redirect: "/home" // page not found
+  },
+  {
+    path: "/profilestudent",
+    name: "ProfileStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ProfileStudent
   }
 ];
 

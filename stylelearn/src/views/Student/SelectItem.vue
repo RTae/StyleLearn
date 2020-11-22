@@ -120,10 +120,6 @@ export default {
   color: #000;
   outline: none;
 }
-.bottonCom:active {
-  background-color: #ffce70;
-  outline: none;
-}
 .courseCard {
   border-radius: 30px;
   background-color: white;
