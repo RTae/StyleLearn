@@ -21,7 +21,7 @@
           </v-btn>
           <v-btn text>
             <router-link to="/basicuse">
-              <p class="text">Basic User</p>
+              <p class="text">Basic Use</p>
             </router-link>
           </v-btn>
           <v-btn text>
