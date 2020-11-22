@@ -58,8 +58,8 @@ export default new Vuex.Store({
     SET_DIALOG_LOADING (state, value) {
       state.dialogLoading = value
     },
-    SET_USERNAME (state, username) {
-      state.username = username
+    SET_USERNAME (state, value) {
+      state.username = value
     }
   },
   actions: {

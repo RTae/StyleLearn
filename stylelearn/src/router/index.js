@@ -1,4 +1,5 @@
 import Vue from "vue";
+import api from "../service/api";
 import VueRouter from "vue-router";
 import Login from "../views/Login";
 import Signup from "../views/Signup";
@@ -37,6 +38,10 @@ const routes = [
   {
     path: "/signup",
     name: "Signup",
+    meta: {
+      requiresVisitor: true,
+      isSecured: false
+    },
     component: Signup
   },
   {
@@ -52,6 +57,9 @@ const routes = [
   {
     path: "/hometutor",
     name: "HomeTutor",
+    meta: {
+      isSecured: true
+    },
     component: HomeTutor
   },
   {
@@ -62,26 +70,41 @@ const routes = [
   {
     path: "/myvideotutor",
     name: "MyVideoTutor",
+    meta: {
+      isSecured: true
+    },
     component: MyVideoTutor
   },
   {
     path: "/profiletutor",
     name: "ProfileTutor",
+    meta: {
+      isSecured: true
+    },
     component: ProfileTutor
   },
   {
     path: "/editprofiletutor",
     name: "EditProfileTutor",
+    meta: {
+      isSecured: true
+    },
     component: EditProfileTutor
   },
   {
     path: "/editvideotutor",
     name: "EditVideoTutor",
+    meta: {
+      isSecured: true
+    },
     component: EditVideoTutor
   },
   {
     path: "/uploadvideotutor",
     name: "UploadVideoTutor",
+    meta: {
+      isSecured: true
+    },
     component: UploadVideoTutor
   },
   {
@@ -102,31 +125,49 @@ const routes = [
   {
     path: "/mycourse",
     name: "MyCourse",
+    meta: {
+      isSecured: true
+    },
     component: MyCourse
   },
   {
     path: "/learncourse",
     name: "LearnCourse",
+    meta: {
+      isSecured: true
+    },
     component: LearnCourse
   },
   {
     path: "/learncoursetutorpage",
     name: "LearnCourseTutorPage",
+    meta: {
+      isSecured: true
+    },
     component: LearnCourseTutorPage
   },
   {
     path: "/video",
     name: "VideoStudent",
+    meta: {
+      isSecured: true
+    },
     component: VideoStudent
   },
   {
     path: "/invoice",
     name: "SelectedItemInvoice",
+    meta: {
+      isSecured: true
+    },
     component: SelectedItemInvoice
   },
   {
     path: "/selectitem",
     name: "SelectItem",
+    meta: {
+      isSecured: true
+    },
     component: SelectItem
   }
 ];
@@ -135,6 +176,27 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => (record.meta.isSecured))) {
+    // secure route
+    if (api.isLoggedIn()) {
+      next();
+    } else {
+      next("/");
+    }
+  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+    // when login
+    if (api.isLoggedIn()) {
+      next("/");
+    } else {
+      next();
+    }
+  } else {
+    // unsecure route
+    next();
+  }
 });
 
 export default router;
