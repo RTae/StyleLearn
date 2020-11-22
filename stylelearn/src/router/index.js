@@ -146,7 +146,7 @@ const routes = [
     component: EditVideoTutor
   },
   {
-    path: "/uploadvideotutor",
+    path: "/upload",
     name: "UploadVideoTutor",
     meta: {
       isSecured: true,
@@ -213,7 +213,6 @@ const routes = [
       isSecured: true,
       isTutor: false,
       isStudent: true
-
     },
     component: SelectItem
   },

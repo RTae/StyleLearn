@@ -1,7 +1,6 @@
 <template>
   <v-container fluid class="main" id="login">
     <v-row
-      style="margin-top: 10vh;margin-top:100px;"
       align="center"
       justify="center"
     >
@@ -153,6 +152,10 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background-color: rgb(239, 239, 239);
+  min-height: 100vh;
+}
 .text2 {
   color: black;
   margin-top: 20px;
