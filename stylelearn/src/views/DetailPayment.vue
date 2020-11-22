@@ -1,6 +1,5 @@
 <template>
-  <v-container fluid class="main" id="SelectedItemInvoice">
-    <!--title -->
+  <v-container fluid class="main" id="DetailPayment">
     <v-row align="center" justify="center" style="margin-top: 10px">
       <v-card class="cardContainer">
         <p class="text">Invoice</p>
@@ -12,7 +11,7 @@
         <p class="textTitle">Invoice</p>
       </v-card>
     </v-row>
-    <v-row align="center" justify="center">
+    <v-row align="center" justify="center" >
       <v-card class="cardOrderContainer">
         <v-row align="center" justify="center">
           <v-col>
@@ -26,31 +25,31 @@
         </v-row>
       </v-card>
     </v-row>
+    <!-- Detail Bank -->
     <v-row align="center" justify="center">
       <v-card class="cardOrder">
         <p class="textTitle">Bank Transfer</p>
       </v-card>
     </v-row>
-    <v-row>
-      <v-img
-        height="443"
-        width="1010"
+    <v-row align="center" justify="center">
+        <v-card class="cardBank">
+                 <v-img
         src="../assets/bank.png"
       >
       </v-img>
+        </v-card>
     </v-row>
-
     <v-row align="center" justify="center" style="margin-bottom:100px;">
       <div class="buttonCardContainer">
         <button
           class="bottonNext"
           style="background-color:#EB5769;"
-          @click="onClickBack()"
+          @click="onClickCancle()"
         >
-          Back
+          Cancle
         </button>
-        <button class="bottonNext" @click="onClickNext()">
-          Next
+        <button class="bottonNext" @click="onClickCom()">
+          Confirm Payment
         </button>
       </div>
     </v-row>
@@ -59,14 +58,14 @@
 
 <script>
 export default {
-  name: "SelectedItemInvoice",
+  name: "DetailPayment",
   components: {},
   methods: {
-    onClickBack () {
+    onClickCancle () {
       this.$router.push({ name: "SelectItem" });
     },
-    onClickNext () {
-      this.$router.push({ name: "SelectItem" });
+    onClickCom () {
+      this.$router.push({ name: "ConfirmPayment" });
     }
   }
 };
@@ -119,10 +118,16 @@ export default {
   font-family: "Delius";
   margin-left: 20px;
 }
+.cardBank{
+    width: 900px;
+    height: 500;
+    border-radius: 30px;
+    margin-top: 20px;
+}
 .cardTextTitle {
   width: 400px;
   font-family: "Delius";
-  font-size: 20px;
+  font-size: 25px;
   margin-left: 20px;
   border-radius: 30px;
 }
@@ -163,31 +168,6 @@ export default {
   background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
   color: #000;
-  outline: none;
-}
-.bottonNext:active {
-  background-color: #ffce70;
-  outline: none;
-}
-.bottonBack {
-  background-color: #5cbbf6;
-  font-family: "Average Sans", sans-serif;
-  border-radius: 100px;
-  width: 200px;
-  height: 50px;
-  font-size: 18px;
-  color: white;
-  outline: none;
-  margin-top: 20px;
-}
-.bottonBack:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
-    center/15000%;
-  color: #000;
-  outline: none;
-}
-.bottonBack:active {
-  background-color: #ffce70;
   outline: none;
 }
 .totalCard {

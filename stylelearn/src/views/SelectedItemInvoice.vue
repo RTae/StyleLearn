@@ -82,7 +82,7 @@ export default {
       this.$router.push({ name: "SelectItem" })
     },
     onClickNext () {
-      this.$router.push({ name: "SelectItem" })
+      this.$router.push({ name: "DetailPayment" })
     }
   }
 };
@@ -179,31 +179,6 @@ export default {
   background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
     center/15000%;
   color: #000;
-  outline: none;
-}
-.bottonNext:active {
-  background-color: #ffce70;
-  outline: none;
-}
-.bottonBack {
-  background-color: #5cbbf6;
-  font-family: "Average Sans", sans-serif;
-  border-radius: 100px;
-  width: 200px;
-  height: 50px;
-  font-size: 18px;
-  color: white;
-  outline: none;
-  margin-top: 20px;
-}
-.bottonBack:hover {
-  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
-    center/15000%;
-  color: #000;
-  outline: none;
-}
-.bottonBack:active {
-  background-color: #ffce70;
   outline: none;
 }
 .totalCard {

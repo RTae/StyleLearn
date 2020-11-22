@@ -23,6 +23,7 @@ import VideoStudent from "../views/VideoStudent.vue";
 import SelectedItemInvoice from "../views/SelectedItemInvoice.vue";
 import SelectItem from "../views/SelectItem.vue";
 import DetailPayment from "../views/DetailPayment.vue";
+import ConfirmPayment from "../views/ConfirmPayment.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -178,7 +179,16 @@ const routes = [
       isSecured: true
     },
     component: DetailPayment
+  },
+  {
+    path: "/confirmpayment",
+    name: "ConfirmPayment",
+    meta: {
+      isSecured: true
+    },
+    component: ConfirmPayment
   }
+
 ];
 
 const router = new VueRouter({
