@@ -122,7 +122,7 @@ export default {
 }
 .textTitle {
   font-weight: normal;
-  color: black;
+  color: white;
   font-size: 30px;
   font-family: "Delius", cursive;
   margin-left: 20px;
