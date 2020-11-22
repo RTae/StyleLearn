@@ -8,50 +8,50 @@
     </v-row>
     <!--Order-->
     <v-row align="center" justify="center">
-        <v-card class="cardOrder">
-          <p class="textTitle">Order</p>
-        </v-card>
+      <v-card class="cardOrder">
+        <p class="textTitle">Invoice</p>
+      </v-card>
     </v-row>
     <v-row align="center" justify="center">
-        <v-card class="cardOrderContainer">
-            <v-row  v-for="lessonBuy in lessonsBuy" :key="lessonBuy.index" align="center" justify="center">
-              <v-col>
-                <p class="cardTextTitle">{{lessonBuy.name }}</p>
-              </v-col>
-              <v-col>
-                <p class="cardPrice">X {{}} Day</p>
-              </v-col>
-              <v-col>
-                <p class="learnday">50 Bath</p>
-              </v-col>
-            </v-row>
-        </v-card>
+      <v-card class="cardOrderContainer">
+        <v-row align="center" justify="center">
+          <v-col>
+            <p class="cardTextTitle">Invoice ID : i000000001</p>
+          </v-col>
+        </v-row>
+        <v-row align="center" justify="center">
+          <v-col>
+            <p class="cardTextTitle">Total : 150 Bath</p>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-row>
-    <v-row align="center" justify="center" style="margin-top:50px">
-        <div style="width:900px">
-            <v-row align="center" justify="end">
-                <v-card class="totalCard">
-                    <p class="cardTextTotal">Total : 100 Bath</p>
-                </v-card>
-            </v-row>
-        </div>
+    <v-row align="center" justify="center">
+      <v-card class="cardOrder">
+        <p class="textTitle">Bank Transfer</p>
+      </v-card>
+    </v-row>
+    <v-row>
+      <v-img
+        height="443"
+        width="1010"
+        src="../assets/bank.png"
+      >
+      </v-img>
     </v-row>
 
     <v-row align="center" justify="center" style="margin-bottom:100px;">
       <div class="buttonCardContainer">
-          <button
-            class="bottonNext"
-            style="background-color:#EB5769;"
-            @click="onClickBack()"
-          >
+        <button
+          class="bottonNext"
+          style="background-color:#EB5769;"
+          @click="onClickBack()"
+        >
           Back
-          </button>
-          <button
-            class="bottonNext"
-            @click="onClickNext()"
-          >
+        </button>
+        <button class="bottonNext" @click="onClickNext()">
           Next
-          </button>
+        </button>
       </div>
     </v-row>
   </v-container>
@@ -61,28 +61,12 @@
 export default {
   name: "SelectedItemInvoice",
   components: {},
-  data: () => ({
-    lessonsBuy: [
-      {
-        index: 1,
-        name: "Differentiation I"
-      },
-      {
-        index: 2,
-        name: "Differentiation II"
-      },
-      {
-        index: 3,
-        name: "Differentiation III"
-      }
-    ]
-  }),
   methods: {
     onClickBack () {
-      this.$router.push({ name: "SelectItem" })
+      this.$router.push({ name: "SelectItem" });
     },
     onClickNext () {
-      this.$router.push({ name: "SelectItem" })
+      this.$router.push({ name: "SelectItem" });
     }
   }
 };
@@ -164,7 +148,7 @@ export default {
   width: 800px;
   height: 80px;
 }
-.bottonNext{
+.bottonNext {
   background-color: #5cbbf6;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
@@ -216,7 +200,7 @@ export default {
   background-color: white;
 }
 .cardTextTotal {
-  margin-top:10px;
+  margin-top: 10px;
   color: black;
   font-family: "Delius";
   font-size: 25px;

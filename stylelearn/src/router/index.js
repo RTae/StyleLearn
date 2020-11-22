@@ -22,6 +22,7 @@ import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
 import VideoStudent from "../views/VideoStudent.vue";
 import SelectedItemInvoice from "../views/SelectedItemInvoice.vue";
 import SelectItem from "../views/SelectItem.vue";
+import DetailPayment from "../views/DetailPayment.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -169,6 +170,14 @@ const routes = [
       isSecured: true
     },
     component: SelectItem
+  },
+  {
+    path: "/detailpayment",
+    name: "DetailPayment",
+    meta: {
+      isSecured: true
+    },
+    component: DetailPayment
   }
 ];
 
@@ -179,7 +188,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => (record.meta.isSecured))) {
+  if (to.matched.some(record => record.meta.isSecured)) {
     // secure route
     if (api.isLoggedIn()) {
       next();
