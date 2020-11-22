@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid class="main" id="CoursesPage">
+  <v-container fluid class="main" id="SelectItem">
     <!-- Subject title -->
-    <v-row align="center" justify="center" style="margin-top: 40px">
+    <v-row align="center" justify="center" style="margin-top: 10px">
       <v-card class="cardContainer">
         <p class="text">Selected Item</p>
       </v-card>
@@ -44,7 +44,7 @@
       </div>
     </v-row>
     <v-row align="center" justify="center" style="margin-top:50px">
-        <div style="width:900px">
+        <div style="width:800px">
             <v-row align="center" justify="end">
                 <v-card class="totalCard">
                     <p class="cardTextTotal">Total : 100 Bath</p>
@@ -53,10 +53,10 @@
         </div>
     </v-row>
     <v-row align="center" justify="center" style="margin-bottom:100px;">
-      <div class="buttonCardContainer">
+      <div class="buttonCardContainer" align="center" justify="end">
           <button
-            class="bottonNext"
-            @click="onClickNext()"
+            class="bottonCom"
+            @click="onClickComfirmOrder()"
           >
           Comfirm Order
           </button>
@@ -67,11 +67,16 @@
 
 <script>
 export default {
-  name: "coursesPage",
+  name: "SelectItem",
   components: {},
   data: () => ({
     items: [1, 2, 3, 4]
-  })
+  }),
+  methods: {
+    onClickComfirmOrder () {
+      this.$router.push({ name: "SelectedItemInvoice" })
+    }
+  }
 };
 </script>
 
@@ -139,14 +144,15 @@ export default {
   border-radius: 30px;
   width: 400px;
   height: 50px;
-  background-color: green;
 }
 .totalCard {
+  display: flex;
+  justify-content: center;
+  align-self: center;
   border-radius: 30px;
-  flex-direction: row;
   width: 400px;
-  height: 60px;
-  background-color: red;
+  height: 50px;
+  background-color: white;
 }
 .cardTextTotal {
   color: black;
@@ -156,6 +162,7 @@ export default {
   justify-content: center;
   font-family: "Delius", cursive;
   font-size: 25px;
+  margin-top:10px;
 }
 .cardTextTitle {
   display: flex;
@@ -188,5 +195,13 @@ export default {
   width: 50px;
   height: 100px;
   margin-top: 30px;
+}
+.buttonCardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 50px;
+  width: 800px;
+  height: 80px;
 }
 </style>
