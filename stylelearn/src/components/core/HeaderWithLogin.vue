@@ -27,12 +27,9 @@
               ><p class="text">About Us</p></router-link
             ></v-btn
           >
-          <router-link to="/signup"
-            ><v-img class="iconBar" src="../../assets/shopping.png"
-          /></router-link>
-          <router-link to="/signup"
-            ><v-img class="iconBar" contain src="../../assets/bell.png"
-          /></router-link>
+          <router-link to="/signup">
+            <v-img class="iconBar" src="../../assets/shopping.png"/>
+          </router-link>
           <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
@@ -85,9 +82,7 @@ export default {
       if (functionName === "Account") {
 
       } else if (functionName === "My Courses") {
-
-      } else if (functionName === "My Courses") {
-
+        this.$router.push({ name: "MyCourse" })
       } else if (functionName === "Log Out") {
         this.$store.dispatch({
           type: "doLogout"
