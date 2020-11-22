@@ -1,13 +1,23 @@
 <template>
-  <v-container fluid class="main" id="signUpSec">
+  <v-container fluid class="main" id="aboutus">
     <v-row justify="center">
       <v-card class="cardContainer">
-        <v-row><label class="text">Successfully Register</label></v-row>
-        <v-row
-          ><label class="textdetail"
-            >Hope you will find your style</label
-          ></v-row
-        >
+        <v-row justify="center"><p class="text">ABOUT US</p></v-row>
+        <v-row justify="center" class="textdetail">
+          <p>แพลตฟอร์ม StyleLearn เป็นแพลตฟอร์มที่มีจุดประสงค์เพื่อเป็นสื่อกลาง</p>
+        </v-row>
+        <v-row justify="center">
+          <p>ระหว่างผู้เรียนและผู้สอน โดยที่ผู้เรียนสามารถเลือกเรียนเพียงบทย่อยแต่ละบทที่สนใจได้</p>
+        </v-row>
+        <v-row justify="center">
+          <p>และแต่ละบทย่อยจะมีผู้สอนหลายคนให้ผู้เรียนได้เลือกเรียนตามสไตล์การสอนที่ถูกใจ</p>
+        </v-row>
+        <v-row justify="center">
+          <p>และยังสามารถรับชมคลิปวิดีโอการสอนได้อย่างไม่จำกัดจำนวนครั้ง นอกจากนั้นแล้ว</p>
+        </v-row>
+        <v-row justify="center">
+          <p>แพลตฟอร์ม StyleLearn ยังเป็นอีกหนึ่งช่องทางในการเพิ่มรายได้ให้กับผู้สอนอีกช่องทางหนึ่ง</p>
+        </v-row>
       </v-card>
     </v-row>
     <div class="d-flex flex-column justify-bottom align-center">
@@ -24,7 +34,7 @@
 
 <script>
 export default {
-  name: "signUpSec"
+  name: "aboutus"
 };
 </script>
 
@@ -32,8 +42,8 @@ export default {
 .cardContainer {
   color: black;
   border-radius: 20px;
-  width: 461px;
-  height: 184px;
+  width: 900px;
+  height: 450px;
   margin-top: 20vh;
  }
 
@@ -42,8 +52,7 @@ export default {
   font-size: 30px;
   color: #5c5c5c;
   font-family: "ABeeZee";
-  margin-top: 30px;
-  margin-left: 110px;
+  margin-top: 50px;
   margin-bottom: 20px;
 }
 
@@ -51,29 +60,6 @@ export default {
   font-size: 18px;
   color: #5c5c5c;
   font-family: "ABeeZee";
-  margin-top: 10px;
-  margin-left: 140px;
-}
-
-.summitBtn {
-  background-color: #5cbbf6;
-  background-position: center;
-  font-family: "Average Sans", sans-serif;
-  border-radius: 100px;
-  margin-right: 20px;
-  width: 130.5px;
-  height: 45px;
-  opacity: 1;
-  transition: 0.3s;
-  font-size: 11px;
-  text-transform: uppercase;
-  color: white;
-  box-shadow: 0 0 4px #999;
-  cursor: pointer;
-  outline: none;
   margin-top: 40px;
-}
-body {
-  background-color: #ecede8;
 }
 </style>
