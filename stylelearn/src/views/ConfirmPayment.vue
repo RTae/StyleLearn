@@ -3,64 +3,119 @@
     <!-- Title -->
     <v-row style="margin-top: 10vh" align="center" justify="center">
       <v-card elevation="10" class="cardContainer">
-        <p class="textTitle">Confirm Payment</p>
+        <p class="textTitle">ConfirmPayment</p>
       </v-card>
     </v-row>
     <!-- Form -->
     <v-row justify="center" style="margin-top: 30px">
-      <v-form width="890px" style="background-color:green;">
-        <!-- Subject Course -->
-        <v-row align="center" justify="start" style="background-color:#EB5769;">
-          <v-col>
-            <v-row class="ml-2" justify="start" >
-              <label class="textLabel">Subject</label>
-            </v-row>
-             <v-select
-                :rules="[v => !!v || 'Item is required']"
-                class="selectField"
-                :items="items"
-                solo
-                rounded
-                outlined
-              />
-          </v-col>
-        </v-row>
-
-        <!-- Lesson -->
+      <v-form>
+        <!-- Transfer To -->
         <v-row align="center" justify="start">
-          <v-col cols="12">
-            <v-row class="ml-2" justify="start">
-              <label class="textLabel">Lesson</label>
-            </v-row>
-             <v-select
-                :rules="[v => !!v || 'Item is required']"
-                class="selectField"
-                :items="items"
-                solo
-                rounded
-                outlined
-              />
+          <v-col>
+              <v-card-text class="textLabel" >Transfer To</v-card-text>
           </v-col>
-        </v-row>
-
-        <!-- Desciption -->
-        <v-row align="center" justify="center">
-          <v-col cols="12">
-            <v-row class="ml-2" justify="start">
-              <label class="textLabel">Description</label>
-            </v-row>
-            <v-textarea
-              v-model="title"
-              counter
-              rounded
-              maxlength="100"
-              full-width
-              single-line
+          <v-col>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              label="select Bank "
+              :items="items"
               solo
-            ></v-textarea>
+              rounded
+              outlined
+            />
           </v-col>
         </v-row>
 
+        <!-- Transfer From -->
+        <v-row align="center" justify="start">
+          <v-col>
+              <v-card-text class="textLabel" >Transfer From</v-card-text>
+          </v-col>
+          <v-col>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              label="select Your Bank "
+              :items="items"
+              solo
+              rounded
+              outlined
+            />
+          </v-col>
+        </v-row>
+
+        <!-- Date Of Transfer  -->
+        <v-row align="center" justify="start">
+          <v-col>
+              <v-card-text class="textLabel" >Date Of Transfer</v-card-text>
+          </v-col>
+          <v-col>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              label="select Your Bank "
+              :items="items"
+              solo
+              rounded
+              outlined
+            />
+          </v-col>
+        </v-row>
+
+        <!-- Time of Transfer  -->
+        <v-row align="center" justify="start">
+          <v-col>
+              <v-card-text class="textLabel" >Time of Transfer</v-card-text>
+          </v-col>
+          <v-col>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              label="select Your Bank "
+              :items="items"
+              solo
+              rounded
+              outlined
+            />
+          </v-col>
+        </v-row>
+
+        <!-- Amount Transfer  -->
+        <v-row align="center" justify="start">
+          <v-col>
+              <v-card-text class="textLabel" >Amount Transfer</v-card-text>
+          </v-col>
+          <v-col>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              label="select Your Bank "
+              :items="items"
+              solo
+              rounded
+              outlined
+            />
+          </v-col>
+        </v-row>
+
+        <!-- Upload receipt  -->
+        <v-row align="center" justify="start">
+          <v-col>
+              <v-card-text class="textLabel" >Upload receipt</v-card-text>
+          </v-col>
+          <v-col>
+            <v-select
+              :rules="[v => !!v || 'Item is required']"
+              class="selectField"
+              label="select Your Bank "
+              :items="items"
+              solo
+              rounded
+              outlined
+            />
+          </v-col>
+        </v-row>
         <!-- Button -->
         <v-row align="center" justify="center">
           <v-col cols="2">
@@ -87,22 +142,15 @@
           <v-btn
             color="primary"
             text
-            @click="$store.dispatch({ type: 'dialogPopup', value: false, msg: '' })"
+            @click="
+              $store.dispatch({ type: 'dialogPopup', value: false, msg: '' })
+            "
           >
             OK
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <!-- Popup overlay -->
-    <v-overlay :value="$store.getters.getDialogLoading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      />
-    </v-overlay>
-
   </v-container>
 </template>
 
@@ -117,7 +165,7 @@ export default {
   data: () => ({
     items: ["a", "b", "c", "d"]
   })
-}
+};
 </script>
 
 <style scoped>
@@ -130,12 +178,12 @@ export default {
   justify-content: flex-start;
   align-items: center;
 }
-.titleContainer{
+.titleContainer {
   display: flex;
   justify-content: center;
   margin-top: 100px;
 }
-.formContainer{
+.formContainer {
   width: 70vw;
 }
 .cardContainer {
@@ -156,11 +204,11 @@ export default {
   font-family: "Average Sans", sans-serif;
 }
 
-.selectField{
+.selectField {
   width: 445px;
 }
 
-.textField{
+.textField {
   border-radius: 10px;
 }
 
@@ -193,8 +241,9 @@ export default {
   transition: background 0s;
 }
 
-.textLabel{
-  font-weight: normal;
+.textLabel {
+    height: 80px;
+  font-weight: bold;
   color: black;
   font-size: 20px;
   font-family: "Delius";
