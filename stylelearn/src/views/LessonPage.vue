@@ -1,5 +1,15 @@
 <template>
   <v-container fluid class="main" id="LessonPage">
+    <v-alert
+      :value="popUpBuy"
+      dense
+      border="left"
+      type="warning"
+      transition="scale-transition"
+      style="margin-top:20px"
+    >
+      I'm a dense alert with the <strong>border</strong> prop and a <strong>type</strong> of warning
+    </v-alert>
     <v-row align="center" justify="start" style="margin-top:40px">
       <v-col cols="1"></v-col>
       <p class="headtext">CALCULUS I</p>
@@ -28,6 +38,7 @@
                     :class="{ 'on-hover-review': hover }"
                     class="bottonBuy"
                     color="#70ccff"
+                    @click="onClickBuy()"
                   >
                     Buy
                   </button>
@@ -160,7 +171,20 @@
 
 export default {
   name: "LessonPage",
-  components: {}
+  components: {},
+  data () {
+    return {
+      popUpBuy: false
+    }
+  },
+  methods: {
+    onClickBuy () {
+      this.popUpBuy = true
+      setInterval(() => {
+        this.popUpBuy = false
+      }, 2000);
+    }
+  }
 };
 </script>
 
@@ -168,7 +192,6 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 .courseCard {
   border-radius: 10px;
