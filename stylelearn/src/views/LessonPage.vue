@@ -1,15 +1,24 @@
 <template>
   <v-container fluid class="main" id="LessonPage">
-    <v-alert
-      :value="popUpBuy"
-      dense
-      border="left"
-      type="warning"
-      transition="scale-transition"
-      style="margin-top:20px"
+    <v-snackbar
+      top
+      v-model="popUpBuy"
+      color="#ffce70"
+      elevation="7"
+      :timeout="2000"
     >
-      I'm a dense alert with the <strong>border</strong> prop and a <strong>type</strong> of warning
-    </v-alert>
+      <p style="color:black; text-align:center">เพิ่มเข้าตะกร้าเรียบร้อย</p>
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-row align="center" justify="start" style="margin-top:40px">
       <v-col cols="1"></v-col>
       <p class="headtext">CALCULUS I</p>
@@ -26,9 +35,7 @@
               <v-col>
                 <div class="detail">
                   <v-card-text class="cardTextTitle">Diff1</v-card-text>
-                  <v-card-text class="cardTextDetail"
-                    >เรียนเกี่ยวกับ Diff</v-card-text
-                  >
+                  <v-card-text class="cardTextDetail">เรียนเกี่ยวกับ Diff</v-card-text>
                 </div>
               </v-col>
               <v-col class="buttonContainer">
@@ -180,9 +187,6 @@ export default {
   methods: {
     onClickBuy () {
       this.popUpBuy = true
-      setInterval(() => {
-        this.popUpBuy = false
-      }, 2000);
     }
   }
 };

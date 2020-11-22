@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { server } from "../service/constants";
 import api from "../service/api";
+// General
 import Login from "../views/Login";
 import Signup from "../views/Signup";
 import SignUpSec from "../views/SignUpSuc";
@@ -10,6 +11,7 @@ import BasicUse from "../views/BasicUse";
 import About from "../views/About";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
+// Tutor
 import HomeTutor from "../views/Tutor/HomeTutor";
 import TestTutor from "../views/Tutor/TestTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
@@ -17,13 +19,14 @@ import ProfileTutor from "../views/Tutor/ProfileTutor";
 import EditProfileTutor from "../views/Tutor/EditProfileTutor";
 import EditVideoTutor from "../views/Tutor/EditVideoTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
-import MyCourse from "../views/MyCourse.vue";
-import LearnCourse from "../views/LearnCourse.vue";
-import LearnCourseTutorPage from "../views/LearnCourseTutorPage.vue";
-import VideoStudent from "../views/VideoStudent.vue";
-import SelectedItemInvoice from "../views/SelectedItemInvoice.vue";
-import SelectItem from "../views/SelectItem.vue";
-import DetailPayment from "../views/DetailPayment.vue";
+// Student
+import MyCourse from "../views/Student/MyCourse";
+import LearnCourse from "../views/Student/LearnCourse";
+import LearnCourseTutorPage from "../views/Student/LearnCourseTutorPage";
+import VideoStudent from "../views/Student/VideoStudent";
+import SelectedItemInvoice from "../views/Student/SelectedItemInvoice";
+import SelectItem from "../views/Student/SelectItem";
+import DetailPayment from "../views/Student/DetailPayment";
 
 Vue.use(VueRouter);
 const routes = [
@@ -164,7 +167,7 @@ const routes = [
     component: MyCourse
   },
   {
-    path: "/learn",
+    path: "/mycourse/lesson",
     name: "LearnCourse",
     meta: {
       isSecured: true,
@@ -174,7 +177,7 @@ const routes = [
     component: LearnCourse
   },
   {
-    path: "/tutorpage",
+    path: "/mycourse/lesson/tutor",
     name: "TutorPage",
     meta: {
       isSecured: true,
@@ -184,7 +187,7 @@ const routes = [
     component: LearnCourseTutorPage
   },
   {
-    path: "/video",
+    path: "/mycourse/lesson/tutor/video",
     name: "Video",
     meta: {
       isSecured: true,
@@ -279,7 +282,6 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
-    // unsecure route
     next();
   }
 });

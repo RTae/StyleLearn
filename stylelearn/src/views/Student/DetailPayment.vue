@@ -35,7 +35,7 @@
       <v-img
         height="443"
         width="1010"
-        src="../assets/bank.png"
+        src="../../assets/bank.png"
       >
       </v-img>
     </v-row>

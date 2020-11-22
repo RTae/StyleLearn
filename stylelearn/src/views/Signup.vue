@@ -54,6 +54,7 @@
             </v-row>
             <div class="inputFiled">
               <v-text-field
+                ref="FirstName"
                 :rules="[v => !!v || 'Firstname is required']"
                 v-model="user.firtname"
                 solo
@@ -366,6 +367,7 @@ export default {
       this.$refs.menu.save(date);
     },
     async submitRegister () {
+      this.$refs.FirstName.focus();
       var state = this.$refs.form.validate();
       if (this.user.email === this.emailCon) {
         if (this.user.password === this.passwordCon) {
