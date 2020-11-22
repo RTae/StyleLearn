@@ -32,7 +32,6 @@
                   background-color="#A8DFFE"
                   :items="items"
                 ></v-select>
-                <p>day</p>
               </v-col>
               <v-col class="buttonContainer">
                 <v-btn icon color="red">
@@ -44,31 +43,23 @@
         </div>
       </div>
     </v-row>
-    <v-row align="center" justify="center">
-      <div class="totalCardContainer">
-        <v-row align="center" justify="end">
-          <v-card class="totalCard">
-            <v-card-text class="cardTextTotal">Total : 100 Bath</v-card-text>
-          </v-card>
-        </v-row>
-      </div>
+    <v-row align="center" justify="center" style="margin-top:50px">
+        <div style="width:900px">
+            <v-row align="center" justify="end">
+                <v-card class="totalCard">
+                    <p class="cardTextTotal">Total : 100 Bath</p>
+                </v-card>
+            </v-row>
+        </div>
     </v-row>
     <v-row align="center" justify="center" style="margin-bottom:100px;">
-      <div class="totalCardContainer">
-        <v-row align="center" justify="end">
-          <v-hover v-slot="{ hover }">
-            <router-link to="/invoice">
-              <button
-                :elevation="hover ? 8 : 0"
-                :class="{ 'on-hover-review': hover }"
-                class="bottonCom"
-                color="#70ccff"
-              >
-                Confirm Order
-              </button>
-            </router-link>
-          </v-hover>
-        </v-row>
+      <div class="buttonCardContainer">
+          <button
+            class="bottonNext"
+            @click="onClickNext()"
+          >
+          Comfirm Order
+          </button>
       </div>
     </v-row>
   </v-container>
@@ -88,7 +79,6 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 .cardContainer {
   display: flex;
@@ -144,19 +134,19 @@ export default {
 }
 .totalCardContainer {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 20px;
-  width: 800px;
-  height: 80px;
+  justify-content: center;
+  align-self: center;
+  border-radius: 30px;
+  width: 400px;
+  height: 50px;
+  background-color: green;
 }
 .totalCard {
   border-radius: 30px;
-  display: flex;
   flex-direction: row;
   width: 400px;
   height: 60px;
-  background-color: white;
+  background-color: red;
 }
 .cardTextTotal {
   color: black;

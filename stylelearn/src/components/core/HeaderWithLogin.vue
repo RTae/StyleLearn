@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <v-app-bar absolute color="secondary" hide-on-scroll height="70">
+    <v-app-bar app color="secondary" height="70">
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -27,9 +27,18 @@
               ><p class="text">About Us</p></router-link
             ></v-btn
           >
+<<<<<<< HEAD
           <router-link to="/signup">
             <v-img class="iconBar" src="../../assets/shopping.png"/>
           </router-link>
+=======
+          <router-link to="/selectitem"
+            ><v-img class="iconBar" src="../../assets/shopping.png"
+          /></router-link>
+          <router-link to="/signup"
+            ><v-img class="iconBar" contain src="../../assets/bell.png"
+          /></router-link>
+>>>>>>> f730d377b1573df2e208fd8e2daff88f83244be2
           <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">

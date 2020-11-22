@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <v-app-bar absolute color="secondary" hide-on-scroll height="70">
+    <v-app-bar app color="secondary" height="70">
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
