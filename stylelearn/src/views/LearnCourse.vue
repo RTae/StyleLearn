@@ -104,7 +104,7 @@ export default {
       return this.items;
     },
     onClickLesson () {
-      console.log("ClickCourse");
+      this.$router.push({ name: "TutorPage" })
     },
     onClickBack () {
       this.$router.push({ name: "MyCourse" })
@@ -117,7 +117,6 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 .btnBack {
   background-color: white;

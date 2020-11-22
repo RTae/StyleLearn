@@ -113,7 +113,7 @@ const routes = [
     component: SignUpSec
   },
   {
-    path: "/coursespage",
+    path: "/courses",
     name: "CoursesPage",
     component: CoursesPage
   },
@@ -131,7 +131,7 @@ const routes = [
     component: MyCourse
   },
   {
-    path: "/learncourse",
+    path: "/learn",
     name: "LearnCourse",
     meta: {
       isSecured: true
@@ -139,8 +139,8 @@ const routes = [
     component: LearnCourse
   },
   {
-    path: "/learncoursetutorpage",
-    name: "LearnCourseTutorPage",
+    path: "/tutorpage",
+    name: "TutorPage",
     meta: {
       isSecured: true
     },
@@ -148,7 +148,7 @@ const routes = [
   },
   {
     path: "/video",
-    name: "VideoStudent",
+    name: "Video",
     meta: {
       isSecured: true
     },

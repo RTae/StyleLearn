@@ -3,7 +3,8 @@
     <v-app>
       <Header v-if="$store.getters.getCoreHeader"/>
       <HeaderLogo v-if="$store.getters.getLogoHeader"/>
-      <HeaderWithLogin v-if="$store.getters.getLoginHeader"/>
+      <HeaderStudent v-if="$store.getters.getLoginHeader"/>
+      <HeaderTutor/>
       <Content />
       <Footer />
     </v-app>
@@ -13,7 +14,8 @@
 <script>
 import Header from "@/components/core/Header";
 import HeaderLogo from "@/components/core/HeaderLogo";
-import HeaderWithLogin from "@/components/core/HeaderWithLogin";
+import HeaderStudent from "@/components/core/HeaderLoginStudent";
+import HeaderTutor from "@/components/core/HeaderLoginTutor";
 import Content from "@/components/core/Content";
 import Footer from "@/components/core/Footer";
 
@@ -22,7 +24,8 @@ export default {
   components: {
     Header,
     HeaderLogo,
-    HeaderWithLogin,
+    HeaderStudent,
+    HeaderTutor,
     Content,
     Footer
   },

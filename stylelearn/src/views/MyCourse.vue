@@ -14,7 +14,7 @@
               :elevation="hover ? 8 : 12"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickLesson()"
+              @click="onClickCourse()"
             >
               <v-img height="200" width="303" :src="math" />
               <v-sheet class="cardInSmallContainer">
@@ -87,8 +87,8 @@ export default {
     linetoGrid () {
       return this.items;
     },
-    onClickLesson () {
-      console.log("ClickCourse");
+    onClickCourse () {
+      this.$router.push({ name: "LearnCourse" })
     },
     onClickBack () {
       this.$router.push({ name: "MyCourse" })
@@ -101,7 +101,6 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 .btnBack {
   background-color: white;
