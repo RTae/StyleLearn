@@ -6,11 +6,35 @@
         <v-row justify="center" class="textdetail">
           <p>แพลตฟอร์ม StyleLearn เป็นแพลตฟอร์มที่มีจุดประสงค์เพื่อเป็นสื่อกลาง</p>
         </v-row>
-        <v-row justify="center">
-          <v-img
-              class="cardImg"
-              src="../assets/courses/cal1.png"
-            ></v-img>
+        <v-row  justify="center">
+            <v-card class="imgContain">
+                <v-img
+                class="cardImg"
+                src="../assets/courses/cal1.png"
+                ></v-img>
+            </v-card>
+        </v-row>
+        <v-row justify="center" class="textdetail">
+          <p>แพลตฟอร์ม StyleLearn เป็นแพลตฟอร์มที่มีจุดประสงค์เพื่อเป็นสื่อกลาง</p>
+        </v-row>
+        <v-row  justify="center">
+            <v-card class="imgContain">
+                <v-img
+                class="cardImg"
+                src="../assets/courses/cal2.png"
+                ></v-img>
+            </v-card>
+        </v-row>
+        <v-row justify="center" class="textdetail">
+          <p>แพลตฟอร์ม StyleLearn เป็นแพลตฟอร์มที่มีจุดประสงค์เพื่อเป็นสื่อกลาง</p>
+        </v-row>
+        <v-row  justify="center">
+            <v-card class="imgContain">
+                <v-img
+                class="cardImg"
+                src="../assets/courses/cal3.png"
+                ></v-img>
+            </v-card>
         </v-row>
       </v-card>
     </v-row>
@@ -37,7 +61,7 @@ export default {
   color: black;
   border-radius: 20px;
   width: 900px;
-  height: 450px;
+  height: 1500px;
   margin-top: 20vh;
  }
 
@@ -56,8 +80,13 @@ export default {
   font-family: "ABeeZee";
   margin-top: 40px;
 }
-.cardImg{
-  height: 141px;
-  width: 399px;
+.imgContain{
+    height: 300px;
+    width: 700px;
+}
+.cardImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
 }
 </style>
