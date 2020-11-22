@@ -3,8 +3,8 @@
     <v-app>
       <Header v-if="$store.getters.getCoreHeader"/>
       <HeaderLogo v-if="$store.getters.getLogoHeader"/>
-      <HeaderStudent v-if="$store.getters.getLoginHeader"/>
-      <HeaderTutor/>
+      <HeaderStudent v-if="$store.getters.getLoginHeaderStudent"/>
+      <HeaderTutor v-if="$store.getters.getLoginHeaderTutor"/>
       <Content />
       <Footer />
     </v-app>

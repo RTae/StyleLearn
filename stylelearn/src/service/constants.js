@@ -12,5 +12,6 @@ export const server = {
   LOGIN_URL: apiUrl + "/login/index",
   REGISTER_URL: apiUrl + "/register/index",
   USERNAME: "username",
+  USER_TYPE: "userType",
   TOKEN_KEY: "TOKEN"
 };
