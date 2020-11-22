@@ -31,13 +31,13 @@
         <p class="textTitle">Bank Transfer</p>
       </v-card>
     </v-row>
-    <v-row>
-      <v-img
-        height="443"
-        width="1010"
-        src="../../assets/bank.png"
-      >
+    <v-row align="center" justify="center">
+      <v-card class="cardBank" >
+        <v-img
+          src="../../assets/bank.png"
+        >
       </v-img>
+        </v-card>
     </v-row>
     <v-row align="center" justify="center" style="margin-bottom:100px;">
       <div class="buttonCardContainer">
