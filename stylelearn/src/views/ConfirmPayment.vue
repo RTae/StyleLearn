@@ -62,7 +62,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="date"
-                  label="Birthday date"
+                  label="Date of Transfer"
                   prepend-inner-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
