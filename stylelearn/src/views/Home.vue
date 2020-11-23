@@ -12,7 +12,7 @@
           >
             <v-img
               class="cardImg"
-              src="../assets/courses/cal1.png"
+              src="../assets/image/courses/cal1.png"
             ></v-img>
           </v-card>
         </v-hover>
@@ -25,7 +25,7 @@
           >
             <v-img
               class="cardImg"
-              src="../assets/courses/cal2.png"
+              src="../assets/image/courses/cal2.png"
             ></v-img>
           </v-card>
         </v-hover>
@@ -38,7 +38,7 @@
           >
             <v-img
             class="cardImg"
-            src="../assets/courses/cal3.png"
+            src="../assets/image/courses/cal3.png"
           ></v-img>
           </v-card>
         </v-hover>
@@ -54,7 +54,7 @@
     <v-row>
       <v-col cols="6" >
         <div style="margin-left:80px">
-          <p style="font-size: 50px" class="textDetail">
+          <p style="font-size: 40px" class="textDetail">
             Newest
           </p>
         </div>
@@ -78,7 +78,7 @@
 
     <v-row align="center" justify="center">
       <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }">
+        <v-hover v-slot="{ hover }" v-for="course in newestItem" :key="course.index">
           <v-card
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
@@ -88,61 +88,10 @@
             <v-img
               height="200"
               width="303"
-              :src= "math"
+              :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
             />
             <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Calculus I</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src= "math"
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Calculus II</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src= "math"
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Calculus III</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src="computer"
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Computer Architecture</p>
+              <p class="cardInSmallText">{{ course.course_name }}</p>
             </v-sheet>
           </v-card>
         </v-hover>
@@ -152,7 +101,7 @@
     <!-- Popular -->
     <v-row style="margin-top: 50px">
       <v-col cols="6">
-        <p style="margin-left: 80px; font-size: 50px" class="textDetail">
+        <p style="margin-left: 80px; font-size: 40px" class="textDetail">
           Popular
         </p>
       </v-col>
@@ -175,9 +124,9 @@
 
     <v-row align="center" justify="center">
       <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }">
+        <v-hover v-slot="{ hover }" v-for="course in popularItem" :key="course.index">
           <v-card
-            :elevation="hover ? 8 : 12"
+            :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="cardCourseSmall"
             @click="onClickCourse()"
@@ -185,61 +134,10 @@
             <v-img
               height="200"
               width="303"
-              :src="langauge"
+              :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
             />
             <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">English for oral communication</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src="computer"
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Design Thinking</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src="econ"
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Economic I</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src="computer"
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Image Processing</p>
+              <p class="cardInSmallText">{{ course.course_name }}</p>
             </v-sheet>
           </v-card>
         </v-hover>
@@ -255,19 +153,16 @@
           center-active
           show-arrows
         >
-          <v-slide-item
-            v-for="n in 5"
-            :key="n"
-          >
+          <v-slide-item v-for="subject in subjectItems" :key="subject.index" >
             <v-hover v-slot="{ hover }">
               <v-card
                 :elevation="hover ? 8 : 12"
                 class="ma-10 subjectCard"
                 :class="{ 'on-hover': hover }"
-                @click="onClickSubject(n);"
+                @click="onClickSubject(subject.subject_name);"
               >
                 <v-card-text class="cardTextTitle">
-                  {{ items[n - 1] }}
+                  {{ subject.subject_name }}
                 </v-card-text>
               </v-card>
             </v-hover>
@@ -408,20 +303,76 @@ export default {
   name: "Home",
   components: {},
   data: () => ({
-    items: ["Mathematics", "Economics", "Chemistry", "Computer", "Electric"],
-    model: null,
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    computer: "https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg",
-    langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
-    econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+    newestItem: [
+      {
+        index: 1,
+        course_name: "Calculus I",
+        subject_name: "Mathematics"
+      },
+      {
+        index: 2,
+        course_name: "Calculus II",
+        subject_name: "Mathematics"
+      },
+      {
+        index: 3,
+        course_name: "Calculus II",
+        subject_name: "Mathematics"
+      },
+      {
+        index: 4,
+        course_name: "Computer Architecture",
+        subject_name: "Computer"
+      }
+    ],
+    popularItem: [
+      {
+        index: 1,
+        course_name: "English for oral communication",
+        subject_name: "Language"
+      },
+      {
+        index: 2,
+        course_name: "Design Thinking",
+        subject_name: "Language"
+      },
+      {
+        index: 3,
+        course_name: "Economic I",
+        subject_name: "Electric"
+      },
+      {
+        index: 4,
+        course_name: "Image Processing",
+        subject_name: "Electric"
+      }
+    ],
+    subjectItems: [
+      {
+        index: 1,
+        subject_name: "Mathematics"
+      },
+      {
+        index: 2,
+        subject_name: "Electric"
+      },
+      {
+        index: 3,
+        subject_name: "Language"
+      },
+      {
+        index: 2,
+        subject_name: "Mathematics"
+      }
+    ],
+    model: null
   }),
   methods: {
     onClickCourse (name) {
       this.$router.push({ name: "CoursesPage", params: { title: name } })
     },
-    onClickSubject (n) {
-      this.model = n - 1;
-      this.$router.push({ name: "CoursesPage", params: { titleName: this.items[n - 1] } })
+    onClickSubject (name) {
+      this.$router.push({ name: "CoursesPage", params: { titleName: name } })
     }
   }
 };
@@ -461,7 +412,7 @@ export default {
 }
 
 .cardTextTitle {
-  font-size: 72px;
+  font-size: 40px;
   font-family: "Average Sans", sans-serif;
 }
 
@@ -475,7 +426,7 @@ a {
 }
 
 .textTitle {
-  font-size: 96px;
+  font-size: 70px;
   font-family: "Average Sans", sans-serif;
   align-content: center;
   justify-content: center;

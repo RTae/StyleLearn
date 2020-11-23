@@ -11,7 +11,7 @@
           depressed
           @click="onClickUpload"
         >
-        <v-icon left> cloud_upload </v-icon>
+        <v-icon left> add </v-icon>
           Upload video
         </v-btn>
       </v-row>

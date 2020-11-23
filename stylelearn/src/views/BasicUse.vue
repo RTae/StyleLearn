@@ -10,7 +10,7 @@
             <v-card class="imgContain">
                 <v-img
                 class="cardImg"
-                src="../assets/courses/cal1.png"
+                src="../assets/image/courses/cal2.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -21,7 +21,7 @@
             <v-card class="imgContain">
                 <v-img
                 class="cardImg"
-                src="../assets/courses/cal2.png"
+                src="../assets/image/courses/cal2.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -32,7 +32,7 @@
             <v-card class="imgContain">
                 <v-img
                 class="cardImg"
-                src="../assets/courses/cal3.png"
+                src="../assets/image/courses/cal2.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -43,7 +43,7 @@
         alt="bitButton"
         contain
         style="margin-top: 200px"
-        src="../assets/imgbit.png"
+        src="../assets/image/etc/imgbit.png"
         width="1290"
       />
     </div>

@@ -27,8 +27,8 @@ import VideoStudent from "../views/Student/VideoStudent";
 import SelectedItemInvoice from "../views/Student/SelectedItemInvoice";
 import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
-import ConfirmPayment from "../views/ConfirmPayment.vue";
-import ProfileStudent from "../views/ProfileStudent.vue";
+import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
+import ProfileStudent from "../views/Student/ProfileStudent.vue";
 
 Vue.use(VueRouter);
 const routes = [

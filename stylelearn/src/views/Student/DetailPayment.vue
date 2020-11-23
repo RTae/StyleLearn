@@ -34,7 +34,7 @@
     <v-row align="center" justify="center">
       <v-card class="cardBank" >
         <v-img
-          src="../../assets/bank.png"
+          src="../../assets/image/etc/bank.png"
         >
       </v-img>
         </v-card>

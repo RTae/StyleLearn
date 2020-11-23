@@ -95,6 +95,8 @@
               solo
               rounded
               outlined
+              background-color="grey lighten-2"
+              :disabled="true"
             />
           </v-col>
         </v-row>
@@ -112,6 +114,8 @@
                 solo
                 rounded
                 outlined
+                background-color="grey lighten-2"
+                :disabled="true"
               />
           </v-col>
         </v-row>

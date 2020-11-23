@@ -25,7 +25,7 @@
         alt="bitButton"
         contain
         style="margin-top: 200px"
-        src="../assets/imgbit.png"
+        src="../assets/image/etc/imgbit.png"
         width="1290"
       />
     </div>

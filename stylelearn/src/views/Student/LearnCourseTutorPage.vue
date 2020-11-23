@@ -169,7 +169,7 @@ export default {
 .headtext {
   font-weight: normal;
   color: black;
-  font-size: 80px;
+  font-size: 50px;
   font-family: "Average Sans", sans-serif;
 }
 .text {
