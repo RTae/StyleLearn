@@ -10,7 +10,7 @@
             <v-card class="imgContain">
                 <v-img
                 class="cardImg"
-                src="../assets/barstudent.png"
+                src="../assets/image/barstudent.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -33,7 +33,7 @@
             <v-card class="imgContain1">
                 <v-img
                 class="cardImg"
-                src="../assets/barstudent2.png"
+                src="../assets/image/barstudent2.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -53,7 +53,7 @@
             <v-card class="imgContain2">
                 <v-img
                 class="cardImg"
-                src="../assets/bartutor.png"
+                src="../assets/image/bartutor.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -73,7 +73,7 @@
             <v-card class="imgContain3">
                 <v-img
                 class="cardImg"
-                src="../assets/bartutor2.png"
+                src="../assets/image/bartutor2.png"
                 ></v-img>
             </v-card>
         </v-row>
@@ -90,7 +90,7 @@
         alt="bitButton"
         contain
         style="margin-top: 200px"
-        src="../assets/imgbit.png"
+        src="../assets/image/etc/imgbit.png"
         width="1290"
       />
     </div>

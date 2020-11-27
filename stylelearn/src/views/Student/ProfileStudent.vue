@@ -20,21 +20,19 @@
           <button @click="onClickApporvevideo()" class="cardButtonContainer">
             Account
           </button>
-          <button @click="onClickApprovepayment()" class="cardButtonContainer">
-            Manage Bank Account
-          </button>
         </v-card>
       </v-col>
       <!-- PICTURE -->
       <v-col cols="8" align="center">
             <v-row align="center" justify="center">
-                <v-card width="1000px" max-height="300" align="center" style="border-radius: 50px;">
-                    <v-img
-                        src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Jungkook_for_Dispatch_%22Boy_With_Luv%22_MV_behind_the_scene_shooting%2C_15_March_2019_07_(cropped).jpg"
-                        height="300px"
-                        contain
-                    ></v-img>
-                </v-card>
+              <v-img
+                  src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Jungkook_for_Dispatch_%22Boy_With_Luv%22_MV_behind_the_scene_shooting%2C_15_March_2019_07_(cropped).jpg"
+                  height="300px"
+                  max-height="315"
+                  max-width="367"
+                  style="border-radius: 50px;"
+                  contain
+              />
             </v-row>
         <v-card class="cardProfileDetail" align="start" justify-center>
           <v-row
@@ -77,7 +75,6 @@ export default {
     linetoGrid () {
       return this.items;
     },
-
     onClickLesson () {
       console.log("ClickCourse");
     },
@@ -88,9 +85,6 @@ export default {
       this.$router.push({ name: "ProfileTutor" });
     },
     onClickApporvevideo () {
-      this.$router.push({ name: "ProfileTutor" });
-    },
-    onClickApprovepayment () {
       this.$router.push({ name: "ProfileTutor" });
     }
   }
@@ -139,8 +133,8 @@ export default {
 }
 
 .cardSideContainer {
-  width: 300px;
-  height: 700px;
+  width: 250px;
+  height: 400px;
   background-color: #c4c4c4;
   border-radius: 30px;
   display: flex;
@@ -150,7 +144,7 @@ export default {
 }
 
 .cardButtonContainer {
-  width: 250px;
+  width: 200px;
   height: 70px;
   background-color: #70ccff;
   border-radius: 30px;

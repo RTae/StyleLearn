@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-//Handler Login Auth MongoDB
+//Handler Login Auth CorchroshDB
 func Handler(w http.ResponseWriter, r *http.Request) {
 	helper.SetupResponse(&w, r)
 	if (*r).Method == "OPTIONS" {

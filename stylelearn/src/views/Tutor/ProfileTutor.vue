@@ -1,31 +1,59 @@
 <template>
   <v-container fluid class="main" id="adminhome">
-    <!-- Subject title -->
+    <!-- Title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
-      <v-card elevation="10" class="cardContainer">
+      <v-card elevation="4" class="cardContainer">
         <p class="text">Profile</p>
       </v-card>
     </v-row>
-    <!-- Body -->
+    <!-- Silde bar -->
     <v-row style="margin-top: 50px; margin-bottom: 100px">
-      <v-col cols="3">
+      <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <button @click="onClickVideo()" class="cardButtonContainer">
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Profile
-          </button>
-          <button @click="onClickCustomer()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Edit Profile
-          </button>
-          <button @click="onClickApporvevideo()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Account
-          </button>
-          <button @click="onClickApprovepayment()" class="cardButtonContainer">
-            Manage Bank Account
-          </button>
+          </v-btn>
         </v-card>
       </v-col>
-      <v-col cols="9">
-        <div>
+      <!-- Body -->
+      <v-col cols="8">
+        <!-- Picture -->
+        <div class="d-flex flex-column align-center pa-2" style="width:55vw">
+          <v-card
+              class="d-flex flex-column justify-center"
+              style="border-radius:10px; border:2px solid black; margin-bottom:30px"                   max-height="300"
+              min-height="200"
+              max-width="400"
+              color="grey darken-1"
+            >
+              <v-img
+              :lazy-src="require('../../assets/image/etc/lazy_loading.png')"
+              contain
+              :src="user.image"
+            />
+          </v-card>
+          <!-- Detail -->
+          <div>
+            <v-card class="cardDetailContainer">
+              <p class="textDetail">First name: {{ this.user.firstName }}</p>
+              <p class="textDetail">Family name: {{ this.user.familyName  }}</p>
+              <p class="textDetail">Birthday: {{ this.user.birthday }}</p>
+              <p class="textDetail">Sex: {{ this.user.sex }}</p>
+              <p class="textDetail">Email: {{ this.user.email }}</p>
+              <p class="textDetail">Education: {{ this.user.edcation }}'s degree</p>
+            </v-card>
+            <v-card class="cardDetailContainer">
+              <p class="textDetail">Bio</p>
+              <div></div>
+              <p class="textDetail">{{ this.user.bio }}</p>
+            </v-card>
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -34,41 +62,45 @@
 
 <script>
 export default {
+  name: "ProfileTutor",
+  data () {
+    return {
+      user: {
+        image: "https://picsum.photos/id/11/500/300",
+        firstName: "Natthanan",
+        familyName: "Bhukan",
+        birthday: "1999/08/16",
+        sex: "Male",
+        email: "tutor@tutor.com",
+        edcation: "Bachelor",
+        bio: "เรียนหนังสือสนุกจริงๆ"
+      }
+    }
+  },
   methods: {
-    linetoGrid () {
-      return this.items;
-    },
-
-    onClickLesson () {
+    onClickProfile () {
       console.log("ClickCourse");
     },
-    onClickVideo () {
-      this.$router.push({ name: "ProfileTutor" });
+    onClickEditProfile () {
+      this.$router.push({ name: "EditProfileTutor" });
     },
-    onClickCustomer () {
-      this.$router.push({ name: "ProfileTutor" });
-    },
-    onClickApporvevideo () {
-      this.$router.push({ name: "ProfileTutor" });
-    },
-    onClickApprovepayment () {
-      this.$router.push({ name: "ProfileTutor" });
+    onClickAccount () {
+      this.$router.push({ name: "ChangePasswordTutor" });
     }
   }
 };
 </script>
 <style scoped>
 
+.main {
+  background: rgb(239, 239, 239);
+  min-height: 100vh;
+}
+
 .cardProfile {
   height: 315px;
   width: 377px;
   border-radius: 50px;
-  margin-top: 50px;
-}
-
-.main {
-  background: rgb(239, 239, 239);
-  min-height: 100vh;
   margin-top: 50px;
 }
 
@@ -78,7 +110,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 127px;
-  width: 890px;
+  width: 80vw;
   background-color: #70ccff;
   border-radius: 30px;
 }
@@ -91,9 +123,9 @@ export default {
 }
 
 .cardSideContainer {
-  width: 320px;
-  height: 800px;
-  background-color: #c4c4c4;
+  width: 250px;
+  height: 400px;
+  background-color: #DDDDDD;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -101,15 +133,28 @@ export default {
   align-items: center;
 }
 
-.cardButtonContainer {
-  width: 254px;
-  height: 80px;
-  background-color: #70ccff;
+.sideButtonContainer {
   border-radius: 30px;
   font-weight: normal;
   color: white;
   font-size: 24px;
   font-family: "Average Sans", sans-serif;
   margin-top: 40px;
+}
+
+.cardDetailContainer{
+  width: 50vw;
+  background-color: white;
+  border:  2px solid black;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.textDetail{
+  font-size: 18px;
+  font-family: "Delius"
 }
 </style>

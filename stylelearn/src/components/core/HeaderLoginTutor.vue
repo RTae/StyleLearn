@@ -6,7 +6,7 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="../../assets/logo.png"
+          src="../../assets/image/main/logo.png"
           transition="scale-transition"
           width="200"
         />
@@ -29,21 +29,20 @@
           </v-btn>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
-              <button dark icon v-bind="attrs" v-on="on">
+              <button style="outline:none" icon v-bind="attrs" v-on="on">
                 <v-img
                   class="iconBarPro"
                   contain
-                  outline:none
-                  src="../../assets/profile.png"
+                  src="../../assets/image/etc/profile.png"
                 />
               </button>
             </template>
 
             <v-list>
               <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title
-                  ><v-hover v-slot="{ hover }"
-                    ><button
+                <v-list-item-title>
+                  <v-hover v-slot="{ hover }">
+                    <button
                       :elevation="hover ? 8 : 0"
                       :class="{ 'on-hover-review': hover }"
                       class="btnPro"
@@ -51,9 +50,9 @@
                       @click="onClickHover(item.title)"
                     >
                       {{ item.title }}
-                    </button></v-hover
-                  ></v-list-item-title
-                >
+                    </button>
+                  </v-hover>
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -75,6 +74,7 @@ export default {
   methods: {
     onClickHover (functionName) {
       if (functionName === "Account") {
+        this.$router.push({ name: "ProfileTutor" })
       } else if (functionName === "Log Out") {
         this.$store.dispatch({
           type: "doLogout"

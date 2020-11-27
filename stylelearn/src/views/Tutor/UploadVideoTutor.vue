@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="main" id="signUp">
     <!-- Title -->
-    <v-row style="margin-top: 10vh" align="center" justify="center">
+    <v-row style="margin-top: 30px" align="center" justify="center">
       <v-card elevation="10" class="cardContainer">
         <p class="textTitle">Upload My Video</p>
       </v-card>
@@ -95,6 +95,8 @@
               solo
               rounded
               outlined
+              background-color="grey lighten-2"
+              :disabled="true"
             />
           </v-col>
         </v-row>
@@ -112,6 +114,8 @@
                 solo
                 rounded
                 outlined
+                background-color="grey lighten-2"
+                :disabled="true"
               />
           </v-col>
         </v-row>
@@ -130,7 +134,7 @@
               full-width
               single-line
               solo
-            ></v-textarea>
+            />
           </v-col>
         </v-row>
 
@@ -280,11 +284,6 @@ export default {
 .main {
   background-color: rgb(239, 239, 239);
   min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
 }
 .titleContainer{
   display: flex;

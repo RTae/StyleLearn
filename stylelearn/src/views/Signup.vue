@@ -263,7 +263,7 @@
         alt="bitButton"
         contain
         style="margin-top: 50px"
-        src="../assets/imgbit.png"
+        src="../assets/image/etc/imgbit.png"
         width="1290"
       />
     </div>
@@ -346,6 +346,7 @@ export default {
       v => !!v || "E-mail is required",
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"
     ],
+    date: null,
     menu: false
   }),
   watch: {

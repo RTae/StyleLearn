@@ -6,8 +6,7 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="../../assets/logo.png"
-          transition="scale-transition"
+          src="../../assets/image/main/logo.png"
           width="200"
         />
       </div>
@@ -28,17 +27,18 @@
             <router-link to="/about"> <p class="text">About Us</p></router-link>
           </v-btn>
           <router-link to="/signup">
-            <v-img class="iconBar" src="../../assets/shopping.png" />
+            <v-img class="iconBar" src="../../assets/image/etc/shopping.png" />
           </router-link>
-          <v-img class="iconBarLine" src="../../assets/line.png"></v-img>
+          <v-img class="iconBarLine" src="../../assets/image/etc/line.png"></v-img>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
-              <button dark icon v-bind="attrs" v-on="on">
+              <button style="outline:none" icon v-bind="attrs" v-on="on">
                 <v-img
                   class="iconBarPro"
                   contain
                   outline:none
-                  src="../../assets/profile.png"
+                  transition="scale-transition"
+                  src="../../assets/image/etc/profile.png"
                 />
               </button>
             </template>
@@ -80,8 +80,9 @@ export default {
   methods: {
     onClickHover (functionName) {
       if (functionName === "Account") {
+        this.$router.push({ name: "ProfileStudent" })
       } else if (functionName === "My Courses") {
-        this.$router.push({ name: "MyCourse" });
+        this.$router.push({ name: "MyCourse" })
       } else if (functionName === "Log Out") {
         this.$store.dispatch({
           type: "doLogout"

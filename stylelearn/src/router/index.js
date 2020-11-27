@@ -13,11 +13,10 @@ import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
 // Tutor
 import HomeTutor from "../views/Tutor/HomeTutor";
-import TestTutor from "../views/Tutor/TestTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
 import ProfileTutor from "../views/Tutor/ProfileTutor";
 import EditProfileTutor from "../views/Tutor/EditProfileTutor";
-import EditVideoTutor from "../views/Tutor/EditVideoTutor";
+import changePasswordTutor from "../views/Tutor/changePasswordTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
 // Student
 import MyCourse from "../views/Student/MyCourse";
@@ -29,7 +28,10 @@ import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
 import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
 import ProfileStudent from "../views/Student/ProfileStudent.vue";
+<<<<<<< HEAD
 import EditProfileStudent from "../views/Student/EditProfileStudent.vue";
+=======
+>>>>>>> e49c005e5a7d057b05909df15f88268ea78e7ef9
 
 Vue.use(VueRouter);
 const routes = [
@@ -104,11 +106,6 @@ const routes = [
     component: HomeTutor
   },
   {
-    path: "/testtutor",
-    name: "TestTutor",
-    component: TestTutor
-  },
-  {
     path: "/myvideotutor",
     name: "MyVideoTutor",
     meta: {
@@ -139,17 +136,17 @@ const routes = [
     component: EditProfileTutor
   },
   {
-    path: "/editvideotutor",
-    name: "EditVideoTutor",
+    path: "/accountTutor",
+    name: "ChangePasswordTutor",
     meta: {
       isSecured: true,
       isTutor: true,
       isStudent: false
     },
-    component: EditVideoTutor
+    component: changePasswordTutor
   },
   {
-    path: "/uploadvideotutor",
+    path: "/upload",
     name: "UploadVideoTutor",
     meta: {
       isSecured: true,
@@ -157,6 +154,16 @@ const routes = [
       isStudent: false
     },
     component: UploadVideoTutor
+  },
+  {
+    path: "/profilestudent",
+    name: "ProfileStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ProfileStudent
   },
   // Student
   {
@@ -216,7 +223,6 @@ const routes = [
       isSecured: true,
       isTutor: false,
       isStudent: true
-
     },
     component: SelectItem
   },
@@ -247,6 +253,7 @@ const routes = [
   {
     path: "*",
     redirect: "/home" // page not found
+<<<<<<< HEAD
   },
   {
     path: "/profilestudent",
@@ -267,8 +274,10 @@ const routes = [
       isStudent: true
     },
     component: EditProfileStudent
+=======
+>>>>>>> e49c005e5a7d057b05909df15f88268ea78e7ef9
   }
-];
+]
 
 const router = new VueRouter({
   mode: "history",

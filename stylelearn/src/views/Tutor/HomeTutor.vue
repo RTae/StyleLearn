@@ -2,11 +2,18 @@
   <v-container fluid class="main" id="Home">
     <!-- home btn -->
       <v-row class="uploadbtn">
-        <router-link to="/uploadvideotutor">
-          <v-btn style="width:376px;height: 85px;border-radius: 30px;font-size: 24px;">
-            + Upload My Video
-          </v-btn>
-        </router-link>
+        <v-btn
+          color="white"
+          class="text-none"
+          style="height: 85px; border-radius: 30px; font-size: 24px;"
+          elevation="5"
+          rounded
+          depressed
+          @click="onClickUpload"
+        >
+        <v-icon left> add </v-icon>
+          Upload video
+        </v-btn>
       </v-row>
     <!-- My video -->
     <v-row>
@@ -37,7 +44,7 @@
 
     <v-row align="center" justify="center">
       <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }">
+        <v-hover v-for="n in 3" :key="n" v-slot="{ hover }">
           <v-card
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
@@ -50,42 +57,16 @@
             </v-sheet>
           </v-card>
         </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img height="200" width="303" :src="math" />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Calculus II</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
-        <v-hover v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 12"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img height="200" width="303" :src="math" />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Calculus III</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
       </div>
     </v-row>
 
     <v-row align="center" justify="center" style="margin-top:100px;margin-bottom:70px">
       <v-card class="cardProfile">
           <v-img
-            class="white--text align-end"
+              class="white--text align-end"
               height="443"
               width="1010"
-            src="https://www.img.in.th/images/464684b598cb4e84e69d186f0f5c1478.png"
+              src="https://www.img.in.th/images/464684b598cb4e84e69d186f0f5c1478.png"
           >
           </v-img>
       </v-card>
@@ -98,12 +79,10 @@ export default {
   name: "Home",
   components: {},
   data: () => ({
-    items: ["Mathematics", "Economics", "Chemistry", "Computer", "Electric"],
     model: null,
     math: "https://sv1.picz.in.th/images/2020/11/19/bvfryV.png",
     computer: "https://sv1.picz.in.th/images/2020/11/19/bvfryV.png",
-    langauge:
-      "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
+    langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
     econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
   }),
   methods: {
@@ -113,13 +92,15 @@ export default {
     onClickSubject (n) {
       this.model = n - 1;
       this.$router.push("/myvideotutor");
+    },
+    onClickUpload () {
+      this.$router.push({ name: "UploadVideoTutor" });
     }
   }
 };
 </script>
 
 <style scoped>
-
 .uploadbtn {
   margin-top: 60px;
   margin-left: 60px;
@@ -128,7 +109,6 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-  margin-top: 50px;
 }
 
 .cardProfile {

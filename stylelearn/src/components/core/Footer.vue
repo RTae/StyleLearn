@@ -8,7 +8,7 @@
               alt="Vuetify Logo"
               class="shrink mr-2"
               contain
-              src="../../assets/logo_footer.png"
+              src="../../assets/image/main/logo_footer.png"
               transition="scale-transition"
               width="200"
             />
