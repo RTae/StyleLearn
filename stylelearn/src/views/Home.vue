@@ -361,7 +361,7 @@ export default {
         subject_name: "Language"
       },
       {
-        index: 2,
+        index: 4,
         subject_name: "Mathematics"
       }
     ],

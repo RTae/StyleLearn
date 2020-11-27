@@ -1,27 +1,28 @@
 <template>
-  <v-container fluid class="main" id="adminhome">
-    <!-- Title -->
+  <v-container fluid class="main" id="ChangePasswordStudent">
+    <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
-      <v-card elevation="4" class="cardContainer">
+      <v-card elevation="10" class="cardContainer">
         <p class="text">Account</p>
       </v-card>
     </v-row>
-    <!-- Silde bar -->
+    <!-- Body -->
     <v-row style="margin-top: 50px; margin-bottom: 100px">
-      <v-col cols="3" offset="1">
+      <v-col cols="0.5"></v-col>
+      <v-col cols="2.5">
         <v-card class="cardSideContainer">
-          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+          <button @click="onClickProfile()" class="cardButtonContainer">
             Profile
-          </v-btn>
-          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+          </button>
+          <button @click="onClickEditProfile()" class="cardButtonContainer">
             Edit Profile
-          </v-btn>
-          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+          </button>
+          <button @click="onClickAccount()" class="cardButtonContainer">
             Account
-          </v-btn>
+          </button>
         </v-card>
       </v-col>
-      <!-- Body -->
+      <!-- BODY -->
       <v-col cols="8">
         <!-- Detail -->
         <v-form
@@ -85,17 +86,12 @@
         </v-form>
       </v-col>
     </v-row>
-    <PopUpDialog/>
   </v-container>
 </template>
 
 <script>
-import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "ProfileTutor",
-  components: {
-    PopUpDialog
-  },
   data () {
     return {
       valid: true,
@@ -113,13 +109,13 @@ export default {
   },
   methods: {
     onClickProfile () {
-      this.$router.push({ name: "ProfileTutor" });
+      this.$router.push({ name: "ProfileStudent" });
     },
     onClickEditProfile () {
-      this.$router.push({ name: "EditProfileTutor" });
+      this.$router.push({ name: "EditProfileStudent" });
     },
     onClickAccount () {
-      this.$router.push({ name: "ChangePasswordTutor" });
+      this.$router.push({ name: "ChangePasswordStudent" });
     },
     submitSave () {
       var state = this.$refs.form.validate();
@@ -131,35 +127,19 @@ export default {
             console.log(this.user)
           }
         } else {
-          this.$store.dispatch({
-            type: "dialogPopup",
-            value: true,
-            msg: "Current password is wrong"
-          });
+          console.log("Current password is not true")
         }
       } else {
-        this.$store.dispatch({
-          type: "dialogPopup",
-          value: true,
-          msg: "New Password must be same"
-        });
+        console.log("Password must be same")
       }
     }
   }
 };
 </script>
 <style scoped>
-
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
-}
-
-.cardProfile {
-  height: 315px;
-  width: 377px;
-  border-radius: 50px;
-  margin-top: 50px;
 }
 
 .cardContainer {
@@ -167,8 +147,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 127px;
-  width: 80vw;
+  height: 130px;
+  width: 1350px;
   background-color: #70ccff;
   border-radius: 30px;
 }
@@ -176,19 +156,32 @@ export default {
 .text {
   font-weight: normal;
   color: white;
-  font-size: 80px;
+  font-size: 70px;
   font-family: "Average Sans", sans-serif;
 }
 
 .cardSideContainer {
   width: 250px;
   height: 400px;
-  background-color: #DDDDDD;
+  background-color: #c4c4c4;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.cardButtonContainer {
+  width: 200px;
+  height: 70px;
+  background-color: #70ccff;
+  border-radius: 30px;
+  font-weight: normal;
+  color: white;
+  font-size: 22px;
+  font-family: "Average Sans", sans-serif;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .sideButtonContainer {
@@ -200,19 +193,8 @@ export default {
   margin-top: 40px;
 }
 
-.cardDetailContainer{
-  width: 50vw;
-  background-color: white;
-  border:  2px solid black;
-  border-radius: 10px;
-  display: grid;
-  grid-template-columns: auto auto;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.textDetail{
-  font-size: 18px;
-  font-family: "Delius"
+.textDetail {
+  font-size: 25px;
+  font-family: Delius;
 }
 </style>

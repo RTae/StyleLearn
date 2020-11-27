@@ -29,6 +29,7 @@ import DetailPayment from "../views/Student/DetailPayment";
 import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
 import ProfileStudent from "../views/Student/ProfileStudent.vue";
 import EditProfileStudent from "../views/Student/EditProfileStudent.vue";
+import ChangePasswordStudent from "../views/Student/ChangePasswordStudent.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -152,16 +153,6 @@ const routes = [
     },
     component: UploadVideoTutor
   },
-  {
-    path: "/profilestudent",
-    name: "ProfileStudent",
-    meta: {
-      isSecured: true,
-      isTutor: false,
-      isStudent: true
-    },
-    component: ProfileStudent
-  },
   // Student
   {
     path: "/mycourse",
@@ -244,14 +235,6 @@ const routes = [
     component: ConfirmPayment
   },
   {
-    path: "/",
-    redirect: "/home" // Home
-  },
-  {
-    path: "*",
-    redirect: "/home" // page not found
-  },
-  {
     path: "/profilestudent",
     name: "ProfileStudent",
     meta: {
@@ -270,6 +253,16 @@ const routes = [
       isStudent: true
     },
     component: EditProfileStudent
+  },
+  {
+    path: "/accountStudent",
+    name: "ChangePasswordStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ChangePasswordStudent
   }
 ]
 
