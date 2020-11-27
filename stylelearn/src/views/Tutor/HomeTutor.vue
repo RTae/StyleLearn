@@ -1,25 +1,25 @@
 <template>
   <v-container fluid class="main" id="Home">
-    <!-- home btn -->
-      <v-row class="uploadbtn">
-        <v-btn
-          color="white"
-          class="text-none"
-          style="height: 85px; border-radius: 30px; font-size: 24px;"
-          elevation="5"
-          rounded
-          depressed
-          @click="onClickUpload"
-        >
-        <v-icon left> add </v-icon>
-          Upload video
-        </v-btn>
-      </v-row>
+    <!-- Upload button -->
+    <v-row class="uploadbtn">
+      <v-btn
+        color="white"
+        class="text-none"
+        style="height: 85px; border-radius: 30px; font-size: 24px;"
+        elevation="5"
+        rounded
+        depressed
+        @click="onClickUpload"
+      >
+      <v-icon left> add </v-icon>
+        Upload video
+      </v-btn>
+    </v-row>
     <!-- My video -->
     <v-row>
       <v-col cols="6">
         <div style="margin-left:50px">
-          <p style="font-size: 50px" class="textTitle">
+          <p style="font-size: 40px" class="textTitle">
             My Video
           </p>
         </div>
@@ -33,7 +33,7 @@
                 flex-direction: row-reverse;
                 margin-top: 60px;
               "
-              class="textDetail"
+              class="textDetailAll"
             >
               All
             </p>
@@ -42,33 +42,49 @@
       </v-col>
     </v-row>
 
-    <v-row align="center" justify="center">
-      <div class="cardSmallContainer">
-        <v-hover v-for="n in 3" :key="n" v-slot="{ hover }">
-          <v-card
-            :elevation="hover ? 8 : 16"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse()"
-          >
-            <v-img height="200" width="303" :src="math" />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">Calculus I</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
+    <v-row justify="center">
+      <div class="tableCard">
+        <div class="colCard" v-for="video in videos" :key="video.index">
+          <v-hover v-slot="{ hover }">
+            <v-card :class="{ 'on-hover': hover }" elevation="8" class="cardCourseSmall">
+              <v-img
+                class="imgCard"
+                :src="videoImage"
+              />
+              <v-row>
+                <v-col class="d-flex pa-5 flex-row justify-space-between">
+                  <p class="cardInSmallText">Lesson : {{ video.lesson_name }}</p>
+                  <p class="cardInSmallText">{{ video.view }} Views</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-hover>
+        </div>
       </div>
     </v-row>
 
+    <!-- My Profile short -->
     <v-row align="center" justify="center" style="margin-top:100px;margin-bottom:70px">
-      <v-card class="cardProfile">
-          <v-img
-              class="white--text align-end"
-              height="443"
-              width="1010"
-              src="https://www.img.in.th/images/464684b598cb4e84e69d186f0f5c1478.png"
+      <v-card class="d-flex justify-center pa-10" style="border-radius:20px">
+        <v-card
+            class="d-flex justify-center"
+            style="border-radius:10px; border:2px solid black;"
+            max-height="300"
+            min-height="200"
+            max-width="400"
+            min-width="200"
+            color="grey darken-1"
           >
-          </v-img>
+            <v-img
+              :lazy-src="require('../../assets/image/etc/lazy_loading.png')"
+              contain
+              :src="user.image"
+            />
+        </v-card>
+        <div class="d-flex flex-column justify-center ml-10">
+          <p class="textDetail">{{ this.user.firstName }}  {{ this.user.familyName }}</p>
+          <p class="textDetail" style="font-size: 15px;">{{ this.user.bio }}</p>
+        </div>
       </v-card>
     </v-row>
   </v-container>
@@ -79,11 +95,38 @@ export default {
   name: "Home",
   components: {},
   data: () => ({
+    videos: [
+      {
+        index: 1,
+        subject_name: "Mathematics",
+        lesson_name: "Diff I",
+        view: 123
+      },
+      {
+        index: 2,
+        subject_name: "Mathematics",
+        lesson_name: "Diff II",
+        view: 6969
+      },
+      {
+        index: 3,
+        subject_name: "Mathematics",
+        lesson_name: "Cal III",
+        view: 532
+      }
+    ],
     model: null,
-    math: "https://sv1.picz.in.th/images/2020/11/19/bvfryV.png",
-    computer: "https://sv1.picz.in.th/images/2020/11/19/bvfryV.png",
-    langauge: "https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg",
-    econ: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+    videoImage: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
+    user: {
+      image: "https://picsum.photos/id/11/500/300",
+      firstName: "Natthanan",
+      familyName: "Bhukan",
+      birthday: "1999/08/16",
+      sex: "Male",
+      email: "tutor@tutor.com",
+      edcation: "Bachelor",
+      bio: "เรียนหนังสือสนุกจริงๆ"
+    }
   }),
   methods: {
     onClickCours () {
@@ -101,19 +144,14 @@ export default {
 </script>
 
 <style scoped>
+.main {
+  background: rgb(239, 239, 239);
+  min-height: 80vh;
+}
+
 .uploadbtn {
   margin-top: 60px;
   margin-left: 60px;
-}
-
-.main {
-  background: rgb(239, 239, 239);
-  min-height: 100vh;
-}
-
-.cardProfile {
-  height: 443px;
-  width: 1010px;
 }
 
 .textTitle {
@@ -124,28 +162,42 @@ export default {
   margin-top: 40px;
 }
 
-.textDetail {
+.textDetailAll {
   font-weight: normal;
   color: black;
   font-size: 30px;
   font-family: Delius;
-  font-family: "Average Sans", sans-serif;
 }
 
-.cardSmallContainer {
-  display: flex;
-  flex-direction: row;
+.tableCard {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  width: 100%;
   justify-content: space-around;
+}
+
+.colCard {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
   align-items: center;
-  width: 80vw;
+  flex-direction: column;
+}
+
+.cardCoruseTitle {
+  display: flex;
+  justify-items: center;
+  width: 303px;
+  background-color: rgb(239, 239, 239);
 }
 
 .cardCourseSmall {
   border-radius: 10px;
   width: 303px;
-  height: 279px;
+  height: 264px;
   background-color: white;
   opacity: 0.6;
+  background-color: #70CCFF;
   transition: opacity 0.2s ease-in;
 }
 
@@ -153,50 +205,24 @@ export default {
   opacity: 1;
 }
 
-.cardInSmallContainer {
-  background-color: #70ccff;
-  display: flex;
-  align-items: center;
-  width: 303px;
-  height: 79px;
-}
-
 .cardInSmallText {
-  margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 20px;
   font-weight: bold;
 }
 
-.subjectCard {
-  height: 300px;
-  width: 642px;
-  border-radius: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  opacity: 0.6;
-  transition: opacity 0.2s ease-in;
+.imgCard {
+  height: 200px;
+  width: 303px;
 }
 
-.subjectCard:not(.on-hover) {
-  opacity: 1;
+.textDetail{
+  font-size: 35px;
+  font-family: "Delius"
 }
 
-.cardReviewContainer {
-  height: 343px;
-  width: 373px;
-  border-radius: 5px;
-  opacity: 1;
-  transition: opacity 0.2s ease-in;
-}
-
-.cardReviewContainer:not(.on-hover-review) {
-  height: 343px;
-  width: 373px;
-  border-radius: 5px;
-  opacity: 0.5;
+a {
+  text-decoration: none;
 }
 
 </style>

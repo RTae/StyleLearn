@@ -253,10 +253,4 @@ export default {
 .imgCard:not(.on-hover) {
   opacity: 1;
 }
-
-.actionCardContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 </style>

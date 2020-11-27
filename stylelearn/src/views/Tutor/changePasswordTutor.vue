@@ -85,12 +85,17 @@
         </v-form>
       </v-col>
     </v-row>
+    <PopUpDialog/>
   </v-container>
 </template>
 
 <script>
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "ProfileTutor",
+  components : {
+    PopUpDialog
+  },
   data () {
     return {
       valid: true,
@@ -126,10 +131,18 @@ export default {
             console.log(this.user)
           }
         } else {
-          console.log("Current password is not true")
+          this.$store.dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Current password is wrong"
+          });
         }
       } else {
-        console.log("Password must be same")
+        this.$store.dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "New Password must be same"
+        });
       }
     }
   }

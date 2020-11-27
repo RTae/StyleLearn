@@ -28,6 +28,7 @@ import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
 import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
 import ProfileStudent from "../views/Student/ProfileStudent.vue";
+import EditProfileStudent from "../views/Student/EditProfileStudent.vue";
 import ChangePasswordStudent from "../views/Student/ChangePasswordStudent.vue";
 
 Vue.use(VueRouter);
@@ -244,6 +245,26 @@ const routes = [
     component: ConfirmPayment
   },
   {
+    path: "/profilestudent",
+    name: "ProfileStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ProfileStudent
+  },
+  {
+    path: "/editprofilestudent",
+    name: "EditProfileStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: EditProfileStudent
+  },
+  {
     path: "/accountStudent",
     name: "ChangePasswordStudent",
     meta: {
@@ -253,6 +274,7 @@ const routes = [
     },
     component: ChangePasswordStudent
   },
+  // ETC
   {
     path: "/",
     redirect: "/home" // Home
