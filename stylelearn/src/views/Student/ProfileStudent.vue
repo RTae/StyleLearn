@@ -11,13 +11,13 @@
       <v-col cols="0.5"></v-col>
       <v-col cols="2.5">
         <v-card class="cardSideContainer">
-          <button @click="onClickVideo()" class="cardButtonContainer">
+          <button @click="onClickProfile()" class="cardButtonContainer">
             Profile
           </button>
-          <button @click="onClickCustomer()" class="cardButtonContainer">
+          <button @click="onClickEditProfile()" class="cardButtonContainer">
             Edit Profile
           </button>
-          <button @click="onClickApporvevideo()" class="cardButtonContainer">
+          <button @click="onClickAccount()" class="cardButtonContainer">
             Account
           </button>
         </v-card>
@@ -50,7 +50,7 @@
               <p class="textDetail">Birthday : 1997/09/01</p>
             </v-col>
             <v-col class="textDetail">
-              <p>Sex : Male</p>
+              <p>Gender : Male</p>
             </v-col>
           </v-row>
           <v-row>
@@ -75,16 +75,13 @@ export default {
     linetoGrid () {
       return this.items;
     },
-    onClickLesson () {
-      console.log("ClickCourse");
+    onClickProfile () {
+      this.$router.push({ name: "ProfileStudent" });
     },
-    onClickVideo () {
-      this.$router.push({ name: "ProfileTutor" });
+    onClickEditProfile () {
+      this.$router.push({ name: "EditProfileStudent" });
     },
-    onClickCustomer () {
-      this.$router.push({ name: "ProfileTutor" });
-    },
-    onClickApporvevideo () {
+    onClickAccount () {
       this.$router.push({ name: "ProfileTutor" });
     }
   }
@@ -108,7 +105,7 @@ export default {
 }
 
 .cardProfileDetail {
-  height: 400px;
+  height: 230px;
   width: 1000px;
   border-radius: 50px;
   margin-top: 30px;
