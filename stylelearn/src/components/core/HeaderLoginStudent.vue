@@ -26,7 +26,7 @@
           <v-btn text>
             <router-link to="/about"> <p class="text">About Us</p></router-link>
           </v-btn>
-          <router-link to="/signup">
+          <router-link to="/selectitem">
             <v-img class="iconBar" src="../../assets/image/etc/shopping.png" />
           </router-link>
           <v-img class="iconBarLine" src="../../assets/image/etc/line.png"></v-img>

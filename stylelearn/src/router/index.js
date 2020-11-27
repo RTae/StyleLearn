@@ -11,6 +11,7 @@ import BasicUse from "../views/BasicUse";
 import About from "../views/About";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
+
 // Tutor
 import HomeTutor from "../views/Tutor/HomeTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
@@ -263,6 +264,15 @@ const routes = [
       isStudent: true
     },
     component: ChangePasswordStudent
+  },
+  // ETC
+  {
+    path: "/",
+    redirect: "/home" // Home
+  },
+  {
+    path: "*",
+    redirect: "/home" // page not found
   }
 ]
 

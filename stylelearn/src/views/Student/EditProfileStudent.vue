@@ -227,7 +227,7 @@ export default {
       this.$router.push({ name: "EditProfileStudent" });
     },
     onClickAccount () {
-      this.$router.push({ name: "ChangePasswordTutor" });
+      this.$router.push({ name: "ChangePasswordStudent" });
     },
     onButtonClickUploadPic () {
       this.isSelectingUploadPic = true;
@@ -296,8 +296,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 127px;
-  width: 80vw;
+  height: 130px;
+  width: 1350px;
   background-color: #70ccff;
   border-radius: 30px;
 }

@@ -2,14 +2,13 @@
   <v-container fluid class="main" id="ChangePasswordStudent">
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
-      <v-card elevation="10" class="cardContainer">
+      <v-card elevation="4" class="cardContainer">
         <p class="text">Account</p>
       </v-card>
     </v-row>
     <!-- Body -->
     <v-row style="margin-top: 50px; margin-bottom: 100px">
-      <v-col cols="0.5"></v-col>
-      <v-col cols="2.5">
+      <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
           <button @click="onClickProfile()" class="cardButtonContainer">
             Profile

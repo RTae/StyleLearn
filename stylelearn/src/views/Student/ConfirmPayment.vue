@@ -1,8 +1,8 @@
 <template>
   <v-container fluid class="main" id="ConfirmPayment">
     <!-- Title -->
-    <v-row style="margin-top: 5vh" align="center" justify="center">
-      <v-card elevation="10" class="cardContainer">
+    <v-row style="margin-top: 10vh" align="center" justify="center">
+      <v-card elevation="4" class="cardContainer">
         <p class="textTitle">Confirm Payment</p>
       </v-card>
     </v-row>
@@ -61,7 +61,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="date"
+                  v-model="dateOfTransfer"
                   label="Date of Transfer"
                   prepend-inner-icon="mdi-calendar"
                   readonly
@@ -75,7 +75,7 @@
               </template>
               <v-date-picker
                 ref="picker"
-                v-model="date"
+                v-model="dateOfTransfer"
                 :max="new Date().toISOString().substr(0, 10)"
                 min="1950-01-01"
                 @change="save"
@@ -151,7 +151,7 @@
                 class="text-none"
                 height="60"
                 width="445px"
-                elevation="5"
+                elevation="0"
                 rounded
                 depressed
                 :loading="isSelectingUploadReceipt"
@@ -165,7 +165,6 @@
                 class="d-none"
                 type="file"
                 accept="image/*"
-                @change="onFileChangedReceipt"
                 />
           </v-col>
         </v-row>
@@ -228,11 +227,11 @@ export default {
   computed: {},
   data: () => ({
     items: ["KASIKORN BANK (K-BANK)", "BANGKOK BANK (BBL)", "Government Savings Bank (GSB)", "Krung Thai Bank (KTB)", "Siam Commercial Bank (SCB)", "Krungsri Bank (BAY)"],
+    dateOfTransfer: null,
+    menu: false,
     time: null,
     menu2: false,
     modal2: false,
-    date: null,
-    menu: false,
     files: [],
     dialog: false
   }),

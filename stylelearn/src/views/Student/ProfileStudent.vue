@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="ProfileStudent">
     <!-- Subject title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
-      <v-card elevation="10" class="cardContainer">
+      <v-card elevation="4" class="cardContainer">
         <p class="text">Profile</p>
       </v-card>
     </v-row>
@@ -38,28 +38,28 @@
           <v-row
             ><v-col cols="1"></v-col>
             <v-col>
-              <p class="textDetail">First name : Jungkook</p>
+              <p class="textDetail">First name : {{ this.user.firstName }}</p>
             </v-col>
             <v-col>
-              <p class="textDetail">Family name : Jeon</p>
+              <p class="textDetail">Family name : {{ this.user.familyName }}</p>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="1"></v-col>
             <v-col>
-              <p class="textDetail">Birthday : 1997/09/01</p>
+              <p class="textDetail">Birthday : {{ this.user.birthday }}</p>
             </v-col>
             <v-col class="textDetail">
-              <p>Gender : Male</p>
+              <p>Sex : {{ this.user.sex }}</p>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="1"></v-col>
             <v-col class="textDetail">
-              <p>Email : jeonjk@gmail.com</p>
+              <p>Email : {{ this.user.email }}</p>
             </v-col>
             <v-col class="textDetail">
-              <p>Education : Bachelor's degree</p>
+              <p>Education : {{ this.user.edcation }}'s degree</p>
             </v-col>
           </v-row>
         </v-card>
@@ -71,6 +71,20 @@
 
 <script>
 export default {
+  name: "ProfileTutor",
+  data () {
+    return {
+      user: {
+        image: "https://picsum.photos/id/11/500/300",
+        firstName: "Jungkook",
+        familyName: "Jeon",
+        birthday: "1997/09/01",
+        sex: "Male",
+        email: "jk@gmail.com",
+        edcation: "Bachelor"
+      }
+    }
+  },
   methods: {
     linetoGrid () {
       return this.items;
@@ -154,6 +168,6 @@ export default {
 }
 .textDetail {
   font-size: 25px;
-  font-family: Delius;
+  font-family: "Average Sans", sans-serif;
 }
 </style>
