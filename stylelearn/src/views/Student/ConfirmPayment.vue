@@ -171,48 +171,48 @@
         </v-row>
         <!-- Button -->
         <v-row justify="center">
-    <v-dialog
-      v-model="dialog"
-      persistent
-      max-width="300"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="blue lighten-2"
-          class="submitBtn"
-          height="50px"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Submit
-        </v-btn>
-      </template>
-      <v-card>
-        <v-card-title class="headline">
-          Confirm Payment
-        </v-card-title>
-        <v-card-text>Are you sure to comfirm this payment?</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="#EB5757"
-            text
-            @click="dialog = false"
+          <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="300"
           >
-            No
-          </v-btn>
-          <v-btn
-            color="#70ccff"
-            text
-            @click="dialog = false"
-          >
-            Yes
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-row>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="blue lighten-2"
+                class="submitBtn"
+                height="50px"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                Submit
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="headline">
+                Confirm Payment
+              </v-card-title>
+              <v-card-text>Are you sure to comfirm this payment?</v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="#EB5757"
+                  text
+                  @click="dialog = false"
+                >
+                  No
+                </v-btn>
+                <v-btn
+                  color="#70ccff"
+                  text
+                  @click="dialog = false"
+                >
+                  Yes
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-row>
       </v-form>
     </v-row>
   </v-container>
@@ -311,8 +311,8 @@ export default {
   background-position: center;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
-  margin-top:30px;
-  margin-bottom: 50px;
+  margin-top:50px;
+  margin-bottom: 100px;
   width: 130px;
   height: 45px;
   opacity: 1;

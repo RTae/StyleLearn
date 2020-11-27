@@ -27,8 +27,9 @@ import VideoStudent from "../views/Student/VideoStudent";
 import SelectedItemInvoice from "../views/Student/SelectedItemInvoice";
 import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
-import ConfirmPayment from "../views/ConfirmPayment.vue";
-import ProfileStudent from "../views/ProfileStudent.vue";
+import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
+import ProfileStudent from "../views/Student/ProfileStudent.vue";
+import EditProfileStudent from "../views/Student/EditProfileStudent.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -256,6 +257,16 @@ const routes = [
       isStudent: true
     },
     component: ProfileStudent
+  },
+  {
+    path: "/editprofilestudent",
+    name: "EditProfileStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: EditProfileStudent
   }
 ];
 
