@@ -131,8 +131,6 @@ export default new Vuex.Store({
       if (result.status === "1") {
         const userType = localStorage.getItem(server.USER_TYPE);
         const username = localStorage.getItem(server.USERNAME);
-        console.log(username)
-        console.log(userType)
         if (userType === "Student") {
           commit("SET_DIALOG_LOADING", false)
           commit("SET_USERNAME", username);

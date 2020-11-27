@@ -1,192 +1,151 @@
 <template>
-  <v-container fluid class="main" id="login">
-    <v-row
-      align="center"
-      justify="center"
-    >
-      <v-card class="cardContainer" color="#70aaff">
-        <p class="texttitle">My Video</p>
+  <v-container fluid class="main" id="MyCourse">
+    <v-row align="center" justify="center" style="margin-top: 40px">
+      <v-card elevation=10 class="cardContainer">
+        <p class="cardTextTitle">My Video</p>
       </v-card>
     </v-row>
-    <!--sort by btn-->
-    <v-row justify="end">
-      <v-col cols="1" >
-        <div>
-          <v-select
-            :items="items"
-            label="Sort by"
-            solo
-          />
+    <!-- Card -->
+    <v-row justify="center">
+      <div class="tableCard">
+        <div class="colCard" v-for="video in videos" :key="video.index">
+          <v-hover v-slot="{ hover }">
+            <v-card :class="{ 'on-hover': hover }" elevation="8" class="cardCourseSmall">
+              <v-img
+                class="imgCard"
+                :src="videoImage"
+              />
+              <v-row>
+                <v-col class="d-flex pa-5 flex-row justify-space-between">
+                  <p class="cardInSmallText">Lesson : {{ video.lesson_name }}</p>
+                  <p class="cardInSmallText">{{ video.view }} Views</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-hover>
         </div>
-      </v-col>
-    </v-row>
-    <!--course picture 1-->
-    <v-row style="margin-top:50px">
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential I
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 2-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential II
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 3-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Differential III
-          </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-    <!--course picture 4-->
-    <v-row>
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Data model
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 5-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Integrate I
-          </v-btn>
-        </v-card>
-      </v-col>
-      <!--course picture 6-->
-      <v-col cols="3">
-        <v-card
-          width="300"
-          height="250px"
-          style="margin-left:200px"
-          color="#70CCFF"
-        >
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            src="https://sv1.picz.in.th/images/2020/11/16/bHaFJ2.png"
-          >
-          </v-img>
-          <v-btn class="botton" color="#70CCFF" width="100%" height="50px">
-            Integrate II
-          </v-btn>
-        </v-card>
-      </v-col>
+      </div>
     </v-row>
   </v-container>
 </template>
 
-<script >
+<script scope>
+// @ is an alias to /src
+
 export default {
-  name: "Course",
+  name: "MyCourse",
   components: {},
+  mounted () {
+    this.title = this.$route.params.titleName;
+  },
   data: () => ({
-    items: ["A-Z", "Z-A"]
-  })
+    videoImage: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+    title: null,
+    videos: [
+      {
+        index: 1,
+        subject_name: "Mathematics",
+        lesson_name: "Diff I",
+        view: 123,
+      },
+      {
+        index: 2,
+        subject_name: "Mathematics",
+        lesson_name: "Diff II",
+        view: 12322,
+      },
+      {
+        index: 3,
+        subject_name: "Mathematics",
+        lesson_name: "Diff III",
+        view: 122,
+      },
+      {
+        index: 4,
+        lesson_name: "Geometric I",
+        subject_name: "Mathematics",
+        view: 221,
+      },
+      {
+        index: 5,
+        lesson_name: "Geometric II",
+        subject_name: "Mathematics",
+        view: 202,
+      }
+    ]
+  }),
 };
 </script>
 
 <style scoped>
 .main {
-  background-color: rgb(239, 239, 239);
+  background: rgb(239, 239, 239);
   min-height: 100vh;
 }
-.text2 {
-  color: black;
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 122px;
+  width: 520px;
+  background-color: #70ccff;
+  border-radius: 30px;
+}
+
+.cardTextTitle {
+  font-weight: normal;
+  color: white;
+  font-size: 70px;
+  font-family: "Average Sans", sans-serif;
+}
+.cardCourseContainer {
+  margin-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableCard {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  width: 80%;
+  justify-content: space-around;
+}
+
+.colCard {
   margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.cardCourseSmall {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: 303px;
+  height: 264px;
+  background-color: white;
+  opacity: 0.6;
+  background-color: #70CCFF;
+  transition: opacity 0.2s ease-in;
+}
+
+.cardCourseSmall:not(.on-hover) {
+  opacity: 1;
+}
+
+.cardInSmallText {
+  font-family: "THSarabunNew";
   font-size: 20px;
-  font-family: "Delius", cursive;
-  margin-left: 90vh;
+  font-weight: bold;
 }
 
-.botton {
-  display: block;
-  border-style: none;
-  position: absolute;
-  box-shadow: none;
-  background-repeat: no-repeat;
-}
-
-.botton2 {
-  display: block;
-  border-style: none;
-  position: absolute;
-  box-shadow: none;
-  background-repeat: no-repeat;
-  margin-left: 60vh;
-  border-radius: 20px;
-}
-.inputFiled {
-  width: 375px;
-  height: 32px;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 35px;
+.imgCard {
+  height: 200px;
+  width: 303px;
 }
 </style>

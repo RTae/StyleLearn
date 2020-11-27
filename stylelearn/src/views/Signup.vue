@@ -268,27 +268,7 @@
       />
     </div>
     <!-- Dialog -->
-    <v-dialog v-model="$store.getters.getDialogState" width="500">
-      <v-card>
-        <v-card-title class="primary mb-6"> Alert </v-card-title>
-        <v-card-text class="popUpText">
-          {{ $store.getters.getDialogMsg }}
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="$store.dispatch({ type: 'dialogPopup', value: false, msg: '' })"
-          >
-            OK
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <PopUpDialog/>
     <!-- Popup overlay -->
     <v-overlay :value="$store.getters.getDialogLoading">
       <v-progress-circular
@@ -300,9 +280,12 @@
 </template>
 
 <script scope>
+import PopUpDialog from "../components/popupDialog/Dialog"
 export default {
   name: "signUp",
-  components: {},
+  components: {
+    PopUpDialog
+  },
   data: () => ({
     eduType: [
       {

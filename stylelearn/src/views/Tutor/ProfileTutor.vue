@@ -30,6 +30,7 @@
               style="border-radius:10px; border:2px solid black; margin-bottom:30px"                   max-height="300"
               min-height="200"
               max-width="400"
+              min-width="200"
               color="grey darken-1"
             >
               <v-img
