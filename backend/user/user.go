@@ -183,7 +183,7 @@ func (u *User) Read(uid string) map[string]interface{} {
 	log := make(map[string]interface{})
 	log["status"] = "1"
 	log["msg"] = ""
-	log["result"] = users[0]
+	log["result"] = users
 	return log
 }
 

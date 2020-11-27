@@ -279,7 +279,7 @@
   </v-container>
 </template>
 
-<script scope>
+<script>
 import PopUpDialog from "../components/popupDialog/Dialog"
 export default {
   name: "signUp",

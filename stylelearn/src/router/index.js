@@ -85,7 +85,7 @@ const routes = [
     }
   },
   {
-    path: "/lessonpage",
+    path: "/lesson",
     name: "LessonPage",
     component: LessonPage,
     meta: {

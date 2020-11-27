@@ -19,23 +19,25 @@
         </v-btn>
       </template>
     </v-snackbar>
+    <!-- Title -->
     <v-row align="center" justify="start" style="margin-top:40px">
       <v-col cols="1"></v-col>
-      <p class="headtext">CALCULUS I</p>
+      <p class="headText">{{ this.title }}</p>
     </v-row>
     <v-row>
       <v-col cols="1"></v-col>
       <p class="text">Syllabus</p>
     </v-row>
+    <!-- Card -->
     <v-row align="center" justify="center">
       <div class="d-flex flex-column mb-10" justify-center align-center>
-        <div v-for="n in 7" :key="n">
+        <div v-for="lesson in lessons" :key="lesson.LessonID">
           <v-card class="courseCard">
             <v-row>
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle">Diff1</v-card-text>
-                  <v-card-text class="cardTextDetail">เรียนเกี่ยวกับ Diff</v-card-text>
+                  <v-card-text class="cardTextTitle">{{ lesson.Name }}</v-card-text>
+                  <v-card-text class="cardTextDetail">{{ lesson.Description }}</v-card-text>
                 </div>
               </v-col>
               <v-col class="buttonContainer">
@@ -54,6 +56,7 @@
             </v-row>
           </v-card>
         </div>
+        <!-- Buy whole -->
         <v-card class="courseCard">
           <v-row>
             <v-col>
@@ -173,15 +176,25 @@
   </v-container>
 </template>
 
-<script scope>
-// @ is an alias to /src
-
+<script>
+import api from "../service/api"
 export default {
   name: "LessonPage",
   components: {},
+  async mounted () {
+    this.title = this.$route.query.titleName
+    const result = await api.getLessonByCourse(this.$route.query.id)
+    if (result.data.status === "1") {
+      this.lessons = result.data.result
+    } else {
+      this.lessons = []
+    }
+  },
   data () {
     return {
-      popUpBuy: false
+      title: "",
+      popUpBuy: false,
+      lessons: []
     }
   },
   methods: {
@@ -208,18 +221,21 @@ export default {
   width: 1200px;
   height: 100px;
 }
-.headtext {
+
+.headText {
   font-weight: normal;
   color: black;
   font-size: 80px;
   font-family: "Average Sans", sans-serif;
 }
+
 .text {
   font-weight: normal;
   color: black;
   font-size: 46px;
   font-family: "Delius", cursive;
 }
+
 .cardContainer {
   display:flex;
   flex-direction: row;
@@ -228,23 +244,27 @@ export default {
   width: 90vw;
   background-color: rgb(239, 239, 239);
 }
+
 .cardTextTitle {
   font-weight: bold;
   color: black;
-  font-size: 30px;
-  font-family: "THSarabunNewRegular";
+  font-size: 40px;
+  font-family: "THSarabunNew";
 }
+
 .cardTextDetail {
   font-weight: normal;
   color: black;
-  font-size: 16px;
-  font-family: "THSarabunNewRegular";
+  font-size: 23px;
+  font-family: "THSarabunNew";
 }
+
 .detail {
   width: 1000px;
   height: 123;
   margin-left: 10px;
 }
+
 .buttonContainer {
   display: flex;
   justify-content: center;
@@ -288,14 +308,14 @@ export default {
   font-weight: bold;
   color: black;
   font-size: 30px;
-  font-family: "Delius", cursive;
+  font-family: "Delius";
   justify-content: end;
 }
 .cardTextTutorDetail {
   font-weight: normal;
   color: black;
   font-size: 16px;
-  font-family: "Delius", cursive;
+  font-family: "Delius";
   justify-content: end;
 }
 .imgContainer {

@@ -30,3 +30,23 @@ type TBL_Auth struct {
 	UserID   string
 	Password string
 }
+
+type TBL_SubjectTypes struct {
+	SubjectID   string `gorm:"primary_key"`
+	Name        string
+	Description string
+}
+
+type TBL_CourseTypes struct {
+	CourseID    string `gorm:"primary_key"`
+	SubjectID   string
+	Name        string
+	Description string
+}
+
+type TBL_LessonTypes struct {
+	LessonID    string `gorm:"primary_key"`
+	CourseID    string
+	Name        string
+	Description string
+}

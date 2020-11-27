@@ -8,7 +8,7 @@
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="courseCard"
-            @click="onClickCourse('CALCULUS I')"
+            @click="onClickCourse('Calculus I','c000000003')"
           >
             <v-img
               class="cardImg"
@@ -21,7 +21,7 @@
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="courseCard"
-            @click="onClickCourse('CALCULUS II')"
+            @click="onClickCourse('Calculus II','c000000021')"
           >
             <v-img
               class="cardImg"
@@ -34,7 +34,7 @@
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="courseCard"
-            @click="onClickCourse('CALCULUS III')"
+            @click="onClickCourse('Calculus III','c000000022')"
           >
             <v-img
             class="cardImg"
@@ -78,12 +78,12 @@
 
     <v-row align="center" justify="center">
       <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }" v-for="course in newestItem" :key="course.index">
+        <v-hover v-slot="{ hover }" v-for="course in newestItem" :key="course.CourseID">
           <v-card
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="cardCourseSmall"
-            @click="onClickCourse()"
+            @click="onClickCourse(course.Name, course.CourseID)"
           >
             <v-img
               height="200"
@@ -91,7 +91,7 @@
               :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
             />
             <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">{{ course.course_name }}</p>
+              <p class="cardInSmallText">{{ course.Name }}</p>
             </v-sheet>
           </v-card>
         </v-hover>
@@ -124,12 +124,12 @@
 
     <v-row align="center" justify="center">
       <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }" v-for="course in popularItem" :key="course.index">
+        <v-hover v-slot="{ hover }" v-for="course in popularItem" :key="course.CourseID">
           <v-card
             :elevation="hover ? 8 : 16"
             :class="{ 'on-hover': hover }"
             class="cardCourseSmall"
-            @click="onClickCourse()"
+            @click="onClickCourse(course.Name, course.CourseID)"
           >
             <v-img
               height="200"
@@ -137,7 +137,7 @@
               :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
             />
             <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">{{ course.course_name }}</p>
+              <p class="cardInSmallText">{{ course.Name }}</p>
             </v-sheet>
           </v-card>
         </v-hover>
@@ -153,16 +153,16 @@
           center-active
           show-arrows
         >
-          <v-slide-item v-for="subject in subjectItems" :key="subject.index" >
+          <v-slide-item v-for="subject in subjectItems" :key="subject.SubjectID" >
             <v-hover v-slot="{ hover }">
               <v-card
                 :elevation="hover ? 8 : 12"
                 class="ma-10 subjectCard"
                 :class="{ 'on-hover': hover }"
-                @click="onClickSubject(subject.subject_name);"
+                @click="onClickSubject(subject.Name, subject.SubjectID);"
               >
                 <v-card-text class="cardTextTitle">
-                  {{ subject.subject_name }}
+                  {{ subject.Name }}
                 </v-card-text>
               </v-card>
             </v-hover>
@@ -299,80 +299,72 @@
 </template>
 
 <script>
+import api from "../service/api"
 export default {
   name: "Home",
   components: {},
   data: () => ({
     newestItem: [
       {
-        index: 1,
-        course_name: "Calculus I",
-        subject_name: "Mathematics"
+        CourseID: "c000000001",
+        Name: "Algebra",
+        subject_name: "Mathematic"
       },
       {
-        index: 2,
-        course_name: "Calculus II",
-        subject_name: "Mathematics"
+        CourseID: "c000000002",
+        Name: "Trigonometry",
+        subject_name: "Mathematic"
       },
       {
-        index: 3,
-        course_name: "Calculus II",
-        subject_name: "Mathematics"
+        CourseID: "c000000003",
+        Name: "Calculus I",
+        subject_name: "Mathematic"
       },
       {
-        index: 4,
-        course_name: "Computer Architecture",
+        CourseID: "c000000011",
+        Name: "Hardware Basics",
         subject_name: "Computer"
       }
     ],
     popularItem: [
       {
-        index: 1,
-        course_name: "English for oral communication",
-        subject_name: "Language"
+        CourseID: "c000000012",
+        Name: "Software Basics",
+        subject_name: "Computer"
       },
       {
-        index: 2,
-        course_name: "Design Thinking",
-        subject_name: "Language"
+        CourseID: "c000000018",
+        Name: "Semiconductors",
+        subject_name: "Electrical"
       },
       {
-        index: 3,
-        course_name: "Economic I",
-        subject_name: "Electric"
+        CourseID: "c000000021",
+        Name: "Calculus II",
+        subject_name: "Mathematic"
       },
       {
-        index: 4,
-        course_name: "Image Processing",
-        subject_name: "Electric"
+        CourseID: "c000000020",
+        Name: "Reference",
+        subject_name: "Mathematic"
       }
     ],
-    subjectItems: [
-      {
-        index: 1,
-        subject_name: "Mathematics"
-      },
-      {
-        index: 2,
-        subject_name: "Electric"
-      },
-      {
-        index: 3,
-        subject_name: "Language"
-      },
-      {
-        index: 4,
-        subject_name: "Mathematics"
-      }
-    ],
+    subjectItems: [],
     model: null
   }),
+  async mounted () {
+    const result = await api.getSubject()
+    if (result.data.status === "1") {
+      this.subjectItems = result.data.result
+    } else {
+      this.subjectItems = []
+    }
+  },
   methods: {
-    onClickCourse (name) {
-      this.$router.push({ name: "CoursesPage", params: { title: name } })
+    onClickCourse (name, id) {
+      this.$router.push({ name: "LessonPage", query: { titleName: name, id: id } })
     },
-    onClickSubject (name) {
-      this.$router.push({ name: "CoursesPage", params: { titleName: name } })
+    onClickSubject (name, id) {
+      this.$router.push({ name: "CoursesPage", query: { titleName: name, id: id } })
     }
   }
 };

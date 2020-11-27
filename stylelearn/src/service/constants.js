@@ -11,6 +11,9 @@ export const apiUrl = "https://stylelearn-backend.vercel.app/api";
 export const server = {
   LOGIN_URL: apiUrl + "/login/index",
   REGISTER_URL: apiUrl + "/register/index",
+  COURSE: apiUrl + "/course/index",
+  SUBJECT: apiUrl + "/subject/index",
+  LESSON: apiUrl + "/lesson/index",
   USERNAME: "username",
   USER_TYPE: "userType",
   TOKEN_KEY: "TOKEN"

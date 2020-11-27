@@ -15,17 +15,17 @@
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.index">
+        <div class="colCard" v-for="course in courses" :key="course.CourseID">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickLesson()"
+              @click="onClickCourse(course.Name, course.CourseID)"
             >
-              <v-img height="200" width="303" :src="math" />
+              <v-img height="200" width="303" :src="require('../assets/image/subject/cardSmall/' + title + '.png')" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.name }}</p>
+                <p class="cardInSmallText">{{ course.Name }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
@@ -36,65 +36,27 @@
 </template>
 
 <script>
+import api from "../service/api";
 export default {
   name: "coursesPage",
   components: {},
-  mounted () {
-    this.title = this.$route.params.titleName
+  async mounted () {
+    this.title = this.$route.query.titleName
+    const result = await api.getCourseBySubject(this.$route.query.id)
+    if (result.data.status === "1") {
+      this.courses = result.data.result
+    } else {
+      this.courses = []
+    }
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    courses: [
-      {
-        index: 1,
-        name: "Calculus I"
-      },
-      {
-        index: 2,
-        name: "Calculus II"
-      },
-      {
-        index: 3,
-        name: "Calculus III"
-      },
-      {
-        index: 4,
-        name: "Geometric I"
-      },
-      {
-        index: 5,
-        name: "Geometric II"
-      },
-      {
-        index: 6,
-        name: "Geometric III"
-      },
-      {
-        index: 7,
-        name: "Algebra I"
-      },
-      {
-        index: 8,
-        name: "Algebra II"
-      },
-      {
-        index: 9,
-        name: "Statistic I"
-      },
-      {
-        index: 10,
-        name: "Statistic II"
-      }
-    ]
+    courses: []
   }),
   methods: {
-    linetoGrid () {
-      return this.items
-    },
-
-    onClickLesson () {
-      console.log("ClickCourse")
+    onClickCourse (name, id) {
+      this.$router.push({ name: "LessonPage", query: { titleName: name, id: id } })
     }
   }
 };
@@ -164,8 +126,8 @@ export default {
 
 .cardInSmallText {
   margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 23px;
   font-weight: bold;
 }
 

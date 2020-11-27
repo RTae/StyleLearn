@@ -25,7 +25,7 @@
     <!-- Video -->
     <v-row justify="center" align="center">
       <div class="videoContainer">
-        <vue-core-video-player name="video" src="https://media.vued.vanthink.cn/sparkle_your_name_am720p.mp4"></vue-core-video-player>
+        <vue-core-video-player @ended="ended" name="video" :src=video.video_src />
       </div>
     </v-row>
     <!-- Description -->
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+
 export default {
   name: "LearnCourseTutorPage",
   mounted () {
@@ -75,10 +76,12 @@ export default {
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
+    number: 0,
     video: {
       user_firstname: "New",
       lesson_name: "Differntail I",
-      description: "Differntail วิชาแห่งการลืนทไล"
+      description: "Differntail วิชาแห่งการลืนทไล",
+      video_src: "https://media.vued.vanthink.cn/sparkle_your_name_am720p.mp4"
     },
     courses: [
       {
@@ -116,6 +119,10 @@ export default {
   methods: {
     onClickBack () {
       this.$router.push({ name: "TutorPage" })
+    },
+    ended () {
+      this.number = this.number + 1
+      console.log(this.number)
     },
     onClickLike (n) {
       this.courses[n].likeState = !this.courses[n].likeState

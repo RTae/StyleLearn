@@ -1,5 +1,8 @@
 import httpClient from "../service/httpClient";
 import { server } from "../service/constants";
+import * as courseAPI from "../service/api_couse";
+import * as subjectAPI from "../service/api_subject";
+import * as lessonAPI from "../service/api_lesson";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem(server.TOKEN_KEY);
@@ -51,5 +54,8 @@ export default {
   login,
   register,
   isLoggedIn,
-  logoff
+  logoff,
+  ...courseAPI,
+  ...subjectAPI,
+  ...lessonAPI
 };
