@@ -511,12 +511,12 @@ a {
 
 .textTitleStudnetReview {
   font-size: 40px;
-  font-family: "Delius", cursive;
+  font-family: "Delius"
 }
 
 .textDetailStudnetReview {
   font-size: 18px;
-  font-family: "Delius", cursive;
+  font-family: "Delius"
 }
 
 .cardReviewContainer {

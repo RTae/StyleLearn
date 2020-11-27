@@ -134,7 +134,7 @@
               full-width
               single-line
               solo
-            ></v-textarea>
+            />
           </v-col>
         </v-row>
 

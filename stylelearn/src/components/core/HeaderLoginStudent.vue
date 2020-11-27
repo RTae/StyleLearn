@@ -7,7 +7,6 @@
           class="shrink mr-2"
           contain
           src="../../assets/image/main/logo.png"
-          transition="scale-transition"
           width="200"
         />
       </div>
@@ -33,11 +32,12 @@
           <v-img class="iconBarLine" src="../../assets/image/etc/line.png"></v-img>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
-              <button dark icon v-bind="attrs" v-on="on">
+              <button style="outline:none" icon v-bind="attrs" v-on="on">
                 <v-img
                   class="iconBarPro"
                   contain
                   outline:none
+                  transition="scale-transition"
                   src="../../assets/image/etc/profile.png"
                 />
               </button>
@@ -80,7 +80,7 @@ export default {
   methods: {
     onClickHover (functionName) {
       if (functionName === "Account") {
-        this.$router.push({ name: "ProfileStudent" });
+        this.$router.push({ name: "ProfileStudent" })
       } else if (functionName === "My Courses") {
         this.$router.push({ name: "MyCourse" })
       } else if (functionName === "Log Out") {

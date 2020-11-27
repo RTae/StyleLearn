@@ -13,11 +13,10 @@ import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
 // Tutor
 import HomeTutor from "../views/Tutor/HomeTutor";
-import TestTutor from "../views/Tutor/TestTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
 import ProfileTutor from "../views/Tutor/ProfileTutor";
 import EditProfileTutor from "../views/Tutor/EditProfileTutor";
-import EditVideoTutor from "../views/Tutor/EditVideoTutor";
+import changePasswordTutor from "../views/Tutor/changePasswordTutor";
 import UploadVideoTutor from "../views/Tutor/UploadVideoTutor";
 // Student
 import MyCourse from "../views/Student/MyCourse";
@@ -103,11 +102,6 @@ const routes = [
     component: HomeTutor
   },
   {
-    path: "/testtutor",
-    name: "TestTutor",
-    component: TestTutor
-  },
-  {
     path: "/myvideotutor",
     name: "MyVideoTutor",
     meta: {
@@ -138,14 +132,14 @@ const routes = [
     component: EditProfileTutor
   },
   {
-    path: "/editvideotutor",
-    name: "EditVideoTutor",
+    path: "/accountTutor",
+    name: "ChangePasswordTutor",
     meta: {
       isSecured: true,
       isTutor: true,
       isStudent: false
     },
-    component: EditVideoTutor
+    component: changePasswordTutor
   },
   {
     path: "/upload",
@@ -156,6 +150,16 @@ const routes = [
       isStudent: false
     },
     component: UploadVideoTutor
+  },
+  {
+    path: "/profilestudent",
+    name: "ProfileStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ProfileStudent
   },
   // Student
   {
@@ -245,18 +249,8 @@ const routes = [
   {
     path: "*",
     redirect: "/home" // page not found
-  },
-  {
-    path: "/profilestudent",
-    name: "ProfileStudent",
-    meta: {
-      isSecured: true,
-      isTutor: false,
-      isStudent: true
-    },
-    component: ProfileStudent
   }
-];
+]
 
 const router = new VueRouter({
   mode: "history",
