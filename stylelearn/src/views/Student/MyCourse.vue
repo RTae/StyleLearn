@@ -2,7 +2,7 @@
   <v-container fluid class="main" id="MyCourse">
     <v-row align="center" justify="start" style="margin-top:40px">
       <v-col align="start" justify="center" cols="11" offset="1">
-        <p class="headtext">My Course</p>
+        <p class="textHead">My Course</p>
       </v-col>
     </v-row>
     <!-- Card -->
@@ -113,10 +113,10 @@ export default {
   outline: none;
   opacity: 1;
 }
-.headtext {
+.textHead {
   font-weight: normal;
   color: black;
-  font-size: 50px;
+  font-size: 55px;
   font-family: "Average Sans", sans-serif;
 }
 .text {
@@ -148,7 +148,6 @@ export default {
 }
 
 .cardCourseSmall {
-  margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
   width: 303px;

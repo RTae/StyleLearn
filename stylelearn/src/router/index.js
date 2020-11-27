@@ -152,16 +152,6 @@ const routes = [
     },
     component: UploadVideoTutor
   },
-  {
-    path: "/profilestudent",
-    name: "ProfileStudent",
-    meta: {
-      isSecured: true,
-      isTutor: false,
-      isStudent: true
-    },
-    component: ProfileStudent
-  },
   // Student
   {
     path: "/mycourse",

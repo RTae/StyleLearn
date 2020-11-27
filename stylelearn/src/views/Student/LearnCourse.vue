@@ -164,7 +164,6 @@ export default {
 }
 
 .cardCourseSmall {
-  margin-top: 50px;
   margin-bottom: 50px;
   border-radius: 10px;
   width: 303px;

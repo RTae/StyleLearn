@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid class="main" id="VideoStudent">
+  <v-container fluid class="main" id="LearnCourseTutorPage">
+    <!-- Title -->
     <v-row align="center" justify="start" style="margin-top:40px">
-      <router-link to="/learncoursetutorpage">
         <v-hover v-slot="{ hover }">
           <v-btn
             depressed
@@ -9,40 +9,33 @@
             width="60px"
             :elevation="hover ? 0 : 0"
             :class="{ 'on-hover-review': hover }"
+            @click="onClickBack()"
             class="btnBack"
-            ><span class="material-icons md-48">
+            >
+            <span class="material-icons md-48">
               keyboard_arrow_left
-            </span></v-btn
-          ></v-hover
-        ></router-link
-      >
-      <div class=" mt-4 mr-4 pd-6 pl-12">
-        <p class="headtext">Lesson : Differentiation I</p>
-        <p class="headtext">Teacher : Cherprang</p>
+            </span>
+          </v-btn>
+        </v-hover>
+      <div class="d-flex flex-column justify-start ml-10">
+        <p class="textHead">Lesson : {{ video.lesson_name }}</p>
+        <p class="textHead">Tutor : {{ video.user_firstname }}</p>
       </div>
     </v-row>
-    <!-- VIDEO -->
-    <v-row align="center" justify="center" style="margin-top:40px;">
-      <div v-cloak>
-        <v-card class="video">
-          <iframe
-            width="640"
-            height="360"
-            :src="'https://www.youtube.com/watch?v=XdE1u9lHie0'"
-            frameborder="0"
-          ></iframe>
-          <hr />
-        </v-card>
+    <!-- Video -->
+    <v-row justify="center" align="center">
+      <div class="videoContainer">
+        <vue-core-video-player name="video" src="https://media.vued.vanthink.cn/sparkle_your_name_am720p.mp4"></vue-core-video-player>
       </div>
     </v-row>
-    <!-- Describe : สอน Diff นั้นง่ายจะตายไป -->
-    <v-row justify="center" style="margin-top:40px;">
-      <div class="describeCard" >
-        <p class="Describetext">Describe : สอน Diff นั้นง่ายจะตายไป</p>
-      </div>
+    <!-- Description -->
+    <v-row>
+      <v-col cols="9" offset="1">
+        <p class="textDescription">Description : {{ video.description }}</p>
+      </v-col>
     </v-row>
-    <!-- card video of tutor -->
-    <v-row justify="center" style="margin-top:40px;">
+    <!-- Card group of tutor -->
+    <v-row justify="center">
       <div class="tableCard">
         <div class="colCard" v-for="course in courses" :key="course.index">
           <v-sheet class="cardCoruseTitle">
@@ -54,22 +47,13 @@
                 :class="{ 'on-hover': hover }"
                 class="imgCard"
                 :src="math"
-                @click="onClickLesson()"
+                @click="onClickTutor()"
               />
-              <v-card-actions style="background-color: #70ccff;">
+              <v-card-actions style="background-color: #70ccff; height:64px">
                 <v-list-item class="grow">
                   <v-row>
-                    <v-col cols="2">
-                      <v-btn
-                        icon
-                        v-bind:color="course.likeState ? 'red' : 'grey'"
-                        @click="onClickLike(course.index - 1)"
-                      >
-                        <v-icon>mdi-heart</v-icon>
-                      </v-btn>
-                    </v-col>
-                    <v-col align="center" justify="end" cols="5" offset="4">
-                      <p class="cardInSmallText">{{ course.like }} Views</p>
+                    <v-col  align="center" justify="end" cols="8" offset="4">
+                        <p class="cardInSmallText">{{ course.view }} Views</p>
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -82,63 +66,59 @@
   </v-container>
 </template>
 
-<script scope>
-// @ is an alias to /src
-
+<script>
 export default {
-  name: "VideoStudent",
-  components: {},
+  name: "LearnCourseTutorPage",
   mounted () {
     this.title = this.$route.params.titleName;
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
+    video: {
+      user_firstname: "New",
+      lesson_name: "Differntail I",
+      description: "Differntail วิชาแห่งการลืนทไล"
+    },
     courses: [
       {
         index: 1,
         tutor: "Cherprang",
-        like: 15657,
-        likeState: false
+        view: 15657
       },
       {
         index: 2,
         tutor: "June",
-        like: 14757,
-        likeState: false
+        view: 14757
       },
       {
         index: 3,
         tutor: "Pun",
-        like: 13474,
-        likeState: false
+        view: 13474
       },
       {
         index: 4,
         tutor: "Jennis",
-        like: 12657,
-        likeState: false
+        view: 12657
       },
       {
         index: 5,
         tutor: "Wee",
-        like: 9157,
-        likeState: false
+        view: 9157
       },
       {
         index: 6,
         tutor: "Mobile",
-        like: 8157,
-        likeState: false
+        view: 8157
       }
     ]
   }),
   methods: {
-    linetoGrid () {
-      return this.items;
+    onClickBack () {
+      this.$router.push({ name: "TutorPage" })
     },
-    onClickLesson () {
-      console.log("ClickCourse");
+    onClickLike (n) {
+      this.courses[n].likeState = !this.courses[n].likeState
     }
   }
 };
@@ -148,27 +128,6 @@ export default {
 .main {
   background-color: rgb(239, 239, 239);
   min-height: 100vh;
-}
-.video {
-  align-items: center;
-  text-align: center;
-  width: 1200px;
-  height: 400px;
-}
-.describeCard {
-  width: 1200px;
-  justify-content: start;
-  align-items: center;
-}
-.Describetext{
-    font-family: "Delius", cursive;
-    font-size: 35px;
-    text-align: start;
-}
-.textTutor {
-  font-family: "Delius", cursive;
-  font-size: 20px;
-  background-color: green;
 }
 .btnBack {
   background-color: white;
@@ -182,34 +141,27 @@ export default {
   opacity: 1;
 }
 
-.courseCard {
-  border-radius: 10px;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  text-align: start;
-  align-items: center;
-  margin-top: 20px;
-  width: 1200px;
-  height: 100px;
-}
-.headtext {
+.textHead {
   font-weight: normal;
   color: black;
-  font-size: 54px;
+  font-size: 40px;
   font-family: "Average Sans", sans-serif;
 }
-.text {
-  font-weight: normal;
+
+.videoContainer{
+  width: 80vw;
+}
+
+.textDescription {
+  font-size: 35px;
   color: black;
-  font-size: 46px;
-  font-family: "Delius", cursive;
+  font-family: "THSarabunNew";
 }
 
 .tableCard {
   display: grid;
-  grid-template-columns: 40% 40% 40%;
-  width: 1000px;
+  grid-template-columns: 30% 30% 30%;
+  width: 80%;
   justify-content: space-around;
 }
 
@@ -228,10 +180,9 @@ export default {
 }
 
 .cardInSmallText {
-  font-family: 'ABeeZee', sans-serif;
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 20px;
   font-weight: bold;
-  margin-top: 10px;
 }
 
 .cardCourseSmall {

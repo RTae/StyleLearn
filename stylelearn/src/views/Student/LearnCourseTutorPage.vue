@@ -20,7 +20,7 @@
         <p class="headtext">CALCULUS I : Differentiation I</p>
       </div>
     </v-row>
-    <!-- card video of tutor -->
+    <!-- Card group of tutor -->
     <v-row justify="center">
       <div class="tableCard">
         <div class="colCard" v-for="course in courses" :key="course.index">
@@ -38,17 +38,8 @@
               <v-card-actions style="background-color: #70ccff; height:64px">
                 <v-list-item class="grow">
                   <v-row>
-                    <v-col cols="2">
-                        <v-btn
-                            icon
-                            v-bind:color="course.likeState ? 'red' : 'grey'"
-                            @click="onClickLike(course.index-1)"
-                        >
-                            <v-icon >mdi-heart</v-icon>
-                        </v-btn>
-                    </v-col>
-                    <v-col  align="center" justify="end" cols="5" offset="4">
-                        <p class="cardInSmallText">{{ course.like }} Views</p>
+                    <v-col  align="center" justify="end" cols="8" offset="4">
+                        <p class="cardInSmallText">{{ course.view }} Views</p>
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -77,38 +68,32 @@ export default {
       {
         index: 1,
         tutor: "Cherprang",
-        like: 15657,
-        likeState: false
+        view: 15657
       },
       {
         index: 2,
         tutor: "June",
-        like: 14757,
-        likeState: false
+        view: 14757
       },
       {
         index: 3,
         tutor: "Pun",
-        like: 13474,
-        likeState: false
+        view: 13474
       },
       {
         index: 4,
         tutor: "Jennis",
-        like: 12657,
-        likeState: false
+        view: 12657
       },
       {
         index: 5,
         tutor: "Wee",
-        like: 9157,
-        likeState: false
+        view: 9157
       },
       {
         index: 6,
         tutor: "Mobile",
-        like: 8157,
-        likeState: false
+        view: 8157
       }
     ]
   }),
@@ -131,18 +116,6 @@ export default {
   background-color: rgb(239, 239, 239);
   min-height: 100vh;
 }
-.btnLike {
-  margin-left: 10px;
-}
-.btnLike:active {
-  background-color: #ffce70;
-  outline: none;
-}
-.textTutor {
-  font-family: "Delius", cursive;
-  font-size: 20px;
-  background-color: green;
-}
 .btnBack {
   background-color: white;
   border-radius: 100px;
@@ -155,28 +128,11 @@ export default {
   opacity: 1;
 }
 
-.courseCard {
-  border-radius: 10px;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  text-align: start;
-  align-items: center;
-  margin-top: 20px;
-  width: 1200px;
-  height: 100px;
-}
 .headtext {
   font-weight: normal;
   color: black;
   font-size: 50px;
   font-family: "Average Sans", sans-serif;
-}
-.text {
-  font-weight: normal;
-  color: black;
-  font-size: 46px;
-  font-family: "Delius", cursive;
 }
 
 .tableCard {

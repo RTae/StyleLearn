@@ -93,7 +93,7 @@
 import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "ProfileTutor",
-  components : {
+  components: {
     PopUpDialog
   },
   data () {
@@ -139,9 +139,9 @@ export default {
         }
       } else {
         this.$store.dispatch({
-            type: "dialogPopup",
-            value: true,
-            msg: "New Password must be same"
+          type: "dialogPopup",
+          value: true,
+          msg: "New Password must be same"
         });
       }
     }
