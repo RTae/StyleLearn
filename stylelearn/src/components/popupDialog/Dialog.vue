@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: "PopUpDialog",
+  name: "PopUpDialog"
 };
 </script>
 

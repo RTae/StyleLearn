@@ -100,13 +100,13 @@ export default {
         index: 1,
         subject_name: "Mathematics",
         lesson_name: "Diff I",
-        view: 123,
+        view: 123
       },
       {
         index: 2,
         subject_name: "Mathematics",
         lesson_name: "Diff II",
-        view: 6969,
+        view: 6969
       },
       {
         index: 3,

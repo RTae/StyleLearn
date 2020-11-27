@@ -28,10 +28,7 @@ import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
 import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
 import ProfileStudent from "../views/Student/ProfileStudent.vue";
-<<<<<<< HEAD
 import EditProfileStudent from "../views/Student/EditProfileStudent.vue";
-=======
->>>>>>> e49c005e5a7d057b05909df15f88268ea78e7ef9
 
 Vue.use(VueRouter);
 const routes = [
@@ -247,15 +244,6 @@ const routes = [
     component: ConfirmPayment
   },
   {
-    path: "/",
-    redirect: "/home" // Home
-  },
-  {
-    path: "*",
-    redirect: "/home" // page not found
-<<<<<<< HEAD
-  },
-  {
     path: "/profilestudent",
     name: "ProfileStudent",
     meta: {
@@ -274,8 +262,15 @@ const routes = [
       isStudent: true
     },
     component: EditProfileStudent
-=======
->>>>>>> e49c005e5a7d057b05909df15f88268ea78e7ef9
+  },
+  // ETC
+  {
+    path: "/",
+    redirect: "/home" // Home
+  },
+  {
+    path: "*",
+    redirect: "/home" // page not found
   }
 ]
 

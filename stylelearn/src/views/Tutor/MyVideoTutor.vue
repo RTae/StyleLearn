@@ -46,34 +46,34 @@ export default {
         index: 1,
         subject_name: "Mathematics",
         lesson_name: "Diff I",
-        view: 123,
+        view: 123
       },
       {
         index: 2,
         subject_name: "Mathematics",
         lesson_name: "Diff II",
-        view: 12322,
+        view: 12322
       },
       {
         index: 3,
         subject_name: "Mathematics",
         lesson_name: "Diff III",
-        view: 122,
+        view: 122
       },
       {
         index: 4,
         lesson_name: "Geometric I",
         subject_name: "Mathematics",
-        view: 221,
+        view: 221
       },
       {
         index: 5,
         lesson_name: "Geometric II",
         subject_name: "Mathematics",
-        view: 202,
+        view: 202
       }
     ]
-  }),
+  })
 };
 </script>
 
