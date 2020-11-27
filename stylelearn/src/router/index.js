@@ -28,6 +28,7 @@ import SelectItem from "../views/Student/SelectItem";
 import DetailPayment from "../views/Student/DetailPayment";
 import ConfirmPayment from "../views/Student/ConfirmPayment.vue";
 import ProfileStudent from "../views/Student/ProfileStudent.vue";
+import ChangePasswordStudent from "../views/Student/ChangePasswordStudent.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -241,6 +242,16 @@ const routes = [
       isStudent: true
     },
     component: ConfirmPayment
+  },
+  {
+    path: "/accountStudent",
+    name: "ChangePasswordStudent",
+    meta: {
+      isSecured: true,
+      isTutor: false,
+      isStudent: true
+    },
+    component: ChangePasswordStudent
   },
   {
     path: "/",
