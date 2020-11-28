@@ -125,8 +125,9 @@ func (pl *ProgressLesson) GetAllProgressLesson() map[string]interface{} {
 }
 
 type resultCourse struct {
-	CourseID   string
-	CourseName string
+	CourseID    string
+	CourseName  string
+	SubjectName string
 }
 
 func (pl *ProgressLesson) GetAllCourseFronProgressLesson(uid string) map[string]interface{} {
@@ -137,12 +138,15 @@ func (pl *ProgressLesson) GetAllCourseFronProgressLesson(uid string) map[string]
 	defer db.Close()
 
 	var result []resultCourse
-	err := db.Raw(`	SELECT DISTINCT(c.course_id) AS "course_id", c.name AS "course_name"
+	err := db.Raw(`	SELECT DISTINCT(c.course_id) AS "course_id", c.name AS "course_name", 
+					s.name AS "subject_name"
 					FROM tbl_progress_lesson pl
 					INNER JOIN tbl_lesson_types l
 						ON pl.lesson_id = l.lesson_id
 					INNER JOIN tbl_course_types c
 						ON l.course_id = c.course_id
+					INNER JOIN tbl_subject_types s
+						ON c.subject_id = s.subject_id
 					WHERE pl.user_id =  ? `, uid).Scan(&result).Error
 	if err != nil {
 		log := pl.errorHandle(err)

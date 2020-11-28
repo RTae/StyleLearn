@@ -161,9 +161,10 @@
                 :class="{ 'on-hover': hover }"
                 @click="onClickSubject(subject.Name, subject.SubjectID);"
               >
-                <v-card-text class="cardTextTitle">
-                  {{ subject.Name }}
-                </v-card-text>
+              <v-img
+                class="cardImg"
+                :src="require('../assets/image/subject/cardBig/'+ subject.Name + '.png')"
+              ></v-img>
               </v-card>
             </v-hover>
           </v-slide-item>

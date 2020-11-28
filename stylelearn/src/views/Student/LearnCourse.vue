@@ -18,13 +18,13 @@
         </v-hover>
       </v-col>
       <v-col align="start" justify="center" cols="11">
-        <p class="headtext">CALCULUS I</p>
+        <p class="headtext">{{ title }}</p>
       </v-col>
     </v-row>
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.index">
+        <div class="colCard" v-for="lesson in lessons" :key="lesson.LessonID">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
@@ -34,7 +34,7 @@
             >
               <v-img height="200" width="303" :src="math" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.name }}</p>
+                <p class="cardInSmallText">{{ lesson.LessonName }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
@@ -45,59 +45,23 @@
 </template>
 
 <script scope>
-// @ is an alias to /src
-
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "MyCourse",
   components: {},
-  mounted () {
-    this.title = this.$route.params.titleName;
+  async mounted () {
+    this.title = this.$route.query.titleName;
+    const id = localStorage.getItem(server.USERNAME)
+    const result = await api.getProgressLesson(id, this.$route.query.id)
+    if (result.data.status === "1") {
+      this.lessons = result.data.result
+    }
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    courses: [
-      {
-        index: 1,
-        name: "Calculus I"
-      },
-      {
-        index: 2,
-        name: "Calculus II"
-      },
-      {
-        index: 3,
-        name: "Calculus III"
-      },
-      {
-        index: 4,
-        name: "Geometric I"
-      },
-      {
-        index: 5,
-        name: "Geometric II"
-      },
-      {
-        index: 6,
-        name: "Geometric III"
-      },
-      {
-        index: 7,
-        name: "Algebra I"
-      },
-      {
-        index: 8,
-        name: "Algebra II"
-      },
-      {
-        index: 9,
-        name: "Statistic I"
-      },
-      {
-        index: 10,
-        name: "Statistic II"
-      }
-    ]
+    lessons: []
   }),
   methods: {
     linetoGrid () {
@@ -168,7 +132,7 @@ export default {
   border-radius: 10px;
   width: 303px;
   height: 279px;
-  background-color: white;
+  background-color: #70CCFF;
   opacity: 0.6;
   transition: opacity 0.2s ease-in;
 }
@@ -179,16 +143,16 @@ export default {
 
 .cardInSmallContainer {
   background-color: #70CCFF;
+  margin-left: 15px;
+  height: 79px;
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 79px;
+  justify-content: start;
 }
 
 .cardInSmallText {
-  margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 18px;
   font-weight: bold;
 }
 </style>

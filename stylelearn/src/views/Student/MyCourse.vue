@@ -8,15 +8,15 @@
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.CourseID+course.CourseName">
+        <div class="colCard" v-for="course in courses" :key="course.CourseID">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickCourse()"
+              @click="onClickCourse(course.CourseID, course.CourseName)"
             >
-              <v-img height="200" width="303" :src="math" />
+              <v-img height="200" width="303" :src="require('../../assets/image/subject/cardSmall/' + course.SubjectName + '.png')" />
               <v-sheet class="cardInSmallContainer">
                 <p class="cardInSmallText">{{ course.CourseName }}</p>
               </v-sheet>
@@ -36,8 +36,7 @@ export default {
   components: {},
   async mounted () {
     const id = localStorage.getItem(server.USERNAME)
-    const result = await api.getCourseFromProgressLesson(id)
-    console.log(result)
+    const result = await api.getCourseFromProgressLesson(id, name)
     if (result.data.status === "1") {
       this.courses = result.data.result
     }
@@ -48,14 +47,8 @@ export default {
     courses: []
   }),
   methods: {
-    linetoGrid () {
-      return this.items;
-    },
-    onClickCourse () {
-      this.$router.push({ name: "LearnCourse" })
-    },
-    onClickBack () {
-      this.$router.push({ name: "MyCourse" })
+    onClickCourse (id, name) {
+      this.$router.push({ name: "LearnCourse", query: { titleName: name, id: id } })
     }
   }
 };
@@ -116,7 +109,7 @@ export default {
   border-radius: 10px;
   width: 303px;
   height: 279px;
-  background-color: rgb(209, 208, 208);
+  background-color: #70CCFF;
   opacity: 0.6;
   transition: opacity 0.2s ease-in;
 }
@@ -127,16 +120,16 @@ export default {
 
 .cardInSmallContainer {
   background-color: #70CCFF;
+  margin-left: 15px;
+  height: 79px;
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 79px;
+  justify-content: start;
 }
 
 .cardInSmallText {
-  margin-left: 40px;
-  font-family: "THSarabunNewRegular";
-  font-size: 15px;
+  font-family: "THSarabunNew";
+  font-size: 20px;
   font-weight: bold;
 }
 </style>
