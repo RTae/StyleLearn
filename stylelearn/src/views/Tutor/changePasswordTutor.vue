@@ -44,6 +44,7 @@
                     solo
                     rounded
                     outlined
+                    autocomplete="current-password"
                     type="password"
                   />
                   <!-- New Password -->
@@ -57,6 +58,7 @@
                     solo
                     rounded
                     outlined
+                    autocomplete="new-password"
                     type="password"
                   />
                   <!-- Con Password -->
@@ -70,6 +72,7 @@
                     solo
                     rounded
                     outlined
+                    autocomplete="con-password"
                     type="password"
                   />
               </v-col>
@@ -113,13 +116,13 @@ export default {
   },
   methods: {
     onClickProfile () {
-      this.$router.push({ name: "ProfileTutor" });
+      this.$router.push({ name: "ProfileStudent" });
     },
     onClickEditProfile () {
-      this.$router.push({ name: "EditProfileTutor" });
+      this.$router.push({ name: "EditProfileStudent" });
     },
     onClickAccount () {
-      this.$router.push({ name: "ChangePasswordTutor" });
+      this.$router.push({ name: "ChangePasswordStudent" });
     },
     submitSave () {
       var state = this.$refs.form.validate();

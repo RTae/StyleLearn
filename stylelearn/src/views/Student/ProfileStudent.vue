@@ -1,94 +1,92 @@
 <template>
-  <v-container fluid class="main" id="ProfileStudent">
-    <!-- Subject title -->
+  <v-container fluid class="main" id="adminhome">
+    <!-- Title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
       <v-card elevation="4" class="cardContainer">
         <p class="text">Profile</p>
       </v-card>
     </v-row>
-    <!-- Body -->
+    <!-- Silde bar -->
     <v-row style="margin-top: 50px; margin-bottom: 100px">
-      <v-col cols="0.5"></v-col>
-      <v-col cols="2.5">
+      <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <button @click="onClickProfile()" class="cardButtonContainer">
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Profile
-          </button>
-          <button @click="onClickEditProfile()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Edit Profile
-          </button>
-          <button @click="onClickAccount()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Account
-          </button>
+          </v-btn>
         </v-card>
       </v-col>
-      <!-- PICTURE -->
-      <v-col cols="8" align="center">
-            <v-row align="center" justify="center">
+      <!-- Body -->
+      <v-col cols="8">
+        <!-- Picture -->
+        <div class="d-flex flex-column align-center pa-2" style="width:55vw">
+          <v-card
+              class="d-flex flex-column justify-center"
+              style="border-radius:10px; border:2px solid black; margin-bottom:30px"                   max-height="300"
+              min-height="200"
+              max-width="400"
+              min-width="200"
+              color="grey darken-1"
+            >
               <v-img
-                  src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Jungkook_for_Dispatch_%22Boy_With_Luv%22_MV_behind_the_scene_shooting%2C_15_March_2019_07_(cropped).jpg"
-                  height="300px"
-                  max-height="315"
-                  max-width="367"
-                  style="border-radius: 50px;"
-                  contain
-              />
-            </v-row>
-        <v-card class="cardProfileDetail" align="start" justify-center>
-          <v-row
-            ><v-col cols="1"></v-col>
-            <v-col>
-              <p class="textDetail">First name : {{ this.user.firstName }}</p>
-            </v-col>
-            <v-col>
-              <p class="textDetail">Family name : {{ this.user.familyName }}</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="1"></v-col>
-            <v-col>
-              <p class="textDetail">Birthday : {{ this.user.birthday }}</p>
-            </v-col>
-            <v-col class="textDetail">
-              <p>Sex : {{ this.user.sex }}</p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="1"></v-col>
-            <v-col class="textDetail">
-              <p>Email : {{ this.user.email }}</p>
-            </v-col>
-            <v-col class="textDetail">
-              <p>Education : {{ this.user.edcation }}'s degree</p>
-            </v-col>
-          </v-row>
-        </v-card>
+              :lazy-src="require('../../assets/image/etc/lazy_loading.png')"
+              contain
+              :src="user.image"
+            />
+          </v-card>
+          <!-- Detail -->
+          <div>
+            <v-card class="cardDetailContainer">
+              <p class="textDetail">First name: {{ this.user.firstName }}</p>
+              <p class="textDetail">Family name: {{ this.user.familyName  }}</p>
+              <p class="textDetail">Birthday: {{ this.user.birthday }}</p>
+              <p class="textDetail">Sex: {{ this.user.sex }}</p>
+              <p class="textDetail">Email: {{ this.user.email }}</p>
+              <p class="textDetail">Education: {{ this.user.edcation }}'s degree</p>
+            </v-card>
+          </div>
+        </div>
       </v-col>
-      <v-col cols="0.5"></v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "ProfileTutor",
+  async mounted () {
+    const result = await api.getUser(localStorage.getItem(server.USERNAME))
+    if (result.data.status === "1") {
+      this.user.image = result.data.result[0].ProfilePic
+      this.user.firstName = result.data.result[0].Firstname
+      this.user.familyName = result.data.result[0].Familyname
+      this.user.birthday = result.data.result[0].Birthday.slice(0, 10)
+      this.user.sex = result.data.result[0].Sex
+      this.user.email = result.data.result[0].Email
+      this.user.edcation = result.data.result[0].EduName
+    }
+  },
   data () {
     return {
       user: {
-        image: "https://picsum.photos/id/11/500/300",
-        firstName: "Jungkook",
-        familyName: "Jeon",
-        birthday: "1997/09/01",
-        sex: "Male",
-        email: "jk@gmail.com",
-        edcation: "Bachelor"
+        image: "",
+        firstName: "",
+        familyName: "",
+        birthday: "",
+        sex: "",
+        email: "",
+        edcation: ""
       }
     }
   },
   methods: {
-    linetoGrid () {
-      return this.items;
-    },
     onClickProfile () {
       this.$router.push({ name: "ProfileStudent" });
     },
@@ -96,33 +94,23 @@ export default {
       this.$router.push({ name: "EditProfileStudent" });
     },
     onClickAccount () {
-      this.$router.push({ name: "ProfileTutor" });
+      this.$router.push({ name: "ChangePasswordStudent" });
     }
   }
 };
 </script>
 <style scoped>
+
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
 }
 
 .cardProfile {
-  height: 400px;
-  width: 1000px;
+  height: 315px;
+  width: 377px;
   border-radius: 50px;
-}
-
-.cardImgProfile {
-  height: 400px;
-  width: 500px;
-}
-
-.cardProfileDetail {
-  height: 230px;
-  width: 1000px;
-  border-radius: 50px;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .cardContainer {
@@ -130,8 +118,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 130px;
-  width: 1350px;
+  height: 127px;
+  width: 80vw;
   background-color: #70ccff;
   border-radius: 30px;
 }
@@ -139,14 +127,14 @@ export default {
 .text {
   font-weight: normal;
   color: white;
-  font-size: 70px;
+  font-size: 80px;
   font-family: "Average Sans", sans-serif;
 }
 
 .cardSideContainer {
   width: 250px;
   height: 400px;
-  background-color: #c4c4c4;
+  background-color: #DDDDDD;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -154,20 +142,28 @@ export default {
   align-items: center;
 }
 
-.cardButtonContainer {
-  width: 200px;
-  height: 70px;
-  background-color: #70ccff;
+.sideButtonContainer {
   border-radius: 30px;
   font-weight: normal;
   color: white;
-  font-size: 22px;
+  font-size: 24px;
   font-family: "Average Sans", sans-serif;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 40px;
 }
-.textDetail {
-  font-size: 25px;
-  font-family: "Average Sans", sans-serif;
+
+.cardDetailContainer{
+  width: 50vw;
+  background-color: white;
+  border:  2px solid black;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.textDetail{
+  font-size: 18px;
+  font-family: "Delius"
 }
 </style>

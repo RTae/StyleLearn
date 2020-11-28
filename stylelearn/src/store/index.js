@@ -169,6 +169,44 @@ export default new Vuex.Store({
         commit("SET_DIALOG_LOADING", false)
         dispatch({ type: "dialogPopup", value: true, msg: result.msg })
       }
+    },
+    async editProfile ({ commit, dispatch }, { id, firstName, familyname, birthday, sex, edu }) {
+      commit("SET_DIALOG_LOADING", true)
+      const result = await api.updateProfile({ id, firstName, familyname, birthday, sex, edu })
+      if (result.status === "1") {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Update done"
+        });
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: result.msg
+        });
+      }
+    },
+    async changePassword ({ commit, dispatch }, { id, oldPassword, newPassword }) {
+      commit("SET_DIALOG_LOADING", true)
+      const result = await api.changePassword({ id, oldPassword, newPassword })
+      if (result.status === "1") {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Update done"
+        });
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: result.msg
+        });
+      }
     }
   },
   modules: {}

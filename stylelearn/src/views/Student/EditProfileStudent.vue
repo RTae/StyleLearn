@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="EditProfileStudent">
+  <v-container fluid class="main" id="adminhome">
     <!-- Title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
       <v-card elevation="4" class="cardContainer">
@@ -10,15 +10,15 @@
     <v-row style="margin-top: 50px; margin-bottom: 100px">
       <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <button @click="onClickProfile()" class="cardButtonContainer">
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Profile
-          </button>
-          <button @click="onClickEditProfile()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Edit Profile
-          </button>
-          <button @click="onClickAccount()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Account
-          </button>
+          </v-btn>
         </v-card>
       </v-col>
       <!-- Body -->
@@ -39,6 +39,7 @@
                     style="border-radius:10px; border:2px solid black; margin-bottom:30px"                   max-height="300"
                     min-height="200"
                     max-width="400"
+                    min-width="200"
                     color="grey darken-1"
                   >
                     <v-img
@@ -153,8 +154,8 @@
             </div>
           </v-row>
           <v-row>
-            <v-col class="d-flex justify-center" cols="10">
-              <v-btn type="submit" class="cardButtonContainer" width="200" height="50" color="#70ccff">
+            <v-col class="d-flex justify-center" cols="7">
+              <v-btn type="submit" class="sideButtonContainer" width="200" height="50" color="#70ccff">
                 save
               </v-btn>
             </v-col>
@@ -162,22 +163,35 @@
         </v-form>
       </v-col>
     </v-row>
+    <PopUpDialog/>
+    <v-overlay :value="$store.getters.getDialogLoading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      />
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
-  name: "EditProfileStudent",
+  name: "ProfileTutor",
+  components: {
+    PopUpDialog
+  },
   data () {
     return {
       user: {
-        image: "https://picsum.photos/id/11/500/300",
-        firstName: "Jungkook",
-        familyName: "Jeon",
-        birthday: null,
-        sex: "Male",
-        email: "jk@gmail.com",
-        edu: "d"
+        image: "",
+        firstName: "",
+        familyName: "",
+        birthday: "",
+        sex: "",
+        email: "",
+        edcation: ""
       },
       isSelectingUploadPic: false,
       defaultButtonTextPic: "Upload Picture",
@@ -208,9 +222,17 @@ export default {
       eduTypeList: ["High school", "Bachelor", "Master", "Ph.d"]
     }
   },
-  mounted () {
-    this.eduValueMapType(this.user.edu)
-    this.user.birthday = new Date("1997-09-01").toISOString().substr(0, 10)
+  async mounted () {
+    const result = await api.getUser(localStorage.getItem(server.USERNAME))
+    if (result.data.status === "1") {
+      this.user.image = result.data.result[0].ProfilePic
+      this.user.firstName = result.data.result[0].Firstname
+      this.user.familyName = result.data.result[0].Familyname
+      this.user.birthday = new Date(result.data.result[0].Birthday.slice(0, 10)).toISOString().substr(0, 10)
+      this.user.sex = result.data.result[0].Sex
+      this.user.email = result.data.result[0].Email
+      this.eduTypeValue = result.data.result[0].EduName
+    }
   },
   computed: {
     buttonTextCover () {
@@ -250,23 +272,25 @@ export default {
     eduTypeMapValue (eduName) {
       Object.values(this.eduType).forEach(value => {
         if (value.name === eduName) {
-          this.user.edu = value.id
+          this.user.edcation = value.id
         }
       });
     },
-    eduValueMapType (eduType) {
-      Object.values(this.eduType).forEach(value => {
-        if (value.id === eduType) {
-          this.eduTypeValue = value.name
-        }
-      });
-    },
-    submitSave () {
+    async submitSave () {
       var state = this.$refs.form.validate();
+      this.$store.commit("SET_DIALOG_LOADING", true)
       if (state) {
         this.eduTypeMapValue(this.eduTypeValue)
-        console.log(this.selectedFilePic)
-        console.log(this.user)
+        this.user.id = this.$store.getters.getUserName
+        this.$store.dispatch({
+          type: "editProfile",
+          id: this.user.id,
+          firstName: this.user.firstName,
+          familyname: this.user.familyName,
+          birthday: this.user.birthday,
+          sex: this.user.sex,
+          edu: this.user.edcation
+        });
       }
     }
   },
@@ -296,8 +320,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 130px;
-  width: 1350px;
+  height: 127px;
+  width: 80vw;
   background-color: #70ccff;
   border-radius: 30px;
 }
@@ -312,7 +336,7 @@ export default {
 .cardSideContainer {
   width: 250px;
   height: 400px;
-  background-color: #c4c4c4;
+  background-color: #DDDDDD;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -320,17 +344,13 @@ export default {
   align-items: center;
 }
 
-.cardButtonContainer {
-  width: 200px;
-  height: 70px;
-  background-color: #70ccff;
+.sideButtonContainer {
   border-radius: 30px;
   font-weight: normal;
   color: white;
-  font-size: 22px;
+  font-size: 24px;
   font-family: "Average Sans", sans-serif;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 40px;
 }
 
 .cardDetailContainer{

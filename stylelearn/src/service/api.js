@@ -50,11 +50,47 @@ const register = async values => {
   }
 };
 
+export const getUser = (id) => {
+  return httpClient.get(server.USER + `?id=${id}&mode=2`);
+};
+
+export const updateProfile = async values => {
+  var bodyFormData = new FormData();
+  bodyFormData.append("id", values.id);
+  bodyFormData.append("firstName", values.firstName);
+  bodyFormData.append("familyname", values.familyname);
+  bodyFormData.append("birthday", values.birthday);
+  bodyFormData.append("sex", values.sex);
+  bodyFormData.append("edu", values.edu);
+  const result = await httpClient.post(server.USER, bodyFormData);
+  if (result.data.status === "1") {
+    return result.data
+  } else {
+    return result.data
+  }
+}
+
+export const changePassword = async values => {
+  var bodyFormData = new FormData();
+  bodyFormData.append("id", values.id);
+  bodyFormData.append("oldPassword", values.oldPassword);
+  bodyFormData.append("newPassword", values.newPassword);
+  const result = await httpClient.post(server.CHAGNGE_PASSWORD, bodyFormData);
+  if (result.data.status === "1") {
+    return result.data
+  } else {
+    return result.data
+  }
+}
+
 export default {
   login,
   register,
+  updateProfile,
+  changePassword,
   isLoggedIn,
   logoff,
+  getUser,
   ...courseAPI,
   ...subjectAPI,
   ...lessonAPI

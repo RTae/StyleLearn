@@ -1,27 +1,27 @@
 <template>
-  <v-container fluid class="main" id="ChangePasswordStudent">
-    <!-- Subject title -->
+  <v-container fluid class="main" id="adminhome">
+    <!-- Title -->
     <v-row align="center" justify="center" style="margin-top: 40px">
       <v-card elevation="4" class="cardContainer">
         <p class="text">Account</p>
       </v-card>
     </v-row>
-    <!-- Body -->
+    <!-- Silde bar -->
     <v-row style="margin-top: 50px; margin-bottom: 100px">
       <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <button @click="onClickProfile()" class="cardButtonContainer">
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Profile
-          </button>
-          <button @click="onClickEditProfile()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Edit Profile
-          </button>
-          <button @click="onClickAccount()" class="cardButtonContainer">
+          </v-btn>
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
             Account
-          </button>
+          </v-btn>
         </v-card>
       </v-col>
-      <!-- BODY -->
+      <!-- Body -->
       <v-col cols="8">
         <!-- Detail -->
         <v-form
@@ -44,6 +44,7 @@
                     solo
                     rounded
                     outlined
+                    autocomplete="current-password"
                     type="password"
                   />
                   <!-- New Password -->
@@ -57,6 +58,7 @@
                     solo
                     rounded
                     outlined
+                    autocomplete="new-password"
                     type="password"
                   />
                   <!-- Con Password -->
@@ -70,6 +72,7 @@
                     solo
                     rounded
                     outlined
+                    autocomplete="con-password"
                     type="password"
                   />
               </v-col>
@@ -85,12 +88,23 @@
         </v-form>
       </v-col>
     </v-row>
+    <PopUpDialog/>
+    <v-overlay :value="$store.getters.getDialogLoading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      />
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "ProfileTutor",
+  components: {
+    PopUpDialog
+  },
   data () {
     return {
       valid: true,
@@ -119,26 +133,38 @@ export default {
     submitSave () {
       var state = this.$refs.form.validate();
       if (this.user.newPassword === this.conPassword) {
-        var checkPassword = "123qwe"
-        if (this.user.currentPassword === checkPassword) {
-          if (state) {
-            this.user.userName = this.$store.getters.getUserName
-            console.log(this.user)
-          }
-        } else {
-          console.log("Current password is not true")
+        if (state) {
+          this.user.id = this.$store.getters.getUserName
+          this.$store.dispatch({
+            type: "changePassword",
+            id: this.user.id,
+            oldPassword: this.user.currentPassword,
+            newPassword: this.user.newPassword
+          });
         }
       } else {
-        console.log("Password must be same")
+        this.$store.dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "New Password must be same"
+        });
       }
     }
   }
 };
 </script>
 <style scoped>
+
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
+}
+
+.cardProfile {
+  height: 315px;
+  width: 377px;
+  border-radius: 50px;
+  margin-top: 50px;
 }
 
 .cardContainer {
@@ -146,8 +172,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 130px;
-  width: 1350px;
+  height: 127px;
+  width: 80vw;
   background-color: #70ccff;
   border-radius: 30px;
 }
@@ -155,32 +181,19 @@ export default {
 .text {
   font-weight: normal;
   color: white;
-  font-size: 70px;
+  font-size: 80px;
   font-family: "Average Sans", sans-serif;
 }
 
 .cardSideContainer {
   width: 250px;
   height: 400px;
-  background-color: #c4c4c4;
+  background-color: #DDDDDD;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-}
-
-.cardButtonContainer {
-  width: 200px;
-  height: 70px;
-  background-color: #70ccff;
-  border-radius: 30px;
-  font-weight: normal;
-  color: white;
-  font-size: 22px;
-  font-family: "Average Sans", sans-serif;
-  margin-top: 30px;
-  margin-bottom: 30px;
 }
 
 .sideButtonContainer {
@@ -192,8 +205,19 @@ export default {
   margin-top: 40px;
 }
 
-.textDetail {
-  font-size: 25px;
-  font-family: Delius;
+.cardDetailContainer{
+  width: 50vw;
+  background-color: white;
+  border:  2px solid black;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.textDetail{
+  font-size: 18px;
+  font-family: "Delius"
 }
 </style>

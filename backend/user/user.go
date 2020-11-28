@@ -107,6 +107,42 @@ func (u *User) Register(firstname, familyname, brithday, sex, email, password, u
 	return logs
 }
 
+// ChangePassword for user
+func (u *User) ChangePassword(uid, oldPassword, newPassword string) map[string]interface{} {
+	db, logs := u.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var auth []entities.TBL_Auth
+	err := db.Find(&auth, entities.TBL_Auth{UserID: uid}).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+	log := make(map[string]interface{})
+
+	if oldPassword == auth[0].Password {
+
+		err = db.Model(&entities.TBL_Auth{}).Where(entities.TBL_Auth{UserID: uid}).Update(entities.TBL_Auth{Password: newPassword}).Error
+		if err != nil {
+			log := u.errorHandle(err)
+			return log
+		}
+
+		log["status"] = "1"
+		log["msg"] = "Password Change Successful"
+		log["result"] = ""
+		return log
+	} else {
+		log["status"] = "215"
+		log["msg"] = "Wrong Password"
+		log["result"] = ""
+		return log
+	}
+}
+
 // Create new user into platfrom
 func (u *User) Create(firstname, familyname, brithday, sex, email, password, userType, educationType string) map[string]interface{} {
 	db, logs := u.initDB()
@@ -187,7 +223,44 @@ func (u *User) Read(uid string) map[string]interface{} {
 	return log
 }
 
-func (u *User) Update(uid string) map[string]interface{} {
+type result_profile struct {
+	Firstname  string
+	Familyname string
+	Birthday   time.Time
+	Email      string
+	Sex        string
+	ProfilePic string
+	EduName    string
+	Bio        string
+}
+
+func (u *User) ReadProfile(uid string) map[string]interface{} {
+	db, log := u.initDB()
+	if log["status"] != "1" {
+		return log
+	}
+	defer db.Close()
+
+	var result []result_profile
+	err := db.Raw(`	SELECT u.firstname, u.familyname, u.birthday, 
+					u.email, u.sex, u.profile_pic, et.name AS edu_name, u.bio
+					FROM tbl_users u
+					INNER JOIN tbl_education_types et
+						ON u.education_type = et.education_type_id
+					WHERE u.user_id =  ? `, uid).Scan(&result).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+
+	log = make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+	return log
+}
+
+func (u *User) Update(uid, firstname, familyname, birthday, sex, edu, bio string) map[string]interface{} {
 	db, logs := u.initDB()
 	if logs["status"] != "1" {
 		return logs
@@ -198,9 +271,16 @@ func (u *User) Update(uid string) map[string]interface{} {
 	if logs["status"] != "1" {
 		return logs
 	}
-
-	db.Model(&entities.TBL_Users{}).Where(entities.TBL_Users{UserID: uid}).Update(logs["result"])
-
+	t, err := time.Parse("2006-01-02", birthday)
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+	err = db.Model(&entities.TBL_Users{}).Where(entities.TBL_Users{UserID: uid}).Update(entities.TBL_Users{Firstname: firstname, Familyname: familyname, Birthday: t, Sex: sex, EducationType: edu, Bio: bio}).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
 	logs = make(map[string]interface{})
 	logs["status"] = "1"
 	logs["msg"] = ""
