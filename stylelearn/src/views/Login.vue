@@ -22,6 +22,7 @@
             autocomplete="username"
             :rules="emailRules"
             placeholder="Email"
+            name="email"
           />
         </div>
         <!-- Password field -->
@@ -39,6 +40,7 @@
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
+            name="password"
           />
         </div>
 
@@ -153,7 +155,7 @@ export default {
 
 .textTitle {
   font-weight: bold;
-  font-size: 46px;
+  font-size: 70px;
   color: #5c5c5c;
   font-family: "Average Sans", sans-serif;
   margin-top: 20px;
