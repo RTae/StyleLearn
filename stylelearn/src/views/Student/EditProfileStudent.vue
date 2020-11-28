@@ -289,7 +289,8 @@ export default {
           familyname: this.user.familyName,
           birthday: this.user.birthday,
           sex: this.user.sex,
-          edu: this.user.edcation
+          edu: this.user.edcation,
+          pic: this.selectedFilePic
         });
       }
     }

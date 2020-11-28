@@ -16,6 +16,7 @@ export const server = {
   SUBJECT: apiUrl + "/subject/index",
   LESSON: apiUrl + "/lesson/index",
   USER: apiUrl + "/user/index",
+  UPLOAD_FILE: apiUrl + "/",
   USERNAME: "username",
   USER_TYPE: "userType",
   TOKEN_KEY: "TOKEN"

@@ -170,7 +170,7 @@ export default new Vuex.Store({
         dispatch({ type: "dialogPopup", value: true, msg: result.msg })
       }
     },
-    async editProfile ({ commit, dispatch }, { id, firstName, familyname, birthday, sex, edu }) {
+    async editProfile ({ commit, dispatch }, { id, firstName, familyname, birthday, sex, edu, pic }) {
       commit("SET_DIALOG_LOADING", true)
       const result = await api.updateProfile({ id, firstName, familyname, birthday, sex, edu })
       if (result.status === "1") {

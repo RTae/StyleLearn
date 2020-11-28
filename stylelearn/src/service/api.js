@@ -83,6 +83,10 @@ export const changePassword = async values => {
   }
 }
 
+export const uploadFile = async values => {
+  const result = await httpClient.post(server.CHAGNGE_PASSWORD, bodyFormData);
+}
+
 export default {
   login,
   register,
