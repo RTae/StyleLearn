@@ -213,6 +213,7 @@
                 :rules="[v => !!v || 'You must agree to continue!']"
                 label="Do you agree?"
                 required
+                name="agree"
               />
             </div>
           </div>

@@ -153,7 +153,7 @@ export default {
 
 .textTitle {
   font-weight: bold;
-  font-size: 46px;
+  font-size: 70px;
   color: #5c5c5c;
   font-family: "Average Sans", sans-serif;
   margin-top: 20px;
