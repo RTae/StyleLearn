@@ -21,6 +21,7 @@
             required
             :rules="emailRules"
             placeholder="Email"
+            name="email"
           />
         </div>
         <!-- Password field -->
@@ -37,6 +38,7 @@
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
+            name="password"
           />
         </div>
 
