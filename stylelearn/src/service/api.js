@@ -3,6 +3,7 @@ import { server } from "../service/constants";
 import * as courseAPI from "../service/api_couse";
 import * as subjectAPI from "../service/api_subject";
 import * as lessonAPI from "../service/api_lesson";
+import * as progressLessonAPI from "../service/api_progresslesson";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem(server.TOKEN_KEY);
@@ -84,7 +85,16 @@ export const changePassword = async values => {
 }
 
 export const uploadFile = async values => {
-  const result = await httpClient.post(server.CHAGNGE_PASSWORD, bodyFormData);
+  var bodyFormData = new FormData();
+  bodyFormData.append("file", values.pic);
+  bodyFormData.append("name", values.fileName);
+  bodyFormData.append("fileType", values.fileType);
+  const result = await httpClient.post(server.UPLOAD_FILE, bodyFormData);
+  if (result.data.status === "1") {
+    return result.data
+  } else {
+    return result.data
+  }
 }
 
 export default {
@@ -95,6 +105,8 @@ export default {
   isLoggedIn,
   logoff,
   getUser,
+  uploadFile,
+  ...progressLessonAPI,
   ...courseAPI,
   ...subjectAPI,
   ...lessonAPI

@@ -8,7 +8,7 @@
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.index">
+        <div class="colCard" v-for="course in courses" :key="course.CourseID+course.CourseName">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
@@ -18,7 +18,7 @@
             >
               <v-img height="200" width="303" :src="math" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.name }}</p>
+                <p class="cardInSmallText">{{ course.CourseName }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
@@ -28,60 +28,24 @@
   </v-container>
 </template>
 
-<script scope>
-// @ is an alias to /src
-
+<script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "MyCourse",
   components: {},
-  mounted () {
-    this.title = this.$route.params.titleName;
+  async mounted () {
+    const id = localStorage.getItem(server.USERNAME)
+    const result = await api.getCourseFromProgressLesson(id)
+    console.log(result)
+    if (result.data.status === "1") {
+      this.courses = result.data.result
+    }
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    courses: [
-      {
-        index: 1,
-        name: "Calculus I"
-      },
-      {
-        index: 2,
-        name: "Calculus II"
-      },
-      {
-        index: 3,
-        name: "Calculus III"
-      },
-      {
-        index: 4,
-        name: "Geometric I"
-      },
-      {
-        index: 5,
-        name: "Geometric II"
-      },
-      {
-        index: 6,
-        name: "Geometric III"
-      },
-      {
-        index: 7,
-        name: "Algebra I"
-      },
-      {
-        index: 8,
-        name: "Algebra II"
-      },
-      {
-        index: 9,
-        name: "Statistic I"
-      },
-      {
-        index: 10,
-        name: "Statistic II"
-      }
-    ]
+    courses: []
   }),
   methods: {
     linetoGrid () {

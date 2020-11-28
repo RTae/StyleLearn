@@ -174,12 +174,33 @@ export default new Vuex.Store({
       commit("SET_DIALOG_LOADING", true)
       const result = await api.updateProfile({ id, firstName, familyname, birthday, sex, edu })
       if (result.status === "1") {
-        commit("SET_DIALOG_LOADING", false)
-        dispatch({
-          type: "dialogPopup",
-          value: true,
-          msg: "Update done"
-        });
+        if (pic == null) {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Update done"
+          });
+        } else {
+          var fileName = id + ".png"
+          var fileType = "image"
+          const result = await api.uploadFile({ pic, fileName, fileType })
+          if (result.status === "1") {
+            commit("SET_DIALOG_LOADING", false)
+            dispatch({
+              type: "dialogPopup",
+              value: true,
+              msg: "Update done"
+            });
+          } else {
+            commit("SET_DIALOG_LOADING", false)
+            dispatch({
+              type: "dialogPopup",
+              value: true,
+              msg: result.msg
+            });
+          }
+        }
       } else {
         commit("SET_DIALOG_LOADING", false)
         dispatch({

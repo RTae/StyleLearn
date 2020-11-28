@@ -7,6 +7,7 @@ export const UPLOAD_PHOTO_FAIL_MESSAGE =
 export const NOT_CONNECT_NETWORK = "NOT_CONNECT_NETWORK";
 
 export const apiUrl = "https://stylelearn-backend.vercel.app/api";
+export const fileApiUrl = "https://stylelearn-backend-uploadfile.herokuapp.com";
 
 export const server = {
   LOGIN_URL: apiUrl + "/login/index",
@@ -16,7 +17,8 @@ export const server = {
   SUBJECT: apiUrl + "/subject/index",
   LESSON: apiUrl + "/lesson/index",
   USER: apiUrl + "/user/index",
-  UPLOAD_FILE: apiUrl + "/",
+  UPLOAD_FILE: fileApiUrl + "/uploadFile",
+  PROGRESS_LESSON: apiUrl + "/progressLesson/index",
   USERNAME: "username",
   USER_TYPE: "userType",
   TOKEN_KEY: "TOKEN"

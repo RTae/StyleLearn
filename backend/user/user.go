@@ -174,7 +174,7 @@ func (u *User) Create(firstname, familyname, brithday, sex, email, password, use
 		Birthday:      t,
 		Sex:           sex,
 		Email:         email,
-		ProfilePic:    newUID + ".jpg",
+		ProfilePic:    newUID + ".png",
 		UserType:      userType,
 		EducationType: educationType,
 		Bio:           "",

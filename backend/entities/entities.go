@@ -50,3 +50,9 @@ type TBL_LessonTypes struct {
 	Name        string
 	Description string
 }
+
+type TBL_ProgressLessoon struct {
+	UserID      string `gorm:"primary_key"`
+	LessonID    string `gorm:"primary_key"`
+	QuantityDay int
+}

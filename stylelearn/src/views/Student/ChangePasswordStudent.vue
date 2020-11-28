@@ -29,52 +29,56 @@
           v-model="valid"
           @submit.prevent="submitSave"
           lazy-validation
+          ng-hide="true"
         >
           <v-row>
             <div class="d-flex justify-center pa-2" style="width:55vw">
               <v-col cols="7">
-                  <!-- Current Password -->
-                  <v-row class="ml-2 mb-3" justify="start">
-                    <label>Current Password</label>
-                  </v-row>
-                  <v-text-field
-                    ref="currentPassword"
-                    :rules="this.passwordRules"
-                    v-model="user.currentPassword"
-                    solo
-                    rounded
-                    outlined
-                    autocomplete="current-password"
-                    type="password"
-                  />
-                  <!-- New Password -->
-                  <v-row class="ml-2 mb-3" justify="start">
-                    <label>New Password</label>
-                  </v-row>
-                  <v-text-field
-                    ref="newPassword"
-                    :rules="this.passwordRules"
-                    v-model="user.newPassword"
-                    solo
-                    rounded
-                    outlined
-                    autocomplete="new-password"
-                    type="password"
-                  />
-                  <!-- Con Password -->
-                  <v-row class="ml-2 mb-3" justify="start">
-                    <label>Confirm New Password</label>
-                  </v-row>
-                  <v-text-field
-                    ref="FirstName"
-                    :rules="this.passwordRules"
-                    v-model="conPassword"
-                    solo
-                    rounded
-                    outlined
-                    autocomplete="con-password"
-                    type="password"
-                  />
+                <!-- Current Password -->
+                <v-row class="ml-2 mb-3" justify="start">
+                  <label>Current Password</label>
+                </v-row>
+                <v-text-field
+                  ref="currentPassword"
+                  :rules="this.passwordRules"
+                  v-model="user.currentPassword"
+                  solo
+                  rounded
+                  outlined
+                  autocomplete="current-password"
+                  type="password"
+                  ng-hide="true"
+                />
+                <!-- New Password -->
+                <v-row class="ml-2 mb-3" justify="start">
+                  <label>New Password</label>
+                </v-row>
+                <v-text-field
+                  ref="newPassword"
+                  :rules="this.passwordRules"
+                  v-model="user.newPassword"
+                  solo
+                  rounded
+                  outlined
+                  autocomplete="new-password"
+                  type="password"
+                  ng-hide="true"
+                />
+                <!-- Con Password -->
+                <v-row class="ml-2 mb-3" justify="start">
+                  <label>Confirm New Password</label>
+                </v-row>
+                <v-text-field
+                  ref="FirstName"
+                  :rules="this.passwordRules"
+                  v-model="conPassword"
+                  solo
+                  rounded
+                  outlined
+                  autocomplete="con-password"
+                  type="password"
+                  ng-hide="true"
+                />
               </v-col>
             </div>
           </v-row>

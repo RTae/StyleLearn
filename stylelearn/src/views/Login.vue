@@ -19,6 +19,7 @@
             outlined
             v-model="account.email"
             required
+            autocomplete="username"
             :rules="emailRules"
             placeholder="Email"
           />
@@ -32,6 +33,7 @@
             placeholder="Password"
             required
             min="9"
+            autocomplete="password"
             :rules="passwordRules"
             v-model="account.password"
             :type="showPassword ? 'text' : 'password'"
