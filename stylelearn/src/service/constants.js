@@ -21,5 +21,6 @@ export const server = {
   PROGRESS_LESSON: apiUrl + "/progressLesson/index",
   USERNAME: "username",
   USER_TYPE: "userType",
-  TOKEN_KEY: "TOKEN"
+  TOKEN_KEY: "TOKEN",
+  BUKECT: "BUKECT"
 };

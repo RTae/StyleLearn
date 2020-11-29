@@ -16,7 +16,8 @@ export default new Vuex.Store({
     dialogMessage: "",
     dialogLoading: false,
     username: null,
-    userType: null
+    userType: null,
+    bukectListLesson: []
   },
   getters: {
     getCoreHeader (state) {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
     },
     getUserType (state) {
       return state.userType
+    },
+    getBukectList (state) {
+      return state.bukectListLesson
     }
   },
   mutations: {
@@ -74,6 +78,14 @@ export default new Vuex.Store({
     },
     SET_USER_TYPE (state, value) {
       state.userType = value
+    },
+    ADD_ITEM_TO_BUKECT (state, values) {
+      state.bukectListLesson.push(values)
+    },
+    REMOVE_ITEM_FROM_BUKECT (state, idx) {
+      if (idx > -1) {
+        state.bukectListLesson.splice(idx, 1);
+      }
     }
   },
   actions: {
@@ -227,6 +239,41 @@ export default new Vuex.Store({
           value: true,
           msg: result.msg
         });
+      }
+    },
+    addItemToBukect ({ commit }, { id, name }) {
+      var list = this.getters.getBukectList
+      var c = 0
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].id !== id) {
+          c++
+        }
+      }
+      if (c === list.length) {
+        commit("ADD_ITEM_TO_BUKECT", { id: id, name: name })
+      }
+      localStorage.setItem(server.BUKECT, JSON.stringify(this.getters.getBukectList));
+    },
+    removeItemFromBuekect ({ commit }, { idx }) {
+      commit("REMOVE_ITEM_FROM_BUKECT", idx)
+      localStorage.setItem(server.BUKECT, JSON.stringify(this.getters.getBukectList));
+    },
+    restoreBukect ({ dispatch }) {
+      if (api.isLoggedIn() === true) {
+        const userType = localStorage.getItem(server.USER_TYPE);
+        var bukect = JSON.parse(localStorage.getItem(server.BUKECT))
+        if (bukect === null) {
+          bukect = []
+        }
+        if (userType === "Student") {
+          for (var i = 0; i < bukect.length; i++) {
+            dispatch({
+              type: "addItemToBukect",
+              id: bukect[i].id,
+              name: bukect[i].name
+            });
+          }
+        }
       }
     }
   },

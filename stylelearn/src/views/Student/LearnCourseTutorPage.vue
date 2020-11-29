@@ -1,7 +1,6 @@
 <template>
   <v-container fluid class="main" id="LearnCourseTutorPage">
     <v-row align="center" justify="start" style="margin-top:40px">
-      <router-link to="/mycourse">
         <v-hover v-slot="{ hover }">
           <v-btn
             depressed
@@ -10,22 +9,23 @@
             :elevation="hover ? 0 : 0"
             :class="{ 'on-hover-review': hover }"
             class="btnBack"
-            ><span class="material-icons md-48">
-              keyboard_arrow_left
-            </span></v-btn
-          ></v-hover
-        ></router-link
-      >
+            @click="onClickBack()"
+            >
+              <span class="material-icons md-48">
+                keyboard_arrow_left
+              </span>
+          </v-btn>
+        </v-hover>
       <div class=" mt-4 mr-4 pd-6 pl-12">
-        <p class="headtext">CALCULUS I : Differentiation I</p>
+        <p class="headtext">{{ title }}</p>
       </div>
     </v-row>
     <!-- Card group of tutor -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.index">
+        <div class="colCard" v-for="video in videos" :key="video.index">
           <v-sheet class="cardCoruseTitle">
-            <p class="cardInSmallText">Teacher : {{ course.tutor }}</p>
+            <p class="cardInSmallText">Teacher : {{ video.tutor }}</p>
           </v-sheet>
           <v-hover v-slot="{ hover }">
             <v-card elevation="8" class="cardCourseSmall">
@@ -39,7 +39,7 @@
                 <v-list-item class="grow">
                   <v-row>
                     <v-col  align="center" justify="end" cols="8" offset="4">
-                        <p class="cardInSmallText">{{ course.view }} Views</p>
+                        <p class="cardInSmallText">{{ video.view }} Views</p>
                     </v-col>
                   </v-row>
                 </v-list-item>
@@ -59,53 +59,19 @@ export default {
   name: "LearnCourseTutorPage",
   components: {},
   mounted () {
-    this.title = this.$route.params.titleName;
+    this.title = this.$route.query.titleName;
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    courses: [
-      {
-        index: 1,
-        tutor: "Cherprang",
-        view: 15657
-      },
-      {
-        index: 2,
-        tutor: "June",
-        view: 14757
-      },
-      {
-        index: 3,
-        tutor: "Pun",
-        view: 13474
-      },
-      {
-        index: 4,
-        tutor: "Jennis",
-        view: 12657
-      },
-      {
-        index: 5,
-        tutor: "Wee",
-        view: 9157
-      },
-      {
-        index: 6,
-        tutor: "Mobile",
-        view: 8157
-      }
-    ]
+    videos: []
   }),
   methods: {
-    linetoGrid () {
-      return this.items;
-    },
     onClickTutor () {
       this.$router.push({ name: "Video" })
     },
-    onClickLike (n) {
-      this.courses[n].likeState = !this.courses[n].likeState
+    onClickBack () {
+      this.$router.go(-1)
     }
   }
 };

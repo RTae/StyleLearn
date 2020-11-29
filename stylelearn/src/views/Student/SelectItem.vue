@@ -9,32 +9,32 @@
     <!-- Selected Item -->
     <v-row align="center" justify="center">
       <div class="d-flex flex-column mb-10" justify-center align-center>
-        <div v-for="n in 2" :key="n">
+        <div v-for="(item, index) in bucketList" :key="item.id">
           <v-card class="courseCard">
             <v-row align="center" justify="center">
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle"
-                    >Differentiation I</v-card-text
-                  >
+                  <v-card-text class="cardTextTitle">{{ item.name }}</v-card-text>
                 </div>
               </v-col>
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardPrice">50 Bath</v-card-text>
+                  <v-card-text class="cardPrice">{{ dayList[index] * 50 }} Bath</v-card-text>
                 </div>
               </v-col>
               <v-col class="buttonDayContainer">
-                <v-select
+                <v-text-field
                   label="Day"
+                  :id="item.id"
                   solo
                   rounded
                   background-color="#A8DFFE"
-                  :items="items"
-                ></v-select>
+                  v-model="dayList[index]"
+                  :rules="[numberRule]"
+                ></v-text-field>
               </v-col>
               <v-col class="buttonContainer">
-                <v-btn icon color="red">
+                <v-btn icon color="red" @click="onClickDelete(item.id)">
                   <v-icon class="material-icons">cancel</v-icon>
                 </v-btn>
               </v-col>
@@ -47,7 +47,7 @@
         <div style="width:800px">
             <v-row align="center" justify="end">
                 <v-card class="totalCard">
-                    <p class="cardTextTotal">Total : 100 Bath</p>
+                    <p class="cardTextTotal">Total: {{ calculateTotal }} Baht</p>
                 </v-card>
             </v-row>
         </div>
@@ -66,15 +66,47 @@
 </template>
 
 <script>
+import { server } from "../../service/constants"
 export default {
   name: "SelectItem",
+  mounted () {
+    this.bucketList = this.$store.getters.getBukectList
+    for (var i = 0; i < JSON.parse(localStorage.getItem(server.BUKECT)).length; i++) {
+      this.dayList.push("1")
+    }
+  },
   components: {},
   data: () => ({
-    items: [1, 2, 3, 4]
+    numberRule: v  => {
+      if (!v.trim()) return true;
+      if (!isNaN(parseFloat(v)) && v >= 0 && v <= 999) return true;
+      return 'Number has to be between 0 and 999';
+    },
+    items: [1, 2, 3, 4, 6, 7, 8, 9, 10],
+    bucketList: [],
+    dayList: [],
   }),
+  computed: {
+    calculateTotal: function (day) {
+      return this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50
+    }
+  },
   methods: {
     onClickComfirmOrder () {
-      this.$router.push({ name: "SelectedItemInvoice" })
+    },
+    onClickDelete (id) {
+      for (var i = 0; i < this.bucketList.length; i++) {
+        if (this.bucketList[i].id === id) {
+          this.$store.dispatch({
+            type: "removeItemFromBuekect",
+            idx: i
+          })
+          this.bucketList = this.$store.getters.getBukectList
+          if (i > -1) {
+            this.dayList.splice(i, 1);
+          }
+        }
+      }
     }
   }
 };

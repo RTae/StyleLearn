@@ -47,7 +47,7 @@
                     :class="{ 'on-hover-review': hover }"
                     class="bottonBuy"
                     color="#70ccff"
-                    @click="onClickBuy()"
+                    @click="onClickBuy(lesson.LessonID, lesson.Name)"
                   >
                     Buy
                   </button>
@@ -71,6 +71,7 @@
                   :class="{ 'on-hover-review': hover }"
                   class="bottonBuy"
                   color="#70ccff"
+                  @click="onClickBuyWhole()"
                 >
                   Buy
                 </button>
@@ -198,8 +199,31 @@ export default {
     }
   },
   methods: {
-    onClickBuy () {
-      this.popUpBuy = true
+    onClickBuy (id, name) {
+      if (this.$store.getters.getLoginHeaderStudent) {
+        this.popUpBuy = true
+        this.$store.dispatch({
+          type: "addItemToBukect",
+          id: id,
+          name: name
+        })
+      } else {
+        this.$router.push({ name: "Login" })
+      }
+    },
+    onClickBuyWhole () {
+      if (this.$store.getters.getLoginHeaderStudent) {
+        this.popUpBuy = true
+        for (var i = 0; i < this.lessons.length; i++) {
+          this.$store.dispatch({
+            type: "addItemToBukect",
+            id: this.lessons[i].LessonID,
+            name: this.lessons[i].Name
+          })
+        }
+      } else {
+        this.$router.push({ name: "Login" })
+      }
     }
   }
 };

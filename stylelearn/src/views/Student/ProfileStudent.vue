@@ -49,7 +49,7 @@
               <p class="textDetail">Birthday: {{ this.user.birthday }}</p>
               <p class="textDetail">Sex: {{ this.user.sex }}</p>
               <p class="textDetail">Email: {{ this.user.email }}</p>
-              <p class="textDetail">Education: {{ this.user.edcation }}'s degree</p>
+              <p class="textDetail">Education: {{ this.user.edcation }}</p>
             </v-card>
           </div>
         </div>

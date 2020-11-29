@@ -30,7 +30,7 @@
               :elevation="hover ? 8 : 12"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickLesson()"
+              @click="onClickLesson(lesson.LessonID, lesson.LessonName)"
             >
               <v-img height="200" width="303" :src="math" />
               <v-sheet class="cardInSmallContainer">
@@ -67,11 +67,11 @@ export default {
     linetoGrid () {
       return this.items;
     },
-    onClickLesson () {
-      this.$router.push({ name: "TutorPage" })
+    onClickLesson (id, name) {
+      this.$router.push({ name: "TutorPage", query: { titleName: this.title + " : " + name, id: id } })
     },
     onClickBack () {
-      this.$router.push({ name: "MyCourse" })
+      this.$router.go(-1)
     }
   }
 };
@@ -147,7 +147,7 @@ export default {
   height: 79px;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .cardInSmallText {

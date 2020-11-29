@@ -57,6 +57,7 @@
                   elevation="3"
                   rounded
                   depressed
+                  max-width="300"
                   :loading="isSelectingUploadPic"
                   @click="onButtonClickUploadPic"
                 >
