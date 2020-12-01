@@ -3,11 +3,11 @@
     <v-snackbar
       top
       v-model="popUpBuy"
-      color="#ffce70"
+      color="grey darken-3"
       elevation="7"
       :timeout="2000"
     >
-      <p style="color:black; text-align:center">เพิ่มเข้าตะกร้าเรียบร้อย</p>
+      <p style="color:white; text-align:center">เพิ่มเข้าตะกร้าเรียบร้อย</p>
       <template v-slot:action="{ attrs }">
         <v-btn
           color="blue"

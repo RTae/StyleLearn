@@ -81,7 +81,7 @@ export default {
       user_firstname: "New",
       lesson_name: "Differntail I",
       description: "Differntail วิชาแห่งการลืนทไล",
-      video_src: "https://stylelearn.s3-ap-southeast-1.amazonaws.com/testVideo.mp4"
+      video_src: "https://stylelearn.s3-ap-southeast-1.amazonaws.com/video/testVideo3.mp4"
     },
     courses: [
       {

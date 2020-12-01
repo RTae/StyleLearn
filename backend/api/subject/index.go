@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-//Handler Login Auth CorchroshDB
+//Handler get all Subject
 func Handler(w http.ResponseWriter, r *http.Request) {
 	helper.SetupResponse(&w, r)
 	if (*r).Method == "OPTIONS" {

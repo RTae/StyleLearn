@@ -77,22 +77,27 @@ export default {
   },
   components: {},
   data: () => ({
-    numberRule: v  => {
+    numberRule: v => {
       if (!v.trim()) return true;
       if (!isNaN(parseFloat(v)) && v >= 0 && v <= 999) return true;
-      return 'Number has to be between 0 and 999';
+      return "Number has to be between 0 and 999";
     },
-    items: [1, 2, 3, 4, 6, 7, 8, 9, 10],
     bucketList: [],
-    dayList: [],
+    dayList: []
   }),
   computed: {
     calculateTotal: function (day) {
-      return this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50
+      var sum = this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50
+      if (!Number.isNaN(sum)) {
+        return sum
+      } else {
+        return 0
+      }
     }
   },
   methods: {
     onClickComfirmOrder () {
+      
     },
     onClickDelete (id) {
       for (var i = 0; i < this.bucketList.length; i++) {
