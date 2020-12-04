@@ -70,21 +70,10 @@
 import { server } from "../../service/constants";
 export default {
   name: "SelectItem",
-<<<<<<< HEAD
   async mounted () {
     this.bucketList = await this.$store.getters.getBukectList
     for (var i = 0; i < this.bucketList.length; i++) {
       this.dayList.push("1")
-=======
-  mounted () {
-    this.bucketList = this.$store.getters.getBukectList;
-    for (
-      var i = 0;
-      i < JSON.parse(localStorage.getItem(server.BUKECT)).length;
-      i++
-    ) {
-      this.dayList.push("1");
->>>>>>> da8052b5265484701d1f1e60b944cb329fc89bf7
     }
   },
   components: {},
@@ -98,14 +87,8 @@ export default {
     dayList: []
   }),
   computed: {
-<<<<<<< HEAD
     calculateTotal: function () {
       var sum = this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50
-=======
-    calculateTotal: function (day) {
-      var sum =
-        this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50;
->>>>>>> da8052b5265484701d1f1e60b944cb329fc89bf7
       if (!Number.isNaN(sum)) {
         return sum;
       } else {
@@ -115,14 +98,11 @@ export default {
   },
   methods: {
     onClickComfirmOrder () {
-<<<<<<< HEAD
       for (var i = 0; i < this.bucketList.length; i++) {
         this.bucketList[i].day = this.dayList[i]
       }
       localStorage.setItem(server.BUKECT, JSON.stringify(this.bucketList))
       this.$router.push({ name: "SelectedItemInvoice" });
-=======
->>>>>>> da8052b5265484701d1f1e60b944cb329fc89bf7
     },
     onClickDelete (id) {
       for (var i = 0; i < this.bucketList.length; i++) {

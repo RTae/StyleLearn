@@ -78,6 +78,7 @@ export default {
       this.$router.go(-1)
     },
     onClickNext () {
+      
       this.$router.push({ name: "DetailPayment" })
     }
   }
