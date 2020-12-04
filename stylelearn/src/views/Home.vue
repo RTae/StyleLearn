@@ -9,6 +9,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus I','c000000003')"
+            name=Cal1
           >
             <v-img
               class="cardImg"
@@ -22,6 +23,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus II','c000000021')"
+            name=Cal2
           >
             <v-img
               class="cardImg"
@@ -35,6 +37,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus III','c000000022')"
+            name=Cal3
           >
             <v-img
             class="cardImg"

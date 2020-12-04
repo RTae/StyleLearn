@@ -102,7 +102,8 @@ export default {
     }
   },
   methods: {
-    onClickComfirmOrder () {},
+    onClickComfirmOrder () {
+    },
     onClickDelete (id) {
       for (var i = 0; i < this.bucketList.length; i++) {
         if (this.bucketList[i].id === id) {
