@@ -92,6 +92,7 @@
               height="200"
               width="303"
               :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
+              name=Newest
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">{{ course.Name }}</p>
@@ -138,6 +139,7 @@
               height="200"
               width="303"
               :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
+              name=Popular
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">{{ course.Name }}</p>
@@ -164,9 +166,10 @@
                 :class="{ 'on-hover': hover }"
                 @click="onClickSubject(subject.Name, subject.SubjectID);"
               >
-              <v-img
+                <v-img
                 class="cardImg"
                 :src="require('../assets/image/subject/cardBig/'+ subject.Name + '.png')"
+                name=Subject
               ></v-img>
               </v-card>
             </v-hover>
