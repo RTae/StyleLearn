@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"backend/helper"
@@ -7,11 +7,6 @@ import (
 	"fmt"
 	"net/http"
 )
-
-func main() {
-	http.HandleFunc("/", Handler)
-	http.ListenAndServe(":8080", nil)
-}
 
 //Handler Login Auth CorchroshDB
 func Handler(w http.ResponseWriter, r *http.Request) {
