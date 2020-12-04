@@ -14,12 +14,16 @@
             <v-row align="center" justify="center">
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle">{{ item.name }}</v-card-text>
+                  <v-card-text class="cardTextTitle">{{
+                    item.name
+                  }}</v-card-text>
                 </div>
               </v-col>
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardPrice">{{ dayList[index] * 50 }} Bath</v-card-text>
+                  <v-card-text class="cardPrice"
+                    >{{ dayList[index] * 50 }} Bath</v-card-text
+                  >
                 </div>
               </v-col>
               <v-col class="buttonDayContainer">
@@ -44,35 +48,36 @@
       </div>
     </v-row>
     <v-row align="center" justify="center" style="margin-top:50px">
-        <div style="width:800px">
-            <v-row align="center" justify="end">
-                <v-card class="totalCard">
-                    <p class="cardTextTotal">Total: {{ calculateTotal }} Baht</p>
-                </v-card>
-            </v-row>
-        </div>
+      <div style="width:800px">
+        <v-row align="center" justify="end">
+          <v-card class="totalCard">
+            <p class="cardTextTotal">Total: {{ calculateTotal }} Baht</p>
+          </v-card>
+        </v-row>
+      </div>
     </v-row>
     <v-row align="center" justify="center" style="margin-bottom:100px;">
       <div class="buttonCardContainer" align="center" justify="end">
-          <button
-            class="bottonCom"
-            @click="onClickComfirmOrder()"
-          >
+        <button class="bottonCom" @click="onClickComfirmOrder()">
           Comfirm Order
-          </button>
+        </button>
       </div>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { server } from "../../service/constants"
+import { server } from "../../service/constants";
 export default {
   name: "SelectItem",
   mounted () {
-    this.bucketList = this.$store.getters.getBukectList
-    for (var i = 0; i < JSON.parse(localStorage.getItem(server.BUKECT)).length; i++) {
-      this.dayList.push("1")
+    this.bucketList = this.$store.getters.getBukectList;
+    for (
+      var i = 0;
+      i < JSON.parse(localStorage.getItem(server.BUKECT)).length;
+      i++
+    ) {
+      this.dayList.push("1");
     }
   },
   components: {},
@@ -87,26 +92,25 @@ export default {
   }),
   computed: {
     calculateTotal: function (day) {
-      var sum = this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50
+      var sum =
+        this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50;
       if (!Number.isNaN(sum)) {
-        return sum
+        return sum;
       } else {
-        return 0
+        return 0;
       }
     }
   },
   methods: {
-    onClickComfirmOrder () {
-      
-    },
+    onClickComfirmOrder () {},
     onClickDelete (id) {
       for (var i = 0; i < this.bucketList.length; i++) {
         if (this.bucketList[i].id === id) {
           this.$store.dispatch({
             type: "removeItemFromBuekect",
             idx: i
-          })
-          this.bucketList = this.$store.getters.getBukectList
+          });
+          this.bucketList = this.$store.getters.getBukectList;
           if (i > -1) {
             this.dayList.splice(i, 1);
           }
@@ -195,7 +199,7 @@ export default {
   justify-content: center;
   font-family: "Delius", cursive;
   font-size: 25px;
-  margin-top:10px;
+  margin-top: 10px;
 }
 .cardTextTitle {
   display: flex;
