@@ -69,9 +69,9 @@
 import { server } from "../../service/constants"
 export default {
   name: "SelectItem",
-  mounted () {
-    this.bucketList = this.$store.getters.getBukectList
-    for (var i = 0; i < JSON.parse(localStorage.getItem(server.BUKECT)).length; i++) {
+  async mounted () {
+    this.bucketList = await this.$store.getters.getBukectList
+    for (var i = 0; i < this.bucketList.length; i++) {
       this.dayList.push("1")
     }
   },
@@ -86,7 +86,7 @@ export default {
     dayList: []
   }),
   computed: {
-    calculateTotal: function (day) {
+    calculateTotal: function () {
       var sum = this.dayList.reduce((a, b) => parseInt(a) + parseInt(b), 0) * 50
       if (!Number.isNaN(sum)) {
         return sum
@@ -97,7 +97,11 @@ export default {
   },
   methods: {
     onClickComfirmOrder () {
-      
+      for (var i = 0; i < this.bucketList.length; i++) {
+        this.bucketList[i].day = this.dayList[i]
+      }
+      localStorage.setItem(server.BUKECT, JSON.stringify(this.bucketList))
+      this.$router.push({ name: "SelectedItemInvoice" });
     },
     onClickDelete (id) {
       for (var i = 0; i < this.bucketList.length; i++) {

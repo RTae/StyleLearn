@@ -14,15 +14,15 @@
     </v-row>
     <v-row align="center" justify="center">
         <v-card class="cardOrderContainer">
-            <v-row  v-for="lessonBuy in lessonsBuy" :key="lessonBuy.index" align="center" justify="center">
+            <v-row  v-for="lesson in lessonBukect" :key="lesson.id" align="center" justify="center">
               <v-col>
-                <p class="cardTextTitle">{{lessonBuy.name }}</p>
+                <p class="cardTextTitle">{{lesson.name }}</p>
               </v-col>
               <v-col>
-                <p class="cardPrice">X {{}} Day</p>
+                <p class="cardPrice">{{lesson.day}} Day</p>
               </v-col>
               <v-col>
-                <p class="learnday">50 Bath</p>
+                <p class="learnday">{{parseInt(lesson.day) * 50}} Bath</p>
               </v-col>
             </v-row>
         </v-card>
@@ -31,7 +31,7 @@
         <div style="width:900px">
             <v-row align="center" justify="end">
                 <v-card class="totalCard">
-                    <p class="cardTextTotal">Total : 100 Bath</p>
+                    <p class="cardTextTotal">Total: {{ calculateTotal }} Baht</p>
                 </v-card>
             </v-row>
         </div>
@@ -58,28 +58,24 @@
 </template>
 
 <script>
+import { server } from "../../service/constants"
 export default {
   name: "SelectedItemInvoice",
   components: {},
+  async mounted () {
+    this.lessonBukect = await JSON.parse(localStorage.getItem(server.BUKECT))
+    for (var i = 0; i < this.lessonBukect.length; i++) {
+      this.calculateTotal += parseInt(this.lessonBukect[i].day)
+    }
+    this.calculateTotal = this.calculateTotal * 50
+  },
   data: () => ({
-    lessonsBuy: [
-      {
-        index: 1,
-        name: "Differentiation I"
-      },
-      {
-        index: 2,
-        name: "Differentiation II"
-      },
-      {
-        index: 3,
-        name: "Differentiation III"
-      }
-    ]
+    lessonBukect: [],
+    calculateTotal: 0
   }),
   methods: {
     onClickBack () {
-      this.$router.push({ name: "SelectItem" })
+      this.$router.go(-1)
     },
     onClickNext () {
       this.$router.push({ name: "DetailPayment" })
