@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     onClickComfirmOrder () {
-      
     },
     onClickDelete (id) {
       for (var i = 0; i < this.bucketList.length; i++) {
