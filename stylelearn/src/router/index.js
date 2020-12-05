@@ -11,7 +11,6 @@ import BasicUse from "../views/BasicUse";
 import About from "../views/About";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
-
 // Tutor
 import HomeTutor from "../views/Tutor/HomeTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";

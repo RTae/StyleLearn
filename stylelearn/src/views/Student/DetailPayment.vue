@@ -45,10 +45,11 @@
           class="bottonNext"
           style="background-color:#EB5769;"
           @click="onClickCancle()"
+          name=btnCancel
         >
           Cancle
         </button>
-        <button class="bottonNext" @click="onClickCom()">
+        <button class="bottonNext" @click="onClickCom()" name=btnNext>
           Confirm Payment
         </button>
       </div>
