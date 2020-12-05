@@ -29,7 +29,7 @@
           </v-btn>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
-              <button style="outline:none" icon v-bind="attrs" v-on="on">
+              <button name="human" style="outline:none" icon v-bind="attrs" v-on="on">
                 <v-img
                   class="iconBarPro"
                   contain
