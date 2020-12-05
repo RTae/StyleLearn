@@ -43,12 +43,14 @@
             class="bottonNext"
             style="background-color:#EB5769;"
             @click="onClickBack()"
+            name=btnCancle
           >
           Back
           </button>
           <button
             class="bottonNext"
             @click="onClickNext()"
+            name=btnNext
           >
           Next
           </button>
@@ -78,7 +80,6 @@ export default {
       this.$router.go(-1)
     },
     onClickNext () {
-      
       this.$router.push({ name: "DetailPayment" })
     }
   }

@@ -277,7 +277,6 @@ export default new Vuex.Store({
       }
     },
     confirmPayment ({ dispatch }) {
-      
     }
   },
   modules: {}

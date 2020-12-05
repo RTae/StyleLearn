@@ -14,7 +14,7 @@
           <v-col>
             <v-card-text class="textLabel">Transfer To</v-card-text>
           </v-col>
-          <v-col>
+          <v-col name=bank>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
@@ -32,7 +32,7 @@
           <v-col>
             <v-card-text class="textLabel">Transfer From</v-card-text>
           </v-col>
-          <v-col>
+          <v-col name=yourbank>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
