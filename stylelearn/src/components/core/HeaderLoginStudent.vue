@@ -13,26 +13,26 @@
       <v-spacer></v-spacer>
       <v-row class="hidden-sm-and-down" align="center" justify="end">
         <v-toolbar-items>
-          <v-btn text>
+          <v-btn text name=home>
             <router-link to="/">
               <p class="text">Home</p>
             </router-link>
           </v-btn>
-          <v-btn text>
+          <v-btn text name=basicuse>
             <router-link to="/basicuse">
               <p class="text">Basic Use</p>
             </router-link>
           </v-btn>
-          <v-btn text>
+          <v-btn text name=aboutus>
             <router-link to="/about"> <p class="text">About Us</p></router-link>
           </v-btn>
-          <router-link to="/selectitem">
+          <router-link to="/selectitem" name="shopping">
             <v-img class="iconBar" src="../../assets/image/etc/shopping.png" />
           </router-link>
           <v-img class="iconBarLine" src="../../assets/image/etc/line.png"></v-img>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
-              <button style="outline:none" icon v-bind="attrs" v-on="on">
+              <button style="outline:none" icon v-bind="attrs" v-on="on" name="human">
                 <v-img
                   class="iconBarPro"
                   contain
