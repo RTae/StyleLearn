@@ -12,56 +12,56 @@
       </div>
       <v-spacer></v-spacer>
       <v-row class="hidden-sm-and-down" align="center" justify="end">
-          <v-btn text>
-            <router-link to="/">
-              <p class="text">Home</p>
-            </router-link>
-          </v-btn>
-          <v-btn text>
-            <router-link to="/basicuse">
-              <p class="text">Basic Use</p>
-            </router-link>
-          </v-btn>
-          <v-btn text>
-            <router-link to="/about"> <p class="text">About Us</p></router-link>
-          </v-btn>
-          <v-btn
-            icon
-            @click="onClickBuckect()"
-          >
-            <v-icon large color="grey darken-1">
-              mdi-basket
-            </v-icon>
-          </v-btn>
+        <v-btn text>
+          <router-link to="/">
+            <p class="text">Home</p>
+          </router-link>
+        </v-btn>
+        <v-btn text name=basicuse>
+          <router-link to="/basicuse">
+            <p class="text">Basic Use</p>
+          </router-link>
+        </v-btn>
+        <v-btn text name=aboutus>
+          <router-link to="/about"> <p class="text">About Us</p></router-link>
+        </v-btn>
+        <v-btn
+          icon
+          @click="onClickBuckect()"
+        >
           <v-icon large color="grey darken-1">
-              mdi-dots-vertical
+            mdi-basket
           </v-icon>
-          <v-menu botton left>
-            <template v-slot:activator="{ on, attrs }">
-              <button style="outline:none" icon v-bind="attrs" v-on="on">
-                <v-icon large color="grey darken-1">
-                  mdi-account-circle
-                </v-icon>
-              </button>
-            </template>
+        </v-btn>
+        <v-icon large color="grey darken-1">
+            mdi-dots-vertical
+        </v-icon>
+        <v-menu botton left>
+          <template v-slot:activator="{ on, attrs }">
+            <button style="outline:none" icon v-bind="attrs" v-on="on">
+              <v-icon large color="grey darken-1">
+                mdi-account-circle
+              </v-icon>
+            </button>
+          </template>
 
-            <v-list>
-              <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title>
-                  <v-hover v-slot="{ hover }">
-                    <button
-                      :elevation="hover ? 8 : 0"
-                      :class="{ 'on-hover-review': hover }"
-                      class="btnPro"
-                      @click="onClickHover(item.title)"
-                    >
-                      {{ item.title }}
-                    </button>
-                  </v-hover>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+          <v-list>
+            <v-list-item v-for="(item, i) in items" :key="i">
+              <v-list-item-title>
+                <v-hover v-slot="{ hover }">
+                  <button
+                    :elevation="hover ? 8 : 0"
+                    :class="{ 'on-hover-review': hover }"
+                    class="btnPro"
+                    @click="onClickHover(item.title)"
+                  >
+                    {{ item.title }}
+                  </button>
+                </v-hover>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-row>
     </v-app-bar>
   </div>

@@ -9,12 +9,7 @@
     >
       <p style="color:white; text-align:center">เพิ่มเข้าตะกร้าเรียบร้อย</p>
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="blue"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
           Close
         </v-btn>
       </template>
@@ -36,8 +31,12 @@
             <v-row>
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle">{{ lesson.Name }}</v-card-text>
-                  <v-card-text class="cardTextDetail">{{ lesson.Description }}</v-card-text>
+                  <v-card-text class="cardTextTitle">{{
+                    lesson.Name
+                  }}</v-card-text>
+                  <v-card-text class="cardTextDetail">{{
+                    lesson.Description
+                  }}</v-card-text>
                 </div>
               </v-col>
               <v-col class="buttonContainer">
@@ -98,7 +97,11 @@
     </v-row>
 
     <!-- teacher -->
-    <v-row align="center" justify="center" style="margin-top:150px;margin-bottom: 200px;">
+    <v-row
+      align="center"
+      justify="center"
+      style="margin-top:150px;margin-bottom: 200px;"
+    >
       <div class="cardContainer">
         <v-card class="tutorCard">
           <v-row>
@@ -113,11 +116,15 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle">ครูพี่เฟิร์ส</v-card-text>
+                  <v-card-text class="cardTextTutorTitle"
+                    >ครูพี่เฟิร์ส</v-card-text
+                  >
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail">“ทุกคนต่างเรียกผมว่า เทพ”</v-card-text>
+                    <v-card-text class="cardTextTutorDetail"
+                      >“ทุกคนต่างเรียกผมว่า เทพ”</v-card-text
+                    >
                   </v-col>
                 </v-row>
               </div>
@@ -137,11 +144,15 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle">ครูพี่นิว</v-card-text>
+                  <v-card-text class="cardTextTutorTitle"
+                    >ครูพี่นิว</v-card-text
+                  >
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail">“เลขง่ายๆ กับครูพี่นิว”</v-card-text>
+                    <v-card-text class="cardTextTutorDetail"
+                      >“เลขง่ายๆ กับครูพี่นิว”</v-card-text
+                    >
                   </v-col>
                 </v-row>
               </div>
@@ -161,11 +172,15 @@
             <v-col cols="2">
               <div class="detail">
                 <v-row>
-                  <v-card-text class="cardTextTutorTitle">ครูพี่อี้หมิง</v-card-text>
+                  <v-card-text class="cardTextTutorTitle"
+                    >ครูพี่อี้หมิง</v-card-text
+                  >
                 </v-row>
                 <v-row>
                   <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail">“มาเรียนภาษาจีนด้วยกันเถอะ”</v-card-text>
+                    <v-card-text class="cardTextTutorDetail"
+                      >“มาเรียนภาษาจีนด้วยกันเถอะ”</v-card-text
+                    >
                   </v-col>
                 </v-row>
               </div>
@@ -178,17 +193,17 @@
 </template>
 
 <script>
-import api from "../service/api"
+import api from "../service/api";
 export default {
   name: "LessonPage",
   components: {},
   async mounted () {
-    this.title = this.$route.query.titleName
-    const result = await api.getLessonByCourse(this.$route.query.id)
+    this.title = this.$route.query.titleName;
+    const result = await api.getLessonByCourse(this.$route.query.id);
     if (result.data.status === "1") {
-      this.lessons = result.data.result
+      this.lessons = result.data.result;
     } else {
-      this.lessons = []
+      this.lessons = [];
     }
   },
   data () {
@@ -196,33 +211,33 @@ export default {
       title: "",
       popUpBuy: false,
       lessons: []
-    }
+    };
   },
   methods: {
     onClickBuy (id, name) {
       if (this.$store.getters.getLoginHeaderStudent) {
-        this.popUpBuy = true
+        this.popUpBuy = true;
         this.$store.dispatch({
           type: "addItemToBukect",
           id: id,
           name: name
-        })
+        });
       } else {
-        this.$router.push({ name: "Login" })
+        this.$router.push({ name: "Login" });
       }
     },
     onClickBuyWhole () {
       if (this.$store.getters.getLoginHeaderStudent) {
-        this.popUpBuy = true
+        this.popUpBuy = true;
         for (var i = 0; i < this.lessons.length; i++) {
           this.$store.dispatch({
             type: "addItemToBukect",
             id: this.lessons[i].LessonID,
             name: this.lessons[i].Name
-          })
+          });
         }
       } else {
-        this.$router.push({ name: "Login" })
+        this.$router.push({ name: "Login" });
       }
     }
   }
@@ -261,7 +276,7 @@ export default {
 }
 
 .cardContainer {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -319,7 +334,7 @@ export default {
 }
 .tutorCard {
   border-radius: 10px;
-  background-image: linear-gradient(to right, #3888FF , #70CCFF);
+  background-image: linear-gradient(to right, #3888ff, #70ccff);
   display: flex;
   flex-direction: row;
   text-align: start;

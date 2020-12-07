@@ -19,7 +19,7 @@
           <v-col>
             <v-card-text class="textLabel">Transfer To</v-card-text>
           </v-col>
-          <v-col>
+          <v-col name=bank>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
@@ -38,7 +38,7 @@
           <v-col>
             <v-card-text class="textLabel">Transfer From</v-card-text>
           </v-col>
-          <v-col>
+          <v-col name=yourbank>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
@@ -217,11 +217,11 @@ export default {
     valid: true, // Form Valid status
     menuDate: false, // Popup Date status
     menuTime: false, // Popup time status
-    dateOfTransfer: null, // Date 
+    dateOfTransfer: null, // Date
     time: null, // Time
     imagePreview: null, // Image preview
     isSelectingUploadReceipt: false, // State check image is upload
-    total: null, // Total 
+    total: null, // Total
     receipt: {
       invoiceID: null,
       bankTransferTo: null,
@@ -229,38 +229,39 @@ export default {
       amountTranfer: "",
       image: null
     },
-    numberRule: [ 
-      v => { if (!v.trim()) return true;
-             if (!isNaN(parseFloat(v)) && v >= 0 && v <= 999) return true;
-             return "Number has to be between 0 and 999";
+    numberRule: [
+      v => {
+        if (!v.trim()) return true;
+        if (!isNaN(parseFloat(v)) && v >= 0 && v <= 999) return true;
+        return "Number has to be between 0 and 999";
       },
-      v => !!v || 'Amount Transfer is required'
+      v => !!v || "Amount Transfer is required"
     ],
     bankType: [
-        {
-          id: "kbank",
-          name: "Kasikorn Bank (K-BANK)"
-        },
-        {
-          id: "bbl",
-          name: "Bangkok Bank (BBL)"
-        },
-        {
-          id: "gsb",
-          name: "Government Savings Bank (GSB)"
-        },
-        {
-          id: "ktb",
-          name: "Krung Thai Bank (KTB)"
-        },
-        {
-          id: "scb",
-          name: "Siam Commercial Bank (SCB)"
-        },
-        {
-          id: "bay",
-          name: "Krungsri Bank (BAY)"
-        }
+      {
+        id: "kbank",
+        name: "Kasikorn Bank (K-BANK)"
+      },
+      {
+        id: "bbl",
+        name: "Bangkok Bank (BBL)"
+      },
+      {
+        id: "gsb",
+        name: "Government Savings Bank (GSB)"
+      },
+      {
+        id: "ktb",
+        name: "Krung Thai Bank (KTB)"
+      },
+      {
+        id: "scb",
+        name: "Siam Commercial Bank (SCB)"
+      },
+      {
+        id: "bay",
+        name: "Krungsri Bank (BAY)"
+      }
     ]
   }),
   watch: {
@@ -306,7 +307,7 @@ export default {
       if (state) {
         if (this.receipt.image !== null) {
           if (parseFloat(this.receipt.amountTranfer) === parseFloat(this.total)) {
-            var datetime = new Date(this.dateOfTransfer+' '+this.time).toISOString()
+            var datetime = new Date(this.dateOfTransfer + " " + this.time).toISOString()
             this.receipt.tranferDateTime = datetime
             this.receipt.userid = this.$store.getters.getUserName
             this.receipt.total = parseFloat(this.total)

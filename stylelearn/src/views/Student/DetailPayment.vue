@@ -45,10 +45,11 @@
           class="bottonNext"
           style="background-color:#EB5769;"
           @click="onClickCancle()"
+          name=btnCancel
         >
           Cancle
         </button>
-        <button class="bottonNext" @click="onClickCom()">
+        <button class="bottonNext" @click="onClickCom()" name=btnNext>
           Confirm Payment
         </button>
       </div>
@@ -93,7 +94,7 @@ export default {
       }
     },
     onClickCom () {
-      this.$router.push({ name: "ConfirmPayment", query: { invoiceID: this.invoiceID, total: this.total }});
+      this.$router.push({ name: "ConfirmPayment", query: { invoiceID: this.invoiceID, total: this.total } });
     }
   }
 };

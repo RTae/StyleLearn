@@ -165,11 +165,11 @@
                 class="ma-10 subjectCard"
                 :class="{ 'on-hover': hover }"
                 @click="onClickSubject(subject.Name, subject.SubjectID);"
+                name=Subject
               >
                 <v-img
                 class="cardImg"
                 :src="require('../assets/image/subject/cardBig/'+ subject.Name + '.png')"
-                name=Subject
               ></v-img>
               </v-card>
             </v-hover>
