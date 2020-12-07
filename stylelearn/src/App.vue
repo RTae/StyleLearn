@@ -7,6 +7,13 @@
       <HeaderTutor v-if="$store.getters.getLoginHeaderTutor"/>
       <Content />
       <Footer />
+      <!-- Popup overlay -->
+      <v-overlay :value="$store.getters.getDialogLoading">
+        <v-progress-circular
+          indeterminate
+          size="64"
+        ></v-progress-circular>
+      </v-overlay>
     </v-app>
   </div>
 </template>
@@ -31,7 +38,6 @@ export default {
   },
   mounted () {
     this.$store.dispatch({ type: "restoreLogin" });
-    this.$store.dispatch({ type: "restoreBukect" });
   }
 };
 </script>

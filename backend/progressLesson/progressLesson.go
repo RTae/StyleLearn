@@ -16,7 +16,7 @@ type ProgressLesson struct {
 }
 
 // Create new subject into platfrom
-func (pl *ProgressLesson) Create(userID, lessonID string, quantityDay int) map[string]interface{} {
+func (pl *ProgressLesson) Create(userID, lessonID string, quantityDay int64) map[string]interface{} {
 	db, logs := pl.initDB()
 	if logs["status"] != "1" {
 		return logs
@@ -62,7 +62,7 @@ func (pl *ProgressLesson) Read(uid, lid string) map[string]interface{} {
 	return log
 }
 
-func (pl *ProgressLesson) Update(uid, lid string, quantityDay int) map[string]interface{} {
+func (pl *ProgressLesson) Update(uid, lid string, quantityDay int64) map[string]interface{} {
 	db, logs := pl.initDB()
 	if logs["status"] != "1" {
 		return logs

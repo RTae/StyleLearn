@@ -12,7 +12,6 @@
       </div>
       <v-spacer></v-spacer>
       <v-row class="hidden-sm-and-down" align="center" justify="end">
-        <v-toolbar-items>
           <v-btn text>
             <router-link to="/">
               <p class="text">Home</p>
@@ -26,42 +25,43 @@
           <v-btn text>
             <router-link to="/about"> <p class="text">About Us</p></router-link>
           </v-btn>
-          <router-link to="/selectitem">
-            <v-img class="iconBar" src="../../assets/image/etc/shopping.png" />
-          </router-link>
-          <v-img class="iconBarLine" src="../../assets/image/etc/line.png"></v-img>
+          <v-btn
+            icon
+            @click="onClickBuckect()"
+          >
+            <v-icon large color="grey darken-1">
+              mdi-basket
+            </v-icon>
+          </v-btn>
+          <v-icon large color="grey darken-1">
+              mdi-dots-vertical
+          </v-icon>
           <v-menu botton left>
             <template v-slot:activator="{ on, attrs }">
               <button style="outline:none" icon v-bind="attrs" v-on="on">
-                <v-img
-                  class="iconBarPro"
-                  contain
-                  outline:none
-                  transition="scale-transition"
-                  src="../../assets/image/etc/profile.png"
-                />
+                <v-icon large color="grey darken-1">
+                  mdi-account-circle
+                </v-icon>
               </button>
             </template>
 
             <v-list>
               <v-list-item v-for="(item, i) in items" :key="i">
-                <v-list-item-title
-                  ><v-hover v-slot="{ hover }"
-                    ><button
+                <v-list-item-title>
+                  <v-hover v-slot="{ hover }">
+                    <button
                       :elevation="hover ? 8 : 0"
                       :class="{ 'on-hover-review': hover }"
                       class="btnPro"
-                      color="#70ccff"
                       @click="onClickHover(item.title)"
                     >
                       {{ item.title }}
-                    </button></v-hover
-                  ></v-list-item-title
-                >
+                    </button>
+                  </v-hover>
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-        </v-toolbar-items>
       </v-row>
     </v-app-bar>
   </div>
@@ -87,6 +87,13 @@ export default {
         this.$store.dispatch({
           type: "doLogout"
         });
+      }
+    },
+    onClickBuckect () {
+      if (this.$store.getters.getUnPaidSate) {
+        this.$router.push({ name: "DetailPayment" })
+      } else {
+        this.$router.push({ name: "SelectItem" })
       }
     }
   }

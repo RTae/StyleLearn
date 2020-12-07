@@ -4,6 +4,7 @@ import * as courseAPI from "../service/api_couse";
 import * as subjectAPI from "../service/api_subject";
 import * as lessonAPI from "../service/api_lesson";
 import * as progressLessonAPI from "../service/api_progresslesson";
+import * as invoiceAPI from "../service/api_invoice";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem(server.TOKEN_KEY);
@@ -109,5 +110,6 @@ export default {
   ...progressLessonAPI,
   ...courseAPI,
   ...subjectAPI,
-  ...lessonAPI
+  ...lessonAPI,
+  ...invoiceAPI
 };

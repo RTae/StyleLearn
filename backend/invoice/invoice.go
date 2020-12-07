@@ -65,7 +65,7 @@ func (i *Invoice) Create(userID, createDate, total, detail, status string) map[s
 	logs = make(map[string]interface{})
 	logs["status"] = "1"
 	logs["msg"] = ""
-	logs["result"] = ""
+	logs["result"] = newIID
 	return logs
 }
 
@@ -147,11 +147,37 @@ func (i *Invoice) Delete(iid string) map[string]interface{} {
 	defer db.Close()
 
 	err := db.Where("invoice_id = ?", iid).Delete(&entities.TBL_Invoice{}).Error
-
 	if err != nil {
 		log := i.errorHandle(err)
 		return log
 	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = ""
+	return log
+}
+
+func (i *Invoice) CancelInvoice(invoiceID string) map[string]interface{} {
+	db, logs := i.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	err := db.Where("invoice_id = ?", invoiceID).Delete(&entities.TBL_InvoiceLineItem{}).Error
+	if err != nil {
+		log := i.errorHandle(err)
+		return log
+	}
+
+	err = db.Where("invoice_id = ?", invoiceID).Delete(&entities.TBL_Invoice{}).Error
+	if err != nil {
+		log := i.errorHandle(err)
+		return log
+	}
+
 	log := make(map[string]interface{})
 	log["status"] = "1"
 	log["msg"] = ""
@@ -285,7 +311,6 @@ func (i *Invoice) UpdateItemLineItem(invoiceID, lessonID, quantityDay, amountTot
 }
 
 // DeleteItemLineItem Delete line item
-
 func (i *Invoice) DeleteItemLineItem(invoiceID, lessonID string) map[string]interface{} {
 
 	db, logs := i.initDB()
@@ -309,6 +334,36 @@ func (i *Invoice) DeleteItemLineItem(invoiceID, lessonID string) map[string]inte
 
 	return log
 
+}
+
+type result_unpaid struct {
+	Invoice_id string
+	Total      string
+}
+
+func (i *Invoice) GetUnpaidInvoice(uid string) map[string]interface{} {
+	db, logs := i.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+
+	defer db.Close()
+
+	var result []result_unpaid
+	err := db.Raw(`	SELECT invoice_id, total
+					FROM tbl_invoices
+					WHERE user_id = ? AND status = false`, uid).Scan(&result).Error
+	if err != nil {
+		log := i.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+
+	return log
 }
 
 // Helper Function

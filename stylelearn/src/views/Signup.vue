@@ -278,13 +278,6 @@
     </div>
     <!-- Dialog -->
     <PopUpDialog/>
-    <!-- Popup overlay -->
-    <v-overlay :value="$store.getters.getDialogLoading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      />
-    </v-overlay>
   </v-container>
 </template>
 

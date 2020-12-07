@@ -6,17 +6,19 @@
           <div>
             <v-img
               alt="Vuetify Logo"
-              class="shrink mr-2"
+              class="shrink"
               contain
               src="../../assets/image/main/logo_footer.png"
               transition="scale-transition"
               width="200"
             />
-            <v-btn v-for="icon in icons" :key="icon" icon>
-              <v-icon size="24px">
-                {{ icon }}
-              </v-icon>
-            </v-btn>
+            <div class="ml-7">
+              <v-btn v-for="icon in icons" :key="icon" icon>
+                <v-icon size="24px">
+                  {{ icon }}
+                </v-icon>
+              </v-btn>
+            </div>
           </div>
           <v-spacer></v-spacer>
           <div class="d-flex flex-column justify-center">

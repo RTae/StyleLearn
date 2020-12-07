@@ -54,14 +54,24 @@
           </button>
       </div>
     </v-row>
+    <PopUpDialog/>
+    <v-overlay :value="$store.getters.getDialogLoading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      />
+    </v-overlay>
   </v-container>
 </template>
 
 <script>
 import { server } from "../../service/constants"
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "SelectedItemInvoice",
-  components: {},
+  components: {
+    PopUpDialog
+  },
   async mounted () {
     this.lessonBukect = await JSON.parse(localStorage.getItem(server.BUKECT))
     for (var i = 0; i < this.lessonBukect.length; i++) {
@@ -78,8 +88,12 @@ export default {
       this.$router.go(-1)
     },
     onClickNext () {
-      
-      this.$router.push({ name: "DetailPayment" })
+      this.$store.dispatch({
+        type: "confirmInvoice",
+        userId: this.$store.getters.getUserName,
+        total: this.calculateTotal,
+        lesson: this.lessonBukect
+      });
     }
   }
 };

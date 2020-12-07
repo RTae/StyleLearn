@@ -17,6 +17,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	if (*r).Method == "GET" {
 		w.Header().Set("Content-Type", "application/json")
+		userID := r.FormValue("userID")
 		invoiceID := r.FormValue("invoiceID")
 		lessonID := r.FormValue("lessonID")
 		mode := r.FormValue("mode")
@@ -26,6 +27,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(logs)
 		} else if mode == "2" {
 			logs := i.ReadItemLineItem(invoiceID, lessonID)
+			json.NewEncoder(w).Encode(logs)
+		} else if mode == "3" {
+			logs := i.GetUnpaidInvoice(userID)
 			json.NewEncoder(w).Encode(logs)
 		} else {
 			logs := i.GetAllInvoice()
@@ -93,7 +97,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		if mode == "1" {
 			logs := i.DeleteItemLineItem(invoiceID, lessonID)
 			json.NewEncoder(w).Encode(logs)
-		} else {
+		} else if mode == "2" {
+			logs := i.CancelInvoice(invoiceID)
+			json.NewEncoder(w).Encode(logs)
+		}
+		else {
 			logs := i.Delete(invoiceID)
 			json.NewEncoder(w).Encode(logs)
 		}

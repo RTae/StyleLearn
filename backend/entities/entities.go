@@ -72,3 +72,17 @@ type TBL_InvoiceLineItem struct {
 	QuantityDay int64
 	AmountTotal float64
 }
+
+type TBL_Payment struct {
+	PaymentID      string `gorm:"primary_key"`
+	InvoiceID      string
+	UserID         string
+	PaymentTypeID  string
+	Status         bool
+	CreateDate     time.Time
+	DateTransfer   time.Time
+	AmountTransfer float64
+	Total          float64
+	TransferFrom   string
+	TransferTo     string
+}

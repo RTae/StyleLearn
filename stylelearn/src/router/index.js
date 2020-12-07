@@ -200,7 +200,8 @@ const routes = [
     meta: {
       isSecured: true,
       isTutor: false,
-      isStudent: true
+      isStudent: true,
+      isPayment: true
     },
     component: SelectedItemInvoice
   },
@@ -210,7 +211,8 @@ const routes = [
     meta: {
       isSecured: true,
       isTutor: false,
-      isStudent: true
+      isStudent: true,
+      isPayment: true
     },
     component: SelectItem
   },
@@ -220,7 +222,8 @@ const routes = [
     meta: {
       isSecured: true,
       isTutor: false,
-      isStudent: true
+      isStudent: true,
+      isPayment: true
     },
     component: DetailPayment
   },
@@ -230,7 +233,8 @@ const routes = [
     meta: {
       isSecured: true,
       isTutor: false,
-      isStudent: true
+      isStudent: true,
+      isPayment: true
     },
     component: ConfirmPayment
   },
@@ -281,7 +285,7 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // is geust
   if (to.matched.some(record => record.meta.isAllowGuest)) {
     if (localStorage.getItem(server.USER_TYPE) === "Tutor") {
