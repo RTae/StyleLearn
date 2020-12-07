@@ -100,8 +100,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		} else if mode == "2" {
 			logs := i.CancelInvoice(invoiceID)
 			json.NewEncoder(w).Encode(logs)
-		}
-		else {
+		} else {
 			logs := i.Delete(invoiceID)
 			json.NewEncoder(w).Encode(logs)
 		}
