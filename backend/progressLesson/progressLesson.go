@@ -25,7 +25,7 @@ func (pl *ProgressLesson) Create(userID, lessonID, quantityDay string) map[strin
 
 	quantityDayInt, err := strconv.ParseInt(quantityDay, 10, 64)
 	if err != nil {
-		log := i.errorHandle(err)
+		log := pl.errorHandle(err)
 		return log
 	}
 
@@ -35,7 +35,7 @@ func (pl *ProgressLesson) Create(userID, lessonID, quantityDay string) map[strin
 		QuantityDay: quantityDayInt,
 	}
 
-	err := db.Create(&lesson).Error
+	err = db.Create(&lesson).Error
 	if err != nil {
 		log := pl.errorHandle(err)
 		return log
