@@ -351,14 +351,14 @@ export default {
         if (this.receipt.image !== null) {
           if (parseFloat(this.receipt.amountTranfer) === parseFloat(this.total)) {
             this.dialogCon = true
+          } else {
+            this.$store.dispatch({
+              type: "dialogPopup",
+              value: true,
+              msg: "The amount tranfer is incorrect"
+            });
+          }
         } else {
-          this.$store.dispatch({
-            type: "dialogPopup",
-            value: true,
-            msg: "The amount tranfer is incorrect"
-          });
-        }
-      } else {
           this.$store.dispatch({
             type: "dialogPopup",
             value: true,

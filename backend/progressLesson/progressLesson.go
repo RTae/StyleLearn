@@ -23,7 +23,7 @@ func (pl *ProgressLesson) Create(userID, lessonID, quantityDay string) map[strin
 	}
 	defer db.Close()
 
-	quantityDayInt, err := strconv.ParseInt(quantityDay, 64)
+	quantityDayInt, err := strconv.ParseInt(quantityDay, 10, 64)
 	if err != nil {
 		log := i.errorHandle(err)
 		return log
