@@ -82,7 +82,7 @@ func (p *Payment) Create(invoiceID, userID, paymentTypeID, status, createDate, d
 	logs = make(map[string]interface{})
 	logs["status"] = "1"
 	logs["msg"] = ""
-	logs["result"] = ""
+	logs["result"] = newPID
 	return logs
 }
 
