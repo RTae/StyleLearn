@@ -11,7 +11,7 @@
       <v-form
           ref="form"
           v-model="valid"
-          @submit.prevent="submitUpload"
+          @submit.prevent="onClickSubmit"
           lazy-validation
       >
         <!-- Transfer To -->
@@ -184,16 +184,48 @@
           <v-img
             max-height="500"
             max-width="300"
+            transition="scale-transition"
             :src=imagePreview />
         </v-row>
         <!-- Button -->
         <v-row align="center" justify="center">
           <v-col cols="2">
-            <button :disabled="!valid" class="submitBtn" type="submit">
+            <button :disabled="!valid" class="submitBtn" type="submit" @click="onClickSubmit">
               Submit
             </button>
           </v-col>
         </v-row>
+        <!-- Dialog -->
+        <v-dialog
+          v-model="dialogCon"
+          persistent
+          max-width="350"
+        >
+          <v-card>
+            <v-card-title class="font-size:20px; font-family: 'Delius'; font-weight:bold">
+              Confirm Payment
+            </v-card-title>
+            <v-card-text style="font-size:17px; font-family: 'Delius'">Are you sure to comfirm this payment?</v-card-text>
+            <v-card-actions>
+              <div class="d-flex justify-space-around" style="width:100%">
+                <v-btn
+                  color="red darken-1"
+                  text
+                  @click="dialogCon = false"
+                >
+                  Cancle
+                </v-btn>
+                <v-btn
+                  color="#6eb9f7"
+                  text
+                  @click="onClickConfirm()"
+                >
+                  Confirm
+                </v-btn>
+              </div>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-form>
     </v-row>
     <PopUpDialog/>
@@ -222,6 +254,7 @@ export default {
     imagePreview: null, // Image preview
     isSelectingUploadReceipt: false, // State check image is upload
     total: null, // Total
+    dialogCon: false, // Dialog Confirm
     receipt: {
       invoiceID: null,
       bankTransferTo: null,
@@ -270,6 +303,16 @@ export default {
     }
   },
   methods: {
+    onClickConfirm () {
+      var datetime = new Date(this.dateOfTransfer + " " + this.time).toISOString()
+      this.receipt.tranferDateTime = datetime
+      this.receipt.userid = this.$store.getters.getUserName
+      this.receipt.total = parseFloat(this.total)
+      this.receipt.bankTransferTo = this.bankTypeMapValue(this.receipt.bankTransferTo)
+      this.receipt.bankTransferFrom = this.bankTypeMapValue(this.receipt.bankTransferFrom)
+      console.log(this.receipt)
+      this.dialogCon = false
+    },
     save (date) {
       this.$refs.menu.save(date)
     },
@@ -302,26 +345,20 @@ export default {
       // This for upload
       this.receipt.image = e.target.files[0];
     },
-    submitUpload () {
+    onClickSubmit () {
       var state = this.$refs.form.validate()
       if (state) {
         if (this.receipt.image !== null) {
           if (parseFloat(this.receipt.amountTranfer) === parseFloat(this.total)) {
-            var datetime = new Date(this.dateOfTransfer + " " + this.time).toISOString()
-            this.receipt.tranferDateTime = datetime
-            this.receipt.userid = this.$store.getters.getUserName
-            this.receipt.total = parseFloat(this.total)
-            this.receipt.bankTransferTo = this.bankTypeMapValue(this.receipt.bankTransferTo)
-            this.receipt.bankTransferFrom = this.bankTypeMapValue(this.receipt.bankTransferFrom)
-            console.log(this.receipt)
-          } else {
-            this.$store.dispatch({
-              type: "dialogPopup",
-              value: true,
-              msg: "The amount tranfer is incorrect"
-            });
-          }
+            this.dialogCon = true
         } else {
+          this.$store.dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "The amount tranfer is incorrect"
+          });
+        }
+      } else {
           this.$store.dispatch({
             type: "dialogPopup",
             value: true,
