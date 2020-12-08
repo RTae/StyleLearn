@@ -151,12 +151,12 @@ func (l *Lesson) ReadLessonByCourse(cid string) map[string]interface{} {
 }
 
 type result_lesson struct {
-	CourseID string
+	LessonID string
 	Name     string
 }
 
-func (c *Course) GetAllLessonByCourseName(courseName string) map[string]interface{} {
-	db, logs := c.initDB()
+func (l *Lesson) GetAllLessonByCourseName(courseName string) map[string]interface{} {
+	db, logs := l.initDB()
 	if logs["status"] != "1" {
 		return logs
 	}
@@ -169,14 +169,14 @@ func (c *Course) GetAllLessonByCourseName(courseName string) map[string]interfac
 										FROM tbl_course_types
 										WHERE name = ? ) `, courseName).Scan(&result).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := l.errorHandle(err)
 		return log
 	}
 
 	log := make(map[string]interface{})
 	log["status"] = "1"
 	log["msg"] = ""
-	log["result"] = courses
+	log["result"] = result
 	return log
 }
 

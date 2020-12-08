@@ -360,7 +360,7 @@ export default {
   }),
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    const result = await api.getSubject()
+    const result = await api.getAllSubject()
     if (result.data.status === "1") {
       this.subjectItems = result.data.result
       this.$store.commit("SET_DIALOG_LOADING", false)

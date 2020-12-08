@@ -86,3 +86,13 @@ type TBL_Payment struct {
 	TransferFrom   string
 	TransferTo     string
 }
+
+type TBL_Video struct {
+	VideoID     string `gorm:"primary_key"`
+	UserID      string
+	LessonID    string
+	Description string
+	Video       string
+	UploadDate  time.Time
+	Status      *bool
+}

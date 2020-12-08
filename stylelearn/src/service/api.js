@@ -6,7 +6,8 @@ import * as lessonAPI from "../service/api_lesson";
 import * as progressLessonAPI from "../service/api_progresslesson";
 import * as invoiceAPI from "../service/api_invoice";
 import * as uploadAPI from "../service/api_upload";
-import * as paymentAPI from "../service/api_payment"
+import * as paymentAPI from "../service/api_payment";
+import * as videoAPI from "../service/api_video";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem(server.TOKEN_KEY);
@@ -104,5 +105,6 @@ export default {
   ...lessonAPI,
   ...invoiceAPI,
   ...uploadAPI,
-  ...paymentAPI
+  ...paymentAPI,
+  ...videoAPI
 };
