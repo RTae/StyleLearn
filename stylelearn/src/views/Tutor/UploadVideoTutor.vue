@@ -78,7 +78,8 @@
              <v-select
                 :rules="[v => !!v || 'Item is required']"
                 class="selectField"
-                :items="items"
+                :items="subjectList"
+                v-model="subject"
                 solo
                 rounded
                 outlined
@@ -91,12 +92,13 @@
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
-              :items="items"
+              :items="courseList"
+              v-model="course"
               solo
               rounded
               outlined
-              background-color="grey lighten-2"
-              :disabled="true"
+              :disabled="this.subject === null ? true : false"
+              :background-color="this.subject === null ? 'grey lighten-2' : 'white'"
             />
           </v-col>
         </v-row>
@@ -110,12 +112,13 @@
              <v-select
                 :rules="[v => !!v || 'Item is required']"
                 class="selectField"
-                :items="items"
+                :items="subjectList"
+                v-model="lesson"
                 solo
                 rounded
                 outlined
-                background-color="grey lighten-2"
-                :disabled="true"
+                :disabled="this.course === null ? true : false"
+                :background-color="this.course === null ? 'grey lighten-2' : 'white'"
               />
           </v-col>
         </v-row>
@@ -127,7 +130,7 @@
               <label class="textLabel">Description</label>
             </v-row>
             <v-textarea
-              v-model="title"
+              v-model="description"
               counter
               rounded
               maxlength="100"
@@ -184,11 +187,23 @@
 </template>
 
 <script>
+import api from "../../service/api"
+import { server } from "../../service/constants"
 export default {
   name: "uploadVideo",
   components: {},
-  mounted () {
-    this.title = this.$route.params.titleName;
+  async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
+    const result = await api.getSubject()
+    if (result.data.status === "1") {
+      for (var idx = 0; idx < result.data.result.length; idx++) {
+        this.subjectList.push(result.data.result[idx].Name)
+      }
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    } else {
+      this.subjectList = []
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    }
   },
   computed: {
     buttonTextVideo () {
@@ -200,6 +215,20 @@ export default {
       return this.selectedFileCover
         ? this.selectedFileCover.name
         : this.defaultButtonTextCover;
+    },
+    courseList () {
+      if (this.subject === "Computer") {
+        return [1, 2, 3, 4]
+      } else {
+        return ["a", "b", "c", "d"]
+      }
+    },
+    lessonList () {
+      if (this.subject === "Computer") {
+        return [1, 2, 3, 4]
+      } else {
+        return ["a", "b", "c", "d"]
+      }
     }
   },
   data: () => ({
@@ -210,9 +239,11 @@ export default {
     isSelectingUploadVideo: false,
     isSelectingUploadCover: false,
     valid: true,
-    title: "",
-    emailCon: "",
-    items: ["a", "b", "c", "d"],
+    subject: null,
+    course: null,
+    lesson: null,
+    description: "",
+    subjectList: [],
     user: {
       role: "",
       sex: "",
@@ -222,15 +253,7 @@ export default {
       edu: "",
       email: "",
       password: ""
-    },
-    passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) => (v && v.length >= 6) || "Password must be more than 6 characters"
-    ],
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"
-    ]
+    }
   }),
   methods: {
     onButtonClickUploadVideo () {

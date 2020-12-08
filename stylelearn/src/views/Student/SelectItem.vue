@@ -58,7 +58,7 @@
     </v-row>
     <v-row align="center" justify="center" style="margin-bottom:100px;">
       <div class="buttonCardContainer" align="center" justify="end">
-        <button class="bottonCom" @click="onClickComfirmOrder()">
+        <button :disabled=checkButtonState class="bottonCom" @click="onClickComfirmOrder()">
           Comfirm Order
         </button>
       </div>
@@ -67,16 +67,24 @@
 </template>
 
 <script>
+import api from "../../service/api"
 import { server } from "../../service/constants";
 export default {
   name: "SelectItem",
+  async beforeMount () {
+    const username = localStorage.getItem(server.USERNAME);
+    var result = await api.getUnPaidInvoice(username)
+    if (result[1]) {
+      this.$router.push({ name: "DetailPayment" });
+    } else {
+    }
+  },
   async mounted () {
     this.bucketList = await this.$store.getters.getBukectList
     for (var i = 0; i < this.bucketList.length; i++) {
       this.dayList.push("1")
     }
   },
-  components: {},
   data: () => ({
     numberRule: v => {
       if (!v.trim()) return true;
@@ -93,6 +101,14 @@ export default {
         return sum;
       } else {
         return 0;
+      }
+    },
+    checkButtonState: function () {
+      var bucketListSize = this.bucketList.length
+      if (bucketListSize !== 0) {
+        return false
+      } else {
+        return true
       }
     }
   },

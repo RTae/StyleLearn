@@ -1,6 +1,7 @@
 package invoice
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -53,7 +54,7 @@ func (i *Invoice) Create(userID, createDate, total, detail, status string) map[s
 		CreateDate: t,
 		Total:      total_float,
 		Detail:     detail,
-		Status:     status_bool,
+		Status:     &status_bool,
 	}
 
 	err = db.Create(&Invoice).Error
@@ -124,7 +125,7 @@ func (i *Invoice) Update(iid, userID, createDate, total, detail, status string) 
 		CreateDate: t,
 		Total:      total_float,
 		Detail:     detail,
-		Status:     status_bool,
+		Status:     &status_bool,
 	}).Error
 
 	if err != nil {
@@ -159,6 +160,28 @@ func (i *Invoice) Delete(iid string) map[string]interface{} {
 	return log
 }
 
+func (i *Invoice) GetAllInvoice() map[string]interface{} {
+	db, logs := i.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var Invoices []entities.TBL_Invoice
+	err := db.Find(&Invoices).Error
+	if err != nil {
+		log := i.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = Invoices
+
+	return log
+}
+
 func (i *Invoice) CancelInvoice(invoiceID string) map[string]interface{} {
 	db, logs := i.initDB()
 	if logs["status"] != "1" {
@@ -185,26 +208,65 @@ func (i *Invoice) CancelInvoice(invoiceID string) map[string]interface{} {
 	return log
 }
 
-func (i *Invoice) GetAllInvoice() map[string]interface{} {
+type result_invoiceLine struct {
+	LessonID    string
+	QuantityDay string
+}
+
+func (i *Invoice) GetInvoiceLineItemByInvoiceID(invoiceID string) map[string]interface{} {
 	db, logs := i.initDB()
 	if logs["status"] != "1" {
 		return logs
 	}
 	defer db.Close()
 
-	var Invoices []entities.TBL_Invoice
-	err := db.Find(&Invoices).Error
+	var result []result_invoiceLine
+	err := db.Raw(`	SELECT ilt.lesson_id, ilt.quantity_day
+					FROM tbl_invoices i
+					INNER JOIN tbl_invoice_line_items ilt
+					ON i.invoice_id = ilt.invoice_id
+					WHERE i.invoice_id = ?`, invoiceID).Scan(&result).Error
 	if err != nil {
 		log := i.errorHandle(err)
 		return log
 	}
 
-	log := make(map[string]interface{})
-	log["status"] = "1"
-	log["msg"] = ""
-	log["result"] = Invoices
+	logs = make(map[string]interface{})
+	logs["status"] = "1"
+	logs["msg"] = ""
+	logs["result"] = result
+	return logs
 
-	return log
+}
+
+func (i *Invoice) UpdateStatusInvoice(invoiceID, status string) map[string]interface{} {
+	db, logs := i.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	status_bool, err := strconv.ParseBool(status)
+	if err != nil {
+		log := i.errorHandle(err)
+		return log
+	}
+
+	err = db.Model(&entities.TBL_Invoice{}).Where(entities.TBL_Invoice{InvoiceID: invoiceID}).Update(entities.TBL_Invoice{
+		Status: &status_bool,
+	}).Error
+	fmt.Println(status_bool)
+
+	if err != nil {
+		log := i.errorHandle(err)
+		return log
+	}
+
+	logs = make(map[string]interface{})
+	logs["status"] = "1"
+	logs["msg"] = ""
+	logs["result"] = ""
+	return logs
 }
 
 // AddItemToLineItem Add item to line invoice

@@ -31,12 +31,8 @@
             <v-row>
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle">{{
-                    lesson.Name
-                  }}</v-card-text>
-                  <v-card-text class="cardTextDetail">{{
-                    lesson.Description
-                  }}</v-card-text>
+                  <v-card-text class="cardTextTitle">{{ lesson.Name | Capitalize }}</v-card-text>
+                  <v-card-text class="cardTextDetail">{{ lesson.Description }}</v-card-text>
                 </div>
               </v-col>
               <v-col class="buttonContainer">
@@ -198,12 +194,15 @@ export default {
   name: "LessonPage",
   components: {},
   async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
     this.title = this.$route.query.titleName;
     const result = await api.getLessonByCourse(this.$route.query.id);
     if (result.data.status === "1") {
       this.lessons = result.data.result;
+      this.$store.commit("SET_DIALOG_LOADING", false)
     } else {
       this.lessons = [];
+      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   data () {
@@ -213,28 +212,42 @@ export default {
       lessons: []
     };
   },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
   methods: {
     onClickBuy (id, name) {
       if (this.$store.getters.getLoginHeaderStudent) {
-        this.popUpBuy = true;
-        this.$store.dispatch({
-          type: "addItemToBukect",
-          id: id,
-          name: name
-        });
+        if (this.$store.getters.getUnPaidSate) {
+          this.$router.push({ name: "DetailPayment" })
+        } else {
+          this.popUpBuy = true;
+          this.$store.dispatch({
+            type: "addItemToBukect",
+            id: id,
+            name: name
+          });
+        }
       } else {
         this.$router.push({ name: "Login" });
       }
     },
     onClickBuyWhole () {
       if (this.$store.getters.getLoginHeaderStudent) {
-        this.popUpBuy = true;
-        for (var i = 0; i < this.lessons.length; i++) {
-          this.$store.dispatch({
-            type: "addItemToBukect",
-            id: this.lessons[i].LessonID,
-            name: this.lessons[i].Name
-          });
+        if (this.$store.getters.getUnPaidSate) {
+          this.$router.push({ name: "DetailPayment" })
+        } else {
+          this.popUpBuy = true;
+          for (var i = 0; i < this.lessons.length; i++) {
+            this.$store.dispatch({
+              type: "addItemToBukect",
+              id: this.lessons[i].LessonID,
+              name: this.lessons[i].Name
+            });
+          }
         }
       } else {
         this.$router.push({ name: "Login" });

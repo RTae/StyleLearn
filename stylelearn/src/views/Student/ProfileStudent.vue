@@ -66,7 +66,7 @@ export default {
   async mounted () {
     const result = await api.getUser(localStorage.getItem(server.USERNAME))
     if (result.data.status === "1") {
-      this.user.image = "https://stylelearn.s3-ap-southeast-1.amazonaws.com/image/" + result.data.result[0].ProfilePic.slice(0, 10) + ".png"
+      this.user.image = result.data.result[0].ProfilePic
       this.user.firstName = result.data.result[0].Firstname
       this.user.familyName = result.data.result[0].Familyname
       this.user.birthday = result.data.result[0].Birthday.slice(0, 10)

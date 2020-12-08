@@ -220,6 +220,7 @@ export default {
     }
   },
   async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
     const id = localStorage.getItem(server.USERNAME)
     const result = await api.getUser(id)
     if (result.data.status === "1") {
@@ -230,7 +231,8 @@ export default {
       this.user.sex = result.data.result[0].Sex
       this.user.email = result.data.result[0].Email
       this.eduTypeValue = result.data.result[0].EduName
-      this.imageURL = "https://stylelearn.s3-ap-southeast-1.amazonaws.com/image/" + result.data.result[0].ProfilePic
+      this.imageURL = result.data.result[0].ProfilePic
+      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   methods: {
@@ -284,12 +286,14 @@ export default {
         this.$store.dispatch({
           type: "editProfile",
           id: this.user.id,
-          firstName: this.user.firstName,
+          firstname: this.user.firstName,
           familyname: this.user.familyName,
           birthday: this.user.birthday,
           sex: this.user.sex,
           edu: this.user.edcation,
-          pic: this.user.image
+          newImage: this.user.image,
+          image: this.imageURL,
+          bio: ""
         });
       }
     }

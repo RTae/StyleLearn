@@ -31,6 +31,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		} else if mode == "3" {
 			logs := i.GetUnpaidInvoice(userID)
 			json.NewEncoder(w).Encode(logs)
+		} else if mode == "4" {
+			logs := i.GetInvoiceLineItemByInvoiceID(invoiceID)
+			json.NewEncoder(w).Encode(logs)
 		} else {
 			logs := i.GetAllInvoice()
 			json.NewEncoder(w).Encode(logs)
@@ -81,6 +84,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 		if mode == "1" {
 			logs := i.UpdateItemLineItem(invoiceID, lessonID, quantityDay, amountTotal)
+			json.NewEncoder(w).Encode(logs)
+		} else if mode == "2" {
+			logs := i.UpdateStatusInvoice(invoiceID, status)
 			json.NewEncoder(w).Encode(logs)
 		} else {
 			logs := i.Update(invoiceID, userID, createDate, total, detail, status)

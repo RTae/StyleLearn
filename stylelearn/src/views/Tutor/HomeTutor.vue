@@ -92,9 +92,20 @@
 </template>
 
 <script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "Home",
   components: {},
+  async mounted () {
+    const result = await api.getUser(localStorage.getItem(server.USERNAME))
+    if (result.data.status === "1") {
+      this.user.image = result.data.result[0].ProfilePic
+      this.user.firstName = result.data.result[0].Firstname
+      this.user.familyName = result.data.result[0].Familyname
+      this.user.bio = result.data.result[0].Bio
+    }
+  },
   data: () => ({
     videos: [
       {
@@ -119,14 +130,10 @@ export default {
     model: null,
     videoImage: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
     user: {
-      image: "https://picsum.photos/id/11/500/300",
-      firstName: "Natthanan",
-      familyName: "Bhukan",
-      birthday: "1999/08/16",
-      sex: "Male",
-      email: "tutor@tutor.com",
-      edcation: "Bachelor",
-      bio: "เรียนหนังสือสนุกจริงๆ"
+      image: "",
+      firstName: "",
+      familyName: "",
+      bio: ""
     }
   }),
   methods: {

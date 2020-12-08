@@ -38,14 +38,16 @@
                     class="d-flex flex-column  justify-center"
                     style="border-radius:10px; border:2px solid black; margin-bottom:30px"                   max-height="300"
                     min-height="200"
-                    max-width="400"
+                    max-width="300"
                     min-width="200"
                     color="grey darken-1"
                   >
                     <v-img
                     :lazy-src="require('../../assets/image/etc/lazy_loading.png')"
                     contain
-                    :src="user.image"
+                    max-height="300"
+                    max-width="300"
+                    :src="imageURL"
                   />
                 </v-card>
               <v-btn
@@ -181,24 +183,29 @@
         </v-form>
       </v-col>
     </v-row>
+    <PopUpDialog/>
   </v-container>
 </template>
 
 <script>
+import PopUpDialog from "../../components/popupDialog/Dialog"
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
-  name: "ProfileTutor",
+  name: "EditProfileTutor",
   data () {
     return {
       user: {
-        image: "https://picsum.photos/id/11/500/300",
-        firstName: "Natthanan",
-        familyName: "Bhukan",
-        birthday: null,
-        sex: "Male",
-        email: "tutor@tutor.com",
-        edu: "d",
-        bio: "เรียนหนังสือสนุกจริงๆ"
+        image: null,
+        firstName: "",
+        familyName: "",
+        birthday: "",
+        sex: "",
+        email: "",
+        edcation: "",
+        bio: ""
       },
+      imageURL: null,
       isSelectingUploadPic: false,
       defaultButtonTextPic: "Upload Picture",
       selectedFilePic: null,
@@ -228,9 +235,25 @@ export default {
       eduTypeList: ["High school", "Bachelor", "Master", "Ph.d"]
     }
   },
-  mounted () {
-    this.eduValueMapType(this.user.edu)
-    this.user.birthday = new Date("1999-08-16").toISOString().substr(0, 10)
+  components: {
+    PopUpDialog
+  },
+  async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
+    const id = localStorage.getItem(server.USERNAME)
+    const result = await api.getUser(id)
+    if (result.data.status === "1") {
+      this.user.image = null
+      this.user.firstName = result.data.result[0].Firstname
+      this.user.familyName = result.data.result[0].Familyname
+      this.user.birthday = new Date(result.data.result[0].Birthday.slice(0, 10)).toISOString().substr(0, 10)
+      this.user.sex = result.data.result[0].Sex
+      this.user.email = result.data.result[0].Email
+      this.eduTypeValue = result.data.result[0].EduName
+      this.imageURL = result.data.result[0].ProfilePic
+      this.user.bio = result.data.result[0].Bio
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    }
   },
   computed: {
     buttonTextCover () {
@@ -262,7 +285,14 @@ export default {
       this.$refs.uploaderPic.click();
     },
     onFileChangedPic (e) {
-      this.selectedFilePic = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = event => {
+        // for preview
+        this.imageURL = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+      // This for upload
+      this.user.image = e.target.files[0];
     },
     save (date) {
       this.$refs.menu.save(date);
@@ -285,8 +315,19 @@ export default {
       var state = this.$refs.form.validate();
       if (state) {
         this.eduTypeMapValue(this.eduTypeValue)
-        console.log(this.selectedFilePic)
-        console.log(this.user)
+        this.user.id = this.$store.getters.getUserName
+        this.$store.dispatch({
+          type: "editProfile",
+          id: this.user.id,
+          firstname: this.user.firstName,
+          familyname: this.user.familyName,
+          birthday: this.user.birthday,
+          sex: this.user.sex,
+          edu: this.user.edcation,
+          newImage: this.user.image,
+          image: this.imageURL,
+          bio: this.user.bio
+        });
       }
     }
   },
