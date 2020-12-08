@@ -17,7 +17,8 @@ export default new Vuex.Store({
     dialogLoading: false,
     username: null,
     userType: null,
-    bukectListLesson: []
+    bukectListLesson: [],
+    unPaidState: false
   },
   getters: {
     getCoreHeader (state) {
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     getBukectList (state) {
       return state.bukectListLesson
+    },
+    getUnPaidSate (state) {
+      return state.unPaidState
     }
   },
   mutations: {
@@ -86,6 +90,9 @@ export default new Vuex.Store({
       if (idx > -1) {
         state.bukectListLesson.splice(idx, 1);
       }
+    },
+    SET_UNPAID_STATE (state, value) {
+      state.unPaidState = value
     }
   },
   actions: {
@@ -105,7 +112,7 @@ export default new Vuex.Store({
       commit("SET_DIALOG_STATE", value)
       commit("SET_DIALOG_MESSAGE", msg)
     },
-    restoreLogin ({ commit }) {
+    restoreLogin ({ commit, dispatch }) {
       if (api.isLoggedIn() === true) {
         const userType = localStorage.getItem(server.USER_TYPE);
         const username = localStorage.getItem(server.USERNAME);
@@ -117,6 +124,8 @@ export default new Vuex.Store({
           commit("SET_LOGO_HEADER", false)
           commit("SET_LOGIN_HEADER_STUDENT", true)
           commit("SET_LOGIN_HEADER_TUTOR", false)
+          dispatch({ type: "restoreBukect" });
+          dispatch({ type: "checkUnPaidInvoice" });
         } else if (userType === "Tutor") {
           commit("SET_DIALOG_LOADING", false)
           commit("SET_USERNAME", username);
@@ -151,6 +160,8 @@ export default new Vuex.Store({
           commit("SET_LOGO_HEADER", false)
           commit("SET_LOGIN_HEADER_STUDENT", true)
           commit("SET_LOGIN_HEADER_TUTOR", false)
+          dispatch({ type: "restoreBukect" });
+          dispatch({ type: "checkUnPaidInvoice" });
           router.push({ name: "Home" })
         } else if (userType === "Tutor") {
           commit("SET_DIALOG_LOADING", false)
@@ -259,7 +270,7 @@ export default new Vuex.Store({
       localStorage.setItem(server.BUKECT, JSON.stringify(this.getters.getBukectList));
     },
     restoreBukect ({ dispatch }) {
-      if (api.isLoggedIn() === true) {
+      if (api.isLoggedIn()) {
         const userType = localStorage.getItem(server.USER_TYPE);
         var bukect = JSON.parse(localStorage.getItem(server.BUKECT))
         if (bukect === null) {
@@ -275,7 +286,31 @@ export default new Vuex.Store({
           }
         }
       }
+    },
+    async confirmInvoice ({ commit, dispatch }, { userId, total, lesson }) {
+      commit("SET_DIALOG_LOADING", true)
+      const result = await api.createInvoice({ userId, total, lesson });
+      if (result.status === "1") {
+        commit("SET_DIALOG_LOADING", false)
+        commit("SET_UNPAID_STATE", true)
+        router.push({ name: "DetailPayment" })
+        localStorage.removeItem(server.BUKECT);
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        commit("SET_UNPAID_STATE", false)
+        dispatch({ type: "dialogPopup", value: true, msg: result.msg })
+      }
+    },
+    async checkUnPaidInvoice ({ commit }) {
+      commit("SET_DIALOG_LOADING", true)
+      var result = await api.getUnPaidInvoice(this.state.username)
+      if (result[1]) {
+        commit("SET_UNPAID_STATE", true)
+        commit("SET_DIALOG_LOADING", false)
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        commit("SET_UNPAID_STATE", false)
+      }
     }
-  },
-  modules: {}
+  }
 });

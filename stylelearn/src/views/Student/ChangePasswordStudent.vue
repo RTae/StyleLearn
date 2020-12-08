@@ -10,13 +10,13 @@
     <v-row style="margin-top: 50px; margin-bottom: 100px">
       <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff" name=profile>
             Profile
           </v-btn>
-          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff" name=editProfile>
             Edit Profile
           </v-btn>
-          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff" name=password>
             Account
           </v-btn>
         </v-card>
@@ -93,12 +93,6 @@
       </v-col>
     </v-row>
     <PopUpDialog/>
-    <v-overlay :value="$store.getters.getDialogLoading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      />
-    </v-overlay>
   </v-container>
 </template>
 

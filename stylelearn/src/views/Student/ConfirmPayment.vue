@@ -8,18 +8,24 @@
     </v-row>
     <!-- Form -->
     <v-row justify="center" style="margin-top: 30px">
-      <v-form>
+      <v-form
+          ref="form"
+          v-model="valid"
+          @submit.prevent="onClickSubmit"
+          lazy-validation
+      >
         <!-- Transfer To -->
         <v-row align="center" justify="start" >
           <v-col>
             <v-card-text class="textLabel">Transfer To</v-card-text>
           </v-col>
-          <v-col>
+          <v-col name=bank>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
-              label="select Bank "
+              label="Please select Bank"
               :items="items"
+              v-model="receipt.bankTransferTo"
               solo
               rounded
               outlined
@@ -32,12 +38,13 @@
           <v-col>
             <v-card-text class="textLabel">Transfer From</v-card-text>
           </v-col>
-          <v-col>
+          <v-col name=yourbank>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
-              label="select Your Bank "
+              label="Please select Your Bank "
               :items="items"
+              v-model="receipt.bankTransferFrom"
               solo
               rounded
               outlined
@@ -53,7 +60,7 @@
           <v-col>
             <v-menu
               ref="menu"
-              v-model="menu"
+              v-model="menuDate"
               :close-on-content-click="false"
               transition="scale-transition"
               offset-y
@@ -63,6 +70,7 @@
                 <v-text-field
                   v-model="dateOfTransfer"
                   label="Date of Transfer"
+                  :rules="[v => !!v || 'Date Transfer is required']"
                   prepend-inner-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -92,7 +100,7 @@
           <v-col>
             <v-menu
               ref="menu"
-              v-model="menu2"
+              v-model="menuTime"
               :close-on-content-click="false"
               :nudge-right="40"
               :return-value.sync="time"
@@ -105,6 +113,7 @@
                 <v-text-field
                   v-model="time"
                   label="select Time"
+                  :rules="[v => !!v || 'Time Transfer is required']"
                   prepend-inner-icon="mdi-clock-time-four-outline"
                   readonly
                   v-bind="attrs"
@@ -116,7 +125,7 @@
                 ></v-text-field>
               </template>
               <v-time-picker
-                v-if="menu2"
+                v-if="menuTime"
                 v-model="time"
                 full-width
                 @click:minute="$refs.menu.save(time)"
@@ -133,6 +142,8 @@
           <v-col>
             <v-text-field
               class="selectField"
+              :rules="numberRule"
+              v-model="receipt.amountTranfer"
               solo
               rounded
               outlined
@@ -158,82 +169,133 @@
                 @click="onButtonClickUploadReceipt"
               >
               <v-icon left> cloud_upload </v-icon>
-              {{ buttonTextReciept }}
+                Upload Receipt
               </v-btn>
               <input
                 ref="uploaderReceipt"
                 class="d-none"
                 type="file"
                 accept="image/*"
-                />
+                @change="onFileChangedPic"
+              />
           </v-col>
         </v-row>
-        <!-- Button -->
-        <v-row justify="center">
-          <v-dialog
-            v-model="dialog"
-            persistent
+        <v-row style="justify-content:center">
+          <v-img
+            max-height="500"
             max-width="300"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="blue lighten-2"
-                class="submitBtn"
-                height="50px"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                Submit
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title class="headline">
-                Confirm Payment
-              </v-card-title>
-              <v-card-text>Are you sure to comfirm this payment?</v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="#EB5757"
-                  text
-                  @click="dialog = false"
-                >
-                  No
-                </v-btn>
-                <v-btn
-                  color="#70ccff"
-                  text
-                  @click="dialog = false"
-                >
-                  Yes
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+            transition="scale-transition"
+            :src=imagePreview />
         </v-row>
+        <!-- Button -->
+        <v-row align="center" justify="center">
+          <v-col cols="2">
+            <button :disabled="!valid" class="submitBtn" type="submit" @click="onClickSubmit">
+              Submit
+            </button>
+          </v-col>
+        </v-row>
+        <!-- Dialog -->
+        <v-dialog
+          v-model="dialogCon"
+          persistent
+          max-width="350"
+        >
+          <v-card>
+            <v-card-title class="font-size:20px; font-family: 'Delius'; font-weight:bold">
+              Confirm Payment
+            </v-card-title>
+            <v-card-text style="font-size:17px; font-family: 'Delius'">Are you sure to comfirm this payment?</v-card-text>
+            <v-card-actions>
+              <div class="d-flex justify-space-around" style="width:100%">
+                <v-btn
+                  color="red darken-1"
+                  text
+                  @click="dialogCon = false"
+                >
+                  Cancle
+                </v-btn>
+                <v-btn
+                  color="#6eb9f7"
+                  text
+                  @click="onClickConfirm()"
+                >
+                  Confirm
+                </v-btn>
+              </div>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-form>
     </v-row>
+    <PopUpDialog/>
   </v-container>
 </template>
 
 <script>
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "ConfirmPayment",
-  components: {},
+  components: {
+    PopUpDialog
+  },
   mounted () {
-    this.title = this.$route.params.titleName;
+    this.receipt.invoiceID = this.$route.query.invoiceID
+    this.total = this.$route.query.total
   },
   computed: {},
   data: () => ({
-    items: ["KASIKORN BANK (K-BANK)", "BANGKOK BANK (BBL)", "Government Savings Bank (GSB)", "Krung Thai Bank (KTB)", "Siam Commercial Bank (SCB)", "Krungsri Bank (BAY)"],
-    dateOfTransfer: null,
-    menu: false,
-    time: null,
-    menu2: false,
-    modal2: false,
-    files: [],
-    dialog: false
+    items: ["Kasikorn Bank (K-BANK)", "Bangkok Bank (BBL)", "Government Savings Bank (GSB)", "Krung Thai Bank (KTB)", "Siam Commercial Bank (SCB)", "Krungsri Bank (BAY)"],
+    valid: true, // Form Valid status
+    menuDate: false, // Popup Date status
+    menuTime: false, // Popup time status
+    dateOfTransfer: null, // Date
+    time: null, // Time
+    imagePreview: null, // Image preview
+    isSelectingUploadReceipt: false, // State check image is upload
+    total: null, // Total
+    dialogCon: false, // Dialog Confirm
+    receipt: {
+      invoiceID: null,
+      bankTransferTo: null,
+      bankTransferFrom: null,
+      amountTranfer: "",
+      image: null
+    },
+    numberRule: [
+      v => {
+        if (!v.trim()) return true;
+        if (!isNaN(parseFloat(v)) && v >= 0 && v <= 999) return true;
+        return "Number has to be between 0 and 999";
+      },
+      v => !!v || "Amount Transfer is required"
+    ],
+    bankType: [
+      {
+        id: "kbank",
+        name: "Kasikorn Bank (K-BANK)"
+      },
+      {
+        id: "bbl",
+        name: "Bangkok Bank (BBL)"
+      },
+      {
+        id: "gsb",
+        name: "Government Savings Bank (GSB)"
+      },
+      {
+        id: "ktb",
+        name: "Krung Thai Bank (KTB)"
+      },
+      {
+        id: "scb",
+        name: "Siam Commercial Bank (SCB)"
+      },
+      {
+        id: "bay",
+        name: "Krungsri Bank (BAY)"
+      }
+    ]
   }),
   watch: {
     menu (val) {
@@ -241,8 +303,25 @@ export default {
     }
   },
   methods: {
+    onClickConfirm () {
+      var datetime = new Date(this.dateOfTransfer + " " + this.time).toISOString()
+      this.receipt.tranferDateTime = datetime
+      this.receipt.userid = this.$store.getters.getUserName
+      this.receipt.total = parseFloat(this.total)
+      this.receipt.bankTransferTo = this.bankTypeMapValue(this.receipt.bankTransferTo)
+      this.receipt.bankTransferFrom = this.bankTypeMapValue(this.receipt.bankTransferFrom)
+      console.log(this.receipt)
+      this.dialogCon = false
+    },
     save (date) {
       this.$refs.menu.save(date)
+    },
+    bankTypeMapValue (bankName) {
+      for (var idx = 0; idx < this.bankType.length; idx++) {
+        if (this.bankType[idx].name === bankName) {
+          return this.bankType[idx].id
+        }
+      }
     },
     onButtonClickUploadReceipt () {
       this.isSelectingUploadReceipt = true;
@@ -255,6 +334,38 @@ export default {
       );
 
       this.$refs.uploaderReceipt.click();
+    },
+    onFileChangedPic (e) {
+      const reader = new FileReader();
+      reader.onload = event => {
+        // for preview
+        this.imagePreview = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+      // This for upload
+      this.receipt.image = e.target.files[0];
+    },
+    onClickSubmit () {
+      var state = this.$refs.form.validate()
+      if (state) {
+        if (this.receipt.image !== null) {
+          if (parseFloat(this.receipt.amountTranfer) === parseFloat(this.total)) {
+            this.dialogCon = true
+          } else {
+            this.$store.dispatch({
+              type: "dialogPopup",
+              value: true,
+              msg: "The amount tranfer is incorrect"
+            });
+          }
+        } else {
+          this.$store.dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Please upload recipt"
+          });
+        }
+      }
     }
   }
 };
@@ -310,8 +421,7 @@ export default {
   background-position: center;
   font-family: "Average Sans", sans-serif;
   border-radius: 100px;
-  margin-top:50px;
-  margin-bottom: 100px;
+  margin-right: 20px;
   width: 130px;
   height: 45px;
   opacity: 1;

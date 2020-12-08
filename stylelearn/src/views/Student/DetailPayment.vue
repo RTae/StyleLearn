@@ -15,12 +15,12 @@
       <v-card class="cardOrderContainer">
         <v-row align="center" justify="center">
           <v-col>
-            <p class="cardTextTitle">Invoice ID : i000000001</p>
+            <p class="cardTextTitle">Invoice ID : {{ invoiceID }}</p>
           </v-col>
         </v-row>
         <v-row align="center" justify="center">
           <v-col>
-            <p class="cardTextTitle">Total : 150 Bath</p>
+            <p class="cardTextTitle">Total : {{ total }} Bath</p>
           </v-col>
         </v-row>
       </v-card>
@@ -45,10 +45,11 @@
           class="bottonNext"
           style="background-color:#EB5769;"
           @click="onClickCancle()"
+          name=btnCancel
         >
           Cancle
         </button>
-        <button class="bottonNext" @click="onClickCom()">
+        <button class="bottonNext" @click="onClickCom()" name=btnNext>
           Confirm Payment
         </button>
       </div>
@@ -57,15 +58,43 @@
 </template>
 
 <script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "DetailPayment",
   components: {},
+  async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
+    const id = localStorage.getItem(server.USERNAME)
+    var result = await api.getUnPaidInvoice(id)
+    if (result[1]) {
+      this.invoiceID = result[0][0].Invoice_id
+      this.total = result[0][0].Total
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    }
+  },
+  data () {
+    return {
+      invoiceID: null,
+      total: null
+    }
+  },
   methods: {
-    onClickCancle () {
-      this.$router.push({ name: "SelectItem" });
+    async onClickCancle () {
+      this.$store.commit("SET_DIALOG_LOADING", true)
+      var result = await api.cancelInvoice(this.invoiceID)
+      if (result.status === "1") {
+        this.$store.commit("SET_DIALOG_LOADING", false)
+        this.$router.push({ name: "Home" });
+        this.$store.commit("SET_UNPAID_STATE", false)
+      } else {
+        this.$store.commit("SET_DIALOG_LOADING", false)
+        this.$router.push({ name: "Home" });
+        this.$store.dispatch({ type: "dialogPopup", value: true, msg: result.msg })
+      }
     },
     onClickCom () {
-      this.$router.push({ name: "ConfirmPayment" });
+      this.$router.push({ name: "ConfirmPayment", query: { invoiceID: this.invoiceID, total: this.total } });
     }
   }
 };

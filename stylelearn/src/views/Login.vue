@@ -95,13 +95,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- Popup overlay -->
-    <v-overlay :value="$store.getters.getDialogLoading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      ></v-progress-circular>
-    </v-overlay>
   </v-container>
 </template>
 

@@ -10,6 +10,7 @@
         rounded
         depressed
         @click="onClickUpload"
+        name=upload
       >
       <v-icon left> add </v-icon>
         Upload video

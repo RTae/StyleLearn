@@ -9,6 +9,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus I','c000000003')"
+            name=Cal1
           >
             <v-img
               class="cardImg"
@@ -22,6 +23,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus II','c000000021')"
+            name=Cal2
           >
             <v-img
               class="cardImg"
@@ -35,6 +37,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus III','c000000022')"
+            name=Cal3
           >
             <v-img
             class="cardImg"
@@ -89,6 +92,7 @@
               height="200"
               width="303"
               :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
+              name=Newest
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">{{ course.Name }}</p>
@@ -135,6 +139,7 @@
               height="200"
               width="303"
               :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
+              name=Popular
             />
             <v-sheet class="cardInSmallContainer">
               <p class="cardInSmallText">{{ course.Name }}</p>
@@ -160,8 +165,9 @@
                 class="ma-10 subjectCard"
                 :class="{ 'on-hover': hover }"
                 @click="onClickSubject(subject.Name, subject.SubjectID);"
+                name=Subject
               >
-              <v-img
+                <v-img
                 class="cardImg"
                 :src="require('../assets/image/subject/cardBig/'+ subject.Name + '.png')"
               ></v-img>

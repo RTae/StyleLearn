@@ -16,20 +16,26 @@ type ProgressLesson struct {
 }
 
 // Create new subject into platfrom
-func (pl *ProgressLesson) Create(userID, lessonID string, quantityDay int) map[string]interface{} {
+func (pl *ProgressLesson) Create(userID, lessonID, quantityDay string) map[string]interface{} {
 	db, logs := pl.initDB()
 	if logs["status"] != "1" {
 		return logs
 	}
 	defer db.Close()
 
+	quantityDayInt, err := strconv.ParseInt(quantityDay, 10, 64)
+	if err != nil {
+		log := pl.errorHandle(err)
+		return log
+	}
+
 	lesson := entities.TBL_ProgressLessoon{
 		UserID:      userID,
 		LessonID:    lessonID,
-		QuantityDay: quantityDay,
+		QuantityDay: quantityDayInt,
 	}
 
-	err := db.Create(&lesson).Error
+	err = db.Create(&lesson).Error
 	if err != nil {
 		log := pl.errorHandle(err)
 		return log
@@ -62,7 +68,7 @@ func (pl *ProgressLesson) Read(uid, lid string) map[string]interface{} {
 	return log
 }
 
-func (pl *ProgressLesson) Update(uid, lid string, quantityDay int) map[string]interface{} {
+func (pl *ProgressLesson) Update(uid, lid string, quantityDay int64) map[string]interface{} {
 	db, logs := pl.initDB()
 	if logs["status"] != "1" {
 		return logs

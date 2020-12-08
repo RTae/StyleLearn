@@ -17,7 +17,7 @@ axios.interceptors.request.use(async config => {
     }
     config.url = apiUrl + "/" + config.url;
   }
-  config.timeout = 10000; // 10 Second
+  config.timeout = 20000; // 10 Second
   return config;
 });
 

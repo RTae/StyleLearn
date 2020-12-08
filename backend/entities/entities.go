@@ -54,5 +54,35 @@ type TBL_LessonTypes struct {
 type TBL_ProgressLessoon struct {
 	UserID      string `gorm:"primary_key"`
 	LessonID    string `gorm:"primary_key"`
-	QuantityDay int
+	QuantityDay int64
+}
+
+type TBL_Invoice struct {
+	InvoiceID  string `gorm:"primary_key"`
+	UserID     string
+	CreateDate time.Time
+	Total      float64
+	Detail     string
+	Status     bool
+}
+
+type TBL_InvoiceLineItem struct {
+	InvoiceID   string `gorm:"primary_key"`
+	LessonID    string `gorm:"primary_key"`
+	QuantityDay int64
+	AmountTotal float64
+}
+
+type TBL_Payment struct {
+	PaymentID      string `gorm:"primary_key"`
+	InvoiceID      string
+	UserID         string
+	PaymentTypeID  string
+	Status         bool
+	CreateDate     time.Time
+	DateTransfer   time.Time
+	AmountTransfer float64
+	Total          float64
+	TransferFrom   string
+	TransferTo     string
 }
