@@ -22,6 +22,7 @@ export const server = {
   PROGRESS_LESSON: apiUrl + "/progressLesson/index",
   INVOICE: apiUrl + "/invoice/index",
   PAYMENT: apiUrl + "/payment/index",
+  VIDEO: apiUrl + "/video/index",
   USERNAME: "username",
   USER_TYPE: "userType",
   TOKEN_KEY: "TOKEN",

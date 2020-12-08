@@ -128,32 +128,9 @@
           </v-row>
         </v-card>
         <v-card class="tutorCard">
-          <v-row>
-            <v-col cols="2" class="imgContainer">
-              <v-img
-                width="128px"
-                height="128px"
-                alt="pravit"
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-              ></v-img>
-            </v-col>
-            <v-col cols="2">
-              <div class="detail">
-                <v-row>
-                  <v-card-text class="cardTextTutorTitle"
-                    >ครูพี่นิว</v-card-text
-                  >
-                </v-row>
-                <v-row>
-                  <v-col cols="2">
-                    <v-card-text class="cardTextTutorDetail"
-                      >“เลขง่ายๆ กับครูพี่นิว”</v-card-text
-                    >
-                  </v-col>
-                </v-row>
-              </div>
-            </v-col>
-          </v-row>
+          <v-img
+            src="../assets/image/etc/Group 1.svg"
+          />
         </v-card>
         <v-card class="tutorCard">
           <v-row>

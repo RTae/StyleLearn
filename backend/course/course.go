@@ -169,14 +169,14 @@ func (c *Course) GetAllCourseBySubjectName(subjectName string) map[string]interf
 										 FROM tbl_subject_types
 										 WHERE name = ? ) `, subjectName).Scan(&result).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := c.errorHandle(err)
 		return log
 	}
 
 	log := make(map[string]interface{})
 	log["status"] = "1"
 	log["msg"] = ""
-	log["result"] = courses
+	log["result"] = result
 	return log
 }
 

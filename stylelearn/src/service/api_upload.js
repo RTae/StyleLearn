@@ -11,3 +11,14 @@ export const uploadImage = async values => {
     status: result.status
   }
 }
+
+export const uploadVideo = async values => {
+  var bodyFormData = new FormData();
+  bodyFormData.append("file", values.videoFile);
+  bodyFormData.append("upload_preset", "video_upload");
+  const result = await httpClient.post(server.UPLOAD_VIDEO, bodyFormData);
+  return {
+    data: result.data,
+    status: result.status
+  }
+}

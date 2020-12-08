@@ -11,6 +11,8 @@ import (
 //Handler Login Auth CorchroshDB
 func Handler(w http.ResponseWriter, r *http.Request) {
 	helper.SetupResponse(&w, r)
+	// create Course
+	c := course.Course{}
 	if (*r).Method == "OPTIONS" {
 		return
 	}
@@ -20,16 +22,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		subjectName := r.FormValue("subjectName")
 		mode := r.FormValue("mode")
 
-		// create Course
-		c := course.Course{}
-
 		if mode == "1" {
 			logs := c.Read(id)
 			json.NewEncoder(w).Encode(logs)
 		} else if mode == "2" {
 			logs := c.ReadCourseBySubject(id)
 			json.NewEncoder(w).Encode(logs)
-		} else if {
+		} else if mode == "3" {
 			logs := c.GetAllCourseBySubjectName(subjectName)
 			json.NewEncoder(w).Encode(logs)
 		} else {

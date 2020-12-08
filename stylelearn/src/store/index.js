@@ -372,6 +372,36 @@ export default new Vuex.Store({
         commit("SET_DIALOG_LOADING", false)
         dispatch({ type: "dialogPopup", value: true, msg: result.msg })
       }
+    },
+    async uploadVideo ({ commit, dispatch }, { userID, lessonID, description, videoFile, status }) {
+      commit("SET_DIALOG_LOADING", true)
+      var resultVideo = await api.uploadVideo({ videoFile })
+      if (resultVideo.status === 200) {
+        var videoURL = resultVideo.data.url
+        var result = await api.createVideo({ userID, lessonID, description, videoURL, status })
+        if (result.status === "1") {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Upload Done !!"
+          })
+        } else {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: result.msg
+          })
+        }
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Upload faile" + " : " + resultVideo.status.toString()
+        })
+      }
     }
   }
 });
