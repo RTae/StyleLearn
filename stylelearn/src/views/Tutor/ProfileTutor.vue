@@ -29,13 +29,15 @@
               class="d-flex flex-column justify-center"
               style="border-radius:10px; border:2px solid black; margin-bottom:30px"                   max-height="300"
               min-height="200"
-              max-width="400"
+              max-width="300"
               min-width="200"
               color="grey darken-1"
             >
               <v-img
               :lazy-src="require('../../assets/image/etc/lazy_loading.png')"
               contain
+              max-height="300"
+              max-width="300"
               :src="user.image"
             />
           </v-card>
@@ -62,19 +64,34 @@
 </template>
 
 <script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "ProfileTutor",
+  async mounted () {
+    const result = await api.getUser(localStorage.getItem(server.USERNAME))
+    if (result.data.status === "1") {
+      this.user.image = result.data.result[0].ProfilePic
+      this.user.firstName = result.data.result[0].Firstname
+      this.user.familyName = result.data.result[0].Familyname
+      this.user.birthday = result.data.result[0].Birthday.slice(0, 10)
+      this.user.sex = result.data.result[0].Sex
+      this.user.email = result.data.result[0].Email
+      this.user.edcation = result.data.result[0].EduName
+      this.user.bio = result.data.result[0].Bio
+    }
+  },
   data () {
     return {
       user: {
-        image: "https://picsum.photos/id/11/500/300",
-        firstName: "Natthanan",
-        familyName: "Bhukan",
-        birthday: "1999/08/16",
-        sex: "Male",
-        email: "tutor@tutor.com",
-        edcation: "Bachelor",
-        bio: "เรียนหนังสือสนุกจริงๆ"
+        image: "",
+        firstName: "",
+        familyName: "",
+        birthday: "",
+        sex: "",
+        email: "",
+        edcation: "",
+        bio: ""
       }
     }
   },

@@ -59,7 +59,9 @@ export default {
   name: "LearnCourseTutorPage",
   components: {},
   mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
     this.title = this.$route.query.titleName;
+    this.$store.commit("SET_DIALOG_LOADING", false)
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",

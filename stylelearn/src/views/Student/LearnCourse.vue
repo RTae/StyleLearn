@@ -51,11 +51,13 @@ export default {
   name: "MyCourse",
   components: {},
   async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
     this.title = this.$route.query.titleName;
     const id = localStorage.getItem(server.USERNAME)
     const result = await api.getProgressLesson(id, this.$route.query.id)
     if (result.data.status === "1") {
       this.lessons = result.data.result
+      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   data: () => ({

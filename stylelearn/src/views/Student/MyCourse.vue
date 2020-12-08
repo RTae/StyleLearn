@@ -35,10 +35,12 @@ export default {
   name: "MyCourse",
   components: {},
   async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
     const id = localStorage.getItem(server.USERNAME)
     const result = await api.getCourseFromProgressLesson(id, name)
     if (result.data.status === "1") {
       this.courses = result.data.result
+      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   data: () => ({

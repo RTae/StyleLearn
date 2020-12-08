@@ -4,7 +4,6 @@ import (
 	"backend/helper"
 	"backend/user"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -13,8 +12,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	helper.SetupResponse(&w, r)
 	if (*r).Method == "OPTIONS" {
 		return
-	}
-	if (*r).Method == "GET" {
+	} else if (*r).Method == "GET" {
 		w.Header().Set("Content-Type", "application/json")
 		id := r.FormValue("id")
 		mode := r.FormValue("mode")
@@ -32,7 +30,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			logs := u.GetAllUser()
 			json.NewEncoder(w).Encode(logs)
 		}
-	} else if (*r).Method == "POST" {
+	} else if (*r).Method == "PUT" {
 		w.Header().Set("Content-Type", "application/json")
 
 		u := user.User{}
@@ -40,13 +38,18 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		firstname := r.FormValue("firstname")
 		familyname := r.FormValue("familyname")
 		birthday := r.FormValue("birthday")
+		linkPic := r.FormValue("linkPic")
 		sex := r.FormValue("sex")
 		edu := r.FormValue("edu")
 		bio := r.FormValue("bio")
 
-		logs := u.Update(id, firstname, familyname, birthday, sex, edu, bio)
+		logs := u.Update(id, firstname, familyname, birthday, sex, linkPic, edu, bio)
 		json.NewEncoder(w).Encode(logs)
 	} else {
-		fmt.Fprintf(w, "Please use get medthod")
+		log := make(map[string]interface{})
+		log["status"] = "415"
+		log["msg"] = "medthod is not provide"
+		log["result"] = ""
+		json.NewEncoder(w).Encode(log)
 	}
 }

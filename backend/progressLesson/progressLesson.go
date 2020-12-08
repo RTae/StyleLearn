@@ -29,7 +29,7 @@ func (pl *ProgressLesson) Create(userID, lessonID, quantityDay string) map[strin
 		return log
 	}
 
-	lesson := entities.TBL_ProgressLessoon{
+	lesson := entities.TBL_ProgressLesson{
 		UserID:      userID,
 		LessonID:    lessonID,
 		QuantityDay: quantityDayInt,
@@ -55,8 +55,8 @@ func (pl *ProgressLesson) Read(uid, lid string) map[string]interface{} {
 	}
 	defer db.Close()
 
-	var lesson []entities.TBL_ProgressLessoon
-	err := db.Find(&lesson, entities.TBL_ProgressLessoon{UserID: uid, LessonID: lid}).Error
+	var lesson []entities.TBL_ProgressLesson
+	err := db.Find(&lesson, entities.TBL_ProgressLesson{UserID: uid, LessonID: lid}).Error
 	if err != nil {
 		log := pl.errorHandle(err)
 		return log
@@ -80,7 +80,7 @@ func (pl *ProgressLesson) Update(uid, lid string, quantityDay int64) map[string]
 		return logs
 	}
 
-	db.Model(&entities.TBL_ProgressLessoon{}).Where(entities.TBL_ProgressLessoon{UserID: uid, LessonID: lid}).Update(entities.TBL_ProgressLessoon{QuantityDay: quantityDay})
+	db.Model(&entities.TBL_ProgressLesson{}).Where(entities.TBL_ProgressLesson{UserID: uid, LessonID: lid}).Update(entities.TBL_ProgressLesson{QuantityDay: quantityDay})
 
 	logs = make(map[string]interface{})
 	logs["status"] = "1"
@@ -96,7 +96,7 @@ func (pl *ProgressLesson) Delete(uid, lid string) map[string]interface{} {
 	}
 	defer db.Close()
 
-	err := db.Delete(&entities.TBL_ProgressLessoon{}, entities.TBL_ProgressLessoon{UserID: uid, LessonID: lid}).Error
+	err := db.Delete(&entities.TBL_ProgressLesson{}, entities.TBL_ProgressLesson{UserID: uid, LessonID: lid}).Error
 	if err != nil {
 		log := pl.errorHandle(err)
 		return log
@@ -115,7 +115,7 @@ func (pl *ProgressLesson) GetAllProgressLesson() map[string]interface{} {
 	}
 	defer db.Close()
 
-	var lessons []entities.TBL_ProgressLessoon
+	var lessons []entities.TBL_ProgressLesson
 	err := db.Find(&lessons).Error
 	if err != nil {
 		log := pl.errorHandle(err)
@@ -146,7 +146,7 @@ func (pl *ProgressLesson) GetAllCourseFronProgressLesson(uid string) map[string]
 	var result []resultCourse
 	err := db.Raw(`	SELECT DISTINCT(c.course_id) AS "course_id", c.name AS "course_name", 
 					s.name AS "subject_name"
-					FROM tbl_progress_lesson pl
+					FROM tbl_progress_lessons pl
 					INNER JOIN tbl_lesson_types l
 						ON pl.lesson_id = l.lesson_id
 					INNER JOIN tbl_course_types c
@@ -180,7 +180,7 @@ func (pl *ProgressLesson) GetAllProgressLessonFromCourse(uid, cid string) map[st
 
 	var result []resultLesson
 	err := db.Raw(`	SELECT pl.lesson_id , l.name as lesson_name
-					FROM tbl_progress_lesson pl
+					FROM tbl_progress_lessons pl
 					INNER JOIN tbl_lesson_types l
 						ON pl.lesson_id = l.lesson_id
 					INNER JOIN tbl_course_types c

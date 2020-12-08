@@ -150,6 +150,36 @@ func (l *Lesson) ReadLessonByCourse(cid string) map[string]interface{} {
 	return log
 }
 
+type result_lesson struct {
+	CourseID string
+	Name     string
+}
+
+func (c *Course) GetAllLessonByCourseName(courseName string) map[string]interface{} {
+	db, logs := c.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var result []result_lesson
+	err := db.Raw(`	SELECT lesson_id, name 
+					FROM tbl_lesson_types
+					WHERE course_id = ( SELECT course_id
+										FROM tbl_course_types
+										WHERE name = ? ) `, courseName).Scan(&result).Error
+	if err != nil {
+		log := u.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = courses
+	return log
+}
+
 // Helper Function
 func increaseID(id, name string, length int) (string, error) {
 	digit, err := strconv.Atoi(id[length:])

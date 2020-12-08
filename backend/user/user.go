@@ -137,7 +137,7 @@ func (u *User) ChangePassword(uid, oldPassword, newPassword string) map[string]i
 		return log
 	} else {
 		log["status"] = "215"
-		log["msg"] = "Wrong Password"
+		log["msg"] = "Old password is wrong"
 		log["result"] = ""
 		return log
 	}
@@ -174,7 +174,7 @@ func (u *User) Create(firstname, familyname, brithday, sex, email, password, use
 		Birthday:      t,
 		Sex:           sex,
 		Email:         email,
-		ProfilePic:    newUID + ".png",
+		ProfilePic:    newUID,
 		UserType:      userType,
 		EducationType: educationType,
 		Bio:           "",
@@ -260,7 +260,7 @@ func (u *User) ReadProfile(uid string) map[string]interface{} {
 	return log
 }
 
-func (u *User) Update(uid, firstname, familyname, birthday, sex, edu, bio string) map[string]interface{} {
+func (u *User) Update(uid, firstname, familyname, birthday, sex, linkPic, edu, bio string) map[string]interface{} {
 	db, logs := u.initDB()
 	if logs["status"] != "1" {
 		return logs
@@ -276,7 +276,14 @@ func (u *User) Update(uid, firstname, familyname, birthday, sex, edu, bio string
 		log := u.errorHandle(err)
 		return log
 	}
-	err = db.Model(&entities.TBL_Users{}).Where(entities.TBL_Users{UserID: uid}).Update(entities.TBL_Users{Firstname: firstname, Familyname: familyname, Birthday: t, Sex: sex, EducationType: edu, Bio: bio}).Error
+	err = db.Model(&entities.TBL_Users{}).Where(entities.TBL_Users{UserID: uid}).Update(entities.TBL_Users{
+		Firstname:     firstname,
+		Familyname:    familyname,
+		Birthday:      t,
+		Sex:           sex,
+		ProfilePic:    linkPic,
+		EducationType: edu,
+		Bio:           bio}).Error
 	if err != nil {
 		log := u.errorHandle(err)
 		return log

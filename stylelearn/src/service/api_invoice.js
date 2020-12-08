@@ -64,3 +64,27 @@ export const cancelInvoice = async id => {
     return result.data;
   }
 };
+
+export const updateStatusInvoice = async value => {
+  var bodyForm = new FormData();
+  bodyForm.append("invoiceID", value.invoiceID);
+  bodyForm.append("status", value.status);
+  bodyForm.append("mode", "2");
+  const result = await httpClient.put(server.INVOICE, bodyForm);
+  if (result.data.status === "1") {
+    return result.data;
+  } else {
+    return result.data;
+  }
+};
+
+export const getLineItemInvoice = async id => {
+  const result = await httpClient.get(
+    server.INVOICE + `?invoiceID=${id}&mode=4`
+  );
+  if (result.data.status === "1") {
+    return result.data;
+  } else {
+    return result.data;
+  }
+};

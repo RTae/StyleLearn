@@ -17,6 +17,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if (*r).Method == "GET" {
 		w.Header().Set("Content-Type", "application/json")
 		id := r.FormValue("id")
+		subjectName := r.FormValue("subjectName")
 		mode := r.FormValue("mode")
 
 		// create Course
@@ -27,6 +28,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(logs)
 		} else if mode == "2" {
 			logs := c.ReadCourseBySubject(id)
+			json.NewEncoder(w).Encode(logs)
+		} else if {
+			logs := c.GetAllCourseBySubjectName(subjectName)
 			json.NewEncoder(w).Encode(logs)
 		} else {
 			logs := c.GetAllCourse()
