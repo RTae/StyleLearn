@@ -150,6 +150,36 @@ func (c *Course) ReadCourseBySubject(sid string) map[string]interface{} {
 	return log
 }
 
+type result_course struct {
+	CourseID string
+	Name     string
+}
+
+func (c *Course) GetAllCourseBySubjectName(subjectName string) map[string]interface{} {
+	db, logs := c.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var result []result_course
+	err := db.Raw(`	SELECT course_id, name 
+					FROM tbl_course_types
+					WHERE subject_id = ( SELECT subject_id
+										 FROM tbl_subject_types
+										 WHERE name = ? ) `, subjectName).Scan(&result).Error
+	if err != nil {
+		log := c.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+	return log
+}
+
 // Helper Function
 func increaseID(id, name string, length int) (string, error) {
 	digit, err := strconv.Atoi(id[length:])

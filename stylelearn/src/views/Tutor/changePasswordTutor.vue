@@ -127,17 +127,13 @@ export default {
     submitSave () {
       var state = this.$refs.form.validate();
       if (this.user.newPassword === this.conPassword) {
-        var checkPassword = "123qwe"
-        if (this.user.currentPassword === checkPassword) {
-          if (state) {
-            this.user.userName = this.$store.getters.getUserName
-            console.log(this.user)
-          }
-        } else {
+        if (state) {
+          this.user.id = this.$store.getters.getUserName
           this.$store.dispatch({
-            type: "dialogPopup",
-            value: true,
-            msg: "Current password is wrong"
+            type: "changePassword",
+            id: this.user.id,
+            oldPassword: this.user.currentPassword,
+            newPassword: this.user.newPassword
           });
         }
       } else {

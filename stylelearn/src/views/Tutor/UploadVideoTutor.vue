@@ -22,7 +22,7 @@
             </v-row>
             <div>
             <v-btn
-                color="primary"
+                :color="videoPreview === null ? 'primary' : 'green'"
                 class="text-none"
                 height="50"
                 elevation="5"
@@ -43,31 +43,6 @@
                 />
             </div>
           </v-col>
-          <v-col>
-            <v-row class="ml-2" justify="start">
-              <label class="textLabel">Cover picture</label>
-            </v-row>
-            <v-btn
-                color="primary"
-                class="text-none"
-                height="50"
-                elevation="5"
-                rounded
-                depressed
-                :loading="isSelectingUploadCover"
-                @click="onButtonClickUploadCover"
-              >
-              <v-icon left> cloud_upload </v-icon>
-                {{ buttonTextCover }}
-              </v-btn>
-              <input
-                ref="uploaderCover"
-                class="d-none"
-                type="file"
-                accept="image/*"
-                @change="onFileChangedCover"
-              />
-          </v-col>
         </v-row>
         <!-- Subject Course -->
         <v-row align="center" justify="start">
@@ -78,7 +53,8 @@
              <v-select
                 :rules="[v => !!v || 'Item is required']"
                 class="selectField"
-                :items="items"
+                :items="subjectItem"
+                v-model="subject"
                 solo
                 rounded
                 outlined
@@ -91,12 +67,13 @@
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
-              :items="items"
+              :items="courseItem"
+              v-model="course"
               solo
               rounded
               outlined
-              background-color="grey lighten-2"
-              :disabled="true"
+              :disabled="this.subject === null ? true : false"
+              :background-color="this.subject === null ? 'grey lighten-2' : 'white'"
             />
           </v-col>
         </v-row>
@@ -110,12 +87,13 @@
              <v-select
                 :rules="[v => !!v || 'Item is required']"
                 class="selectField"
-                :items="items"
+                :items="lessonItem"
+                v-model="video.lessonID"
                 solo
                 rounded
                 outlined
-                background-color="grey lighten-2"
-                :disabled="true"
+                :disabled="this.course === null ? true : false"
+                :background-color="this.course === null ? 'grey lighten-2' : 'white'"
               />
           </v-col>
         </v-row>
@@ -127,7 +105,7 @@
               <label class="textLabel">Description</label>
             </v-row>
             <v-textarea
-              v-model="title"
+              v-model="video.description"
               counter
               rounded
               maxlength="100"
@@ -173,7 +151,7 @@
     </v-dialog>
 
     <!-- Popup overlay -->
-    <v-overlay :value="$store.getters.getDialogLoading">
+    <v-overlay :value="loading">
       <v-progress-circular
         indeterminate
         size="64"
@@ -184,11 +162,18 @@
 </template>
 
 <script>
+import api from "../../service/api"
 export default {
   name: "uploadVideo",
   components: {},
-  mounted () {
-    this.title = this.$route.params.titleName;
+  async mounted () {
+    const resultSubject = await api.getAllSubject()
+    const resultCourse = await api.getAllCouse()
+    const resultLesson = await api.getAllLeson()
+    this.subjectList = resultSubject.data.result
+    this.courseList = resultCourse.data.result
+    this.lessonList = resultLesson.data.result
+    this.loading = false
   },
   computed: {
     buttonTextVideo () {
@@ -200,37 +185,64 @@ export default {
       return this.selectedFileCover
         ? this.selectedFileCover.name
         : this.defaultButtonTextCover;
+    },
+    subjectItem () {
+      var temp = []
+      for (var idx = 0; idx < this.subjectList.length; idx++) {
+        temp.push(this.subjectList[idx].Name)
+      }
+      return temp
+    },
+    courseItem () {
+      const getSubject = this.subjectList.find(s => s.Name === this.subject);
+      if (getSubject !== undefined) {
+        var course = this.courseList.filter(function (sl) {
+          return sl.SubjectID === getSubject.SubjectID
+        });
+        var temp = []
+        for (var idx = 0; idx < course.length; idx++) {
+          temp.push(course[idx].Name)
+        }
+        return temp
+      } else {
+        return []
+      }
+    },
+    lessonItem () {
+      const getCourse = this.courseList.find(c => c.Name === this.course);
+      if (getCourse !== undefined) {
+        var lesson = this.lessonList.filter(function (ll) {
+          return ll.CourseID === getCourse.CourseID
+        });
+        var temp = []
+        for (var idx = 0; idx < lesson.length; idx++) {
+          temp.push(lesson[idx].Name)
+        }
+        return temp
+      } else {
+        return []
+      }
     }
   },
   data: () => ({
-    defaultButtonTextVideo: "Upload Vidoe",
-    defaultButtonTextCover: "Upload Cover",
+    loading: true,
+    defaultButtonTextVideo: "Upload Video",
     selectedFileVideo: null,
-    selectedFileCover: null,
     isSelectingUploadVideo: false,
-    isSelectingUploadCover: false,
     valid: true,
-    title: "",
-    emailCon: "",
-    items: ["a", "b", "c", "d"],
-    user: {
-      role: "",
-      sex: "",
-      firtname: "",
-      familyname: "",
-      birthday: null,
-      edu: "",
-      email: "",
-      password: ""
-    },
-    passwordRules: [
-      (v) => !!v || "Password is required",
-      (v) => (v && v.length >= 6) || "Password must be more than 6 characters"
-    ],
-    emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"
-    ]
+    subject: null,
+    course: null,
+    lesson: null,
+    subjectList: [],
+    courseList: [],
+    lessonList: [],
+    videoPreview: null,
+    video: {
+      userID: "",
+      lessonID: "",
+      file: null,
+      description: ""
+    }
   }),
   methods: {
     onButtonClickUploadVideo () {
@@ -245,28 +257,31 @@ export default {
 
       this.$refs.uploaderVideo.click();
     },
-    onButtonClickUploadCover () {
-      this.isSelectingUploadCover = true;
-      window.addEventListener(
-        "focus",
-        () => {
-          this.isSelectingUploadCover = false;
-        },
-        { once: true }
-      );
-
-      this.$refs.uploaderCover.click();
-    },
     onFileChangedVideo (e) {
-      this.selectedFileVideo = e.target.files[0];
-    },
-    onFileChangedCover (e) {
-      this.selectedFileCover = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = event => {
+        // for preview
+        this.videoPreview = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+      // This for upload
+      this.video.file = e.target.files[0];
     },
     submitUpload () {
       var state = this.$refs.form.validate()
       if (state) {
-        if (this.selectedFileVideo !== null) {
+        if (this.video.file !== null) {
+          const getLesson = this.lessonList.find(l => l.Name === this.video.lessonID);
+          this.video.lessonID = getLesson.LessonID
+          this.video.userID = this.$store.getters.getUserName
+          this.$store.dispatch({
+            type: "uploadVideo",
+            userID: this.video.userID,
+            lessonID: this.video.lessonID,
+            description: this.video.description,
+            videoFile: this.video.file,
+            status: "1"
+          });
         } else {
           this.$store.dispatch({
             type: "dialogPopup",

@@ -359,11 +359,14 @@ export default {
     model: null
   }),
   async mounted () {
-    const result = await api.getSubject()
+    this.$store.commit("SET_DIALOG_LOADING", true)
+    const result = await api.getAllSubject()
     if (result.data.status === "1") {
       this.subjectItems = result.data.result
+      this.$store.commit("SET_DIALOG_LOADING", false)
     } else {
       this.subjectItems = []
+      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   methods: {

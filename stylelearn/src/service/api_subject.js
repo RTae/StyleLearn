@@ -1,6 +1,6 @@
 import httpClient from "@/service/httpClient";
 import { server } from "@/service/constants";
 
-export const getSubject = () => {
+export const getAllSubject = () => {
   return httpClient.get(server.SUBJECT);
 };

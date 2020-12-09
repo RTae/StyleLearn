@@ -310,8 +310,18 @@ export default {
       this.receipt.total = parseFloat(this.total)
       this.receipt.bankTransferTo = this.bankTypeMapValue(this.receipt.bankTransferTo)
       this.receipt.bankTransferFrom = this.bankTypeMapValue(this.receipt.bankTransferFrom)
-      console.log(this.receipt)
       this.dialogCon = false
+      this.$store.dispatch({
+        type: "confirmPayment",
+        invoiceID: this.receipt.invoiceID,
+        userID: this.$store.getters.getUserName,
+        tranferDate: this.receipt.tranferDateTime,
+        amountTranfer: this.receipt.amountTranfer,
+        total: this.receipt.total,
+        tranferForm: this.receipt.bankTransferTo,
+        tranferTo: this.receipt.bankTransferFrom,
+        image: this.receipt.image
+      });
     },
     save (date) {
       this.$refs.menu.save(date)

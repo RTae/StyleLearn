@@ -41,12 +41,15 @@ export default {
   name: "coursesPage",
   components: {},
   async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
     this.title = this.$route.query.titleName
     const result = await api.getCourseBySubject(this.$route.query.id)
     if (result.data.status === "1") {
       this.courses = result.data.result
+      this.$store.commit("SET_DIALOG_LOADING", false)
     } else {
       this.courses = []
+      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   data: () => ({

@@ -93,6 +93,9 @@ export default new Vuex.Store({
     },
     SET_UNPAID_STATE (state, value) {
       state.unPaidState = value
+    },
+    CLEAR_ITEM_IN_BUKECT (state) {
+      state.bukectListLesson = []
     }
   },
   actions: {
@@ -171,6 +174,7 @@ export default new Vuex.Store({
           commit("SET_LOGO_HEADER", false)
           commit("SET_LOGIN_HEADER_STUDENT", false)
           commit("SET_LOGIN_HEADER_TUTOR", true)
+          commit("SET_DIALOG_LOADING", false)
           router.push({ name: "HomeTutor" })
         }
       } else {
@@ -193,21 +197,13 @@ export default new Vuex.Store({
         dispatch({ type: "dialogPopup", value: true, msg: result.msg })
       }
     },
-    async editProfile ({ commit, dispatch }, { id, firstName, familyname, birthday, sex, edu, pic }) {
+    async editProfile ({ commit, dispatch }, { id, firstname, familyname, birthday, sex, edu, bio, newImage, image }) {
       commit("SET_DIALOG_LOADING", true)
-      const result = await api.updateProfile({ id, firstName, familyname, birthday, sex, edu })
-      if (result.status === "1") {
-        if (pic == null) {
-          commit("SET_DIALOG_LOADING", false)
-          dispatch({
-            type: "dialogPopup",
-            value: true,
-            msg: "Update done"
-          });
-        } else {
-          var fileName = id + ".png"
-          var fileType = "image"
-          const result = await api.uploadFile({ pic, fileName, fileType })
+      if (newImage !== null) {
+        const result = await api.uploadImage({ newImage })
+        var linkPic = result.data.url
+        if (result.status === 200) {
+          const result = await api.updateProfile({ id, firstname, familyname, birthday, linkPic, sex, edu, bio })
           if (result.status === "1") {
             commit("SET_DIALOG_LOADING", false)
             dispatch({
@@ -223,14 +219,32 @@ export default new Vuex.Store({
               msg: result.msg
             });
           }
+        } else {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Upload picture fail" + " : " + result.status.toString()
+          });
         }
       } else {
-        commit("SET_DIALOG_LOADING", false)
-        dispatch({
-          type: "dialogPopup",
-          value: true,
-          msg: result.msg
-        });
+        linkPic = image
+        const result = await api.updateProfile({ id, firstname, familyname, birthday, linkPic, sex, edu, bio })
+        if (result.status === "1") {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Update done"
+          });
+        } else {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: result.msg
+          });
+        }
       }
     },
     async changePassword ({ commit, dispatch }, { id, oldPassword, newPassword }) {
@@ -310,6 +324,83 @@ export default new Vuex.Store({
       } else {
         commit("SET_DIALOG_LOADING", false)
         commit("SET_UNPAID_STATE", false)
+      }
+    },
+    async confirmPayment ({ commit, dispatch }, { invoiceID, userID, tranferDate, amountTranfer, total, tranferForm, tranferTo, image }) {
+      commit("SET_DIALOG_LOADING", true)
+      var result = await api.createPayment({ invoiceID, userID, tranferDate, amountTranfer, total, tranferForm, tranferTo })
+      if (result.status === "1") {
+        var newImage = image
+        var resultImage = await api.uploadImage({ newImage })
+        if (resultImage.status === 200) {
+          var status = "1"
+          var resultInvoice = await api.updateStatusInvoice({ invoiceID, status })
+          if (resultInvoice.status === "1") {
+            var resultInvoiceLine = await api.getLineItemInvoice(invoiceID)
+            if (resultInvoiceLine.status === "1") {
+              for (var idx = 0; idx < resultInvoiceLine.result.length; idx++) {
+                var lessonID = resultInvoiceLine.result[idx].LessonID
+                var quantityDay = resultInvoiceLine.result[idx].QuantityDay
+                var resutlProgressLesson = await api.createProgressLesson({ userID, lessonID, quantityDay })
+                if (resutlProgressLesson.status === "1") {
+                } else {
+                  commit("SET_DIALOG_LOADING", false)
+                  dispatch({ type: "dialogPopup", value: true, msg: resutlProgressLesson.msg })
+                }
+              }
+              commit("SET_DIALOG_LOADING", false)
+              commit("SET_UNPAID_STATE", false)
+              commit("CLEAR_ITEM_IN_BUKECT")
+              router.push({ name: "Home" })
+            } else {
+              commit("SET_DIALOG_LOADING", false)
+              dispatch({ type: "dialogPopup", value: true, msg: resultInvoiceLine.msg })
+            }
+          } else {
+            commit("SET_DIALOG_LOADING", false)
+            dispatch({ type: "dialogPopup", value: true, msg: resultInvoice.msg })
+          }
+        } else {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Upload fail" + " : " + resultImage.status.toString()
+          })
+        }
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({ type: "dialogPopup", value: true, msg: result.msg })
+      }
+    },
+    async uploadVideo ({ commit, dispatch }, { userID, lessonID, description, videoFile, status }) {
+      commit("SET_DIALOG_LOADING", true)
+      var resultVideo = await api.uploadVideo({ videoFile })
+      if (resultVideo.status === 200) {
+        var videoURL = resultVideo.data.url
+        var result = await api.createVideo({ userID, lessonID, description, videoURL, status })
+        if (result.status === "1") {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: "Upload Done !!"
+          })
+        } else {
+          commit("SET_DIALOG_LOADING", false)
+          dispatch({
+            type: "dialogPopup",
+            value: true,
+            msg: result.msg
+          })
+        }
+      } else {
+        commit("SET_DIALOG_LOADING", false)
+        dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Upload faile" + " : " + resultVideo.status.toString()
+        })
       }
     }
   }
