@@ -163,7 +163,7 @@
           </v-col>
           <v-col>
             <v-row class="ml-8" justify="start">
-              <label>Comfrim Email:</label>
+              <label>Confirm Email:</label>
             </v-row>
             <div class="inputFiled">
               <v-text-field
