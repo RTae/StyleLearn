@@ -34,7 +34,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <button style="outline:none" icon v-bind="attrs" v-on="on">
-                <v-icon large color="grey darken-1">
+                <v-icon large color="grey darken-1" id=account>
                   mdi-account-circle
                 </v-icon>
               </button>
