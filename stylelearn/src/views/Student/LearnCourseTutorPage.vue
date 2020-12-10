@@ -52,9 +52,27 @@ export default {
   components: {},
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    this.title = this.$route.query.titleName;
-    this.lessonID = this.$route.query.id;
-    var result = await api.getAllVideoByLessonID(this.lessonID)
+    this.title = this.$route.params.titleName;
+    var lessonID = this.$route.params.id;
+    if (lessonID === undefined) {
+      var myCourseLessonID = localStorage.getItem("myCourseLessonID")
+      if (myCourseLessonID !== null) {
+        var result = await api.getAllVideoByLessonID(myCourseLessonID)
+        if (result.data.status === "1") {
+          this.videos = result.data.result
+          this.$store.commit("SET_DIALOG_LOADING", false)
+        }
+      } else {
+        this.$router.push({ name: "MyCourse" })
+      }
+    } else {
+      localStorage.setItem("myCourseLessonID", lessonID);
+      result = await api.getAllVideoByLessonID(lessonID)
+      if (result.data.status === "1") {
+        this.videos = result.data.result
+        this.$store.commit("SET_DIALOG_LOADING", false)
+      }
+    }
     if (result.data.status === "1") {
       this.videos = result.data.result
       this.$store.commit("SET_DIALOG_LOADING", false)
@@ -63,9 +81,7 @@ export default {
     }
   },
   data: () => ({
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    lessonID: null,
     videos: []
   }),
   methods: {

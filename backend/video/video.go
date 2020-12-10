@@ -6,10 +6,6 @@ import (
 
 	"backend/entities"
 	"backend/helper"
-
-	// Import GORM-related packages.
-
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type Video struct {

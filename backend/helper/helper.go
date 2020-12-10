@@ -4,13 +4,16 @@ import (
 
 	// Import GORM-related packages.
 
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 func SetupResponse(w *http.ResponseWriter, req *http.Request) {
@@ -21,8 +24,19 @@ func SetupResponse(w *http.ResponseWriter, req *http.Request) {
 
 func InitDB() (*gorm.DB, map[string]interface{}) {
 
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			SlowThreshold: 400 * time.Millisecond, // Slow SQL threshold
+			LogLevel:      logger.Info,            // Log level
+			Colorful:      true,                   // Disable color
+		},
+	)
+
 	dsn := os.Getenv("COCKROACHDB_URL")
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: newLogger,
+	})
 	if err != nil {
 		log := ErrorHandle(err)
 		return nil, log

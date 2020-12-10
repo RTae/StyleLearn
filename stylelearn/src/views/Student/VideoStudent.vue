@@ -72,8 +72,27 @@ export default {
   name: "VideoPage",
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    this.videoID = this.$route.params.id
-    const result = await api.getShowVideoByVideoID(this.videoID)
+    var videoID = this.$route.params.id
+    if (videoID === undefined) {
+      var myCourseVideoID = localStorage.getItem("myCourseVideoID")
+      if (myCourseVideoID !== null) {
+        var result = await api.getShowVideoByVideoID(myCourseVideoID)
+        console.log(result)
+        if (result.data.status === "1") {
+          this.video = result.data.result
+          this.$store.commit("SET_DIALOG_LOADING", false)
+        }
+      } else {
+        this.$router.push({ name: "MyCourse" })
+      }
+    } else {
+      localStorage.setItem("myCourseVideoID", videoID);
+      const result = await api.getShowVideoByVideoID(videoID)
+      if (result.data.status === "1") {
+        this.video = result.data.result
+        this.$store.commit("SET_DIALOG_LOADING", false)
+      }
+    }
     if (result.data.status === "1") {
       this.video.name = result.data.result[0].Name
       this.video.lessonName = result.data.result[0].LessonName
@@ -85,7 +104,6 @@ export default {
     }
   },
   data: () => ({
-    videoID: null,
     video: {
       name: "",
       lessonName: "",

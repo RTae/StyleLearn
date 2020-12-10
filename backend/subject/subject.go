@@ -1,16 +1,8 @@
 package subject
 
 import (
-	"os"
-	"strconv"
-	"strings"
-
 	"backend/entities"
 	"backend/helper"
-
-	// Import GORM-related packages.
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type Subject struct {
@@ -77,7 +69,14 @@ func (s *Subject) Update(sid, name, description string) map[string]interface{} {
 		return logs
 	}
 
-	db.Model(&entities.TBL_SubjectTypes{}).Where(entities.TBL_SubjectTypes{SubjectID: sid}).Update(entities.TBL_SubjectTypes{Name: name, Description: description})
+	err := db.Model(&entities.TBL_SubjectTypes{SubjectID: sid}).Updates(entities.TBL_SubjectTypes{
+		Name:        name,
+		Description: description,
+	}).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
 
 	logs = make(map[string]interface{})
 	logs["status"] = "1"

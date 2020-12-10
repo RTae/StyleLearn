@@ -1,16 +1,8 @@
 package course
 
 import (
-	"os"
-	"strconv"
-	"strings"
-
 	"backend/entities"
 	"backend/helper"
-
-	// Import GORM-related packages.
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type Course struct {
@@ -78,7 +70,15 @@ func (c *Course) Update(cid, subjectID, name, description string) map[string]int
 		return logs
 	}
 
-	db.Model(&entities.TBL_CourseTypes{}).Where(entities.TBL_CourseTypes{CourseID: cid}).Update(entities.TBL_CourseTypes{SubjectID: subjectID, Name: name, Description: description})
+	err := db.Model(&entities.TBL_CourseTypes{CourseID: cid}).Updates(entities.TBL_CourseTypes{
+		SubjectID:   subjectID,
+		Name:        name,
+		Description: description,
+	}).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
 
 	logs = make(map[string]interface{})
 	logs["status"] = "1"

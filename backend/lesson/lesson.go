@@ -1,16 +1,8 @@
 package lesson
 
 import (
-	"os"
-	"strconv"
-	"strings"
-
 	"backend/entities"
 	"backend/helper"
-
-	// Import GORM-related packages.
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 type Lesson struct {
@@ -78,7 +70,15 @@ func (l *Lesson) Update(lid, courseID, name, description string) map[string]inte
 		return logs
 	}
 
-	db.Model(&entities.TBL_LessonTypes{}).Where(entities.TBL_LessonTypes{LessonID: lid}).Update(entities.TBL_LessonTypes{CourseID: courseID, Name: name, Description: description})
+	err := db.Model(&entities.TBL_LessonTypes{LessonID: lid}).Updates(entities.TBL_LessonTypes{
+		CourseID:    courseID,
+		Name:        name,
+		Description: description,
+	}).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
 
 	logs = make(map[string]interface{})
 	logs["status"] = "1"
