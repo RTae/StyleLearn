@@ -61,6 +61,7 @@
                 rounded
                 outlined
                 autocomplete="firstname"
+                id=firstname
               />
             </div>
           </v-col>
@@ -77,6 +78,7 @@
                 rounded
                 outlined
                 autocomplete="familyname"
+                id=familyname
 />
             </div>
           </v-col>
@@ -155,6 +157,7 @@
                 :rules="emailRules"
                 v-model="user.email"
                 autocomplete="email"
+                id=email
               />
             </div>
           </v-col>
@@ -171,6 +174,7 @@
                 :rules="emailRules"
                 v-model="emailCon"
                 autocomplete="con-email"
+                id=con-email
               />
             </div>
           </v-col>
@@ -192,6 +196,7 @@
                 :rules="passwordRules"
                 type="password"
                 autocomplete="password"
+                id=password
               />
             </div>
           </v-col>
@@ -208,6 +213,7 @@
                 v-model="passwordCon"
                 type="password"
                 autocomplete="con-password"
+                id=con-password
               />
             </div>
           </v-col>
