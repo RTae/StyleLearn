@@ -37,27 +37,24 @@
     <!-- Card group of tutor -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.index">
-          <v-sheet class="cardCoruseTitle">
-            <p class="cardInSmallText">Teacher : {{ course.tutor }}</p>
-          </v-sheet>
+        <div class="colCard" v-for="video in vidoes" :key="video.VideoID">
           <v-hover v-slot="{ hover }">
-            <v-card elevation="8" class="cardCourseSmall">
+            <v-card
+              :elevation="hover ? 8 : 16"
+              :class="{ 'on-hover': hover }"
+              class="cardCourseSmall"
+              @click="onClickTutor(video.VideoID)"
+            >
               <v-img
-                :class="{ 'on-hover': hover }"
-                class="imgCard"
+                height="200"
+                width="303"
                 src="../../assets/image/video/video.png"
-                @click="onClickTutor()"
               />
-              <v-card-actions style="background-color: #70ccff; height:64px">
-                <v-list-item class="grow">
-                  <v-row>
-                    <v-col  align="center" justify="end" cols="8" offset="4">
-                        <p class="cardInSmallText">{{ course.view }} Views</p>
-                    </v-col>
-                  </v-row>
-                </v-list-item>
-              </v-card-actions>
+              <v-row>
+                <v-col class="d-flex pa-5 flex-row justify-space-between">
+                  <p class="cardInSmallText">Tutor:  {{ video.Name }}</p>
+                </v-col>
+              </v-row>
             </v-card>
           </v-hover>
         </div>
@@ -77,30 +74,44 @@ export default {
       var myCourseVideoID = localStorage.getItem("myCourseVideoID")
       if (myCourseVideoID !== null) {
         var result = await api.getShowVideoByVideoID(myCourseVideoID)
-        console.log(result)
         if (result.data.status === "1") {
-          this.video = result.data.result
-          this.$store.commit("SET_DIALOG_LOADING", false)
+          this.video.name = result.data.result[0].Name
+          this.video.lessonName = result.data.result[0].LessonName
+          this.video.description = result.data.result[0].Description
+          this.video.video = result.data.result[0].Video
+          var resultVideo = await api.getAllVideoByLessonID(result.data.result[0].LessonID)
+          if (resultVideo.data.status === "1") {
+            this.vidoes = resultVideo.data.result
+            this.$store.commit("SET_DIALOG_LOADING", false)
+          } else {
+            this.video = []
+            this.$store.commit("SET_DIALOG_LOADING", false)
+          }
         }
       } else {
+        this.$store.commit("SET_DIALOG_LOADING", false)
         this.$router.push({ name: "MyCourse" })
       }
     } else {
       localStorage.setItem("myCourseVideoID", videoID);
       const result = await api.getShowVideoByVideoID(videoID)
       if (result.data.status === "1") {
-        this.video = result.data.result
+        this.video.name = result.data.result[0].Name
+        this.video.lessonName = result.data.result[0].LessonName
+        this.video.description = result.data.result[0].Description
+        this.video.video = result.data.result[0].Video
+        resultVideo = await api.getAllVideoByLessonID(result.data.result[0].LessonID)
+        if (resultVideo.data.status === "1") {
+          this.vidoes = resultVideo.data.result
+          this.$store.commit("SET_DIALOG_LOADING", false)
+        } else {
+          this.video = []
+          this.$store.commit("SET_DIALOG_LOADING", false)
+        }
+      } else {
+        this.$router.push({ name: "MyCourse" })
         this.$store.commit("SET_DIALOG_LOADING", false)
       }
-    }
-    if (result.data.status === "1") {
-      this.video.name = result.data.result[0].Name
-      this.video.lessonName = result.data.result[0].LessonName
-      this.video.description = result.data.result[0].Description
-      this.video.video = result.data.result[0].Video
-      this.$store.commit("SET_DIALOG_LOADING", false)
-    } else {
-      this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   data: () => ({
@@ -110,38 +121,7 @@ export default {
       description: "",
       video: false
     },
-    courses: [
-      {
-        index: 1,
-        tutor: "Cherprang",
-        view: 15657
-      },
-      {
-        index: 2,
-        tutor: "June",
-        view: 14757
-      },
-      {
-        index: 3,
-        tutor: "Pun",
-        view: 13474
-      },
-      {
-        index: 4,
-        tutor: "Jennis",
-        view: 12657
-      },
-      {
-        index: 5,
-        tutor: "Wee",
-        view: 9157
-      },
-      {
-        index: 6,
-        tutor: "Mobile",
-        view: 8157
-      }
-    ]
+    vidoes: []
   }),
   filters: {
     Capitalize (value) {
@@ -226,7 +206,7 @@ export default {
   border-radius: 10px;
   width: 303px;
   height: 264px;
-  background-color: white;
+  background-color: #6eb9f7;
   transition: opacity 0.2s ease-in;
 }
 

@@ -166,6 +166,7 @@ func (pl *ProgressLesson) GetAllCourseFronProgressLesson(uid string) map[string]
 
 type resultLesson struct {
 	LessonID   string
+	CourseName string
 	LessonName string
 }
 
@@ -176,7 +177,7 @@ func (pl *ProgressLesson) GetAllProgressLessonFromCourse(uid, cid string) map[st
 	}
 
 	var result []resultLesson
-	err := db.Raw(`	SELECT pl.lesson_id , l.name as lesson_name
+	err := db.Raw(`	SELECT c.name as course_name, pl.lesson_id , l.name as lesson_name
 					FROM tbl_progress_lessons pl
 					INNER JOIN tbl_lesson_types l
 						ON pl.lesson_id = l.lesson_id

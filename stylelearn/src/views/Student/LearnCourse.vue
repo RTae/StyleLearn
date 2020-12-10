@@ -48,8 +48,6 @@ export default {
   components: {},
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    console.log()
-    this.title = this.$route.params.titleName;
     const id = localStorage.getItem(server.USERNAME)
     var courseID = this.$route.params.id
     if (courseID === undefined) {
@@ -71,6 +69,7 @@ export default {
         this.$store.commit("SET_DIALOG_LOADING", false)
       }
     }
+    this.title = this.lessons[0].CourseName
   },
   data: () => ({
     title: null,
@@ -81,7 +80,7 @@ export default {
       return this.items;
     },
     onClickLesson (id, name) {
-      this.$router.push({ name: "TutorPage", params: { titleName: this.title + " : " + name, id: id } })
+      this.$router.push({ name: "TutorPage", params: { id: id } })
     },
     onClickBack () {
       this.$router.go(-1)

@@ -42,6 +42,27 @@
         </div>
       </div>
     </v-row>
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-title class="primary mb-6"> Alert </v-card-title>
+        <v-card-text class="textDetail">
+          Sorry we don't have video right now
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="onClickDialog"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -52,7 +73,6 @@ export default {
   components: {},
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    this.title = this.$route.params.titleName;
     var lessonID = this.$route.params.id;
     if (lessonID === undefined) {
       var myCourseLessonID = localStorage.getItem("myCourseLessonID")
@@ -79,9 +99,15 @@ export default {
     } else {
       this.$store.commit("SET_DIALOG_LOADING", false)
     }
+    if (this.videos === null) {
+      this.dialog = true
+    } else {
+      this.title = this.videos[0].CourseName + " : " + this.videos[0].LessonName
+    }
   },
   data: () => ({
     title: null,
+    dialog: false,
     videos: []
   }),
   methods: {
@@ -90,6 +116,10 @@ export default {
         name: "Video",
         params: { id: videoID }
       });
+    },
+    onClickDialog () {
+      this.dialog = false
+      this.$router.push({ name: "MyCourse" })
     },
     onClickBack () {
       this.$router.go(-1)
