@@ -76,10 +76,14 @@ export default {
   },
   async mounted () {
     this.lessonBukect = await JSON.parse(localStorage.getItem(server.BUKECT))
-    for (var i = 0; i < this.lessonBukect.length; i++) {
-      this.calculateTotal += parseInt(this.lessonBukect[i].day)
+    if (this.lessonBukect !== null) {
+      for (var i = 0; i < this.lessonBukect.length; i++) {
+        this.calculateTotal += parseInt(this.lessonBukect[i].day)
+      }
+      this.calculateTotal = this.calculateTotal * 50
+    } else {
+      this.$router.push({ name: "Home" });
     }
-    this.calculateTotal = this.calculateTotal * 50
   },
   data: () => ({
     lessonBukect: [],

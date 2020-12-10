@@ -31,8 +31,8 @@
             <v-row>
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle">{{ lesson.Name | Capitalize }}</v-card-text>
-                  <v-card-text class="cardTextDetail">{{ lesson.Description }}</v-card-text>
+                  <v-card-text class="cardTextTitle">{{ lesson.LessonName | Capitalize }}</v-card-text>
+                  <v-card-text class="cardTextDetail">{{ lesson.LessonDescription }}</v-card-text>
                 </div>
               </v-col>
               <v-col class="buttonContainer">
@@ -42,7 +42,7 @@
                     :class="{ 'on-hover-review': hover }"
                     class="bottonBuy"
                     color="#70ccff"
-                    @click="onClickBuy(lesson.LessonID, lesson.Name)"
+                    @click="onClickBuy(lesson.LessonID, lesson.LessonName)"
                   >
                     Buy
                   </button>
@@ -127,13 +127,14 @@ export default {
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
     this.title = this.$route.query.titleName;
-    const result = await api.getLessonByCourse(this.$route.query.id);
-    if (result.data.status === "1") {
+    const result = await api.getLessonByCourseID(this.$route.query.id);
+    if (result.data.status === "1" && result.data.result !== null) {
       this.lessons = result.data.result;
+      this.title = this.lessons[0].CourseName
       this.$store.commit("SET_DIALOG_LOADING", false)
     } else {
-      this.lessons = [];
       this.$store.commit("SET_DIALOG_LOADING", false)
+      this.$router.push({ name: "Home" })
     }
   },
   data () {

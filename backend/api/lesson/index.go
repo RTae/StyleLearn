@@ -28,7 +28,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			logs := l.ReadLessonByCourse(id)
 			json.NewEncoder(w).Encode(logs)
 		} else if mode == "3" {
-			logs := l.GetAllLessonByCourseName(courseName)
+			logs := l.GetAllLessonByCourseID(courseName)
 			json.NewEncoder(w).Encode(logs)
 		} else {
 			logs := l.GetAllLesson()

@@ -84,17 +84,17 @@
               :elevation="hover ? 8 : 16"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickCourse(item.Name, item.CourseID)"
+              @click="onClickCourse(item.CourseID)"
             >
               <v-img
                 height="200"
                 width="303"
-                :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
+                :src="require('../assets/image/subject/cardSmall/' + item.SubjectName + '.png')"
                 name=Newest
               />
               <v-row>
                 <v-col class="d-flex pa-5 flex-row justify-space-between">
-                  <p class="cardInSmallText">{{ item.Name }}</p>
+                  <p class="cardInSmallText">{{ item.CourseName }}</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -130,17 +130,17 @@
               :elevation="hover ? 8 : 16"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickCourse(item.Name, item.CourseID)"
+              @click="onClickCourse(item.CourseID)"
             >
               <v-img
                 height="200"
                 width="303"
-                :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
+                :src="require('../assets/image/subject/cardSmall/' + item.SubjectName + '.png')"
                 name=Newest
               />
               <v-row>
                 <v-col class="d-flex pa-5 flex-row justify-space-between">
-                  <p class="cardInSmallText">{{ item.Name }}</p>
+                  <p class="cardInSmallText">{{ item.CourseName }}</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -164,7 +164,7 @@
                 :elevation="hover ? 8 : 12"
                 class="ma-10 subjectCard"
                 :class="{ 'on-hover': hover }"
-                @click="onClickSubject(subject.Name, subject.SubjectID);"
+                @click="onClickSubject(subject.SubjectID);"
                 name=Subject
               >
                 <v-img
@@ -302,6 +302,12 @@
         </v-hover>
       </div>
     </v-row>
+    <v-overlay :value="loading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      ></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -311,76 +317,50 @@ export default {
   name: "Home",
   components: {},
   data: () => ({
-    newestItem: [
-      {
-        CourseID: "c000000001",
-        Name: "Algebra",
-        subject_name: "Mathematic"
-      },
-      {
-        CourseID: "c000000002",
-        Name: "Trigonometry",
-        subject_name: "Mathematic"
-      },
-      {
-        CourseID: "c000000003",
-        Name: "Calculus I",
-        subject_name: "Mathematic"
-      },
-      {
-        CourseID: "c000000011",
-        Name: "Hardware Basics",
-        subject_name: "Computer"
-      }
-    ],
-    popularItem: [
-      {
-        CourseID: "c000000012",
-        Name: "Software Basics",
-        subject_name: "Computer"
-      },
-      {
-        CourseID: "c000000018",
-        Name: "Semiconductors",
-        subject_name: "Electrical"
-      },
-      {
-        CourseID: "c000000021",
-        Name: "Calculus II",
-        subject_name: "Mathematic"
-      },
-      {
-        CourseID: "c000000020",
-        Name: "Reference",
-        subject_name: "Mathematic"
-      }
-    ],
+    newestItem: [],
+    popularItem: [],
     subjectItems: [],
-    model: null
+    model: null,
+    loading: true
   }),
   async mounted () {
-    this.$store.commit("SET_DIALOG_LOADING", true)
-    const result = await api.getAllSubject()
-    if (result.data.status === "1") {
-      this.subjectItems = result.data.result
-      this.$store.commit("SET_DIALOG_LOADING", false)
-    } else {
-      this.subjectItems = []
-      this.$store.commit("SET_DIALOG_LOADING", false)
+    const resultSubject = await api.getAllSubject()
+    const resultNew = await api.getNewCourse()
+    const resultPop = await api.getPopCourse()
+    if (resultSubject.data.status === "1") {
+      this.subjectItems = resultSubject.data.result
+      if (resultNew.data.status === "1") {
+        var temp = resultNew.data.result
+        this.newestItem = temp.sort(this.compareACED).slice(0, 4)
+        if (resultPop.data.status === "1") {
+          var temp2 = resultPop.data.result
+          this.popularItem = temp2.sort(this.compareACED).slice(0, 4)
+          this.loading = false
+        }
+      }
     }
   },
   methods: {
-    onClickCourse (name, id) {
-      this.$router.push({ name: "LessonPage", query: { titleName: name, id: id } })
+    compareACED (a, b) {
+      if (a.CourseName < b.CourseName) {
+        return -1;
+      }
+      if (a.CourseName > b.CourseName) {
+        return 1;
+      }
+      return 0;
     },
-    onClickSubject (name, id) {
-      this.$router.push({ name: "CoursesPage", query: { titleName: name, id: id } })
+    onClickCourse (id) {
+      this.$router.push({ name: "LessonPage", query: { id: id } })
+    },
+    onClickSubject (id) {
+      this.$router.push({ name: "CoursesPage", query: { id: id } })
     },
     onClikcNewest () {
-      this.$router.push({ name: "CoursesPage", query: { titleName: "Newest", id: "test" } })
+      this.$router.push({ name: "CoursePandN", query: { titleName: "Newest" } })
     },
     onClikcPopular () {
-      this.$router.push({ name: "CoursesPage", query: { titleName: "Popular", id: "test" } })
+      this.$router.push({ name: "CoursePandN", query: { titleName: "Popular" } })
     }
   }
 };

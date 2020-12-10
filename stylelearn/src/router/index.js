@@ -11,6 +11,7 @@ import BasicUse from "../views/BasicUse";
 import About from "../views/About";
 import CoursesPage from "../views/CoursesPage";
 import LessonPage from "../views/LessonPage";
+import CoursePopAndNew from "../views/CoursePopAndNewest.vue"
 // Tutor
 import HomeTutor from "../views/Tutor/HomeTutor";
 import MyVideoTutor from "../views/Tutor/MyVideoTutor";
@@ -88,6 +89,14 @@ const routes = [
     path: "/lesson",
     name: "LessonPage",
     component: LessonPage,
+    meta: {
+      isAllowGuest: true
+    }
+  },
+  {
+    path: "/coursePN",
+    name: "CoursePandN",
+    component: CoursePopAndNew,
     meta: {
       isAllowGuest: true
     }

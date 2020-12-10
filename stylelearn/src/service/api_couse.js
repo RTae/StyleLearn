@@ -12,3 +12,11 @@ export const getCourseBySubject = (id) => {
 export const getCourseBySubjectName = (name) => {
   return httpClient.get(server.COURSE + `?id=${name}&mode=3`);
 };
+
+export const getPopCourse = () => {
+  return httpClient.get(server.COURSE + "?mode=4");
+};
+
+export const getNewCourse = () => {
+  return httpClient.get(server.COURSE + "?mode=5");
+};

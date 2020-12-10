@@ -401,6 +401,7 @@ export default new Vuex.Store({
             value: true,
             msg: "Upload Done !!"
           })
+          router.push({ name: "HomeTutor" })
         } else {
           commit("SET_DIALOG_LOADING", false)
           dispatch({

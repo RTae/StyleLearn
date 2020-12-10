@@ -96,7 +96,7 @@ export default {
       }
     },
     onClickCom () {
-      this.$router.push({ name: "ConfirmPayment", query: { invoiceID: this.invoiceID, total: this.total } });
+      this.$router.push({ name: "ConfirmPayment" });
     }
   }
 };

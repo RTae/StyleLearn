@@ -146,22 +146,25 @@ func (l *Lesson) ReadLessonByCourse(cid string) map[string]interface{} {
 }
 
 type result_lesson struct {
-	LessonID string
-	Name     string
+	CourseName        string
+	LessonID          string
+	LessonName        string
+	LessonDescription string
 }
 
-func (l *Lesson) GetAllLessonByCourseName(courseName string) map[string]interface{} {
+func (l *Lesson) GetAllLessonByCourseID(courseID string) map[string]interface{} {
 	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
 
 	var result []result_lesson
-	err := db.Raw(`	SELECT lesson_id, name 
-					FROM tbl_lesson_types
-					WHERE course_id = ( SELECT course_id
-										FROM tbl_course_types
-										WHERE name = ? ) `, courseName).Scan(&result).Error
+	err := db.Raw(`	SELECT l.lesson_id, l.name as "lesson_name", l.description as "lesson_description",
+						   c.name as "course_name"
+					FROM tbl_lesson_types l
+					INNER JOIN tbl_course_types c
+						ON l.course_id = c.course_id
+					WHERE l.course_id = ?`, courseID).Scan(&result).Error
 	if err != nil {
 		log := helper.ErrorHandle(err)
 		return log

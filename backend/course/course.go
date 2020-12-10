@@ -126,22 +126,33 @@ func (c *Course) GetAllCourse() map[string]interface{} {
 	return log
 }
 
+type result_course_subject struct {
+	SubjectName string
+	CourseID    string
+	CourseName  string
+}
+
 func (c *Course) ReadCourseBySubject(sid string) map[string]interface{} {
 	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
 
-	var courses []entities.TBL_CourseTypes
-	err := db.Find(&courses, entities.TBL_CourseTypes{SubjectID: sid}).Error
+	var result []result_course_subject
+	err := db.Raw(`	SELECT s.name as subject_name, c.course_id, c.name as course_name
+					FROM tbl_course_types c
+					INNER JOIN tbl_subject_types s
+						ON c.subject_id = s.subject_id
+					WHERE c.subject_id = ? `, sid).Scan(&result).Error
 	if err != nil {
 		log := helper.ErrorHandle(err)
 		return log
 	}
+
 	log := make(map[string]interface{})
 	log["status"] = "1"
 	log["msg"] = ""
-	log["result"] = courses
+	log["result"] = result
 	return log
 }
 
@@ -162,6 +173,110 @@ func (c *Course) GetAllCourseBySubjectName(subjectName string) map[string]interf
 					WHERE subject_id = ( SELECT subject_id
 										 FROM tbl_subject_types
 										 WHERE name = ? ) `, subjectName).Scan(&result).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+	return log
+}
+
+type result_PNcourse struct {
+	SubjectName string
+	CourseID    string
+	CourseName  string
+}
+
+func (c *Course) GetAllPoppularCourse() map[string]interface{} {
+	db, logs := helper.InitDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+
+	var result []result_PNcourse
+	err := db.Raw(`	SELECT s.name as "subject_name", c.course_id, c.name as "course_name"
+					FROM tbl_course_types c
+					INNER JOIN tbl_subject_types s
+						ON c.subject_id = s.subject_id
+					ORDER BY c.subject_id desc, c.name asc `).Scan(&result).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+	return log
+}
+
+func (c *Course) GetAllNewestCourse() map[string]interface{} {
+	db, logs := helper.InitDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+
+	var result []result_PNcourse
+	err := db.Raw(`	SELECT s.name as "subject_name", c.course_id, c.name as "course_name"
+					FROM tbl_course_types c
+					INNER JOIN tbl_subject_types s
+						ON c.subject_id = s.subject_id
+					ORDER BY c.course_id asc, c.name desc `).Scan(&result).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+	return log
+}
+
+func (c *Course) GetAllPoppularCourseLimt() map[string]interface{} {
+	db, logs := helper.InitDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+
+	var result []result_PNcourse
+	err := db.Raw(`	SELECT s.name as "subject_name", c.course_id, c.name as "course_name"
+					FROM tbl_course_types c
+					INNER JOIN tbl_subject_types s
+						ON c.subject_id = s.subject_id
+					ORDER BY c.subject_id desc, c.name asc
+					LIMIT 4 `).Scan(&result).Error
+	if err != nil {
+		log := helper.ErrorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+	return log
+}
+
+func (c *Course) GetAllNewestCourseLimt() map[string]interface{} {
+	db, logs := helper.InitDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+
+	var result []result_PNcourse
+	err := db.Raw(`	SELECT s.name as "subject_name", c.course_id, c.name as "course_name"
+					FROM tbl_course_types c
+					INNER JOIN tbl_subject_types s
+						ON c.subject_id = s.subject_id
+					ORDER BY c.course_id asc, c.name desc
+					LIMIT 4 `).Scan(&result).Error
 	if err != nil {
 		log := helper.ErrorHandle(err)
 		return log
