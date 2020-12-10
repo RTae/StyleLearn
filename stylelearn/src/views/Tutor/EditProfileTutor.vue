@@ -10,13 +10,13 @@
     <v-row style="margin-top: 50px; margin-bottom: 100px">
       <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <v-btn @click="onClickProfile()" class="sideButtonContainer" name=profile width="200" height="50" color="#70ccff">
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" id=profile width="200" height="50" color="#70ccff">
             Profile
           </v-btn>
-          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" name=editprofile width="200" height="50" color="#70ccff">
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" id=editprofile width="200" height="50" color="#70ccff">
             Edit Profile
           </v-btn>
-          <v-btn @click="onClickAccount()" class="sideButtonContainer" name=resetpw width="200" height="50" color="#70ccff">
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" id=resetpw width="200" height="50" color="#70ccff">
             Account
           </v-btn>
         </v-card>
@@ -83,6 +83,7 @@
                   solo
                   rounded
                   outlined
+                  id=firstName
                 />
                 <!-- Family Name -->
                 <v-row class="ml-2 mb-3" justify="start">
@@ -95,6 +96,7 @@
                   solo
                   rounded
                   outlined
+                  id=familyName
                 />
                 <!-- Birthday -->
                 <v-row class="ml-2 mb-3" justify="start">
@@ -132,6 +134,7 @@
                 <v-row class="ml-2 mb-3" justify="start">
                   <label>Sex</label>
                 </v-row>
+                <v-row id=sex>
                 <v-select
                   :rules="[v => !!v || 'Item is required']"
                   v-model="user.sex"
@@ -140,10 +143,12 @@
                   rounded
                   outlined
                 />
+                </v-row>
                 <!-- Education -->
                 <v-row class="ml-2 mb-3" justify="start">
                   <label>Education</label>
                 </v-row>
+                <v-row id=education>
                 <v-select
                   :rules="[v => !!v || 'Item is required']"
                   v-model="eduTypeValue"
@@ -152,6 +157,7 @@
                   rounded
                   outlined
                 />
+                </v-row>
               </v-col>
             </div>
           </v-row>
@@ -169,13 +175,14 @@
                   full-width
                   single-line
                   solo
+                  id=bio
                   />
               </v-row>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="d-flex justify-center" cols="10">
-              <v-btn type="submit" class="sideButtonContainer" name=save width="200" height="50" color="#70ccff">
+              <v-btn type="submit" class="sideButtonContainer" id=save width="200" height="50" color="#70ccff">
                 save
               </v-btn>
             </v-col>
