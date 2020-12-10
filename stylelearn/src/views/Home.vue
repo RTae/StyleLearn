@@ -1,5 +1,8 @@
 <template>
   <v-container fluid class="main" id="Home">
+    <v-alert transition="scale-transition" :value="$store.getters.getStateLoginDialog" type="success">
+      Login Done !!
+    </v-alert>
     <!-- Card Course -->
     <v-row align="center" justify="center" style="margin-top: 60px">
       <v-sheet class="cardContainer">
@@ -62,43 +65,41 @@
           </p>
         </div>
       </v-col>
-      <v-col cols="6">
-        <router-link to="/coursespage">
-          <p
-            style="
-              display: flex;
-              flex-direction: row-reverse;
-              margin-top: 25px;
-              margin-right: 90px;
-            "
-            class="textDetail"
-          >
-            All
-          </p>
-        </router-link>
+      <v-col style="display: flex; justify-content: flex-end; align-items: center;" cols="6">
+        <v-btn
+          style="margin-right:50px"
+          class="textDetailAll"
+          text
+          @click="onClikcNewest"
+        >
+          All
+        </v-btn>
       </v-col>
     </v-row>
-
-    <v-row align="center" justify="center">
-      <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }" v-for="course in newestItem" :key="course.CourseID">
-          <v-card
-            :elevation="hover ? 8 : 16"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse(course.Name, course.CourseID)"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
-              name=Newest
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">{{ course.Name }}</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
+    <v-row justify="center">
+      <div class="tableCard">
+        <div class="colCard" v-for="item in newestItem" :key="item.CourseID">
+          <v-hover v-slot="{ hover }">
+            <v-card
+              :elevation="hover ? 8 : 16"
+              :class="{ 'on-hover': hover }"
+              class="cardCourseSmall"
+              @click="onClickCourse(item.Name, item.CourseID)"
+            >
+              <v-img
+                height="200"
+                width="303"
+                :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
+                name=Newest
+              />
+              <v-row>
+                <v-col class="d-flex pa-5 flex-row justify-space-between">
+                  <p class="cardInSmallText">{{ item.Name }}</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-hover>
+        </div>
       </div>
     </v-row>
 
@@ -109,43 +110,42 @@
           Popular
         </p>
       </v-col>
-      <v-col cols="6">
-        <router-link to="/coursespage">
-          <p
-            style="
-              display: flex;
-              flex-direction: row-reverse;
-              margin-top: 25px;
-              margin-right: 90px;
-            "
-            class="textDetail"
-          >
-            All
-          </p>
-        </router-link>
+      <v-col style="display: flex; justify-content: flex-end; align-items: center;" cols="6">
+        <v-btn
+          style="margin-right:50px"
+          class="textDetailAll"
+          text
+          @click="onClikcPopular"
+        >
+          All
+        </v-btn>
       </v-col>
     </v-row>
 
-    <v-row align="center" justify="center">
-      <div class="cardSmallContainer">
-        <v-hover v-slot="{ hover }" v-for="course in popularItem" :key="course.CourseID">
-          <v-card
-            :elevation="hover ? 8 : 16"
-            :class="{ 'on-hover': hover }"
-            class="cardCourseSmall"
-            @click="onClickCourse(course.Name, course.CourseID)"
-          >
-            <v-img
-              height="200"
-              width="303"
-              :src="require('../assets/image/subject/cardSmall/' + course.subject_name + '.png')"
-              name=Popular
-            />
-            <v-sheet class="cardInSmallContainer">
-              <p class="cardInSmallText">{{ course.Name }}</p>
-            </v-sheet>
-          </v-card>
-        </v-hover>
+    <v-row justify="center">
+      <div class="tableCard">
+        <div class="colCard" v-for="item in popularItem" :key="item.CourseID">
+          <v-hover v-slot="{ hover }">
+            <v-card
+              :elevation="hover ? 8 : 16"
+              :class="{ 'on-hover': hover }"
+              class="cardCourseSmall"
+              @click="onClickCourse(item.Name, item.CourseID)"
+            >
+              <v-img
+                height="200"
+                width="303"
+                :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
+                name=Newest
+              />
+              <v-row>
+                <v-col class="d-flex pa-5 flex-row justify-space-between">
+                  <p class="cardInSmallText">{{ item.Name }}</p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-hover>
+        </div>
       </div>
     </v-row>
 
@@ -375,6 +375,12 @@ export default {
     },
     onClickSubject (name, id) {
       this.$router.push({ name: "CoursesPage", query: { titleName: name, id: id } })
+    },
+    onClikcNewest () {
+      this.$router.push({ name: "CoursesPage", query: { titleName: "Newest", id: "test" } })
+    },
+    onClikcPopular () {
+      this.$router.push({ name: "CoursesPage", query: { titleName: "Popular", id: "test" } })
     }
   }
 };
@@ -423,6 +429,20 @@ export default {
   width: 100%;
 }
 
+.tableCard {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  width: 100vw;
+  justify-content: space-around
+}
+
+.colCard {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
 a {
   text-decoration: none;
 }
@@ -451,11 +471,14 @@ a {
 }
 
 .cardCourseSmall {
+  margin-top: 30px;
+  margin-bottom: 10px;
   border-radius: 10px;
   width: 303px;
-  height: 279px;
+  height: 264px;
   background-color: white;
   opacity: 0.6;
+  background-color: #70CCFF;
   transition: opacity 0.2s ease-in;
 }
 
@@ -550,5 +573,12 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.textDetailAll {
+  font-weight: normal;
+  color: black;
+  font-size: 30px;
+  font-family: Delius;
 }
 </style>

@@ -7,15 +7,42 @@
       </v-card>
     </v-row>
     <!-- Sort -->
-    <v-row align="center" justify="end" style="margin-top: 50px">
-      <div class="inputFiled">
-        <v-select label="Sort by" solo rounded outlined />
-      </div>
+    <v-row align="center" justify="end" style="margin-right:50px;margin-top: 50px">
+      <v-menu
+        transition="slide-y-transition"
+        bottom
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="btnSort"
+            v-bind="attrs"
+            v-on="on"
+          >
+          <p style="font-family: 'Delius';font-size: 15px; margin-top:15px">Sort by</p>
+          <v-icon right> mdi-arrow-down-drop-circle-outline </v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in sortItem"
+            :key="i"
+          >
+            <v-list-item-title>
+              <button
+                class="btnPro"
+                @click="sort=item"
+              >
+                {{ item }}
+              </button>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-row>
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="course in courses" :key="course.CourseID">
+        <div class="colCard" v-for="course in courseList" :key="course.CourseID">
           <v-hover v-slot="{ hover }">
             <v-card
               :elevation="hover ? 8 : 12"
@@ -48,16 +75,44 @@ export default {
       this.courses = result.data.result
       this.$store.commit("SET_DIALOG_LOADING", false)
     } else {
-      this.courses = []
       this.$store.commit("SET_DIALOG_LOADING", false)
     }
   },
   data: () => ({
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    courses: []
+    courses: [],
+    sortItem: ["a - z", "z - a"],
+    sort: "a - z"
   }),
+  computed: {
+    courseList () {
+      var temp = this.courses
+      if (this.sort === "a - z") {
+        return temp.sort(this.compareACED)
+      } else {
+        return temp.sort(this.compareDEC)
+      }
+    }
+  },
   methods: {
+    compareACED (a, b) {
+      if (a.Name < b.Name) {
+        return -1;
+      }
+      if (a.Name > b.Name) {
+        return 1;
+      }
+      return 0;
+    },
+    compareDEC (a, b) {
+      if (a.Name > b.Name) {
+        return -1;
+      }
+      if (a.Name < b.Name) {
+        return 1;
+      }
+      return 0;
+    },
     onClickCourse (name, id) {
       this.$router.push({ name: "LessonPage", query: { titleName: name, id: id } })
     }
@@ -76,18 +131,28 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 317px;
-  width: 1300px;
+  height: 250px;
+  width: 1100px;
   background-color: #70ccff;
   border-radius: 30px;
 }
 
-.cardCourseContainer {
-  margin-bottom: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.btnSort {
+  width: 214px;
+  height: 70px;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.btnPro {
+  background-color: white;
+  width: 150px;
+  height: 50px;
+  outline: none;
+}
+.btnPro:hover {
+  color: #47a7f5;
+  outline: none;
 }
 
 .tableCard {

@@ -172,6 +172,14 @@ func (v *Video) GetAllVideo() map[string]interface{} {
 	return log
 }
 
+type result_video struct {
+	VideoID  string
+	lessonID string
+	Name     string
+	UserID   string
+}
+
+//GetVideoByLessonID get all video by lessonID
 func (v *Video) GetVideoByLessonID(lessonID string) map[string]interface{} {
 	db, logs := v.initDB()
 	if logs["status"] != "1" {
@@ -179,8 +187,12 @@ func (v *Video) GetVideoByLessonID(lessonID string) map[string]interface{} {
 	}
 	defer db.Close()
 
-	var videos []entities.TBL_Video
-	err := db.Find(&videos, entities.TBL_Video{LessonID: lessonID}).Error
+	var result []result_video
+	err := db.Raw(`	SELECT v.video_id, v.lesson_id, u.firstname AS "name", v.user_id
+					FROM tbl_videos v
+					INNER JOIN tbl_users u
+						ON v.user_id = u.user_id
+					WHERE v.lesson_id = ? `, lessonID).Scan(&result).Error
 	if err != nil {
 		log := v.errorHandle(err)
 		return log
@@ -189,7 +201,70 @@ func (v *Video) GetVideoByLessonID(lessonID string) map[string]interface{} {
 	log := make(map[string]interface{})
 	log["status"] = "1"
 	log["msg"] = ""
-	log["result"] = videos
+	log["result"] = result
+
+	return log
+}
+
+// GetAllVideoByUserID get all video by userID
+func (v *Video) GetAllVideoByUserID(userID string) map[string]interface{} {
+	db, logs := v.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var result []result_video
+	err := db.Raw(`	SELECT v.video_id, l.lesson_id, l.name, v.user_id
+					FROM tbl_videos v
+					INNER JOIN tbl_lesson_types l
+						ON v.lesson_id = l.lesson_id
+					WHERE v.user_id = ? `, userID).Scan(&result).Error
+	if err != nil {
+		log := v.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
+
+	return log
+}
+
+type result_video_show struct {
+	VideoID     string
+	Name        string
+	LessonName  string
+	Description string
+	Video       string
+}
+
+func (v *Video) GetVideoShow(videoID string) map[string]interface{} {
+	db, logs := v.initDB()
+	if logs["status"] != "1" {
+		return logs
+	}
+	defer db.Close()
+
+	var result []result_video_show
+	err := db.Raw(`	SELECT v.video_id, u.firstname as "name", l.name as "lesson_name", v.description, v.video
+					FROM tbl_videos v
+					INNER JOIN tbl_users u
+						ON v.user_id = u.user_id
+					INNER JOIN tbl_lesson_types l
+						ON v.lesson_id = l.lesson_id
+					WHERE video_id = ? `, videoID).Scan(&result).Error
+	if err != nil {
+		log := v.errorHandle(err)
+		return log
+	}
+
+	log := make(map[string]interface{})
+	log["status"] = "1"
+	log["msg"] = ""
+	log["result"] = result
 
 	return log
 }

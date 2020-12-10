@@ -8,17 +8,16 @@
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="video in videos" :key="video.index">
+        <div class="colCard" v-for="video in videos" :key="video.VideoID">
           <v-hover v-slot="{ hover }">
             <v-card :class="{ 'on-hover': hover }" elevation="8" class="cardCourseSmall">
               <v-img
                 class="imgCard"
-                :src="videoImage"
+                src="../../assets/image/video/video.png"
               />
               <v-row>
                 <v-col class="d-flex pa-5 flex-row justify-space-between">
-                  <p class="cardInSmallText">Lesson : {{ video.lesson_name }}</p>
-                  <p class="cardInSmallText">{{ video.view }} Views</p>
+                  <p class="cardInSmallText">Lesson : {{ video.Name }}</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -26,53 +25,30 @@
         </div>
       </div>
     </v-row>
+    <!-- Popup overlay -->
+    <v-overlay :value="loading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      />
+    </v-overlay>
   </v-container>
 </template>
 
-<script scope>
-// @ is an alias to /src
-
+<script>
+import api from "../../service/api"
+import { server } from "../../service/constants";
 export default {
   name: "MyCourse",
   components: {},
-  mounted () {
-    this.title = this.$route.params.titleName;
+  async mounted () {
+    var resultVideo = await api.getAllVideoByUserID(localStorage.getItem(server.USERNAME))
+    this.videos = resultVideo.data.result
+    this.loading = false
   },
   data: () => ({
-    videoImage: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    title: null,
-    videos: [
-      {
-        index: 1,
-        subject_name: "Mathematics",
-        lesson_name: "Diff I",
-        view: 123
-      },
-      {
-        index: 2,
-        subject_name: "Mathematics",
-        lesson_name: "Diff II",
-        view: 12322
-      },
-      {
-        index: 3,
-        subject_name: "Mathematics",
-        lesson_name: "Diff III",
-        view: 122
-      },
-      {
-        index: 4,
-        lesson_name: "Geometric I",
-        subject_name: "Mathematics",
-        view: 221
-      },
-      {
-        index: 5,
-        lesson_name: "Geometric II",
-        subject_name: "Mathematics",
-        view: 202
-      }
-    ]
+    videos: [],
+    loading: true
   })
 };
 </script>

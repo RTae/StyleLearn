@@ -18,7 +18,8 @@ export default new Vuex.Store({
     username: null,
     userType: null,
     bukectListLesson: [],
-    unPaidState: false
+    unPaidState: false,
+    stateLoginDialog: false
   },
   getters: {
     getCoreHeader (state) {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     },
     getUnPaidSate (state) {
       return state.unPaidState
+    },
+    getStateLoginDialog (state) {
+      return state.stateLoginDialog
     }
   },
   mutations: {
@@ -96,6 +100,9 @@ export default new Vuex.Store({
     },
     CLEAR_ITEM_IN_BUKECT (state) {
       state.bukectListLesson = []
+    },
+    SET_STATE_LOGIN_DIALOG (state, value) {
+      state.stateLoginDialog = value
     }
   },
   actions: {
@@ -129,6 +136,10 @@ export default new Vuex.Store({
           commit("SET_LOGIN_HEADER_TUTOR", false)
           dispatch({ type: "restoreBukect" });
           dispatch({ type: "checkUnPaidInvoice" });
+          commit("SET_STATE_LOGIN_DIALOG", true)
+          setInterval(() => {
+            commit("SET_STATE_LOGIN_DIALOG", false)
+          }, 3000);
         } else if (userType === "Tutor") {
           commit("SET_DIALOG_LOADING", false)
           commit("SET_USERNAME", username);
@@ -166,6 +177,10 @@ export default new Vuex.Store({
           dispatch({ type: "restoreBukect" });
           dispatch({ type: "checkUnPaidInvoice" });
           router.push({ name: "Home" })
+          commit("SET_STATE_LOGIN_DIALOG", true)
+          setInterval(() => {
+            commit("SET_STATE_LOGIN_DIALOG", false)
+          }, 3000);
         } else if (userType === "Tutor") {
           commit("SET_DIALOG_LOADING", false)
           commit("SET_USERNAME", username);
