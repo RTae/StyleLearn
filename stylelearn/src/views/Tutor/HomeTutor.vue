@@ -103,7 +103,6 @@ export default {
       this.videos = resultVideo.data.result.slice(0, 3)
     }
     const result = await api.getUser(localStorage.getItem(server.USERNAME))
-    console.log(result)
     if (result.data.status === "1") {
       this.user.image = result.data.result[0].ProfilePic
       this.user.firstName = result.data.result[0].Firstname

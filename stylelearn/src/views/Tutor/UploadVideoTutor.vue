@@ -259,13 +259,17 @@ export default {
     },
     onFileChangedVideo (e) {
       const reader = new FileReader();
-      reader.onload = event => {
-        // for preview
-        this.videoPreview = event.target.result;
-      };
       reader.readAsDataURL(event.target.files[0]);
       // This for upload
       this.video.file = e.target.files[0];
+      if (this.video.file.type.slice(0, 5) !== "video") {
+        this.$store.dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Please upload video"
+        });
+        this.video.file = null
+      }
     },
     submitUpload () {
       var state = this.$refs.form.validate()
@@ -286,7 +290,7 @@ export default {
           this.$store.dispatch({
             type: "dialogPopup",
             value: true,
-            msg: "Yout must upload video"
+            msg: "You must upload video"
           });
         }
       }

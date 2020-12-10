@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-card class="cardContainer">
         <v-row justify="center"><p class="text">ABOUT US</p></v-row>
-        <v-row justify="center" class="textdetail">
+        <v-row justify="center">
           <p>แพลตฟอร์ม StyleLearn เป็นแพลตฟอร์มที่มีจุดประสงค์เพื่อเป็นสื่อกลาง</p>
         </v-row>
         <v-row justify="center">

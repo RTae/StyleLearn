@@ -116,7 +116,7 @@ func (u *User) ChangePassword(uid, oldPassword, newPassword string) map[string]i
 
 	if oldPassword == auth[0].Password {
 
-		err = db.Model(&entities.TBL_Auth{UserID: uid}).Updates(entities.TBL_Auth{
+		err = db.Model(&entities.TBL_Auth{}).Where("user_id = ?", uid).Updates(entities.TBL_Auth{
 			Password: newPassword,
 		}).Error
 		if err != nil {
