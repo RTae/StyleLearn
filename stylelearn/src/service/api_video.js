@@ -22,3 +22,15 @@ export const createVideo = async values => {
     return result.data;
   }
 };
+
+export const getAllVideoByLessonID = async LessonID => {
+  return httpClient.get(server.VIDEO + `?lessonID=${LessonID}&mode=2`);
+}
+
+export const getAllVideoByUserID = async userID => {
+  return httpClient.get(server.VIDEO + `?userID=${userID}&mode=3`);
+}
+
+export const getShowVideoByVideoID = async videoID => {
+  return httpClient.get(server.VIDEO + `?videoID=${videoID}&mode=4`);
+}

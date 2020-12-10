@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="main" id="LearnCourseTutorPage">
+  <v-container fluid class="main" id="VideoPage">
     <!-- Title -->
     <v-row align="center" justify="start" style="margin-top:40px">
         <v-hover v-slot="{ hover }">
@@ -18,14 +18,14 @@
           </v-btn>
         </v-hover>
       <div class="d-flex flex-column justify-start ml-10">
-        <p class="textHead">Lesson : {{ video.lesson_name }}</p>
-        <p class="textHead">Tutor : {{ video.user_firstname }}</p>
+        <p class="textHead">Lesson : {{ video.lessonName | Capitalize }}</p>
+        <p class="textHead">Tutor : {{ video.name }}</p>
       </div>
     </v-row>
     <!-- Video -->
     <v-row justify="center" align="center">
       <div class="videoContainer">
-        <vue-core-video-player @ended="ended" name="video" :src=video.video_src />
+        <vue-core-video-player v-if="video.video" name="video" :src=video.video />
       </div>
     </v-row>
     <!-- Description -->
@@ -46,7 +46,7 @@
               <v-img
                 :class="{ 'on-hover': hover }"
                 class="imgCard"
-                :src="math"
+                src="../../assets/image/video/video.png"
                 @click="onClickTutor()"
               />
               <v-card-actions style="background-color: #70ccff; height:64px">
@@ -67,21 +67,30 @@
 </template>
 
 <script>
-
+import api from "../../service/api"
 export default {
-  name: "LearnCourseTutorPage",
-  mounted () {
-    this.title = this.$route.params.titleName;
+  name: "VideoPage",
+  async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
+    this.videoID = this.$route.params.id
+    const result = await api.getShowVideoByVideoID(this.videoID)
+    if (result.data.status === "1") {
+      this.video.name = result.data.result[0].Name
+      this.video.lessonName = result.data.result[0].LessonName
+      this.video.description = result.data.result[0].Description
+      this.video.video = result.data.result[0].Video
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    } else {
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    }
   },
   data: () => ({
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    title: null,
-    number: 0,
+    videoID: null,
     video: {
-      user_firstname: "New",
-      lesson_name: "Differntail I",
-      description: "Differntail วิชาแห่งการลืนทไล",
-      video_src: "https://stylelearn.s3-ap-southeast-1.amazonaws.com/video/testVideo3.mp4"
+      name: "",
+      lessonName: "",
+      description: "",
+      video: false
     },
     courses: [
       {
@@ -116,16 +125,18 @@ export default {
       }
     ]
   }),
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
   methods: {
     onClickBack () {
-      this.$router.push({ name: "TutorPage" })
+      this.$router.go(-1)
     },
-    ended () {
-      this.number = this.number + 1
-      console.log(this.number)
-    },
-    onClickLike (n) {
-      this.courses[n].likeState = !this.courses[n].likeState
+    onClickTutor () {
+      console.log("Tutor")
     }
   }
 };

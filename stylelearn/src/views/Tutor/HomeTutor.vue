@@ -17,49 +17,40 @@
       </v-btn>
     </v-row>
     <!-- My video -->
-    <v-row>
+    <v-row style="margin-top:50px">
       <v-col cols="6">
         <div style="margin-left:50px">
-          <p style="font-size: 40px" class="textTitle">
+          <p style="font-size: 40px;" class="textTitle">
             My Video
           </p>
         </div>
       </v-col>
-      <v-col cols="6">
-        <router-link to="/myvideotutor">
-          <div style="margin-right: 50px;">
-            <p
-              style="
-                display: flex;
-                flex-direction: row-reverse;
-                margin-top: 60px;
-              "
-              class="textDetailAll"
-            >
-              All
-            </p>
-          </div>
-        </router-link>
+      <v-col style="display: flex; justify-content: flex-end; align-items: center;" cols="6">
+        <v-btn
+          style="margin-right:50px"
+          class="textDetailAll"
+          text
+          @click="onClickAllVideo"
+        >
+          All
+        </v-btn>
       </v-col>
     </v-row>
 
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="video in videos" :key="video.index">
-          <v-hover v-slot="{ hover }">
-            <v-card :class="{ 'on-hover': hover }" elevation="8" class="cardCourseSmall">
-              <v-img
-                class="imgCard"
-                :src="videoImage"
-              />
-              <v-row>
-                <v-col class="d-flex pa-5 flex-row justify-space-between">
-                  <p class="cardInSmallText">Lesson : {{ video.lesson_name }}</p>
-                  <p class="cardInSmallText">{{ video.view }} Views</p>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-hover>
+        <div class="colCard" v-for="video in videos" :key="video.VideoID">
+          <v-card elevation="8" class="cardCourseSmall">
+            <v-img
+              class="imgCard"
+              src="../../assets/image/video/video.png"
+            />
+            <v-row>
+              <v-col class="d-flex pa-5 flex-row justify-space-between">
+                <p class="cardInSmallText">Lesson : {{ video.Name }}</p>
+              </v-col>
+            </v-row>
+          </v-card>
         </div>
       </div>
     </v-row>
@@ -88,6 +79,13 @@
         </div>
       </v-card>
     </v-row>
+    <!-- Popup overlay -->
+    <v-overlay :value="loading">
+      <v-progress-circular
+        indeterminate
+        size="64"
+      />
+    </v-overlay>
   </v-container>
 </template>
 
@@ -98,51 +96,30 @@ export default {
   name: "Home",
   components: {},
   async mounted () {
+    var resultVideo = await api.getAllVideoByUserID(localStorage.getItem(server.USERNAME))
+    this.videos = resultVideo.data.result.slice(0, 3)
     const result = await api.getUser(localStorage.getItem(server.USERNAME))
     if (result.data.status === "1") {
       this.user.image = result.data.result[0].ProfilePic
       this.user.firstName = result.data.result[0].Firstname
       this.user.familyName = result.data.result[0].Familyname
       this.user.bio = result.data.result[0].Bio
+      this.loading = false
     }
   },
   data: () => ({
-    videos: [
-      {
-        index: 1,
-        subject_name: "Mathematics",
-        lesson_name: "Diff I",
-        view: 123
-      },
-      {
-        index: 2,
-        subject_name: "Mathematics",
-        lesson_name: "Diff II",
-        view: 6969
-      },
-      {
-        index: 3,
-        subject_name: "Mathematics",
-        lesson_name: "Cal III",
-        view: 532
-      }
-    ],
-    model: null,
-    videoImage: "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg",
+    videos: [],
     user: {
       image: "",
       firstName: "",
       familyName: "",
       bio: ""
-    }
+    },
+    loading: true
   }),
   methods: {
-    onClickCours () {
-      this.$router.push("/myvideotutor");
-    },
-    onClickSubject (n) {
-      this.model = n - 1;
-      this.$router.push("/myvideotutor");
+    onClickAllVideo () {
+      this.$router.push({ name: "MyVideoTutor" });
     },
     onClickUpload () {
       this.$router.push({ name: "UploadVideoTutor" });
@@ -167,7 +144,6 @@ export default {
   font-family: "Average Sans", sans-serif;
   align-content: center;
   justify-content: center;
-  margin-top: 40px;
 }
 
 .textDetailAll {
@@ -215,7 +191,7 @@ export default {
 
 .cardInSmallText {
   font-family: "THSarabunNew";
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 

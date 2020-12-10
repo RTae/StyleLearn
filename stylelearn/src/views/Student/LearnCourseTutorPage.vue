@@ -1,49 +1,42 @@
 <template>
   <v-container fluid class="main" id="LearnCourseTutorPage">
     <v-row align="center" justify="start" style="margin-top:40px">
-        <v-hover v-slot="{ hover }">
-          <v-btn
-            depressed
-            height="60px"
-            width="60px"
-            :elevation="hover ? 0 : 0"
-            :class="{ 'on-hover-review': hover }"
-            class="btnBack"
-            @click="onClickBack()"
-            >
-              <span class="material-icons md-48">
-                keyboard_arrow_left
-              </span>
-          </v-btn>
-        </v-hover>
-      <div class=" mt-4 mr-4 pd-6 pl-12">
+      <v-col align="start" justify="center" class="titleHead" col="12">
+        <v-btn
+          depressed
+          height="60px"
+          width="60px"
+          class="btnBack"
+          @click="onClickBack()"
+        >
+            <span class="material-icons md-48">
+              keyboard_arrow_left
+            </span>
+        </v-btn>
         <p class="headtext">{{ title }}</p>
-      </div>
+      </v-col>
     </v-row>
     <!-- Card group of tutor -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="video in videos" :key="video.index">
-          <v-sheet class="cardCoruseTitle">
-            <p class="cardInSmallText">Teacher : {{ video.tutor }}</p>
-          </v-sheet>
+        <div class="colCard" v-for="video in videos" :key="video.VideoID">
           <v-hover v-slot="{ hover }">
-            <v-card elevation="8" class="cardCourseSmall">
+            <v-card
+              :elevation="hover ? 8 : 16"
+              :class="{ 'on-hover': hover }"
+              class="cardCourseSmall"
+              @click="onClickTutor(video.VideoID)"
+            >
               <v-img
-                :class="{ 'on-hover': hover }"
-                class="imgCard"
-                :src="math"
-                @click="onClickTutor()"
+                height="200"
+                width="303"
+                src="../../assets/image/video/video.png"
               />
-              <v-card-actions style="background-color: #70ccff; height:64px">
-                <v-list-item class="grow">
-                  <v-row>
-                    <v-col  align="center" justify="end" cols="8" offset="4">
-                        <p class="cardInSmallText">{{ video.view }} Views</p>
-                    </v-col>
-                  </v-row>
-                </v-list-item>
-              </v-card-actions>
+              <v-row>
+                <v-col class="d-flex pa-5 flex-row justify-space-between">
+                  <p class="cardInSmallText">Tutor:  {{ video.Name }}</p>
+                </v-col>
+              </v-row>
             </v-card>
           </v-hover>
         </div>
@@ -52,25 +45,35 @@
   </v-container>
 </template>
 
-<script scope>
-// @ is an alias to /src
-
+<script>
+import api from "../../service/api";
 export default {
   name: "LearnCourseTutorPage",
   components: {},
-  mounted () {
+  async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
     this.title = this.$route.query.titleName;
-    this.$store.commit("SET_DIALOG_LOADING", false)
+    this.lessonID = this.$route.query.id;
+    var result = await api.getAllVideoByLessonID(this.lessonID)
+    if (result.data.status === "1") {
+      this.videos = result.data.result
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    } else {
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    }
   },
   data: () => ({
     math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
+    lessonID: null,
     videos: []
   }),
   methods: {
-    onClickTutor () {
-      this.$router.push({ name: "Video" })
+    onClickTutor (videoID) {
+      this.$router.push({
+        name: "Video",
+        params: { id: videoID }
+      });
     },
     onClickBack () {
       this.$router.go(-1)
@@ -83,6 +86,11 @@ export default {
 .main {
   background-color: rgb(239, 239, 239);
   min-height: 100vh;
+}
+.titleHead {
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 .btnBack {
   background-color: white;
@@ -101,6 +109,7 @@ export default {
   color: black;
   font-size: 50px;
   font-family: "Average Sans", sans-serif;
+  margin-left: 30px;
 }
 
 .tableCard {
@@ -117,13 +126,6 @@ export default {
   flex-direction: column;
 }
 
-.cardCoruseTitle {
-  display: flex;
-  justify-items: center;
-  width: 303px;
-  background-color: rgb(239, 239, 239);
-}
-
 .cardInSmallText {
   font-family: "THSarabunNew";
   font-size: 20px;
@@ -131,14 +133,20 @@ export default {
 }
 
 .cardCourseSmall {
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 10px;
   border-radius: 10px;
   width: 303px;
   height: 264px;
   background-color: white;
+  opacity: 0.6;
+  background-color: #70CCFF;
   transition: opacity 0.2s ease-in;
 }
 
+.cardCourseSmall:not(.on-hover) {
+  opacity: 1;
+}
 .imgCard {
   height: 200px;
   width: 303px;

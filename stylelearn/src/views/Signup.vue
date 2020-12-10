@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="main" id="signUp">
-    <v-row style="margin-top: 7vh" align="center" justify="center">
-      <p class="textTitle">SIGN UP</p>
+    <v-row style="margin-top: 10vh" align="center" justify="center">
+      <p class="textTitleSignUp">SIGN UP</p>
     </v-row>
     <v-row align="center" justify="center">
       <v-form
@@ -411,7 +411,7 @@ export default {
   flex-direction: row;
 }
 
-.textTitle {
+p.textTitleSignUp {
   font-weight: bold;
   font-size: 50px;
   color: #5c5c5c;

@@ -37,7 +37,11 @@
         <v-icon large color="grey darken-1">
             mdi-dots-vertical
         </v-icon>
-        <v-menu botton left>
+        <v-menu
+          botton
+          transition="slide-y-transition"
+          right
+        >
           <template v-slot:activator="{ on, attrs }">
             <button style="outline:none" icon v-bind="attrs" v-on="on">
               <v-icon large color="grey darken-1" id="account">
@@ -52,7 +56,6 @@
                 <v-hover v-slot="{ hover }">
                   <button
                     :elevation="hover ? 8 : 0"
-                    :class="{ 'on-hover-review': hover }"
                     class="btnPro"
                     @click="onClickHover(item.title)"
                   >

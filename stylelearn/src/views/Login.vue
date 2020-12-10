@@ -1,7 +1,8 @@
 <template>
   <v-container fluid class="main" id="login">
-    <v-row style="margin-top: 7vh" align="center" justify="center">
-      <p class="textTitle">LOGIN</p>
+    <v-row style="margin-top: 10vh" align="center" justify="center">
+      <p class="textTitleLogin">LOGIN</p>
+      <v-icon style="margin-top:10px" x-large right>mdi-account</v-icon>
     </v-row>
     <v-row align="center" justify="center">
       <v-form
@@ -126,7 +127,7 @@ export default {
   margin: 20px;
 }
 
-.textTitle {
+.textTitleLogin {
   font-weight: bold;
   font-size: 50px;
   color: #5c5c5c;
