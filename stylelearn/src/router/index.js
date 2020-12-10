@@ -259,7 +259,7 @@ const routes = [
     component: EditProfileStudent
   },
   {
-    path: "/accountหtudent",
+    path: "/accountstudent",
     name: "ChangePasswordStudent",
     meta: {
       isSecured: true,

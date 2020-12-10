@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="main" id="login">
-    <v-row style="margin-top: 10vh" align="center" justify="center">
+    <v-row style="margin-top: 7vh" align="center" justify="center">
       <p class="textTitle">LOGIN</p>
     </v-row>
     <v-row align="center" justify="center">
@@ -128,14 +128,14 @@ export default {
 
 .textTitle {
   font-weight: bold;
-  font-size: 70px;
+  font-size: 50px;
   color: #5c5c5c;
   font-family: "Average Sans", sans-serif;
   margin-top: 20px;
 }
 
 .text {
-  font-size: 12px;
+  font-size: 15px;
   font-family: "Average Sans", sans-serif;
 }
 
@@ -149,7 +149,7 @@ export default {
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 13px;
+  font-size: 15px;
   text-transform: uppercase;
   color: white;
   box-shadow: 0 0 4px #999;
