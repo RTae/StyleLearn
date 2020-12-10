@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"backend/entities"
+	"backend/helper"
 
 	// Import GORM-related packages.
 	"github.com/jinzhu/gorm"
@@ -17,16 +18,15 @@ type Lesson struct {
 
 // Create new subject into platfrom
 func (l *Lesson) Create(courseID, name, description string) map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var maxUID string
 	rowU := db.Table("tbl_lesson_types").Select("max(lesson_id)").Row()
 	rowU.Scan(&maxUID)
-	newLID, _ := increaseID(maxUID, "l", 1)
+	newLID, _ := helper.IncreaseID(maxUID, "l", 1)
 
 	lesson := entities.TBL_LessonTypes{
 		LessonID:    newLID,
@@ -37,7 +37,7 @@ func (l *Lesson) Create(courseID, name, description string) map[string]interface
 
 	err := db.Create(&lesson).Error
 	if err != nil {
-		log := l.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -49,16 +49,15 @@ func (l *Lesson) Create(courseID, name, description string) map[string]interface
 }
 
 func (l *Lesson) Read(lid string) map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var lesson []entities.TBL_LessonTypes
 	err := db.Find(&lesson, entities.TBL_LessonTypes{LessonID: lid}).Error
 	if err != nil {
-		log := l.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	log := make(map[string]interface{})
@@ -69,11 +68,10 @@ func (l *Lesson) Read(lid string) map[string]interface{} {
 }
 
 func (l *Lesson) Update(lid, courseID, name, description string) map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	logs = l.Read(lid)
 	if logs["status"] != "1" {
@@ -90,15 +88,14 @@ func (l *Lesson) Update(lid, courseID, name, description string) map[string]inte
 }
 
 func (l *Lesson) Delete(lid string) map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	err := db.Delete(&entities.TBL_LessonTypes{}, entities.TBL_LessonTypes{LessonID: lid}).Error
 	if err != nil {
-		log := l.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	log := make(map[string]interface{})
@@ -109,16 +106,15 @@ func (l *Lesson) Delete(lid string) map[string]interface{} {
 }
 
 func (l *Lesson) GetAllLesson() map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var lessons []entities.TBL_LessonTypes
 	err := db.Find(&lessons).Error
 	if err != nil {
-		log := l.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -131,16 +127,15 @@ func (l *Lesson) GetAllLesson() map[string]interface{} {
 }
 
 func (l *Lesson) ReadLessonByCourse(cid string) map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var lesson []entities.TBL_LessonTypes
 	err := db.Find(&lesson, entities.TBL_LessonTypes{CourseID: cid}).Error
 	if err != nil {
-		log := l.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	log := make(map[string]interface{})
@@ -156,11 +151,10 @@ type result_lesson struct {
 }
 
 func (l *Lesson) GetAllLessonByCourseName(courseName string) map[string]interface{} {
-	db, logs := l.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var result []result_lesson
 	err := db.Raw(`	SELECT lesson_id, name 
@@ -169,7 +163,7 @@ func (l *Lesson) GetAllLessonByCourseName(courseName string) map[string]interfac
 										FROM tbl_course_types
 										WHERE name = ? ) `, courseName).Scan(&result).Error
 	if err != nil {
-		log := l.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -178,51 +172,4 @@ func (l *Lesson) GetAllLessonByCourseName(courseName string) map[string]interfac
 	log["msg"] = ""
 	log["result"] = result
 	return log
-}
-
-// Helper Function
-func increaseID(id, name string, length int) (string, error) {
-	digit, err := strconv.Atoi(id[length:])
-	if err != nil {
-		return name, err
-	}
-	digit++
-	s := strconv.Itoa(digit)
-
-	newID := name + strings.Repeat("0", 10-length-len(s)) + s
-	return newID, nil
-}
-
-func (l *Lesson) initDB() (*gorm.DB, map[string]interface{}) {
-	var addr = os.Getenv("COCKROACHDB_URL")
-	db, err := gorm.Open("postgres", addr)
-	if err != nil {
-		log := l.errorHandle(err)
-		return nil, log
-	}
-	db.LogMode(true)
-	log := make(map[string]interface{})
-	log["status"] = "1"
-	log["msg"] = ""
-	log["result"] = ""
-
-	return db, log
-}
-
-func (l *Lesson) errorHandle(err error) map[string]interface{} {
-	var textError string
-	var textStatus string
-	if err.Error() == "mongo: no documents in result" {
-		textError = "User not found"
-		textStatus = "215"
-	} else {
-		textError = err.Error()
-		textStatus = "415"
-	}
-
-	logs := make(map[string]interface{})
-	logs["status"] = textStatus
-	logs["msg"] = textError
-	logs["result"] = ""
-	return logs
 }
