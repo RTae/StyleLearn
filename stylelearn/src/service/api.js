@@ -61,7 +61,6 @@ export const getUser = (id) => {
 
 export const updateProfile = async values => {
   var bodyFormData = new FormData();
-  console.log(values)
   bodyFormData.append("id", values.id);
   bodyFormData.append("firstname", values.firstname);
   bodyFormData.append("familyname", values.familyname);

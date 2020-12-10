@@ -1,23 +1,19 @@
 <template>
   <v-container fluid class="main" id="MyCourse">
     <v-row align="center" justify="start" style="margin-top:40px">
-      <v-col align="end" justify="center" col="1">
-        <v-hover v-slot="{ hover }">
-          <v-btn
-              depressed
-              height="60px"
-              width="60px"
-              :class="{ 'on-hover-review': hover }"
-              class="btnBack material-icons"
-              @click="onClickBack()"
-          >
-            <v-icon>
-              keyboard_arrow_left
-            </v-icon>
-          </v-btn>
-        </v-hover>
-      </v-col>
-      <v-col align="start" justify="center" cols="11">
+      <v-col align="start" justify="center" class="titleHead" col="12">
+        <v-btn
+            depressed
+            height="60px"
+            width="60px"
+            class="btnBack material-icons"
+            style="margin-left:50px"
+            @click="onClickBack()"
+        >
+          <v-icon>
+            keyboard_arrow_left
+          </v-icon>
+        </v-btn>
         <p class="headtext">{{ title }}</p>
       </v-col>
     </v-row>
@@ -32,9 +28,9 @@
               class="cardCourseSmall"
               @click="onClickLesson(lesson.LessonID, lesson.LessonName)"
             >
-              <v-img height="200" width="303" :src="math" />
+              <v-img height="200" width="303" src="../../assets/image/lesson/Lesson.png" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ lesson.LessonName }}</p>
+                <p class="cardInSmallText">{{ lesson.LessonName | Capitalize }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
@@ -61,7 +57,6 @@ export default {
     }
   },
   data: () => ({
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
     lessons: []
   }),
@@ -75,6 +70,12 @@ export default {
     onClickBack () {
       this.$router.go(-1)
     }
+  },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
   }
 };
 </script>
@@ -83,6 +84,11 @@ export default {
 .main {
   background: rgb(239, 239, 239);
   min-height: 100vh;
+}
+.titleHead {
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 .btnBack {
   background-color: white;
@@ -100,6 +106,7 @@ export default {
   color: black;
   font-size: 50px;
   font-family: "Average Sans", sans-serif;
+  margin-left: 30px;
 }
 .text {
   font-weight: normal;

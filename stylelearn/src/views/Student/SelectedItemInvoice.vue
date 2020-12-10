@@ -16,7 +16,7 @@
         <v-card class="cardOrderContainer">
             <v-row  v-for="lesson in lessonBukect" :key="lesson.id" align="center" justify="center">
               <v-col>
-                <p class="cardTextTitle">{{lesson.name }}</p>
+                <p class="cardTextTitle">{{lesson.name | Capitalize }}</p>
               </v-col>
               <v-col>
                 <p class="cardPrice">{{lesson.day}} Day</p>
@@ -96,6 +96,12 @@ export default {
         total: this.calculateTotal,
         lesson: this.lessonBukect
       });
+    }
+  },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 };

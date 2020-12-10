@@ -27,7 +27,11 @@
           <v-btn text>
             <router-link to="/about"> <p class="text">About Us</p></router-link>
           </v-btn>
-          <v-menu botton left>
+          <v-menu
+            botton
+            transition="slide-y-transition"
+            right
+          >
             <template v-slot:activator="{ on, attrs }">
               <button style="outline:none" icon v-bind="attrs" v-on="on">
                 <v-icon large color="grey darken-1">
@@ -42,7 +46,6 @@
                   <v-hover v-slot="{ hover }">
                     <button
                       :elevation="hover ? 8 : 0"
-                      :class="{ 'on-hover-review': hover }"
                       class="btnPro"
                       color="#70ccff"
                       @click="onClickHover(item.title)"
