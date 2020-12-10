@@ -23,12 +23,13 @@
             autocomplete="username"
             :rules="emailRules"
             placeholder="Email"
-            id="email"
+            id=email
           />
         </div>
         <!-- Password field -->
         <div class="input_button">
           <v-text-field
+            id=password
             solo
             rounded
             outlined
@@ -41,7 +42,6 @@
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
-            id="password"
           />
         </div>
 

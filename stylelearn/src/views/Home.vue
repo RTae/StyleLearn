@@ -123,7 +123,6 @@
         </v-btn>
       </v-col>
     </v-row>
-
     <v-row justify="center">
       <div class="tableCard">
         <div class="colCard" v-for="item in popularItem" :key="item.CourseID">
@@ -140,11 +139,7 @@
                 :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
                 id=Popular
               />
-              <v-row>
-                <v-col class="d-flex pa-5 flex-row justify-space-between">
-                  <p class="cardInSmallText">{{ item.Name }}</p>
-                </v-col>
-              </v-row>
+              <p class="cardInSmallText">{{ item.Name }}</p>
             </v-card>
           </v-hover>
         </div>
