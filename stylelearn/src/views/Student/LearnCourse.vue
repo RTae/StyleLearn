@@ -49,13 +49,28 @@ export default {
   components: {},
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    this.title = this.$route.query.titleName;
     const id = localStorage.getItem(server.USERNAME)
-    const result = await api.getProgressLesson(id, this.$route.query.id)
-    if (result.data.status === "1") {
-      this.lessons = result.data.result
-      this.$store.commit("SET_DIALOG_LOADING", false)
+    var courseID = this.$route.params.id
+    if (courseID === undefined) {
+      var myCourseCourseID = localStorage.getItem("myCourseCourseID")
+      if (myCourseCourseID !== null) {
+        const result = await api.getProgressLesson(id, myCourseCourseID)
+        if (result.data.status === "1") {
+          this.lessons = result.data.result
+          this.$store.commit("SET_DIALOG_LOADING", false)
+        }
+      } else {
+        this.$router.push({ name: "MyCourse" })
+      }
+    } else {
+      localStorage.setItem("myCourseCourseID", courseID);
+      const result = await api.getProgressLesson(id, courseID)
+      if (result.data.status === "1") {
+        this.lessons = result.data.result
+        this.$store.commit("SET_DIALOG_LOADING", false)
+      }
     }
+    this.title = this.lessons[0].CourseName
   },
   data: () => ({
     title: null,
@@ -66,7 +81,7 @@ export default {
       return this.items;
     },
     onClickLesson (id, name) {
-      this.$router.push({ name: "TutorPage", query: { titleName: this.title + " : " + name, id: id } })
+      this.$router.push({ name: "TutorPage", params: { id: id } })
     },
     onClickBack () {
       this.$router.go(-1)

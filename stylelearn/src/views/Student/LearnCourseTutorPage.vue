@@ -43,6 +43,27 @@
         </div>
       </div>
     </v-row>
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-title class="primary mb-6"> Alert </v-card-title>
+        <v-card-text class="textDetail">
+          Sorry we don't have video right now
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="onClickDialog"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -53,20 +74,41 @@ export default {
   components: {},
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    this.title = this.$route.query.titleName;
-    this.lessonID = this.$route.query.id;
-    var result = await api.getAllVideoByLessonID(this.lessonID)
+    var lessonID = this.$route.params.id;
+    if (lessonID === undefined) {
+      var myCourseLessonID = localStorage.getItem("myCourseLessonID")
+      if (myCourseLessonID !== null) {
+        var result = await api.getAllVideoByLessonID(myCourseLessonID)
+        if (result.data.status === "1") {
+          this.videos = result.data.result
+          this.$store.commit("SET_DIALOG_LOADING", false)
+        }
+      } else {
+        this.$router.push({ name: "MyCourse" })
+      }
+    } else {
+      localStorage.setItem("myCourseLessonID", lessonID);
+      result = await api.getAllVideoByLessonID(lessonID)
+      if (result.data.status === "1") {
+        this.videos = result.data.result
+        this.$store.commit("SET_DIALOG_LOADING", false)
+      }
+    }
     if (result.data.status === "1") {
       this.videos = result.data.result
       this.$store.commit("SET_DIALOG_LOADING", false)
     } else {
       this.$store.commit("SET_DIALOG_LOADING", false)
     }
+    if (this.videos === null) {
+      this.dialog = true
+    } else {
+      this.title = this.videos[0].CourseName + " : " + this.videos[0].LessonName
+    }
   },
   data: () => ({
-    math: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
     title: null,
-    lessonID: null,
+    dialog: false,
     videos: []
   }),
   methods: {
@@ -75,6 +117,10 @@ export default {
         name: "Video",
         params: { id: videoID }
       });
+    },
+    onClickDialog () {
+      this.dialog = false
+      this.$router.push({ name: "MyCourse" })
     },
     onClickBack () {
       this.$router.go(-1)

@@ -71,6 +71,8 @@ export default {
       this.invoiceID = result[0][0].Invoice_id
       this.total = result[0][0].Total
       this.$store.commit("SET_DIALOG_LOADING", false)
+    } else {
+      this.$router.push({ name: "Home" });
     }
   },
   data () {
