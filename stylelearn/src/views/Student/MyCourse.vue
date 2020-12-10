@@ -50,7 +50,7 @@ export default {
   }),
   methods: {
     onClickCourse (id, name) {
-      this.$router.push({ name: "LearnCourse", query: { titleName: name, id: id } })
+      this.$router.push({ name: "LearnCourse", params: { id: id } })
     }
   }
 };

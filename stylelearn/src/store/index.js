@@ -201,9 +201,9 @@ export default new Vuex.Store({
         commit("SET_LOGIN_HEADER_TUTOR", false)
       }
     },
-    async doRegister ({ commit, dispatch }, { firtname, familyname, birthday, sex, email, password, role, edu }) {
+    async doRegister ({ commit, dispatch }, { firstname, familyname, birthday, sex, email, password, role, edu }) {
       commit("SET_DIALOG_LOADING", true)
-      const result = await api.register({ firtname, familyname, birthday, sex, email, password, role, edu });
+      const result = await api.register({ firstname, familyname, birthday, sex, email, password, role, edu });
       if (result.status === "1") {
         commit("SET_DIALOG_LOADING", false)
         router.push({ name: "SignUpSec" })
