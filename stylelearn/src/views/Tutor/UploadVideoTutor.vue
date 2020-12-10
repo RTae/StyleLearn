@@ -50,6 +50,7 @@
             <v-row class="ml-2" justify="start">
               <label class="textLabel">Subject</label>
             </v-row>
+            <v-row id=subject>
              <v-select
                 :rules="[v => !!v || 'Item is required']"
                 class="selectField"
@@ -59,11 +60,13 @@
                 rounded
                 outlined
               />
+              </v-row>
           </v-col>
           <v-col>
             <v-row class="ml-2" justify="start">
               <label class="textLabel">Course</label>
             </v-row>
+            <v-row id=course>
             <v-select
               :rules="[v => !!v || 'Item is required']"
               class="selectField"
@@ -75,6 +78,7 @@
               :disabled="this.subject === null ? true : false"
               :background-color="this.subject === null ? 'grey lighten-2' : 'white'"
             />
+            </v-row>
           </v-col>
         </v-row>
 
@@ -84,6 +88,7 @@
             <v-row class="ml-2" justify="start">
               <label class="textLabel">Lesson</label>
             </v-row>
+            <v-row id=lesson>
              <v-select
                 :rules="[v => !!v || 'Item is required']"
                 class="selectField"
@@ -95,6 +100,7 @@
                 :disabled="this.course === null ? true : false"
                 :background-color="this.course === null ? 'grey lighten-2' : 'white'"
               />
+            </v-row>
           </v-col>
         </v-row>
 
@@ -112,6 +118,7 @@
               full-width
               single-line
               solo
+              id=description
             />
           </v-col>
         </v-row>

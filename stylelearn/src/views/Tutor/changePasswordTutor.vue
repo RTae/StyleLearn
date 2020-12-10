@@ -46,6 +46,7 @@
                     outlined
                     autocomplete="current-password"
                     type="password"
+                    id=current-password
                   />
                   <!-- New Password -->
                   <v-row class="ml-2 mb-3" justify="start">
@@ -60,6 +61,7 @@
                     outlined
                     autocomplete="new-password"
                     type="password"
+                    id=new-password
                   />
                   <!-- Con Password -->
                   <v-row class="ml-2 mb-3" justify="start">
@@ -73,14 +75,15 @@
                     rounded
                     outlined
                     autocomplete="con-password"
-                    type="password"
+                    type="con-password"
+                    id=con-password
                   />
               </v-col>
             </div>
           </v-row>
           <v-row>
             <v-col class="d-flex justify-center" cols="10">
-              <v-btn type="submit" class="sideButtonContainer" name=save width="200" height="50" color="#70ccff">
+              <v-btn type="submit" class="sideButtonContainer" id=save width="200" height="50" color="#70ccff">
                 Save
               </v-btn>
             </v-col>
