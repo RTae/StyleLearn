@@ -27,6 +27,7 @@
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
               @click="onClickLesson(lesson.LessonID, lesson.LessonName)"
+              :id= lesson.LessonID
             >
               <v-img height="200" width="303" src="../../assets/image/lesson/Lesson.png" />
               <v-sheet class="cardInSmallContainer">

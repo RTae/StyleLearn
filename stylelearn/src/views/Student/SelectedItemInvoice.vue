@@ -40,17 +40,17 @@
     <v-row align="center" justify="center" style="margin-bottom:100px;">
       <div class="buttonCardContainer">
           <button
+            id=btnCancle
             class="bottonNext"
             style="background-color:#EB5769;"
             @click="onClickBack()"
-            id=btnCancle
           >
           Back
           </button>
           <button
+            id=btnNext
             class="bottonNext"
             @click="onClickNext()"
-            id=btnNext
           >
           Next
           </button>

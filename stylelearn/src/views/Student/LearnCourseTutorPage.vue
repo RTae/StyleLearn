@@ -26,6 +26,7 @@
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
               @click="onClickTutor(video.VideoID)"
+              :id= video.VideoID
             >
               <v-img
                 height="200"

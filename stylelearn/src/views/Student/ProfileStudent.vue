@@ -10,13 +10,13 @@
     <v-row style="margin-top: 50px; margin-bottom: 100px">
       <v-col cols="3" offset="1">
         <v-card class="cardSideContainer">
-          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff" name=profile>
+          <v-btn @click="onClickProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff" id=profile>
             Profile
           </v-btn>
-          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff" name=editProfile>
+          <v-btn @click="onClickEditProfile()" class="sideButtonContainer" width="200" height="50" color="#70ccff" id=editProfile>
             Edit Profile
           </v-btn>
-          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff" name=password>
+          <v-btn @click="onClickAccount()" class="sideButtonContainer" width="200" height="50" color="#70ccff" id=password>
             Account
           </v-btn>
         </v-card>
