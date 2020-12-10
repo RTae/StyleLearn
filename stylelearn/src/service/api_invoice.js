@@ -47,7 +47,7 @@ export const createInvoice = async values => {
 
 export const getUnPaidInvoice = async id => {
   const result = await httpClient.get(server.INVOICE + `?userID=${id}&mode=3`);
-  if (result.data.result.length > 0) {
+  if (result.data.result !== null) {
     return [result.data.result, true];
   } else {
     return [result.data.result, false];
