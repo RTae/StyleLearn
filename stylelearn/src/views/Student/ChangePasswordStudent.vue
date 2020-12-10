@@ -39,6 +39,7 @@
                   <label>Current Password</label>
                 </v-row>
                 <v-text-field
+                  id=currentPassword
                   ref="currentPassword"
                   :rules="this.passwordRules"
                   v-model="user.currentPassword"
@@ -54,6 +55,7 @@
                   <label>New Password</label>
                 </v-row>
                 <v-text-field
+                  id=newPassword
                   ref="newPassword"
                   :rules="this.passwordRules"
                   v-model="user.newPassword"
@@ -69,7 +71,8 @@
                   <label>Confirm New Password</label>
                 </v-row>
                 <v-text-field
-                  ref="FirstName"
+                  id=newPassword
+                  ref="ConfirmNewPassword"
                   :rules="this.passwordRules"
                   v-model="conPassword"
                   solo

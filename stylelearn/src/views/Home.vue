@@ -12,7 +12,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus I','c000000003')"
-            name=Cal1
+            id=Cal1
           >
             <v-img
               class="cardImg"
@@ -26,7 +26,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus II','c000000021')"
-            name=Cal2
+            id=Cal2
           >
             <v-img
               class="cardImg"
@@ -40,7 +40,7 @@
             :class="{ 'on-hover': hover }"
             class="courseCard"
             @click="onClickCourse('Calculus III','c000000022')"
-            name=Cal3
+            id=Cal3
           >
             <v-img
             class="cardImg"
@@ -67,6 +67,7 @@
       </v-col>
       <v-col style="display: flex; justify-content: flex-end; align-items: center;" cols="6">
         <v-btn
+          id=allNewest
           style="margin-right:50px"
           class="textDetailAll"
           text
@@ -90,7 +91,7 @@
                 height="200"
                 width="303"
                 :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
-                name=Newest
+                id=Newest
               />
               <v-row>
                 <v-col class="d-flex pa-5 flex-row justify-space-between">
@@ -112,6 +113,7 @@
       </v-col>
       <v-col style="display: flex; justify-content: flex-end; align-items: center;" cols="6">
         <v-btn
+          id=allPopular
           style="margin-right:50px"
           class="textDetailAll"
           text
@@ -136,7 +138,7 @@
                 height="200"
                 width="303"
                 :src="require('../assets/image/subject/cardSmall/' + item.subject_name + '.png')"
-                name=Newest
+                id=Popular
               />
               <v-row>
                 <v-col class="d-flex pa-5 flex-row justify-space-between">
@@ -165,7 +167,7 @@
                 class="ma-10 subjectCard"
                 :class="{ 'on-hover': hover }"
                 @click="onClickSubject(subject.Name, subject.SubjectID);"
-                name=Subject
+                id=Subject
               >
                 <v-img
                 class="cardImg"

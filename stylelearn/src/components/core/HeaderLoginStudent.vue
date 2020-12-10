@@ -18,12 +18,12 @@
             <p class="text">Home</p>
           </router-link>
         </v-btn>
-        <v-btn text name=basicuse>
+        <v-btn text id=basicuse>
           <router-link to="/basicuse">
             <p class="text">Basic Use</p>
           </router-link>
         </v-btn>
-        <v-btn text name=aboutus>
+        <v-btn text id=aboutus>
           <router-link to="/about"> <p class="text">About Us</p></router-link>
         </v-btn>
         <v-btn

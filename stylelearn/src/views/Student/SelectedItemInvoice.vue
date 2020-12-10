@@ -43,14 +43,14 @@
             class="bottonNext"
             style="background-color:#EB5769;"
             @click="onClickBack()"
-            name=btnCancle
+            id=btnCancle
           >
           Back
           </button>
           <button
             class="bottonNext"
             @click="onClickNext()"
-            name=btnNext
+            id=btnNext
           >
           Next
           </button>

@@ -14,11 +14,11 @@
       <v-spacer></v-spacer>
       <v-row align="center" justify="end">
         <v-toolbar-items >
-          <v-btn text name=home><router-link to="/"><p class="text">Home</p></router-link></v-btn>
-          <v-btn text name=basicuse><router-link to="/basicuse"><p class="text">Basic Use</p></router-link></v-btn>
-          <v-btn text name=about><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
-          <router-link to="/signup"><button class="btnHeader" name=signup>Sign Up</button></router-link>
-          <router-link to="/login"><button class="btnHeader" name=signin>LogIn</button></router-link>
+          <v-btn text id=home><router-link to="/"><p class="text">Home</p></router-link></v-btn>
+          <v-btn text id=basicuse><router-link to="/basicuse"><p class="text">Basic Use</p></router-link></v-btn>
+          <v-btn text id=about><router-link to="/about"><p class="text">About Us</p></router-link></v-btn>
+          <router-link to="/signup"><button class="btnHeader" id=signup>Sign Up</button></router-link>
+          <router-link to="/login"><button class="btnHeader" id=signin>LogIn</button></router-link>
         </v-toolbar-items>
       </v-row>
     </v-app-bar>

@@ -23,7 +23,7 @@
             autocomplete="username"
             :rules="emailRules"
             placeholder="Email"
-            name="email"
+            id="email"
           />
         </div>
         <!-- Password field -->
@@ -41,7 +41,7 @@
             :type="showPassword ? 'text' : 'password'"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
-            name="password"
+            id="password"
           />
         </div>
 
