@@ -20,3 +20,11 @@ export const getPopCourse = () => {
 export const getNewCourse = () => {
   return httpClient.get(server.COURSE + "?mode=5");
 };
+
+export const getPopCourseLimit = () => {
+  return httpClient.get(server.COURSE + "?mode=4");
+};
+
+export const getNewCourseLimit = () => {
+  return httpClient.get(server.COURSE + "?mode=5");
+};
