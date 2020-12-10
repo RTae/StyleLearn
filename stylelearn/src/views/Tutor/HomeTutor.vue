@@ -79,6 +79,7 @@
         </div>
       </v-card>
     </v-row>
+    <PopUpDialog />
     <!-- Popup overlay -->
     <v-overlay :value="loading">
       <v-progress-circular
@@ -92,12 +93,19 @@
 <script>
 import api from "../../service/api"
 import { server } from "../../service/constants";
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "Home",
-  components: {},
+  components: {
+    PopUpDialog
+  },
   async mounted () {
     var resultVideo = await api.getAllVideoByUserID(localStorage.getItem(server.USERNAME))
-    this.videos = resultVideo.data.result.slice(0, 3)
+    if (resultVideo.data.result === null) {
+      this.videos = []
+    } else {
+      this.videos = resultVideo.data.result.slice(0, 3)
+    }
     const result = await api.getUser(localStorage.getItem(server.USERNAME))
     if (result.data.status === "1") {
       this.user.image = result.data.result[0].ProfilePic

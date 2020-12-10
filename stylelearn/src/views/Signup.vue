@@ -361,7 +361,7 @@ export default {
             this.eduTypeMapValue(this.eduValue)
             this.$store.dispatch({
               type: "doRegister",
-              firtname: this.user.firtname,
+              firstname: this.user.firtname,
               familyname: this.user.familyname,
               birthday: this.user.birthday,
               sex: this.user.sex,

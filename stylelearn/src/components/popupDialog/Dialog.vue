@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="$store.getters.getDialogState" width="500">
+    <v-dialog persistent v-model="$store.getters.getDialogState" width="500">
       <v-card>
         <v-card-title class="primary mb-6"> Alert </v-card-title>
         <v-card-text class="textDetail">

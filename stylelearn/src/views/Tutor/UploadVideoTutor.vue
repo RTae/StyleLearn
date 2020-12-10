@@ -22,7 +22,7 @@
             </v-row>
             <div>
             <v-btn
-                :color="videoPreview === null ? 'primary' : 'green'"
+                :color="video.file === null ? 'primary' : 'green'"
                 class="text-none"
                 height="50"
                 elevation="5"
@@ -128,28 +128,7 @@
     </v-row>
 
     <!-- Dialog -->
-    <v-dialog v-model="$store.getters.getDialogState" width="500">
-      <v-card>
-        <v-card-title class="primary mb-6"> Alert </v-card-title>
-        <v-card-text class="popUpText">
-          {{ $store.getters.getDialogMsg }}
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="$store.dispatch({ type: 'dialogPopup', value: false, msg: '' })"
-          >
-            OK
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
+    <PopUpDialog />
     <!-- Popup overlay -->
     <v-overlay :value="loading">
       <v-progress-circular
@@ -163,9 +142,12 @@
 
 <script>
 import api from "../../service/api"
+import PopUpDialog from "../../components/popupDialog/Dialog"
 export default {
   name: "uploadVideo",
-  components: {},
+  components: {
+    PopUpDialog
+  },
   async mounted () {
     const resultSubject = await api.getAllSubject()
     const resultCourse = await api.getAllCouse()
@@ -259,13 +241,17 @@ export default {
     },
     onFileChangedVideo (e) {
       const reader = new FileReader();
-      reader.onload = event => {
-        // for preview
-        this.videoPreview = event.target.result;
-      };
       reader.readAsDataURL(event.target.files[0]);
       // This for upload
       this.video.file = e.target.files[0];
+      if (this.video.file.type.slice(0, 5) !== "video") {
+        this.$store.dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Please upload video"
+        });
+        this.video.file = null
+      }
     },
     submitUpload () {
       var state = this.$refs.form.validate()
@@ -286,7 +272,7 @@ export default {
           this.$store.dispatch({
             type: "dialogPopup",
             value: true,
-            msg: "Yout must upload video"
+            msg: "You must upload video"
           });
         }
       }

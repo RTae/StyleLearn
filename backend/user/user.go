@@ -1,16 +1,10 @@
 package user
 
 import (
-	"os"
-	"strconv"
-	"strings"
 	"time"
 
 	"backend/entities"
-
-	// Import GORM-related packages.
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"backend/helper"
 )
 
 type User struct {
@@ -25,11 +19,10 @@ type result struct {
 
 // Login user to authication
 func (u *User) Login(email, password string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var results []result
 	err := db.Raw(`	SELECT u.user_id, tu.name, u.email, a.password 
@@ -40,7 +33,7 @@ func (u *User) Login(email, password string) map[string]interface{} {
 						ON u.user_type = tu.user_type_id
 					WHERE u.email = ? `, email).Scan(&results).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -77,18 +70,17 @@ func (u *User) Login(email, password string) map[string]interface{} {
 
 // Register user use it to Register to platform
 func (u *User) Register(firstname, familyname, brithday, sex, email, password, userType, educationType string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var r []string
 	err := db.Raw(`	SELECT email
 					FROM tbl_users
 					WHERE tbl_users.email = ?`, email).Scan(&r).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -109,25 +101,26 @@ func (u *User) Register(firstname, familyname, brithday, sex, email, password, u
 
 // ChangePassword for user
 func (u *User) ChangePassword(uid, oldPassword, newPassword string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var auth []entities.TBL_Auth
 	err := db.Find(&auth, entities.TBL_Auth{UserID: uid}).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	log := make(map[string]interface{})
 
 	if oldPassword == auth[0].Password {
 
-		err = db.Model(&entities.TBL_Auth{}).Where(entities.TBL_Auth{UserID: uid}).Update(entities.TBL_Auth{Password: newPassword}).Error
+		err = db.Model(&entities.TBL_Auth{}).Where("user_id = ?", uid).Updates(entities.TBL_Auth{
+			Password: newPassword,
+		}).Error
 		if err != nil {
-			log := u.errorHandle(err)
+			log := helper.ErrorHandle(err)
 			return log
 		}
 
@@ -145,11 +138,10 @@ func (u *User) ChangePassword(uid, oldPassword, newPassword string) map[string]i
 
 // Create new user into platfrom
 func (u *User) Create(firstname, familyname, brithday, sex, email, password, userType, educationType string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var maxUID string
 	var maxAID string
@@ -157,13 +149,13 @@ func (u *User) Create(firstname, familyname, brithday, sex, email, password, use
 	rowU.Scan(&maxUID)
 	rowA := db.Table("tbl_auth").Select("max(auth_id)").Row()
 	rowA.Scan(&maxAID)
-	newUID, _ := increaseID(maxUID, "u", 1)
-	newAID, _ := increaseID(maxUID, "ay", 2)
+	newUID, _ := helper.IncreaseID(maxUID, "u", 1)
+	newAID, _ := helper.IncreaseID(maxUID, "ay", 2)
 
 	t, err := time.Parse("2006-01-02", brithday)
 
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -187,12 +179,12 @@ func (u *User) Create(firstname, familyname, brithday, sex, email, password, use
 
 	err = db.Create(&user).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	err = db.Create(&auth).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -204,16 +196,15 @@ func (u *User) Create(firstname, familyname, brithday, sex, email, password, use
 }
 
 func (u *User) Read(uid string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var users []entities.TBL_Users
 	err := db.Find(&users, entities.TBL_Users{UserID: uid}).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	log := make(map[string]interface{})
@@ -235,11 +226,10 @@ type result_profile struct {
 }
 
 func (u *User) ReadProfile(uid string) map[string]interface{} {
-	db, log := u.initDB()
+	db, log := helper.InitDB()
 	if log["status"] != "1" {
 		return log
 	}
-	defer db.Close()
 
 	var result []result_profile
 	err := db.Raw(`	SELECT u.firstname, u.familyname, u.birthday, 
@@ -249,7 +239,7 @@ func (u *User) ReadProfile(uid string) map[string]interface{} {
 						ON u.education_type = et.education_type_id
 					WHERE u.user_id =  ? `, uid).Scan(&result).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -261,11 +251,10 @@ func (u *User) ReadProfile(uid string) map[string]interface{} {
 }
 
 func (u *User) Update(uid, firstname, familyname, birthday, sex, linkPic, edu, bio string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	logs = u.Read(uid)
 	if logs["status"] != "1" {
@@ -273,21 +262,24 @@ func (u *User) Update(uid, firstname, familyname, birthday, sex, linkPic, edu, b
 	}
 	t, err := time.Parse("2006-01-02", birthday)
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
-	err = db.Model(&entities.TBL_Users{}).Where(entities.TBL_Users{UserID: uid}).Update(entities.TBL_Users{
+
+	err = db.Model(&entities.TBL_Users{UserID: uid}).Updates(entities.TBL_Users{
 		Firstname:     firstname,
 		Familyname:    familyname,
 		Birthday:      t,
 		Sex:           sex,
 		ProfilePic:    linkPic,
 		EducationType: edu,
-		Bio:           bio}).Error
+		Bio:           bio,
+	}).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
+
 	logs = make(map[string]interface{})
 	logs["status"] = "1"
 	logs["msg"] = ""
@@ -296,20 +288,19 @@ func (u *User) Update(uid, firstname, familyname, birthday, sex, linkPic, edu, b
 }
 
 func (u *User) Delete(uid string) map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	err := db.Delete(&entities.TBL_Users{}, entities.TBL_Users{UserID: uid}).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	err = db.Delete(&entities.TBL_Auth{}, entities.TBL_Auth{UserID: uid}).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 	log := make(map[string]interface{})
@@ -320,16 +311,15 @@ func (u *User) Delete(uid string) map[string]interface{} {
 }
 
 func (u *User) GetAllUser() map[string]interface{} {
-	db, logs := u.initDB()
+	db, logs := helper.InitDB()
 	if logs["status"] != "1" {
 		return logs
 	}
-	defer db.Close()
 
 	var users []entities.TBL_Users
 	err := db.Find(&users).Error
 	if err != nil {
-		log := u.errorHandle(err)
+		log := helper.ErrorHandle(err)
 		return log
 	}
 
@@ -339,51 +329,4 @@ func (u *User) GetAllUser() map[string]interface{} {
 	log["result"] = users
 
 	return log
-}
-
-// Helper Function
-func increaseID(id, name string, length int) (string, error) {
-	digit, err := strconv.Atoi(id[length:])
-	if err != nil {
-		return name, err
-	}
-	digit++
-	s := strconv.Itoa(digit)
-
-	newID := name + strings.Repeat("0", 10-length-len(s)) + s
-	return newID, nil
-}
-
-func (u *User) initDB() (*gorm.DB, map[string]interface{}) {
-	var addr = os.Getenv("COCKROACHDB_URL")
-	db, err := gorm.Open("postgres", addr)
-	if err != nil {
-		log := u.errorHandle(err)
-		return nil, log
-	}
-	db.LogMode(true)
-	log := make(map[string]interface{})
-	log["status"] = "1"
-	log["msg"] = ""
-	log["result"] = ""
-
-	return db, log
-}
-
-func (u *User) errorHandle(err error) map[string]interface{} {
-	var textError string
-	var textStatus string
-	if err.Error() == "mongo: no documents in result" {
-		textError = "User not found"
-		textStatus = "215"
-	} else {
-		textError = err.Error()
-		textStatus = "415"
-	}
-
-	logs := make(map[string]interface{})
-	logs["status"] = textStatus
-	logs["msg"] = textError
-	logs["result"] = ""
-	return logs
 }

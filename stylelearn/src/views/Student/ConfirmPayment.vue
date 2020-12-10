@@ -60,7 +60,7 @@
           <v-col>
             <v-menu
               ref="menu"
-              v-model="menuDate"
+              v-model="menu"
               :close-on-content-click="false"
               transition="scale-transition"
               offset-y
@@ -234,20 +234,30 @@
 
 <script>
 import PopUpDialog from "../../components/popupDialog/Dialog"
+import api from "../../service/api"
+import { server } from "../../service/constants"
 export default {
   name: "ConfirmPayment",
   components: {
     PopUpDialog
   },
-  mounted () {
-    this.receipt.invoiceID = this.$route.query.invoiceID
-    this.total = this.$route.query.total
+  async mounted () {
+    this.$store.commit("SET_DIALOG_LOADING", true)
+    const id = localStorage.getItem(server.USERNAME)
+    var result = await api.getUnPaidInvoice(id)
+    if (result[1]) {
+      this.receipt.invoiceID = result[0][0].Invoice_id
+      this.total = result[0][0].Total
+      this.$store.commit("SET_DIALOG_LOADING", false)
+    } else {
+      this.$router.push({ name: "Home" });
+    }
   },
   computed: {},
   data: () => ({
     items: ["Kasikorn Bank (K-BANK)", "Bangkok Bank (BBL)", "Government Savings Bank (GSB)", "Krung Thai Bank (KTB)", "Siam Commercial Bank (SCB)", "Krungsri Bank (BAY)"],
     valid: true, // Form Valid status
-    menuDate: false, // Popup Date status
+    menu: false, // Popup Date status
     menuTime: false, // Popup time status
     dateOfTransfer: null, // Date
     time: null, // Time
@@ -365,7 +375,7 @@ export default {
             this.$store.dispatch({
               type: "dialogPopup",
               value: true,
-              msg: "The amount tranfer is incorrect"
+              msg: "The amount tranfer is incorrect ( it should be " + this.total + " baht )"
             });
           }
         } else {

@@ -19,6 +19,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if (*r).Method == "GET" {
 		w.Header().Set("Content-Type", "application/json")
 		id := r.FormValue("id")
+		limit := r.FormValue("limit")
 		subjectName := r.FormValue("subjectName")
 		mode := r.FormValue("mode")
 
@@ -31,6 +32,22 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		} else if mode == "3" {
 			logs := c.GetAllCourseBySubjectName(subjectName)
 			json.NewEncoder(w).Encode(logs)
+		} else if mode == "4" {
+			if limit == "1" {
+				logs := c.GetAllPoppularCourseLimt()
+				json.NewEncoder(w).Encode(logs)
+			} else {
+				logs := c.GetAllPoppularCourse()
+				json.NewEncoder(w).Encode(logs)
+			}
+		} else if mode == "5" {
+			if limit == "1" {
+				logs := c.GetAllNewestCourseLimt()
+				json.NewEncoder(w).Encode(logs)
+			} else {
+				logs := c.GetAllNewestCourse()
+				json.NewEncoder(w).Encode(logs)
+			}
 		} else {
 			logs := c.GetAllCourse()
 			json.NewEncoder(w).Encode(logs)

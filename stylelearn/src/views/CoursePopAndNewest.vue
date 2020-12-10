@@ -48,7 +48,7 @@
               :elevation="hover ? 8 : 12"
               :class="{ 'on-hover': hover }"
               class="cardCourseSmall"
-              @click="onClickCourse(course.CourseID)"
+              @click="onClickCourse('5', course.CourseID)"
             >
               <v-img height="200" width="303" :src="require('../assets/image/subject/cardSmall/' + course.SubjectName + '.png')" />
               <v-sheet class="cardInSmallContainer">
@@ -69,15 +69,25 @@ export default {
   components: {},
   async mounted () {
     this.$store.commit("SET_DIALOG_LOADING", true)
-    const result = await api.getCourseBySubject(this.$route.query.id)
-    if (result.data.status === "1" && result.data.result !== null) {
-      this.courses = result.data.result
-      this.title = this.courses[0].SubjectName
-      this.$store.commit("SET_DIALOG_LOADING", false)
+    this.title = this.$route.query.titleName
+    if (this.title === "Newest") {
+      var result = await api.getNewCourse()
+      if (result.data.status === "1") {
+        this.courses = result.data.result
+      } else {
+        this.$router.push({ name: "Home" })
+      }
+    } else if (this.title === "Popular") {
+      result = await api.getPopCourse()
+      if (result.data.status === "1") {
+        this.courses = result.data.result
+      } else {
+        this.$router.push({ name: "Home" })
+      }
     } else {
-      this.$store.commit("SET_DIALOG_LOADING", false)
       this.$router.push({ name: "Home" })
     }
+    this.$store.commit("SET_DIALOG_LOADING", false)
   },
   data: () => ({
     title: null,
@@ -97,24 +107,24 @@ export default {
   },
   methods: {
     compareACED (a, b) {
-      if (a.Name < b.Name) {
+      if (a.CourseName < b.CourseName) {
         return -1;
       }
-      if (a.Name > b.Name) {
+      if (a.CourseName > b.CourseName) {
         return 1;
       }
       return 0;
     },
     compareDEC (a, b) {
-      if (a.Name > b.Name) {
+      if (a.CourseName > b.CourseName) {
         return -1;
       }
-      if (a.Name < b.Name) {
+      if (a.CourseName < b.CourseName) {
         return 1;
       }
       return 0;
     },
-    onClickCourse (id) {
+    onClickCourse (name, id) {
       this.$router.push({ name: "LessonPage", query: { id: id } })
     }
   }
