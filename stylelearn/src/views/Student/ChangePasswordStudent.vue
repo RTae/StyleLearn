@@ -84,7 +84,7 @@
           </v-row>
           <v-row>
             <v-col class="d-flex justify-center" cols="10">
-              <v-btn type="submit" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+              <v-btn type="submit" class="sideButtonContainer" width="200" height="50" color="#70ccff" ID="save">
                 Save
               </v-btn>
             </v-col>

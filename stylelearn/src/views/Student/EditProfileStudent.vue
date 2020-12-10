@@ -133,32 +133,36 @@
                 <v-row class="ml-2 mb-3" justify="start">
                   <label>Sex</label>
                 </v-row>
-                <v-select
-                  :rules="[v => !!v || 'Item is required']"
-                  v-model="user.sex"
-                  :items="sexItemList"
-                  solo
-                  rounded
-                  outlined
-                />
+                <v-row id="sex">
+                  <v-select
+                    :rules="[v => !!v || 'Item is required']"
+                    v-model="user.sex"
+                    :items="sexItemList"
+                    solo
+                    rounded
+                    outlined
+                  />
+                </v-row>
                 <!-- Education -->
                 <v-row class="ml-2 mb-3" justify="start">
                   <label>Education</label>
                 </v-row>
-                <v-select
-                  :rules="[v => !!v || 'Item is required']"
-                  v-model="eduTypeValue"
-                  :items="eduTypeList"
-                  solo
-                  rounded
-                  outlined
-                />
+                <v-row id="education">
+                  <v-select
+                    :rules="[v => !!v || 'Item is required']"
+                    v-model="eduTypeValue"
+                    :items="eduTypeList"
+                    solo
+                    rounded
+                    outlined
+                  />
+                </v-row>
               </v-col>
             </div>
           </v-row>
           <v-row>
             <v-col class="d-flex justify-center" cols="7">
-              <v-btn type="submit" class="sideButtonContainer" width="200" height="50" color="#70ccff">
+              <v-btn type="submit" class="sideButtonContainer" width="200" height="50" color="#70ccff" id="save">
                 save
               </v-btn>
             </v-col>

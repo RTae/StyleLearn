@@ -136,7 +136,7 @@ export default {
 }
 
 .text {
-  font-size: 12px;
+  font-size: 15px;
   font-family: "Average Sans", sans-serif;
 }
 
@@ -150,7 +150,7 @@ export default {
   height: 45px;
   opacity: 1;
   transition: 0.3s;
-  font-size: 13px;
+  font-size: 15px;
   text-transform: uppercase;
   color: white;
   box-shadow: 0 0 4px #999;
