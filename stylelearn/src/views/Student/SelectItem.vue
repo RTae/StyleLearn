@@ -14,9 +14,7 @@
             <v-row align="center" justify="center">
               <v-col>
                 <div class="detail">
-                  <v-card-text class="cardTextTitle">{{
-                    item.name
-                  }}</v-card-text>
+                  <v-card-text class="cardTextTitle">{{ item.name | Capitalize }}</v-card-text>
                 </div>
               </v-col>
               <v-col>
@@ -110,6 +108,12 @@ export default {
       } else {
         return true
       }
+    }
+  },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   },
   methods: {
