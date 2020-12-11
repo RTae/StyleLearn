@@ -17,3 +17,7 @@
 3. cd stylelearn
 4. yarn
 5. yarn serve
+## Specification
+Web App support
+- Desktop
+- Laptop
