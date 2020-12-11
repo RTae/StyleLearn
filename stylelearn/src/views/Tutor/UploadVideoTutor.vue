@@ -252,6 +252,7 @@ export default {
         });
         this.video.file = null
       }
+      this.$refs.uploaderVideo.value = ""
     },
     submitUpload () {
       var state = this.$refs.form.validate()
