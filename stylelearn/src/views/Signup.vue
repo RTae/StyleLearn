@@ -369,7 +369,7 @@ export default {
               familyname: this.user.familyname,
               birthday: this.user.birthday,
               sex: this.user.sex,
-              email: this.user.email,
+              email: this.user.email.trim(),
               password: this.user.password,
               role: this.user.role,
               edu: this.user.edu
