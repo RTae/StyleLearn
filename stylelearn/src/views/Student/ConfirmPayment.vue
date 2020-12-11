@@ -374,7 +374,6 @@ export default {
         this.receipt.image = e.target.files[0];
       }
       this.$refs.uploaderReceipt.value = ""
-
     },
     onClickSubmit () {
       var state = this.$refs.form.validate()
