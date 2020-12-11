@@ -177,7 +177,7 @@ export default {
             this.$store.dispatch({
               type: "addItemToBukect",
               id: this.lessons[i].LessonID,
-              name: this.lessons[i].Name
+              name: this.lessons[i].LessonName
             });
           }
         }
