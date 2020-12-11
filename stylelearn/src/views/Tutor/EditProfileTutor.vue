@@ -285,14 +285,23 @@ export default {
       this.$refs.uploaderPic.click();
     },
     onFileChangedPic (e) {
-      const reader = new FileReader();
-      reader.onload = event => {
-        // for preview
-        this.imageURL = event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-      // This for upload
-      this.user.image = e.target.files[0];
+      if (e.target.files[0].type.slice(0, 5) !== "image") {
+        this.$store.dispatch({
+          type: "dialogPopup",
+          value: true,
+          msg: "Please upload picture"
+        });
+        this.user.image = null
+      } else {
+        const reader = new FileReader();
+        reader.onload = event => {
+          // for preview
+          this.imageURL = event.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        this.user.image = e.target.files[0];
+      }
+      this.$refs.uploaderPic.value = ""
     },
     save (date) {
       this.$refs.menu.save(date);
