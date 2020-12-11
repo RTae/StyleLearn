@@ -12,6 +12,8 @@
 5. นางสาวสรัลพร    ธนกรดิษฐ์  61070507234
 ## HOW TO RUN IN LOCAL
 ต้องลง yarn ก่อนจึงสามารถใช้งานได้ (https://yarnpkg.com/)
-1. cd stylelearn
-2. yarn
-3. yarn serve
+1. git clone [link of this repository]
+2. cd StyleLearn
+3. cd stylelearn
+4. yarn
+5. yarn serve
