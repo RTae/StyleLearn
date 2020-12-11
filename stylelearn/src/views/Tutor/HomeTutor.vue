@@ -47,7 +47,7 @@
             />
             <v-row>
               <v-col class="d-flex pa-5 flex-row justify-space-between">
-                <p class="cardInSmallText">Lesson : {{ video.Name }}</p>
+                <p class="cardInSmallText">Lesson : {{ video.Name | Capitalize }}</p>
               </v-col>
             </v-row>
           </v-card>
@@ -131,6 +131,12 @@ export default {
     },
     onClickUpload () {
       this.$router.push({ name: "UploadVideoTutor" });
+    }
+  },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 };

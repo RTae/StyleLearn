@@ -52,7 +52,7 @@
             >
               <v-img height="200" width="303" :src="require('../assets/image/subject/cardSmall/' + course.SubjectName + '.png')" />
               <v-sheet class="cardInSmallContainer">
-                <p class="cardInSmallText">{{ course.CourseName }}</p>
+                <p class="cardInSmallText">{{ course.CourseName | Capitalize }}</p>
               </v-sheet>
             </v-card>
           </v-hover>
@@ -116,6 +116,12 @@ export default {
     },
     onClickCourse (id) {
       this.$router.push({ name: "LessonPage", query: { id: id } })
+    }
+  },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 };

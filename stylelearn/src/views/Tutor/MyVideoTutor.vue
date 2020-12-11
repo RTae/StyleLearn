@@ -5,10 +5,42 @@
         <p class="cardTextTitle">My Video</p>
       </v-card>
     </v-row>
+    <v-row align="center" justify="end" style="margin-right:50px;margin-top: 50px">
+      <v-menu
+        transition="slide-y-transition"
+        bottom
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="btnSort"
+            v-bind="attrs"
+            v-on="on"
+          >
+          <p style="font-family: 'Delius';font-size: 15px; margin-top:15px">Sort by</p>
+          <v-icon right> mdi-arrow-down-drop-circle-outline </v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in sortItem"
+            :key="i"
+          >
+            <v-list-item-title>
+              <button
+                class="btnPro"
+                @click="sort=item"
+              >
+                {{ item }}
+              </button>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-row>
     <!-- Card -->
     <v-row justify="center">
       <div class="tableCard">
-        <div class="colCard" v-for="video in videos" :key="video.VideoID">
+        <div class="colCard" v-for="video in videoList" :key="video.VideoID">
           <v-hover v-slot="{ hover }">
             <v-card :class="{ 'on-hover': hover }" elevation="8" class="cardCourseSmall">
               <v-img
@@ -17,7 +49,7 @@
               />
               <v-row>
                 <v-col class="d-flex pa-5 flex-row justify-space-between">
-                  <p class="cardInSmallText">Lesson : {{ video.Name }}</p>
+                  <p class="cardInSmallText">Lesson : {{ video.Name | Capitalize }}</p>
                 </v-col>
               </v-row>
             </v-card>
@@ -48,8 +80,46 @@ export default {
   },
   data: () => ({
     videos: [],
-    loading: true
-  })
+    loading: true,
+    sortItem: ["a - z", "z - a"],
+    sort: "a - z"
+  }),
+  computed: {
+    videoList () {
+      var temp = this.videos
+      if (this.sort === "a - z") {
+        return temp.sort(this.compareACED)
+      } else {
+        return temp.sort(this.compareDEC)
+      }
+    }
+  },
+  methods: {
+    compareACED (a, b) {
+      if (a.Name < b.Name) {
+        return -1;
+      }
+      if (a.Name > b.Name) {
+        return 1;
+      }
+      return 0;
+    },
+    compareDEC (a, b) {
+      if (a.Name > b.Name) {
+        return -1;
+      }
+      if (a.Name < b.Name) {
+        return 1;
+      }
+      return 0;
+    }
+  },
+  filters: {
+    Capitalize (value) {
+      if (typeof value !== "string") return ""
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
 };
 </script>
 
@@ -123,5 +193,12 @@ export default {
 .imgCard {
   height: 200px;
   width: 303px;
+}
+
+.btnSort {
+  width: 214px;
+  height: 70px;
+  border-radius: 15px;
+  background-color: white;
 }
 </style>
