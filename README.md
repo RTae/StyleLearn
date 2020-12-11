@@ -11,5 +11,7 @@
 4. นายสหัสวรรษ     ศรีจันทร์ 61070507223
 5. นางสาวสรัลพร    ธนกรดิษฐ์  61070507234
 ## HOW TO RUN IN LOCAL
+ต้องลง yarn ก่อนจึงสามารถใช้งานได้ (https://yarnpkg.com/)
 1. cd stylelearn
-2. yarn serve
+2. yarn
+3. yarn serve
