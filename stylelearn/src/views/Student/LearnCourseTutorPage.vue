@@ -42,7 +42,7 @@
         </div>
       </div>
     </v-row>
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog persistent v-model="dialog" width="500">
       <v-card>
         <v-card-title class="primary mb-6"> Alert </v-card-title>
         <v-card-text class="textDetail">
