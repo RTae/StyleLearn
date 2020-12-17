@@ -325,16 +325,16 @@ export default {
   }),
   async mounted () {
     const resultSubject = await api.getAllSubject()
-    const resultNew = await api.getNewCourse()
-    const resultPop = await api.getPopCourse()
+    const resultNew = await api.getNewCourseLimit()
+    const resultPop = await api.getPopCourseLimit()
     if (resultSubject.data.status === "1") {
       this.subjectItems = resultSubject.data.result
       if (resultNew.data.status === "1") {
         var temp = resultNew.data.result
-        this.newestItem = temp.sort(this.compareACED).slice(0, 4)
+        this.newestItem = temp.sort(this.compareACED)
         if (resultPop.data.status === "1") {
           var temp2 = resultPop.data.result
-          this.popularItem = temp2.sort(this.compareACED).slice(0, 4)
+          this.popularItem = temp2.sort(this.compareACED)
           this.loading = false
         }
       }

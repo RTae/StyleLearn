@@ -22,9 +22,9 @@ export const getNewCourse = () => {
 };
 
 export const getPopCourseLimit = () => {
-  return httpClient.get(server.COURSE + "?mode=4");
+  return httpClient.get(server.COURSE + "?mode=4&limit=1");
 };
 
 export const getNewCourseLimit = () => {
-  return httpClient.get(server.COURSE + "?mode=5");
+  return httpClient.get(server.COURSE + "?mode=5&limit=1");
 };

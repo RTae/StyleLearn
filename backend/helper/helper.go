@@ -32,7 +32,6 @@ func InitDB() (*gorm.DB, map[string]interface{}) {
 			Colorful:      true,                   // Disable color
 		},
 	)
-
 	dsn := os.Getenv("COCKROACHDB_URL")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: newLogger,
